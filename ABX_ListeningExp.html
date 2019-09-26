@@ -1,0 +1,248 @@
+<!DOCTYPE HTML>
+<html lang = "en">
+<head>
+  <!-- basic.html -->
+  <title>Luisterexperiment</title>
+  <meta charset = "UTF-8" />
+	<script language="JavaScript" src="InitListeningExperiment.js"></script>
+	<script language="JavaScript" src="Read_ABX_Stimuluslist.js"></script>
+	<script language="JavaScript">
+		var finishedExperiment = false;
+		var answerList = [];
+		var answer = "";
+		var stimulusNbr = 0;
+		function loadList (csv) {
+			//fetch('Stimuli_ABX.csv')
+			//	.then(response => response.text())
+			//	.then(text => csv = text);		
+	
+		    // Split the input into lines
+		    lines = csv.split('\n');
+		
+		    // Extract column names from the first line
+		    columnNamesLine = lines[0];
+		    columnNames = columnNamesLine.split(/[;\t]/g).filter(e => e);
+		
+		    // Extract data from subsequent lines
+		    dataLines = lines.slice(1);
+		    while(dataLines[dataLines.length-1] == [])dataLines.pop();
+		    data = dataLines.map(function(x){return x.split(/[;\t]/g).filter(e => e)});
+		    
+		    if(ShuffleStimulusList)data = shuffle(data);
+		    if(PracticeItems > 0){
+				practise = data.slice(data.length-PracticeItems, data.length).reverse();
+				tmp = practise.concat(data);
+				data = tmp.concat();
+			};
+		    
+			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (data.length - stimulusNbr)+"");
+			
+		    return [columnNames, data];
+		};
+
+		function setColor(x){
+			playedSamples = document.getElementById('SpeakerX').played.length && document.getElementById('SpeakerA').played.length && document.getElementById('SpeakerB').played.length;
+			if(! x.match(/^[AB]$/) || playedSamples > 0) {
+				answer = x;
+				if(answer == "A") {
+					document.getElementById('AnswerA').style.backgroundColor="green";
+					document.getElementById('AnswerB').style.backgroundColor="white";
+				} else if(answer == "B"){
+					document.getElementById('AnswerA').style.backgroundColor="white";
+					document.getElementById('AnswerB').style.backgroundColor="green";
+				} else if (answer == "BLOCKED") {
+					document.getElementById('AnswerA').style.backgroundColor="gray";
+					document.getElementById('AnswerB').style.backgroundColor="gray";
+					answer = "";
+				} else {
+					document.getElementById('AnswerA').style.backgroundColor="white";
+					document.getElementById('AnswerB').style.backgroundColor="white";
+				};
+			} else {
+				alert(ListenAlert [language]);
+				return false;
+			};
+        };
+        function unblockAnswers (x) {
+			playedSamples = (x=="SpeakerX" || document.getElementById('SpeakerX').played.length) && (x=="SpeakerA" || document.getElementById('SpeakerA').played.length) && (x=="SpeakerB" || document.getElementById('SpeakerB').played.length);
+			if(answer == "" && playedSamples > 0) {
+				document.getElementById('AnswerA').style.backgroundColor="white";
+				document.getElementById('AnswerB').style.backgroundColor="white";
+			};
+		};
+        
+        function setAudio(i, stimulusTable) {
+			document.getElementById('SpeakerX').src = stimulusTable[1][i][0];
+			document.getElementById('SpeakerA').src = stimulusTable[1][i][1];
+			document.getElementById('SpeakerB').src = stimulusTable[1][i][2];
+			document.getElementById('SpeakerX').title = stimulusTable[1][i][0].replace(/^.*\/([^\/]+)\.wav$/, "$1");
+			document.getElementById('SpeakerA').title = stimulusTable[1][i][1].replace(/^.*\/([^\/]+)\.wav$/, "$1");
+			document.getElementById('SpeakerB').title = stimulusTable[1][i][2].replace(/^.*\/([^\/]+)\.wav$/, "$1");
+			
+			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (data.length - i)+"");
+			setColor("BLOCKED")
+		};
+        
+        function collectAnswer () {
+			var speakerX = document.getElementById('SpeakerX').title;
+			var speakerA = document.getElementById('SpeakerA').title;
+			var speakerB = document.getElementById('SpeakerB').title;
+			
+			answerList.push((stimulusNbr+1)+";"+answer+";"+speakerX+";"+speakerA+";"+speakerB);
+		};
+
+		function displayArray (x) {
+			var output = "Num;Answer;X;A;B\n";
+			for (var i=0; i<x.length; i++) {
+				line = "";
+				output += x[i] + '\n';
+			}
+			var blob = new Blob([output], {type: "text/plain"});
+			var blobURL = URL.createObjectURL(blob);
+			document.getElementById('SaveButton').href = blobURL;
+			document.getElementById('SaveButton').innerHTML = SaveLinkText[language]
+			document.getElementById('SaveButton').download = "Results_"+((new Date()).toISOString()).replace(/\.[0-9Z]+/, "").replace(/\:/g,".") + ".txt";
+			document.getElementById('SaveButton').style.visibility = 'visible';
+		}
+		
+		function nextStimulus () {
+			if(finishedExperiment)return false;
+			
+			if(answer == "A" || answer == "B") {
+				collectAnswer ();
+				setColor('X');
+				stimulusNbr += 1;
+				
+				// Check whether the run is finished
+				// If so, display results and restart
+				if(stimulusNbr >= data.length){
+					FinishExperimentRun ();
+					return true;
+				};
+				// Next stimulus
+				setAudio(stimulusNbr, stimulusTable);
+				return true;
+			} else {
+				alert(NextAlert ["NL"]);
+				return false;
+			};
+			
+		};
+		
+		function SetUp () {
+			// The following are set by the Init function
+			answerList = [];
+			answer = "";
+			stimulusNbr = 0;
+			replaceTexts (language);
+			setColor('');
+			stimulusTable = loadList (csv); 
+			setAudio(stimulusNbr, stimulusTable);
+		};
+		
+		function FinishExperimentRun () {
+			displayArray(answerList);
+			document.getElementById('NextText').innerHTML = ReadyText[language];
+			document.getElementById('NextText').style.backgroundColor = "gray";
+			document.getElementById('SaveText').innerHTML =  SaveText [language];
+			finishedExperiment = true;
+		};
+	
+		function onSave () {
+			document.getElementById('RestartPage').style.visibility = 'visible'
+			document.getElementById('SaveText').innerHTML =  RestartButtonText [language];
+		};
+		
+		function shuffle(array) {
+		  var currentIndex = array.length, temporaryValue, randomIndex;
+		
+		  // While there remain elements to shuffle...
+		  while (0 !== currentIndex) {
+		
+		    // Pick a remaining element...
+		    randomIndex = Math.floor(Math.random() * currentIndex);
+		    currentIndex -= 1;
+		
+		    // And swap it with the current element.
+		    temporaryValue = array[currentIndex];
+		    array[currentIndex] = array[randomIndex];
+		    array[randomIndex] = temporaryValue;
+		  }
+		
+		  return array;
+		}
+	
+    </script>
+</head>
+<body onload="SetUp ()">
+	<script>answer="";</script>
+	<audio id="SpeakerX" src="" preload="auto" title="" onplaying="unblockAnswers ('SpeakerX');"></audio>
+	<audio id="SpeakerA" src="" preload="auto" title="" onplaying="unblockAnswers ('SpeakerA');"></audio>
+	<audio id="SpeakerB" src="" preload="auto" title="" onplaying="unblockAnswers ('SpeakerB');"></audio>
+	
+	<h1 style="text-align:center"><div id="TitleText">Who is the unknown speaker? Spreaker A or B?</div></h1>
+	
+	<h2 style="text-align:center">
+	<div id="IntroductionText">The voices of the speakers have been changed. Which one do you think is the unknown speaker X?</div>
+	</h2>
+	<h2 style="text-align:center">
+	<div id="StimulusNumberText">0 answers to go</div>
+	</h2>
+	
+	<p style="text-align:center;">
+	<table style="text-align:center;width:50%;margin-left:auto;margin-right:auto;">
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr>
+	    <td><button onclick="document.getElementById('SpeakerA').play();" style="font-size:30px;"><strong><div id="PlayAText">Play A</div></strong></button></td>
+	    <td><button onclick="document.getElementById('SpeakerX').play();" style="font-size:30px;"><strong><div id="PlayXText">X</div></strong></button></td>
+	    <td><button onclick="document.getElementById('SpeakerB').play();" style="font-size:30px;"><strong><div id="PlayBText">Play B</div></strong></button></td>
+	  </tr>
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr>
+	    <td><button id="AnswerA" onclick="setColor('A');" style="font-size:30px;"><strong><div id="AnswerAText">A</div></strong></button></td>
+	    <td style="font-size:30px"><div id="YourChoiceText">Your choice</div></td>
+	    <td><button id="AnswerB" onclick="setColor('B');" style="font-size:30px;"><strong><div id="AnswerBText">B</div></strong></button></td>
+	  </tr>
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td><button id="AnswerA" onclick="nextStimulus ();" style="font-size:30px;"><strong><div id="NextText">Next</div></strong></button></td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  </table>
+	  </p>
+	  <p>
+	  <table style="text-align:center;width:50%;margin-left:auto;margin-right:auto;">
+	  <tr style="font-size:30px">
+	    <td><button id="RestartPage" onclick="location.reload();" style="font-size:30px;visibility:hidden"><strong><div id="RestartPageText">Restart</div></strong></button></td>
+	    <td>&nbsp;</td>
+	    <td><a href="" Id="SaveButton" download onclick="onSave ()" style="font-size:30px;visibility:hidden"></a></td>
+	  </tr>
+	  </table>
+	  <br />
+	  <h2 style="text-align:center"><div id="SaveText"></div></h2>
+	  </p>
+</body>
+</html>
