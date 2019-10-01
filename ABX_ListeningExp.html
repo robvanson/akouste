@@ -7,6 +7,9 @@
 	<script language="JavaScript" src="InitListeningExperiment.js"></script>
 	<script language="JavaScript" src="Read_ABX_Stimuluslist.js"></script>
 	<script language="JavaScript">
+        var playedX = false;
+        var playedA = false;
+        var playedB = false;
 		var finishedExperiment = false;
 		var answerList = [];
 		var answer = "";
@@ -14,25 +17,40 @@
 		function loadList (csv) {
 			//fetch('Stimuli_ABX.csv')
 			//	.then(response => response.text())
-			//	.then(text => csv = text);		
-	
-		    // Split the input into lines
-		    lines = csv.split('\n');
-		
-		    // Extract column names from the first line
-		    columnNamesLine = lines[0];
-		    columnNames = columnNamesLine.split(/[;\t]/g).filter(e => e);
-		
-		    // Extract data from subsequent lines
-		    dataLines = lines.slice(1);
-		    while(dataLines[dataLines.length-1] == [])dataLines.pop();
-		    data = dataLines.map(function(x){return x.split(/[;\t]/g).filter(e => e)});
-		    
-		    if(ShuffleStimulusList)data = shuffle(data);
-		    if(PracticeItems > 0){
-				practise = data.slice(data.length-PracticeItems, data.length).reverse();
-				tmp = practise.concat(data);
-				data = tmp.concat();
+			//	.then(text => csv = text);
+			if(typeof(Storage) !== "undefined" && localStorage.getItem('stimuluslist')){
+				// Store
+				data = JSON.parse(localStorage.getItem('stimuluslist'));
+				columnNames = JSON.parse(localStorage.getItem('columnnames'));
+				if(localStorage.getItem('answerlist')){
+					answerList = JSON.parse(localStorage.getItem('answerlist'));
+					stimulusNbr = JSON.parse(localStorage.getItem('stimulusnbr'));
+				};
+			} else {
+			    // Split the input into lines
+			    lines = csv.split('\n');
+			
+			    // Extract column names from the first line
+			    columnNamesLine = lines[0];
+			    columnNames = columnNamesLine.split(/[;\t]/g).filter(e => e);
+			
+			    // Extract data from subsequent lines
+			    dataLines = lines.slice(1);
+			    while(dataLines[dataLines.length-1] == [])dataLines.pop();
+			    data = dataLines.map(function(x){return x.split(/[;\t]/g).filter(e => e)});
+			    
+			    if(ShuffleStimulusList)data = shuffle(data);
+			    if(PracticeItems > 0){
+					practise = data.slice(data.length-PracticeItems, data.length).reverse();
+					tmp = practise.concat(data);
+					data = tmp.concat();
+				};
+				
+				if (typeof(Storage) !== "undefined") {
+					// Store
+					localStorage.setItem('stimuluslist', JSON.stringify(data));
+					localStorage.setItem('columnnames', JSON.stringify(columnnames));
+				}
 			};
 		    
 			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (data.length - stimulusNbr)+"");
@@ -41,7 +59,6 @@
 		};
 
 		function setColor(x){
-			playedSamples = document.getElementById('SpeakerX').played.length && document.getElementById('SpeakerA').played.length && document.getElementById('SpeakerB').played.length;
 			if(! x.match(/^[AB]$/) || playedSamples > 0) {
 				answer = x;
 				if(answer == "A") {
@@ -63,9 +80,13 @@
 				return false;
 			};
         };
+        
         function unblockAnswers (x) {
-			playedSamples = (x=="SpeakerX" || document.getElementById('SpeakerX').played.length) && (x=="SpeakerA" || document.getElementById('SpeakerA').played.length) && (x=="SpeakerB" || document.getElementById('SpeakerB').played.length);
-			if(answer == "" && playedSamples > 0) {
+			playedX = playedX || x=="SpeakerX";
+			playedA = playedA || x=="SpeakerA";
+			playedB = playedB || x=="SpeakerB";
+			playedSamples = playedX &&  playedA && playedB;
+			if(answer == "" && playedSamples == true) {
 				document.getElementById('AnswerA').style.backgroundColor="white";
 				document.getElementById('AnswerB').style.backgroundColor="white";
 			};
@@ -89,6 +110,11 @@
 			var speakerB = document.getElementById('SpeakerB').title;
 			
 			answerList.push((stimulusNbr+1)+";"+answer+";"+speakerX+";"+speakerA+";"+speakerB);
+			if (typeof(Storage) !== "undefined") {
+				// Store
+				localStorage.setItem('answerlist', JSON.stringify(answerList));
+				localStorage.setItem('stimulusnbr', JSON.stringify(stimulusNbr+1));
+			};
 		};
 
 		function displayArray (x) {
@@ -107,8 +133,10 @@
 		
 		function nextStimulus () {
 			if(finishedExperiment)return false;
-			
 			if(answer == "A" || answer == "B") {
+				// Reset played
+				playedX = playedA = playedB = playedSamples = false;
+				// Process answers
 				collectAnswer ();
 				setColor('X');
 				stimulusNbr += 1;
@@ -151,6 +179,18 @@
 		function onSave () {
 			document.getElementById('RestartPage').style.visibility = 'visible'
 			document.getElementById('SaveText').innerHTML =  RestartButtonText [language];
+		};
+		
+		function resetPage () {
+			// Reset all
+			localStorage.clear();
+	        playedX = false;
+	        playedA = false;
+	        playedB = false;
+			finishedExperiment = false;
+			answerList = [];
+			answer = "";
+			stimulusNbr = 0;
 		};
 		
 		function shuffle(array) {
@@ -236,7 +276,7 @@
 	  <p>
 	  <table style="text-align:center;width:50%;margin-left:auto;margin-right:auto;">
 	  <tr style="font-size:30px">
-	    <td><button id="RestartPage" onclick="location.reload();" style="font-size:30px;visibility:hidden"><strong><div id="RestartPageText">Restart</div></strong></button></td>
+	    <td><button id="RestartPage" onclick="resetPage(); location.reload();" style="font-size:30px;visibility:hidden"><strong><div id="RestartPageText">Restart</div></strong></button></td>
 	    <td>&nbsp;</td>
 	    <td><a href="" Id="SaveButton" download onclick="onSave ()" style="font-size:30px;visibility:hidden"></a></td>
 	  </tr>
