@@ -31,8 +31,8 @@
 					answerList = JSON.parse(localStorage.getItem('answerlist'));
 					stimulusNbr = answerList.length;
 				};
-				if(stimulusNbr >= 2){
-					// The experiment has been finished
+				if(stimulusNbr >= data.length){
+					// The experiment has been finished, but not reset
 					FinishExperimentRun ();
 					onSave ();
 				};				
@@ -137,7 +137,7 @@
 			document.getElementById('SaveButtonText').innerHTML = SaveLinkText[language]
 			document.getElementById('SaveButton').style.visibility = 'visible';
 			document.getElementById('SaveLink').href = blobURL;
-			document.getElementById('SaveLink').download = "Results_"+((new Date()).toISOString()).replace(/\.[0-9Z]+/, "").replace(/\:/g,".") + ".txt";
+			document.getElementById('SaveLink').download = "ABX_Results_"+((new Date()).toISOString()).replace(/\.[0-9Z]+/, "").replace(/\:/g,".") + ".txt";
 		}
 		
 		function nextStimulus () {
@@ -152,8 +152,7 @@
 				
 				// Check whether the run is finished
 				// If so, display results and restart
-				//if(stimulusNbr >= data.length){
-				if(stimulusNbr >= 2){
+				if(stimulusNbr >= data.length){
 					FinishExperimentRun ();
 					return true;
 				};
