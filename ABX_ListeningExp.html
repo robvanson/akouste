@@ -18,14 +18,24 @@
 			//fetch('Stimuli_ABX.csv')
 			//	.then(response => response.text())
 			//	.then(text => csv = text);
+			var columnNames = ["X", "A", "B"];
 			if(typeof(Storage) !== "undefined" && localStorage.getItem('stimuluslist')){
 				// Store
 				data = JSON.parse(localStorage.getItem('stimuluslist'));
-				columnNames = JSON.parse(localStorage.getItem('columnnames'));
+				if(localStorage.getItem('columnnames')){
+					columnNames = JSON.parse(localStorage.getItem('columnnames'));
+				} else {
+					localStorage.setItem('columnnames', JSON.stringify(columnNames));
+				};
 				if(localStorage.getItem('answerlist')){
 					answerList = JSON.parse(localStorage.getItem('answerlist'));
-					stimulusNbr = JSON.parse(localStorage.getItem('stimulusnbr'));
+					stimulusNbr = answerList.length;
 				};
+				if(stimulusNbr >= 2){
+					// The experiment has been finished
+					FinishExperimentRun ();
+					onSave ();
+				};				
 			} else {
 			    // Split the input into lines
 			    lines = csv.split('\n');
@@ -49,7 +59,7 @@
 				if (typeof(Storage) !== "undefined") {
 					// Store
 					localStorage.setItem('stimuluslist', JSON.stringify(data));
-					localStorage.setItem('columnnames', JSON.stringify(columnnames));
+					localStorage.setItem('columnnames', JSON.stringify(columnNames));
 				}
 			};
 		    
@@ -113,7 +123,6 @@
 			if (typeof(Storage) !== "undefined") {
 				// Store
 				localStorage.setItem('answerlist', JSON.stringify(answerList));
-				localStorage.setItem('stimulusnbr', JSON.stringify(stimulusNbr+1));
 			};
 		};
 
@@ -125,10 +134,10 @@
 			}
 			var blob = new Blob([output], {type: "text/plain"});
 			var blobURL = URL.createObjectURL(blob);
-			document.getElementById('SaveButton').href = blobURL;
-			document.getElementById('SaveButton').innerHTML = SaveLinkText[language]
-			document.getElementById('SaveButton').download = "Results_"+((new Date()).toISOString()).replace(/\.[0-9Z]+/, "").replace(/\:/g,".") + ".txt";
+			document.getElementById('SaveButtonText').innerHTML = SaveLinkText[language]
 			document.getElementById('SaveButton').style.visibility = 'visible';
+			document.getElementById('SaveLink').href = blobURL;
+			document.getElementById('SaveLink').download = "Results_"+((new Date()).toISOString()).replace(/\.[0-9Z]+/, "").replace(/\:/g,".") + ".txt";
 		}
 		
 		function nextStimulus () {
@@ -139,11 +148,12 @@
 				// Process answers
 				collectAnswer ();
 				setColor('X');
-				stimulusNbr += 1;
+				stimulusNbr = answerList.length;
 				
 				// Check whether the run is finished
 				// If so, display results and restart
-				if(stimulusNbr >= data.length){
+				//if(stimulusNbr >= data.length){
+				if(stimulusNbr >= 2){
 					FinishExperimentRun ();
 					return true;
 				};
@@ -219,6 +229,7 @@
 	<audio id="SpeakerX" src="" preload="auto" title="" onplaying="unblockAnswers ('SpeakerX');"></audio>
 	<audio id="SpeakerA" src="" preload="auto" title="" onplaying="unblockAnswers ('SpeakerA');"></audio>
 	<audio id="SpeakerB" src="" preload="auto" title="" onplaying="unblockAnswers ('SpeakerB');"></audio>
+	<a href="" Id="SaveLink" download onclick="onSave ()" style="font-size:30px;visibility:hidden"></a>
 	
 	<h1 style="text-align:center"><div id="TitleText">Who is the unknown speaker? Spreaker A or B?</div></h1>
 	
@@ -278,7 +289,7 @@
 	  <tr style="font-size:30px">
 	    <td><button id="RestartPage" onclick="resetPage(); location.reload();" style="font-size:30px;visibility:hidden"><strong><div id="RestartPageText">Restart</div></strong></button></td>
 	    <td>&nbsp;</td>
-	    <td><a href="" Id="SaveButton" download onclick="onSave ()" style="font-size:30px;visibility:hidden"></a></td>
+	    <td><button onclick="document.getElementById('SaveLink').click();" style="font-size:30px;visibility:hidden;" id="SaveButton"><strong><div id="SaveButtonText"style="color:blue;">Save Results</div></strong></button></td>
 	  </tr>
 	  </table>
 	  <br />
