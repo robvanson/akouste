@@ -19,16 +19,16 @@
 			//	.then(response => response.text())
 			//	.then(text => csv = text);
 			var columnNames = ["X", "A", "B"];
-			if(typeof(Storage) !== "undefined" && localStorage.getItem('stimuluslist')){
+			if(typeof(Storage) !== "undefined" && localStorage.getItem('ABXstimuluslist')){
 				// Store
-				data = JSON.parse(localStorage.getItem('stimuluslist'));
-				if(localStorage.getItem('columnnames')){
-					columnNames = JSON.parse(localStorage.getItem('columnnames'));
+				data = JSON.parse(localStorage.getItem('ABXstimuluslist'));
+				if(localStorage.getItem('ABXcolumnnames')){
+					columnNames = JSON.parse(localStorage.getItem('ABXcolumnnames'));
 				} else {
-					localStorage.setItem('columnnames', JSON.stringify(columnNames));
+					localStorage.setItem('ABXcolumnnames', JSON.stringify(columnNames));
 				};
-				if(localStorage.getItem('answerlist')){
-					answerList = JSON.parse(localStorage.getItem('answerlist'));
+				if(localStorage.getItem('ABXanswerlist')){
+					answerList = JSON.parse(localStorage.getItem('ABXanswerlist'));
 					stimulusNbr = answerList.length;
 				};
 				if(stimulusNbr >= data.length){
@@ -58,8 +58,8 @@
 				
 				if (typeof(Storage) !== "undefined") {
 					// Store
-					localStorage.setItem('stimuluslist', JSON.stringify(data));
-					localStorage.setItem('columnnames', JSON.stringify(columnNames));
+					localStorage.setItem('ABXstimuluslist', JSON.stringify(data));
+					localStorage.setItem('ABXcolumnnames', JSON.stringify(columnNames));
 				}
 			};
 		    
@@ -122,7 +122,7 @@
 			answerList.push((stimulusNbr+1)+";"+answer+";"+speakerX+";"+speakerA+";"+speakerB);
 			if (typeof(Storage) !== "undefined") {
 				// Store
-				localStorage.setItem('answerlist', JSON.stringify(answerList));
+				localStorage.setItem('ABXanswerlist', JSON.stringify(answerList));
 			};
 		};
 
@@ -273,7 +273,7 @@
 	  </tr>
 	  <tr style="font-size:30px">
 	    <td>&nbsp;</td>
-	    <td><button id="AnswerA" onclick="nextStimulus ();" style="font-size:30px;"><strong><div id="NextText">Next</div></strong></button></td>
+	    <td><button id="NextButton" onclick="nextStimulus ();" style="font-size:30px;"><strong><div id="NextText">Next</div></strong></button></td>
 	    <td>&nbsp;</td>
 	  </tr>
 	  <tr style="font-size:30px">
