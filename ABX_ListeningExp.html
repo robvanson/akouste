@@ -221,6 +221,15 @@
 		  return array;
 		}
 	
+		// Warning before leaving the page (back button, or outgoing link)
+		window.onbeforeunload = function () {
+			if(answerList.length > 0){
+				return "-";
+			} else {
+				return;
+			};
+		};
+
     </script>
 </head>
 <body onload="SetUp ()">

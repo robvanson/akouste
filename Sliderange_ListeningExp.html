@@ -34,7 +34,8 @@
 		  width: 25px; /* Set a specific slider handle width */
 		  height: 25px; /* Slider handle height */
 		  border-radius: 50%; 
-		  background: #4CAF50; /* Green background */
+		  /* background: #4CAF50;*/ /* Green background */
+		  background: #6495ED; /* Green background */
 		  cursor: pointer; /* Cursor on hover */
 		}
 		
@@ -42,10 +43,19 @@
 		  width: 25px; /* Set a specific slider handle width */
 		  height: 25px; /* Slider handle height */
 		  border-radius: 50%;
-  		  background: #4CAF50; /* Green background */
+  		  /* background: #4CAF50; */ /* Green background */
+		  background: #6495ED; /* Green background */
 		  cursor: pointer; /* Cursor on hover */
 		}
-	</style>
+		
+		.circle{
+		     height:45px;
+		     width:45px;
+		     border-radius: 45px;
+		     background:green;
+		     text-align:right;
+		}
+		</style>
   <meta charset = "UTF-8" />
 	<script language="JavaScript" src="InitSliderangeListeningExperiment.js"></script>
 	<script language="JavaScript" src="Read_Sliderange_Stimuluslist.js"></script>
@@ -55,8 +65,9 @@
         var playedSamples = false;
 		var finishedExperiment = false;
 		var answerList = [];
-		var answer = 500;
+		var answer = new Array(NumberOfRanges).fill(-1);
 		var stimulusNbr = 0;
+		var localStoragePresent = false;
 		function loadList (csv) {
 			//fetch('Stimuli_Sliderange.csv')
 			//	.then(response => response.text())
@@ -130,7 +141,7 @@
         function collectAnswer () {
 			var speakerA = document.getElementById('SpeakerA').title;
 			
-			answerList.push((stimulusNbr+1)+";"+answer+";"+speakerA);
+			answerList.push((stimulusNbr+1)+";"+answer.join(";")+";"+speakerA);
 			if (typeof(Storage) !== "undefined") {
 				// Store
 				localStorage.setItem('SRanswerlist', JSON.stringify(answerList));
@@ -138,7 +149,10 @@
 		};
 
 		function displayArray (x) {
-			var output = "Num;Answer;A\n";
+			var answerNums = Array.from(Array(NumberOfRanges+1).keys());
+			var answerTexts = Array(NumberOfRanges).fill("Answer");
+			answerTexts = answerTexts.map(function(el, idx){return el+answerNums[idx+1]})
+			var output = "Num;"+answerTexts.join(";")+";Stimulus\n";
 			for (var i=0; i<x.length; i++) {
 				line = "";
 				output += x[i] + '\n';
@@ -156,7 +170,9 @@
 			if(playedSamples) {
 				// Reset played
 				playedSamples = changedSlider = playedA = false;
-				document.getElementById('Sliderange').value = '';
+				document.getElementById('Sliderange0').value = '';
+				document.getElementById('Sliderange1').value = '';
+				document.getElementById('Sliderange2').value = '';
 				// Process answers
 				collectAnswer ();
 				stimulusNbr = answerList.length;
@@ -182,9 +198,14 @@
 		};
 		
 		function SetUp () {
+			// Check localStorage
+			if(typeof(Storage) !== "undefined"){
+				localStoragePresent = true;
+				document.getElementById('LocalStoragePresent').style.display = '';
+			};
 			// The following are set by the Init function
 			answerList = [];
-			answer = "";
+			answer = new Array(NumberOfRanges).fill(-1);
 			stimulusNbr = 0;
 			replaceTexts (language);
 			stimulusTable = loadList (csv); 
@@ -208,10 +229,12 @@
 			// Reset all
 			localStorage.clear();
 	        playedSamples = changedSlider = playedA = false;
-			document.getElementById('Sliderange').value = '';
+			document.getElementById('Sliderange0').value = '';
+			document.getElementById('Sliderange1').value = '';
+			document.getElementById('Sliderange2').value = '';
 			finishedExperiment = false;
 			answerList = [];
-			answer = 500;
+			answer = new Array(NumberOfRanges).fill(-1);
 			stimulusNbr = 0;
 		};
 		
@@ -234,6 +257,16 @@
 		  return array;
 		}
 	
+		// Warning before leaving the page (back button, or outgoing link)
+		window.onbeforeunload = function () {
+			if(answerList.length > 0){
+				return "-";
+			} else {
+				return;
+			};
+		};
+			
+	</script>
     </script>
 </head>
 <body onload="SetUp ()">
@@ -272,15 +305,49 @@
 	  </tr>
 	  <tr style="font-size:30px">
 	    <td>&nbsp;</td>
-	    <td>&nbsp;</td>
+	    <td><div id="HeaderLineText0" style="font-size:25px;text-align:left">The speech sounds distorted</div></td>
 	    <td>&nbsp;</td>
 	  </tr>
 	  <tr>
-	    <td><strong><div id="LeftText" style="font-size:30px;">Not at all</div></strong></td>
+	    <td><strong><div id="LeftText0" style="font-size:20px;">Not at all</div></strong></td>
 	    <td><div class="slidecontainer">
-			<input type="range" min="1" max="1000" value="500" class="slider" id="Sliderange" onchange="unblockNext('Slider')" oninput="answer=this.value">
+			<input type="range" min="1" max="1000" value="500" class="slider" id="Sliderange0" onchange="unblockNext('Slider')" oninput="answer[0]=this.value">
 		</div></td>	    
-	    <td><strong><div id="RightText" style="font-size:30px;">Very much</div></strong></td>
+	    <td><strong><div id="RightText0" style="font-size:20px;">Very much</div></strong></td>
+	  </tr>
+	  <tr style="display:none;" id="EmptyRow1">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="display:none;" id="HeaderLineRow1">
+	    <td>&nbsp;</td>
+	    <td><div id="HeaderLineText1" style="font-size:25px;text-align:left;visibility:hidden;">The speech sounds distorted</div></td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="display:none;" id="RangeRow1">
+	    <td><strong><div id="LeftText1" style="font-size:20px;visibility:hidden;">Not at all</div></strong></td>
+	    <td><div class="slidecontainer">
+			<input type="range" min="1" max="1000" value="500" class="slider" id="Sliderange1" onchange="unblockNext('Slider')" oninput="answer[1]=this.value" style="font-size:20px;visibility:hidden;">
+		</div></td>	    
+	    <td><strong><div id="RightText1" style="font-size:20px;visibility:hidden;">Very much</div></strong></td>
+	  </tr>
+	  <tr style="font-size:30px;display:none;" id="EmtpyRow2">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="display:none;" id="HeaderLineRow2">
+	    <td>&nbsp;</td>
+	    <td><div id="HeaderLineText2" style="font-size:25px;text-align:left;visibility:hidden;">The speech sounds distorted</div></td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px;display:none;" id="RangeRow2">
+	    <td><strong><div id="LeftText2" style="font-size:20px;visibility:hidden;">Not at all</div></strong></td>
+	    <td><div class="slidecontainer">
+			<input type="range" min="1" max="1000" value="500" class="slider" id="Sliderange2" onchange="unblockNext('Slider')" oninput="answer[2]=this.value" style="font-size:20px;visibility:hidden;">
+		</div></td>	    
+	    <td><strong><div id="RightText2" style="font-size:20px;visibility:hidden;">Very much</div></strong></td>
 	  </tr>
 	  <tr style="font-size:30px">
 	    <td>&nbsp;</td>
@@ -302,7 +369,7 @@
 	  <p>
 	  <table style="text-align:center;width:50%;margin-left:auto;margin-right:auto;">
 	  <tr style="font-size:30px">
-	    <td><button id="RestartPage" onclick="resetPage(); location.reload();" style="font-size:30px;visibility:hidden"><strong><div id="RestartPageText">Restart</div></strong></button></td>
+	    <td><button id="RestartPage" onclick="resetPage(); location.reload();" style="font-size:30px;visibility:hidden;"><strong><div id="RestartPageText">Restart</div></strong></button></td>
 	    <td>&nbsp;</td>
 	    <td><button onclick="document.getElementById('SaveLink').click();" style="font-size:30px;visibility:hidden;" id="SaveButton"><strong><div id="SaveButtonText"style="color:blue;">Save Results</div></strong></button></td>
 	  </tr>
@@ -310,5 +377,14 @@
 	  <br />
 	  <h2 style="text-align:center"><div id="SaveText"></div></h2>
 	  </p>
+	  
+	<table style="text-align:center;width:99%;margin-left:auto;margin-right:auto;display:none;" id="LocalStoragePresent">
+		<col width="90%">
+		<col width="10%">
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td><div style="text-align:right;height:25px;width:25px;border-radius: 45px;background:#90EE90;">&nbsp;</div></td>
+	  </tr>
+	</table>
 </body>
 </html>
