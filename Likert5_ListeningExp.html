@@ -1,0 +1,367 @@
+<!DOCTYPE HTML>
+<html lang = "en">
+<head>
+  <!-- basic.html -->
+  <title>Luisterexperiment</title>
+  <style>
+	  input[type="radio"]  {
+		  height:40px; 
+		  width:40px; 
+		  vertical-align: middle;
+		  horizontal-align: middle;
+	  }	
+  </style>
+  <meta charset = "UTF-8" />
+	<script language="JavaScript" src="InitLikert5ListeningExperiment.js"></script>
+	<script language="JavaScript" src="Read_Likert5_Stimuluslist.js"></script>
+	<script language="JavaScript">
+        var changedLikert5 = false;
+        var playedA = false;
+        var playedSamples = false;
+		var finishedExperiment = false;
+		var answerList = [];
+		var answer = new Array(NumberOfScales).fill(-1);
+		var stimulusNbr = 0;
+		function loadList (csv) {
+			//fetch('Stimuli_LK5buttons.csv')
+			//	.then(response => response.text())
+			//	.then(text => csv = text);
+			var columnNames = ["A"];
+			if(typeof(Storage) !== "undefined" && localStorage.getItem('LK5stimuluslist')){
+				// Store
+				data = JSON.parse(localStorage.getItem('LK5stimuluslist'));
+				if(localStorage.getItem('LK5columnnames')){
+					columnNames = JSON.parse(localStorage.getItem('LK5columnnames'));
+				} else {
+					localStorage.setItem('LK5columnnames', JSON.stringify(columnNames));
+				};
+				if(localStorage.getItem('LK5answerlist')){
+					answerList = JSON.parse(localStorage.getItem('LK5answerlist'));
+					stimulusNbr = answerList.length;
+				};
+				if(stimulusNbr >= data.length){
+					// The experiment has been finished, but not reset
+					FinishExperimentRun ();
+					onSave ();
+				};				
+			} else {
+			    // Split the input into lines
+			    lines = csv.split('\n').filter(e => e);
+			
+			    // Extract column names from the first line
+			    columnNamesLine = lines[0];
+			    columnNames = columnNamesLine.split(/[;\t]/g).filter(e => e);
+			
+			    // Extract data from subsequent lines
+			    dataLines = lines.slice(1);
+			    while(dataLines[dataLines.length-1] == [])dataLines.pop();
+			    data = dataLines.map(function(x){return x.split(/[;\t]/g).filter(e => e)});
+			    
+			    if(ShuffleStimulusList)data = shuffle(data);
+			    if(PracticeItems > 0){
+					practise = data.slice(data.length-PracticeItems, data.length).reverse();
+					tmp = practise.concat(data);
+					data = tmp.concat();
+				};
+				
+				if (typeof(Storage) !== "undefined") {
+					// Store
+					localStorage.setItem('LK5stimuluslist', JSON.stringify(data));
+					localStorage.setItem('LK5columnnames', JSON.stringify(columnNames));
+				}
+			};
+		    
+			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (data.length - stimulusNbr)+"");
+		    return [columnNames, data];
+		};
+        
+        function unblockNext (x) {
+			playedA = playedA || x=="SpeakerA";
+			changedLikert5 = changedLikert5 || x=="Likert5";
+			playedSamples = playedA && changedLikert5;
+			if(playedSamples == true) {
+				document.getElementById('NextText').style.backgroundColor="white";
+				document.getElementById('NextButton').style.backgroundColor="white";
+			};
+		};
+        
+        function setAudio(i, stimulusTable) {
+			document.getElementById('SpeakerA').src = stimulusTable[1][i][0];
+			document.getElementById('SpeakerA').title = stimulusTable[1][i][0].replace(/^.*\/([^\/]+)\.wav$/, "$1");
+			
+			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (data.length - i)+"");
+		};
+        
+        function collectAnswer () {
+			var speakerA = document.getElementById('SpeakerA').title;
+			
+			answerList.push((stimulusNbr+1)+";"+answer.join(";")+";"+speakerA);
+			if (typeof(Storage) !== "undefined") {
+				// Store
+				localStorage.setItem('LK5answerlist', JSON.stringify(answerList));
+			};
+		};
+
+		function displayArray (x) {
+			var answerNums = Array.from(Array(NumberOfScales+1).keys());
+			var answerTexts = Array(NumberOfScales).fill("Answer");
+			answerTexts = answerTexts.map(function(el, idx){return el+answerNums[idx+1]})
+			var output = "Num;"+answerTexts.join(";")+";Stimulus\n";
+			for (var i=0; i<x.length; i++) {
+				line = "";
+				output += x[i] + '\n';
+			}
+			var blob = new Blob([output], {type: "text/plain"});
+			var blobURL = URL.createObjectURL(blob);
+			document.getElementById('SaveButtonText').innerHTML = SaveLinkText[language]
+			document.getElementById('SaveButton').style.visibility = 'visible';
+			document.getElementById('SaveLink').href = blobURL;
+			document.getElementById('SaveLink').download = "LK5buttons_Results_"+((new Date()).toISOString()).replace(/\.[0-9Z]+/, "").replace(/\:/g,".") + ".txt";
+		}
+		
+		function nextStimulus () {
+			if(finishedExperiment)return false;
+			if(playedSamples) {
+				// Reset played
+				playedSamples = changedLikert5 = playedA = false;
+				document.getElementById('LK5buttons0.1').checked = document.getElementById('LK5buttons0.2').checked = document.getElementById('LK5buttons0.3').checked = document.getElementById('LK5buttons0.4').checked = document.getElementById('LK5buttons0.5').checked = false;
+				document.getElementById('LK5buttons1.1').checked = document.getElementById('LK5buttons1.2').checked = document.getElementById('LK5buttons1.3').checked = document.getElementById('LK5buttons1.4').checked = document.getElementById('LK5buttons1.5').checked = false;
+				document.getElementById('LK5buttons2.1').checked = document.getElementById('LK5buttons2.2').checked = document.getElementById('LK5buttons2.3').checked = document.getElementById('LK5buttons2.4').checked = document.getElementById('LK5buttons2.5').checked = false;
+				// Process answers
+				collectAnswer ();
+				stimulusNbr = answerList.length;
+				
+				// Block Next button
+				document.getElementById('NextText').style.backgroundColor = "gray";
+				document.getElementById('NextButton').style.backgroundColor = "gray";
+				
+				// Check whether the run is finished
+				// If so, display results and restart
+				if(stimulusNbr >= data.length){
+					FinishExperimentRun ();
+					return true;
+				};
+				// Next stimulus
+				setAudio(stimulusNbr, stimulusTable);
+				return true;
+			} else {
+				alert(NextAlert [language]);
+				return false;
+			};
+			
+		};
+		
+		function SetUp () {
+			// Check localStorage
+			if(typeof(Storage) !== "undefined"){
+				document.getElementById('LocalStoragePresent').style.background = '#90EE90';
+			};
+			// The following are set by the Init function
+			answerList = [];
+			answer = new Array(NumberOfScales).fill(-1);
+			stimulusNbr = 0;
+			replaceTexts (language);
+			stimulusTable = loadList (csv); 
+			setAudio(stimulusNbr, stimulusTable);
+		};
+		
+		function FinishExperimentRun () {
+			displayArray(answerList);
+			document.getElementById('NextText').innerHTML = ReadyText[language];
+			document.getElementById('NextText').style.backgroundColor = "gray";
+			document.getElementById('SaveText').innerHTML =  SaveText [language];
+			finishedExperiment = true;
+		};
+	
+		function onSave () {
+			document.getElementById('RestartPage').style.visibility = 'visible'
+			document.getElementById('SaveText').innerHTML =  RestartButtonText [language];
+		};
+		
+		function resetPage () {
+			// Reset all
+			localStorage.removeItem('LK5stimuluslist');
+			localStorage.removeItem('LK5columnnames');
+			localStorage.removeItem('LK5answerlist');
+
+	        playedSamples = changedLikert5 = playedA = false;
+			document.getElementById('LK5buttons0').value = '';
+			document.getElementById('LK5buttons1').value = '';
+			document.getElementById('LK5buttons2').value = '';
+			finishedExperiment = false;
+			answerList = [];
+			answer = new Array(NumberOfScales).fill(-1);
+			stimulusNbr = 0;
+		};
+		
+		function shuffle(array) {
+		  var currentIndex = array.length, temporaryValue, randomIndex;
+		
+		  // While there remain elements to shuffle...
+		  while (0 !== currentIndex) {
+		
+		    // Pick a remaining element...
+		    randomIndex = Math.floor(Math.random() * currentIndex);
+		    currentIndex -= 1;
+		
+		    // And swap it with the current element.
+		    temporaryValue = array[currentIndex];
+		    array[currentIndex] = array[randomIndex];
+		    array[randomIndex] = temporaryValue;
+		  }
+		
+		  return array;
+		}
+	
+		// Warning before leaving the page (back button, or outgoing link)
+		window.onbeforeunload = function () {
+			if(answerList.length > 0){
+				return "-";
+			} else {
+				return;
+			};
+		};
+			
+	</script>
+    </script>
+</head>
+<body onload="SetUp ()">
+	<script>answer="";</script>
+	<audio id="SpeakerA" src="" preload="auto" title="" onplaying="unblockNext ('SpeakerA');"></audio>
+	<a href="" Id="SaveLink" download onclick="onSave ()" style="font-size:30px;visibility:hidden"></a>
+	
+	<h1 style="text-align:center"><div id="TitleText">JavaScript required to do this experiment <br /> Enable JavaScript in your browser</div></h1>
+	
+	<h2 style="text-align:center">
+	<div id="IntroductionText">The speech has been manipulated. How natural does it sound?</div>
+	</h2>
+	<h2 style="text-align:center">
+	<div id="StimulusNumberText">0 answers to go</div>
+	</h2>
+	
+	<p style="text-align:center;">
+	<table style="text-align:center;width:50%;margin-left:auto;margin-right:auto;">
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr>
+	    <td>&nbsp;</td>
+	    <td><button onclick="document.getElementById('SpeakerA').play();" style="font-size:30px;background-color:white;"><strong><div id="PlayAText">Play A</div></strong></button></td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td><div id="HeaderLineText0" style="font-size:25px;text-align:left">The speech sounds distorted</div></td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr>
+	    <td><strong><div id="LeftText0" style="font-size:20px;">Not at all</div></strong></td>
+	    <td><table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;"><tr>
+			<td><input type="radio" value="1" name="LK5buttons0" id="LK5buttons0.1" onchange="unblockNext('Likert5')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="2" name="LK5buttons0" id="LK5buttons0.2" onchange="unblockNext('Likert5')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="3" name="LK5buttons0" id="LK5buttons0.3" onchange="unblockNext('Likert5')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="4" name="LK5buttons0" id="LK5buttons0.4" onchange="unblockNext('Likert5')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="5" name="LK5buttons0" id="LK5buttons0.5" onchange="unblockNext('Likert5')" oninput="answer[0]=this.value"></td>
+			</tr></table>
+		</td>	    
+	    <td><strong><div id="RightText0" style="font-size:20px;">Very much</div></strong></td>
+	  </tr>
+	  <tr style="display:none;" id="EmptyRow1">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px;display:none;" id="HeaderLineRow1">
+	    <td>&nbsp;</td>
+	    <td><div id="HeaderLineText1" style="font-size:25px;text-align:left">The speech sounds distorted</div></td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="display:none;" id="LK5row1">
+	    <td><strong><div id="LeftText1" style="font-size:20px;">Not at all</div></strong></td>
+	    <td><table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;"><tr>
+			<td><input type="radio" value="1" name="LK5buttons1" id="LK5buttons1.1" onchange="unblockNext('Likert5')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="2" name="LK5buttons1" id="LK5buttons1.2" onchange="unblockNext('Likert5')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="3" name="LK5buttons1" id="LK5buttons1.3" onchange="unblockNext('Likert5')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="4" name="LK5buttons1" id="LK5buttons1.4" onchange="unblockNext('Likert5')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="5" name="LK5buttons1" id="LK5buttons1.5" onchange="unblockNext('Likert5')" oninput="answer[0]=this.value"></td>
+			</tr></table>
+		</td>	    
+	    <td><strong><div id="RightText1" style="font-size:20px;">Very much</div></strong></td>
+	  </tr>
+	  <tr style="display:none;" style="display:none;" id="EmptyRow2">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px;display:none;" id="HeaderLineRow2">
+	    <td>&nbsp;</td>
+	    <td><div id="HeaderLineText2" style="font-size:25px;text-align:left">The speech sounds distorted</div></td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="display:none;" id="LK5row2">
+	    <td><strong><div id="LeftText2" style="font-size:20px;">Not at all</div></strong></td>
+	    <td><table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;"><tr>
+			<td><input type="radio" value="1" name="LK5buttons2" id="LK5buttons2.1" onchange="unblockNext('Likert5')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="2" name="LK5buttons2" id="LK5buttons2.2" onchange="unblockNext('Likert5')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="3" name="LK5buttons2" id="LK5buttons2.3" onchange="unblockNext('Likert5')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="4" name="LK5buttons2" id="LK5buttons2.4" onchange="unblockNext('Likert5')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="5" name="LK5buttons2" id="LK5buttons2.5" onchange="unblockNext('Likert5')" oninput="answer[0]=this.value"></td>
+			</tr></table>
+		</td>	    
+	    <td><strong><div id="RightText2" style="font-size:20px;">Very much</div></strong></td>
+	  </tr>
+	  <tr style="display:none;" id="EmptyRow1">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td><button id="NextButton" onclick="nextStimulus ();" style="font-size:30px;background-color:gray"><strong><div id="NextText" style="font-size:30px;background-color:gray">Next</div></strong></button></td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  </table>
+	  </p>
+	  <p>
+	  <table style="text-align:center;width:50%;margin-left:auto;margin-right:auto;">
+	  <tr style="font-size:30px">
+	    <td><button id="RestartPage" onclick="resetPage(); location.reload();" style="font-size:30px;visibility:hidden;"><strong><div id="RestartPageText">Restart</div></strong></button></td>
+	    <td>&nbsp;</td>
+	    <td><button onclick="document.getElementById('SaveLink').click();" style="font-size:30px;visibility:hidden;" id="SaveButton"><strong><div id="SaveButtonText"style="color:blue;">Save Results</div></strong></button></td>
+	  </tr>
+	  </table>
+	  <br />
+	  <h2 style="text-align:center"><div id="SaveText"></div></h2>
+	  </p>
+	  
+	<table style="text-align:center;width:99%;margin-left:auto;margin-right:auto;">
+		<col width="90%">
+		<col width="10%">
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td><div style="text-align:right;height:25px;width:25px;border-radius: 45px;background:#ee9090;" id="LocalStoragePresent">&nbsp;</div></td>
+	  </tr>
+	</table>
+</body>
+</html>
