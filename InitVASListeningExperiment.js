@@ -6,7 +6,7 @@ ShuffleStimulusList = true;
 PracticeItems = 4;
 
 // Set number of visible sliders
-var NumberOfRanges = 1;
+var NumberOfScales = 1;
 
 // Set language
 var language = "NL";
@@ -97,13 +97,13 @@ function replaceTexts (language) {
 	document.getElementById('RestartPageText').innerHTML = RestartPageText[language];
 
 	// Make the required number of sliders visible
-	for(var i = 1; i < NumberOfRanges; i++) {
+	for(var i = 1; i < NumberOfScales; i++) {
 		document.getElementById('EmptyRow'+i).style.display = '';
 		document.getElementById('HeaderLineRow'+i).style.display = '';
-		document.getElementById('RangeRow'+i).style.display = '';
+		document.getElementById('VASrow'+i).style.display = '';
 		document.getElementById('HeaderLineText'+i).style.visibility = 'visible';
 		document.getElementById('RightText'+i).style.visibility = 'visible';
 		document.getElementById('LeftText'+i).style.visibility = 'visible';
-		document.getElementById('Sliderange'+i).style.visibility = 'visible';
+		document.getElementById('VASslider'+i).style.visibility = 'visible';
 	};
 };
