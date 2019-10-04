@@ -14,7 +14,6 @@
 		var answerList = [];
 		var answer = "";
 		var stimulusNbr = 0;
-		var localStoragePresent = false;
 		function loadList (csv) {
 			//fetch('Stimuli_ABX.csv')
 			//	.then(response => response.text())
@@ -170,8 +169,7 @@
 		function SetUp () {
 			// Check localStorage
 			if(typeof(Storage) !== "undefined"){
-				localStoragePresent = true;
-				document.getElementById('LocalStoragePresent').style.display = '';
+				document.getElementById('LocalStoragePresent').style.background = '#90EE90';
 			};
 			// The following are set by the Init function
 			answerList = [];
@@ -198,7 +196,10 @@
 		
 		function resetPage () {
 			// Reset all
-			localStorage.clear();
+			localStorage.removeItem('ABXstimuluslist');
+			localStorage.removeItem('ABXcolumnnames');
+			localStorage.removeItem('ABXanswerlist');
+
 	        playedX = false;
 	        playedA = false;
 	        playedB = false;
@@ -310,12 +311,12 @@
 	  <h2 style="text-align:center"><div id="SaveText"></div></h2>
 	  </p>
 	  
-	<table style="text-align:center;width:99%;margin-left:auto;margin-right:auto;display:none;" id="LocalStoragePresent">
+	<table style="text-align:center;width:99%;margin-left:auto;margin-right:auto;">
 		<col width="90%">
 		<col width="10%">
 	  <tr style="font-size:30px">
 	    <td>&nbsp;</td>
-	    <td><div style="text-align:right;height:25px;width:25px;border-radius: 45px;background:#90EE90;">&nbsp;</div></td>
+	    <td><div style="text-align:right;height:25px;width:25px;border-radius: 45px;background:#90EE90;" id="LocalStoragePresent">&nbsp;</div></td>
 	  </tr>
 	</table>
 </body>

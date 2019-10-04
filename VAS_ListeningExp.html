@@ -67,22 +67,21 @@
 		var answerList = [];
 		var answer = new Array(NumberOfScales).fill(-1);
 		var stimulusNbr = 0;
-		var localStoragePresent = false;
 		function loadList (csv) {
 			//fetch('Stimuli_VASslider.csv')
 			//	.then(response => response.text())
 			//	.then(text => csv = text);
 			var columnNames = ["A"];
-			if(typeof(Storage) !== "undefined" && localStorage.getItem('SRstimuluslist')){
+			if(typeof(Storage) !== "undefined" && localStorage.getItem('VASstimuluslist')){
 				// Store
-				data = JSON.parse(localStorage.getItem('SRstimuluslist'));
-				if(localStorage.getItem('SRcolumnnames')){
-					columnNames = JSON.parse(localStorage.getItem('SRcolumnnames'));
+				data = JSON.parse(localStorage.getItem('VASstimuluslist'));
+				if(localStorage.getItem('VAScolumnnames')){
+					columnNames = JSON.parse(localStorage.getItem('VAScolumnnames'));
 				} else {
-					localStorage.setItem('SRcolumnnames', JSON.stringify(columnNames));
+					localStorage.setItem('VAScolumnnames', JSON.stringify(columnNames));
 				};
-				if(localStorage.getItem('SRanswerlist')){
-					answerList = JSON.parse(localStorage.getItem('SRanswerlist'));
+				if(localStorage.getItem('VASanswerlist')){
+					answerList = JSON.parse(localStorage.getItem('VASanswerlist'));
 					stimulusNbr = answerList.length;
 				};
 				if(stimulusNbr >= data.length){
@@ -112,8 +111,8 @@
 				
 				if (typeof(Storage) !== "undefined") {
 					// Store
-					localStorage.setItem('SRstimuluslist', JSON.stringify(data));
-					localStorage.setItem('SRcolumnnames', JSON.stringify(columnNames));
+					localStorage.setItem('VASstimuluslist', JSON.stringify(data));
+					localStorage.setItem('VAScolumnnames', JSON.stringify(columnNames));
 				}
 			};
 		    
@@ -144,7 +143,7 @@
 			answerList.push((stimulusNbr+1)+";"+answer.join(";")+";"+speakerA);
 			if (typeof(Storage) !== "undefined") {
 				// Store
-				localStorage.setItem('SRanswerlist', JSON.stringify(answerList));
+				localStorage.setItem('VASanswerlist', JSON.stringify(answerList));
 			};
 		};
 
@@ -200,8 +199,7 @@
 		function SetUp () {
 			// Check localStorage
 			if(typeof(Storage) !== "undefined"){
-				localStoragePresent = true;
-				document.getElementById('LocalStoragePresent').style.display = '';
+				document.getElementById('LocalStoragePresent').style.background = '#90EE90';
 			};
 			// The following are set by the Init function
 			answerList = [];
@@ -227,7 +225,10 @@
 		
 		function resetPage () {
 			// Reset all
-			localStorage.clear();
+			localStorage.removeItem('VASstimuluslist');
+			localStorage.removeItem('VAScolumnnames');
+			localStorage.removeItem('VASanswerlist');
+
 	        playedSamples = changedSlider = playedA = false;
 			document.getElementById('VASslider0').value = '';
 			document.getElementById('VASslider1').value = '';
@@ -378,12 +379,12 @@
 	  <h2 style="text-align:center"><div id="SaveText"></div></h2>
 	  </p>
 	  
-	<table style="text-align:center;width:99%;margin-left:auto;margin-right:auto;display:none;" id="LocalStoragePresent">
+	<table style="text-align:center;width:99%;margin-left:auto;margin-right:auto;">
 		<col width="90%">
 		<col width="10%">
 	  <tr style="font-size:30px">
 	    <td>&nbsp;</td>
-	    <td><div style="text-align:right;height:25px;width:25px;border-radius: 45px;background:#90EE90;">&nbsp;</div></td>
+	    <td><div style="text-align:right;height:25px;width:25px;border-radius: 45px;background:#ee9090;" id="LocalStoragePresent">&nbsp;</div></td>
 	  </tr>
 	</table>
 </body>
