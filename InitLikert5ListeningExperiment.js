@@ -6,12 +6,13 @@ ShuffleStimulusList = true;
 PracticeItems = 4;
 
 // Set number of visible sliders
-var NumberOfScales = 3;
+var NumberOfScales = 1;
 
 // Set language
 var language = "NL";
 
 // Define language specific texts
+var languageSet = ["EN", "NL"];
 var TitleText = [];
 var IntroductionText = [];
 var StimulusNumberText = [];
@@ -20,6 +21,9 @@ var NextText = [];
 var HeaderLineText0 = [];
 var RightText0 = [];
 var LeftText0 = [];
+var LK5label = new Array(2);
+LK5label ["EN"] = new Array(3).fill(new Array(5));
+LK5label ["NL"] = new Array(3).fill(new Array(5));
 var HeaderLineText1 = [];
 var RightText1 = [];
 var LeftText1 = [];
@@ -41,14 +45,19 @@ StimulusNumberText ["EN"] = "XXX answers to go";
 PlayAText ["EN"] = " Speech &#9658; ";
 NextText ["EN"] = "Next &rarr;";
 HeaderLineText0 ["EN"] = "The speech sounds distorted";
-RightText0 ["EN"] = "Not at all";
-LeftText0 ["EN"] = "Very";
+RightText0 ["EN"] = "Strongly disagree";
+LeftText0 ["EN"] = "Strongly agree";
+LK5label ["EN"] [0] [0] = "&nbsp;";
+LK5label ["EN"] [0] [1] = "agree";
+LK5label ["EN"] [0] [2] = "neutral";
+LK5label ["EN"] [0] [3] = "disagree";
+LK5label ["EN"] [0] [4] = "&nbsp;";
 HeaderLineText1 ["EN"] = "The speech sounds distorted";
-RightText1 ["EN"] = "Not at all";
-LeftText1 ["EN"] = "Very";
+RightText1 ["EN"] = "Strongly disagree";
+LeftText1 ["EN"] = "Strongly agree";
 HeaderLineText2 ["EN"] = "The speech sounds distorted";
-RightText2 ["EN"] = "Not at all";
-LeftText2 ["EN"] = "Very";
+RightText2 ["EN"] = "Strongly disagree";
+LeftText2 ["EN"] = "Strongly agree";
 ReadyText ["EN"] = "Ready";
 SaveLinkText ["EN"] = 'Save Results';
 RestartPageText ["EN"] = 'Restart';
@@ -63,20 +72,34 @@ StimulusNumberText ["NL"] = "XXX antwoorden te gaan";
 PlayAText ["NL"] = " Spraak &#9658; ";
 NextText ["NL"] = "Volgende &rarr;";
 HeaderLineText0 ["NL"] = "De spraak klinkt vervormd";
-RightText0 ["NL"] = "Helemaal niet";
-LeftText0 ["NL"] = "Heel erg";
+RightText0 ["NL"] = "Helemaal<br />mee oneens";
+LeftText0 ["NL"] = "Helemaal<br />mee eens";
+LK5label ["NL"] [0] [0] = "&nbsp;";
+LK5label ["NL"] [0] [1] = "mee eens";
+LK5label ["NL"] [0] [2] = "neutraal";
+LK5label ["NL"] [0] [3] = "mee oneens";
+LK5label ["NL"] [0] [4] = "&nbsp;";
 HeaderLineText1 ["NL"] = "De spraak klinkt vervormd";
-RightText1 ["NL"] = "Helemaal niet";
-LeftText1 ["NL"] = "Heel erg";
+RightText1 ["NL"] = "Helemaal<br />mee oneens";
+LeftText1 ["NL"] = "Helemaal<br />mee eens";
 HeaderLineText2 ["NL"] = "De spraak klinkt vervormd";
-RightText2 ["NL"] = "Helemaal niet";
-LeftText2 ["NL"] = "Heel erg";
+RightText2 ["NL"] = "Helemaal<br />mee oneens";
+LeftText2 ["NL"] = "Helemaal<br />mee eens";
 ReadyText ["NL"] = "Klaar";
 SaveLinkText ["NL"] = 'Bewaar resultaten';
 RestartPageText ["NL"] = 'Opnieuw';
 SaveText ["NL"] = 'Klik AUB op "'+SaveLinkText ["NL"] + '" en sla het bestand op';
 RestartButtonText ["NL"] = 'Het experiment kan opnieuw gestart worden door op "'+RestartPageText ["NL"]+'" te drukken';
 NextAlert ["NL"] = "Luister naar de opname en selecteer een anwoord, AUB";
+
+for(var l in ["EN", "NL"]) {
+	for(var j = 0; j < 5; j++) {
+		for(var i = 1; i < NumberOfScales; i++) {		
+			LK5label [languageSet [l]] [i] [j] = LK5label [l] [0] [j];
+		};
+	};
+};
+
 
 // Funtion that changes the texts
 function replaceTexts (language) {
@@ -95,6 +118,9 @@ function replaceTexts (language) {
 	document.getElementById('RightText2').innerHTML = RightText2[language];
 	document.getElementById('LeftText2').innerHTML = LeftText2[language];
 	document.getElementById('RestartPageText').innerHTML = RestartPageText[language];
+	for(var j = 0; j < 5; j++) {
+		document.getElementById('LK5.0-'+(j+1)).innerHTML = LK5label [language] [0] [j];
+	};
 
 	// Make the required number of sliders visible
 	for(var i = 1; i < NumberOfScales; i++) {
@@ -104,5 +130,8 @@ function replaceTexts (language) {
 		document.getElementById('HeaderLineText'+i).style.visibility = 'visible';
 		document.getElementById('RightText'+i).style.visibility = 'visible';
 		document.getElementById('LeftText'+i).style.visibility = 'visible';
+		for(var j = 0; j < 5; j++) {
+			document.getElementById('LK5.'+ i +'-'+(j+1)).innerHTML = LK5label [language] [i] [j];
+		};
 	};
 };
