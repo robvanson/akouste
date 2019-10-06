@@ -4,8 +4,8 @@ ShuffleStimulusList = true;
 // prepended in reverse order. (NOT YET IMPLEMENTED)
 PracticeItems = 4;
 
-// Set language
-var language = "NL";
+// Add languages to your heart's content
+var languageSet = ["EN", "NL"];
 
 // Define language specific texts
 var TitleText = [];
@@ -62,6 +62,17 @@ SaveText ["NL"] = 'Klik AUB op "'+SaveLinkText ["NL"] + '" en sla het bestand op
 RestartButtonText ["NL"] = 'Het experiment kan opnieuw gestart worden door op "'+RestartPageText ["NL"]+'" te drukken';
 ListenAlert ["NL"] = "AUB, luister eerst naar de opnamen, voordat je een keuze maakt";
 NextAlert ["NL"] = "Selecteer een anwoord, AUB";
+
+
+// Set language
+var language = "NL";
+var userLanguage = (navigator.language) ? navigator.language : navigator.userLanguage;
+userLanguage = userLanguage.substr(0,2).toUpperCase();
+if (userLanguage in languageSet) {
+	language = userLanguage;
+} else {
+	language = "EN";
+};
 
 // Funtion that changes the texts
 function replaceTexts (language) {

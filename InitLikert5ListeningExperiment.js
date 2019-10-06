@@ -8,11 +8,10 @@ PracticeItems = 4;
 // Set number of visible sliders
 var NumberOfScales = 1;
 
-// Set language
-var language = "NL";
+// Add languages to your heart's content
+var languageSet = ["EN", "NL"];
 
 // Define language specific texts
-var languageSet = ["EN", "NL"];
 var TitleText = [];
 var IntroductionText = [];
 var StimulusNumberText = [];
@@ -101,8 +100,19 @@ for(var l in ["EN", "NL"]) {
 };
 
 
+// Set language
+var language = "NL";
+var userLanguage = (navigator.language) ? navigator.language : navigator.userLanguage;
+userLanguage = userLanguage.substr(0,2).toUpperCase();
+if (userLanguage in languageSet) {
+	language = userLanguage;
+} else {
+	language = "EN";
+};
+
 // Funtion that changes the texts
 function replaceTexts (language) {
+	
 	document.getElementById('TitleText').innerHTML = TitleText[language];
 	document.getElementById('IntroductionText').innerHTML = IntroductionText[language];
 	document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language];
