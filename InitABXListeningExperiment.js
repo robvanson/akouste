@@ -5,7 +5,7 @@ ShuffleStimulusList = true;
 PracticeItems = 4;
 
 // Add languages to your heart's content
-var languageSet = ["EN", "NL"];
+var languageSet = new Set(["EN", "NL"]);
 
 // Define language specific texts
 var TitleText = [];
@@ -68,7 +68,7 @@ NextAlert ["NL"] = "Selecteer een anwoord, AUB";
 var language = "NL";
 var userLanguage = (navigator.language) ? navigator.language : navigator.userLanguage;
 userLanguage = userLanguage.substr(0,2).toUpperCase();
-if (userLanguage in languageSet) {
+if (languageSet.has(userLanguage)) {
 	language = userLanguage;
 } else {
 	language = "EN";

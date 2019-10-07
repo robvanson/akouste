@@ -9,7 +9,7 @@ PracticeItems = 4;
 var NumberOfScales = 1;
 
 // Add languages to your heart's content
-var languageSet = ["EN", "NL"];
+var languageSet = new Set(["EN", "NL"]);
 
 // Define language specific texts
 var TitleText = [];
@@ -104,7 +104,7 @@ for(var l in ["EN", "NL"]) {
 var language = "NL";
 var userLanguage = (navigator.language) ? navigator.language : navigator.userLanguage;
 userLanguage = userLanguage.substr(0,2).toUpperCase();
-if (userLanguage in languageSet) {
+if (languageSet.has(userLanguage)) {
 	language = userLanguage;
 } else {
 	language = "EN";
