@@ -42,6 +42,7 @@ var ToolTipRestart = [];
 
 // Specify language specific texts
 // Language = EN
+PageTitleText ["EN"] = "Likert 5 point scale Listening Experiment";
 TitleText ["EN"] = "How distorted is the speech?";
 IntroductionText ["EN"] = "The speech has been manipulated. How distorted does it sound?";
 StimulusNumberText ["EN"] = "XXX answers to go";
@@ -75,6 +76,7 @@ ToolTipRestart ["EN"] = "Start a new experiment session";
 // Add Language = NL
 languageSet.add("NL");
 
+PageTitleText ["NL"] = "Likert 5 punt schaal Luisterexperiment";
 TitleText ["NL"] = "Hoe vervormd klinkt de spraak?";
 IntroductionText ["NL"] = "De spraak is gemanipuleerd. Hoe vervormd klinkt het?";
 StimulusNumberText ["NL"] = "XXX antwoorden te gaan";
@@ -127,6 +129,7 @@ if (languageSet.has(userLanguage)) {
 // Funtion that changes the texts
 function replaceTexts (language) {
 	
+	document.getElementById('PageTitleText').innerHTML = PageTitleText[language];
 	document.getElementById('TitleText').innerHTML = TitleText[language];
 	document.getElementById('IntroductionText').innerHTML = IntroductionText[language];
 	document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language];

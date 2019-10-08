@@ -35,6 +35,7 @@ var ToolTipSave = [];
 var ToolTipRestart = [];
 
 // Specify language specific texts
+PageTitleText ["EN"] = "ABX Listening Experiment";
 TitleText ["EN"] = "Who is the unknown speaker? Spreaker A or B?";
 IntroductionText ["EN"] = "The voices of the speakers have been changed. Which one do you think is the unknown speaker X?";
 StimulusNumberText ["EN"] = "XXX answers to go";
@@ -64,6 +65,7 @@ ToolTipRestart ["EN"] = "Start a new experiment session";
 // Add Language = NL
 languageSet.add("NL");
 
+PageTitleText ["NL"] = "ABX Luisterexperiment";
 TitleText ["NL"] = "Wie is de onbekende spreker? Spreker A or B?";
 IntroductionText ["NL"] = "De stemmen van de sprekers zijn vervormd. Wie denk je dat spreker X is?";
 StimulusNumberText ["NL"] = "XXX antwoorden te gaan";
@@ -103,6 +105,7 @@ if (languageSet.has(userLanguage)) {
 
 // Funtion that changes the texts
 function replaceTexts (language) {
+	document.getElementById('PageTitleText').innerHTML = PageTitleText[language];
 	document.getElementById('TitleText').innerHTML = TitleText[language];
 	document.getElementById('IntroductionText').innerHTML = IntroductionText[language];
 	document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language];
