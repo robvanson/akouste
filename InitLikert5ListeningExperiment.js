@@ -35,6 +35,10 @@ var SaveLinkText = [];
 var RestartPageText = [];
 var RestartButtonText = [];
 var NextAlert = [];
+var ToolTipPlayA = [];
+var ToolTipNext = [];
+var ToolTipSave = [];
+var ToolTipRestart = [];
 
 // Specify language specific texts
 // Language = EN
@@ -63,8 +67,14 @@ RestartPageText ["EN"] = 'Restart';
 SaveText ["EN"] = 'Please, click "'+SaveLinkText ["EN"] + '" and store the file';
 RestartButtonText ["EN"] = 'The experiment can be restarted by clicking "'+RestartPageText ["EN"]+'"';
 NextAlert ["EN"] = "Please, listen to the recording and select a level";
+ToolTipPlayA ["EN"] = "Play sound";
+ToolTipNext ["EN"] = "Go to next item";
+ToolTipSave ["EN"] = "Save the answer to a file";
+ToolTipRestart ["EN"] = "Start a new experiment session";
 
-// Language = NL
+// Add Language = NL
+languageSet.add("NL");
+
 TitleText ["NL"] = "Hoe vervormd klinkt de spraak?";
 IntroductionText ["NL"] = "De spraak is gemanipuleerd. Hoe vervormd klinkt het?";
 StimulusNumberText ["NL"] = "XXX antwoorden te gaan";
@@ -90,6 +100,10 @@ RestartPageText ["NL"] = 'Opnieuw';
 SaveText ["NL"] = 'Klik AUB op "'+SaveLinkText ["NL"] + '" en sla het bestand op';
 RestartButtonText ["NL"] = 'Het experiment kan opnieuw gestart worden door op "'+RestartPageText ["NL"]+'" te drukken';
 NextAlert ["NL"] = "Luister naar de opname en selecteer een anwoord, AUB";
+ToolTipPlayA ["NL"] = "Luister naar de spreker";
+ToolTipNext ["NL"] = "Ga naar de volgende stimulus";
+ToolTipSave ["NL"] = "Bewaar de antwoorden in een bestand";
+ToolTipRestart ["NL"] = "Begin een nieuwe luster sessie";
 
 for(var l in ["EN", "NL"]) {
 	for(var j = 0; j < 5; j++) {
@@ -128,6 +142,10 @@ function replaceTexts (language) {
 	document.getElementById('RightText2').innerHTML = RightText2[language];
 	document.getElementById('LeftText2').innerHTML = LeftText2[language];
 	document.getElementById('RestartPageText').innerHTML = RestartPageText[language];
+	document.getElementById('ToolTipPlayA').title = ToolTipPlayA [language];
+	document.getElementById('ToolTipNext').title = ToolTipNext [language];
+	document.getElementById('ToolTipSave').title = ToolTipSave [language];
+	document.getElementById('ToolTipRestart').title = ToolTipRestart [language];
 	for(var j = 0; j < 5; j++) {
 		document.getElementById('LK5.0-'+(j+1)).innerHTML = LK5label [language] [0] [j];
 	};

@@ -5,7 +5,7 @@ ShuffleStimulusList = true;
 PracticeItems = 4;
 
 // Add languages to your heart's content
-var languageSet = new Set(["EN", "NL"]);
+var languageSet = new Set(["EN"]);
 
 // Define language specific texts
 var TitleText = [];
@@ -25,6 +25,14 @@ var RestartPageText = [];
 var RestartButtonText = [];
 var ListenAlert = [];
 var NextAlert = [];
+var ToolTipPlayA = [];
+var ToolTipPlayX = [];
+var ToolTipPlayB = [];
+var ToolTipAnswerA = [];
+var ToolTipAnswerB = [];
+var ToolTipNext = [];
+var ToolTipSave = [];
+var ToolTipRestart = [];
 
 // Specify language specific texts
 TitleText ["EN"] = "Who is the unknown speaker? Spreaker A or B?";
@@ -44,6 +52,17 @@ SaveText ["EN"] = 'Please, click "'+SaveLinkText ["EN"] + '" and store the file'
 RestartButtonText ["EN"] = 'The experiment can be restarted by clicking "'+RestartPageText ["EN"]+'"';
 ListenAlert ["EN"] = "Please, listen to the recordings before making a choice";
 NextAlert ["EN"] = "Please, select an answer";
+ToolTipPlayA ["EN"] = "Play sound A";
+ToolTipPlayX ["EN"] = "Play sound X";
+ToolTipPlayB ["EN"] = "Play sound B";
+ToolTipAnswerA ["EN"] = "Speaker A is the same as speaker X";
+ToolTipAnswerB ["EN"] = "Speaker B is the same as speaker X";
+ToolTipNext ["EN"] = "Go to next item";
+ToolTipSave ["EN"] = "Save the answer to a file";
+ToolTipRestart ["EN"] = "Start a new experiment session";
+
+// Add Language = NL
+languageSet.add("NL");
 
 TitleText ["NL"] = "Wie is de onbekende spreker? Spreker A or B?";
 IntroductionText ["NL"] = "De stemmen van de sprekers zijn vervormd. Wie denk je dat spreker X is?";
@@ -62,6 +81,14 @@ SaveText ["NL"] = 'Klik AUB op "'+SaveLinkText ["NL"] + '" en sla het bestand op
 RestartButtonText ["NL"] = 'Het experiment kan opnieuw gestart worden door op "'+RestartPageText ["NL"]+'" te drukken';
 ListenAlert ["NL"] = "AUB, luister eerst naar de opnamen, voordat je een keuze maakt";
 NextAlert ["NL"] = "Selecteer een anwoord, AUB";
+ToolTipPlayA ["NL"] = "Luister naar spreker A";
+ToolTipPlayX ["NL"] = "Luister naar spreker X";
+ToolTipPlayB ["NL"] = "Luister naar spreker B";
+ToolTipAnswerA ["NL"] = "A en X zijn dezelfde spreker";
+ToolTipAnswerB ["NL"] = "B en X zijn dezelfde spreker";
+ToolTipNext ["NL"] = "Ga naar de volgende vergelijking";
+ToolTipSave ["NL"] = "Bewaar de antwoorden in een bestand";
+ToolTipRestart ["NL"] = "Begin een nieuwe luster sessie";
 
 
 // Set language
@@ -87,4 +114,12 @@ function replaceTexts (language) {
 	document.getElementById('YourChoiceText').innerHTML = YourChoiceText[language];
 	document.getElementById('NextText').innerHTML = NextText[language];
 	document.getElementById('RestartPageText').innerHTML = RestartPageText[language];
+	document.getElementById('ToolTipPlayA').title = ToolTipPlayA [language];
+	document.getElementById('ToolTipPlayX').title = ToolTipPlayX [language];
+	document.getElementById('ToolTipPlayB').title = ToolTipPlayB [language];
+	document.getElementById('ToolTipAnswerA').title = ToolTipAnswerA [language]
+	document.getElementById('ToolTipAnswerB').title = ToolTipAnswerB [language]
+	document.getElementById('ToolTipNext').title = ToolTipNext [language];
+	document.getElementById('ToolTipSave').title = ToolTipSave [language];
+	document.getElementById('ToolTipRestart').title = ToolTipRestart [language];
 };
