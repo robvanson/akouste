@@ -112,9 +112,9 @@
 		};
         
         function setAudio(i, stimulusTable) {
-			document.getElementById('SpeakerX').src = stimulusTable[1][i][0];
-			document.getElementById('SpeakerA').src = stimulusTable[1][i][1];
-			document.getElementById('SpeakerB').src = stimulusTable[1][i][2];
+			document.getElementById('SpeakerX').src = audioBaseURL + stimulusTable[1][i][0];
+			document.getElementById('SpeakerA').src = audioBaseURL + stimulusTable[1][i][1];
+			document.getElementById('SpeakerB').src = audioBaseURL + stimulusTable[1][i][2];
 			document.getElementById('SpeakerX').title = stimulusTable[1][i][0].replace(/^.*\/([^\/]+)\.wav$/, "$1");
 			document.getElementById('SpeakerA').title = stimulusTable[1][i][1].replace(/^.*\/([^\/]+)\.wav$/, "$1");
 			document.getElementById('SpeakerB').title = stimulusTable[1][i][2].replace(/^.*\/([^\/]+)\.wav$/, "$1");
@@ -274,9 +274,9 @@
 	    <td>&nbsp;</td>
 	  </tr>
 	  <tr>
-	    <td><a href="javascript:void()" id="ToolTipPlayA" data-toggle="tooltip" title="Play sound A"><button onclick="document.getElementById('SpeakerA').play();" style="font-size:30px;"><strong><div id="PlayAText">Play A</div></strong></button></a></td>
-	    <td><a href="javascript:void()" id="ToolTipPlayX" data-toggle="tooltip" title="Play sound X"><button onclick="document.getElementById('SpeakerX').play();" style="font-size:30px;"><strong><div id="PlayXText">X</div></strong></button></a></td>
-	    <td><a href="javascript:void()" id="ToolTipPlayB" data-toggle="tooltip" title="Play sound B"><button onclick="document.getElementById('SpeakerB').play();" style="font-size:30px;"><strong><div id="PlayBText">Play B</div></strong></button></a></td>
+	    <td><a href="javascript:void(0)" id="ToolTipPlayA" data-toggle="tooltip" title="Play sound A"><button onclick="document.getElementById('SpeakerA').play();" style="font-size:30px;"><strong><div id="PlayAText">Play A</div></strong></button></a></td>
+	    <td><a href="javascript:void(0)" id="ToolTipPlayX" data-toggle="tooltip" title="Play sound X"><button onclick="document.getElementById('SpeakerX').play();" style="font-size:30px;"><strong><div id="PlayXText">X</div></strong></button></a></td>
+	    <td><a href="javascript:void(0)" id="ToolTipPlayB" data-toggle="tooltip" title="Play sound B"><button onclick="document.getElementById('SpeakerB').play();" style="font-size:30px;"><strong><div id="PlayBText">Play B</div></strong></button></a></td>
 	  </tr>
 	  <tr style="font-size:30px">
 	    <td>&nbsp;</td>
@@ -289,9 +289,9 @@
 	    <td>&nbsp;</td>
 	  </tr>
 	  <tr>
-	    <td><a href="javascript:void()" id="ToolTipAnswerA" data-toggle="tooltip" title="Speaker A is the same as speaker X"><button id="AnswerA" onclick="setColor('A');" style="font-size:30px;"><strong><div id="AnswerAText">A</div></strong></button></a></td>
+	    <td><a href="javascript:void(0)" id="ToolTipAnswerA" data-toggle="tooltip" title="Speaker A is the same as speaker X"><button id="AnswerA" onclick="setColor('A');" style="font-size:30px;"><strong><div id="AnswerAText">A</div></strong></button></a></td>
 	    <td style="font-size:30px"><div id="YourChoiceText">Your choice</div></td>
-	    <td><a href="javascript:void()" id="ToolTipAnswerB" data-toggle="tooltip" title="Speaker B is the same as speaker X"><button id="AnswerB" onclick="setColor('B');" style="font-size:30px;"><strong><div id="AnswerBText">B</div></strong></button></a></td>
+	    <td><a href="javascript:void(0)" id="ToolTipAnswerB" data-toggle="tooltip" title="Speaker B is the same as speaker X"><button id="AnswerB" onclick="setColor('B');" style="font-size:30px;"><strong><div id="AnswerBText">B</div></strong></button></a></td>
 	  </tr>
 	  <tr style="font-size:30px">
 	    <td>&nbsp;</td>
@@ -300,7 +300,7 @@
 	  </tr>
 	  <tr style="font-size:30px">
 	    <td>&nbsp;</td>
-	    <td><a href="javascript:void()" id="ToolTipNext" data-toggle="tooltip" title="Go to next item"><button id="NextButton" onclick="nextStimulus ();" style="font-size:30px;"><strong><div id="NextText">Next</div></strong></button></a></td>
+	    <td><a href="javascript:void(0)" id="ToolTipNext" data-toggle="tooltip" title="Go to next item"><button id="NextButton" onclick="nextStimulus ();" style="font-size:30px;"><strong><div id="NextText">Next</div></strong></button></a></td>
 	    <td>&nbsp;</td>
 	  </tr>
 	  <tr style="font-size:30px">
@@ -313,9 +313,9 @@
 	  <p>
 	  <table style="text-align:center;width:50%;margin-left:auto;margin-right:auto;">
 	  <tr style="font-size:30px">
-	    <td><a href="javascript:void()" id="ToolTipRestart" data-toggle="tooltip" title="Start a new experiment session" style="visibility:hidden"><button id="RestartPage" onclick="resetPage(); location.reload();" style="font-size:30px;visibility:hidden"><strong><div id="RestartPageText">Restart</div></strong></button></a></td>
+	    <td><a href="javascript:void(0)" id="ToolTipRestart" data-toggle="tooltip" title="Start a new experiment session" style="visibility:hidden"><button id="RestartPage" onclick="resetPage(); location.reload();" style="font-size:30px;visibility:hidden"><strong><div id="RestartPageText">Restart</div></strong></button></a></td>
 	    <td>&nbsp;</td>
-	    <td><a href="javascript:void()" id="ToolTipSave" data-toggle="tooltip" title="Save the answer to a file" style="visibility:hidden"><button onclick="document.getElementById('SaveLink').click();" style="font-size:30px;visibility:hidden;" id="SaveButton"><strong><div id="SaveButtonText"style="color:blue;">Save Results</div></strong></button></a></td>
+	    <td><a href="javascript:void(0)" id="ToolTipSave" data-toggle="tooltip" title="Save the answer to a file" style="visibility:hidden"><button onclick="document.getElementById('SaveLink').click();" style="font-size:30px;visibility:hidden;" id="SaveButton"><strong><div id="SaveButtonText"style="color:blue;">Save Results</div></strong></button></a></td>
 	  </tr>
 	  </table>
 	  <br />

@@ -95,7 +95,7 @@
 		};
         
         function setAudio(i, stimulusTable) {
-			document.getElementById('SpeakerA').src = stimulusTable[1][i][0];
+			document.getElementById('SpeakerA').src = audioBaseURL + stimulusTable[1][i][0];
 			document.getElementById('SpeakerA').title = stimulusTable[1][i][0].replace(/^.*\/([^\/]+)\.wav$/, "$1");
 			
 			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (data.length - i)+"");
@@ -262,7 +262,7 @@
 	  </tr>
 	  <tr>
 	    <td>&nbsp;</td>
-	    <td><a href="javascript:void()" id="ToolTipPlayA" data-toggle="tooltip" title="Play sound"><button onclick="document.getElementById('SpeakerA').play();" style="font-size:30px;background-color:white;"><strong><div id="PlayAText">Play </div></strong></button></a></td>
+	    <td><a href="javascript:void(0)" id="ToolTipPlayA" data-toggle="tooltip" title="Play sound"><button onclick="document.getElementById('SpeakerA').play();" style="font-size:30px;background-color:white;"><strong><div id="PlayAText">Play </div></strong></button></a></td>
 	    <td>&nbsp;</td>
 	  </tr>
 	  <tr style="font-size:30px">
@@ -370,7 +370,7 @@
 	  </tr>
 	  <tr style="font-size:30px">
 	    <td>&nbsp;</td>
-	    <td><a href="javascript:void()" id="ToolTipNext" data-toggle="tooltip" title="Go to next item"><button id="NextButton" onclick="nextStimulus ();" style="font-size:30px;background-color:gray"><strong><div id="NextText" style="font-size:30px;background-color:gray">Next</div></strong></button></a></td>
+	    <td><a href="javascript:void(0)" id="ToolTipNext" data-toggle="tooltip" title="Go to next item"><button id="NextButton" onclick="nextStimulus ();" style="font-size:30px;background-color:gray"><strong><div id="NextText" style="font-size:30px;background-color:gray">Next</div></strong></button></a></td>
 	    <td>&nbsp;</td>
 	  </tr>
 	  <tr style="font-size:30px">
@@ -383,9 +383,9 @@
 	  <p>
 	  <table style="text-align:center;width:50%;margin-left:auto;margin-right:auto;">
 	  <tr style="font-size:30px">
-	    <td><a href="javascript:void()" id="ToolTipRestart" data-toggle="tooltip" title="Start a new experiment session" style="visibility:hidden"><button id="RestartPage" onclick="resetPage(); location.reload();" style="font-size:30px;visibility:v;"><strong><div id="RestartPageText">Restart</div></strong></button></a></td>
+	    <td><a href="javascript:void(0)" id="ToolTipRestart" data-toggle="tooltip" title="Start a new experiment session" style="visibility:hidden"><button id="RestartPage" onclick="resetPage(); location.reload();" style="font-size:30px;visibility:v;"><strong><div id="RestartPageText">Restart</div></strong></button></a></td>
 	    <td>&nbsp;</td>
-	    <td><a href="javascript:void()" id="ToolTipSave" data-toggle="tooltip" title="Save the answer to a file" style="visibility:hidden"><button onclick="document.getElementById('SaveLink').click();" style="font-size:30px;visibility:hidden;" id="SaveButton"><strong><div id="SaveButtonText"style="color:blue;">Save Results</div></strong></button></a></td>
+	    <td><a href="javascript:void(0)" id="ToolTipSave" data-toggle="tooltip" title="Save the answer to a file" style="visibility:hidden"><button onclick="document.getElementById('SaveLink').click();" style="font-size:30px;visibility:hidden;" id="SaveButton"><strong><div id="SaveButtonText"style="color:blue;">Save Results</div></strong></button></a></td>
 	  </tr>
 	  </table>
 	  <br />

@@ -8,6 +8,13 @@ PracticeItems = 4;
 // Set number of visible sliders
 var NumberOfScales = 1;
 
+// Allow to dynamically change the base URL of the stimulus files
+var audioBaseURL = ""; // Default is nothing
+// Example, if located at Github, read from URL
+if(document.location.href.match(/github\.io\/akouste/)){ 
+	audioBaseURL = "http://www.fon.hum.uva.nl/rob/akouste/";
+};
+
 // Add languages to your heart's content
 var languageSet = new Set(["EN"]);
 
