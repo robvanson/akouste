@@ -4,6 +4,15 @@
   <!-- basic.html -->
   <title id="PageTitleText">ABX Listening Experiment</title>
   <meta charset = "UTF-8" />
+	<script language="JavaScript">
+		// Before anything else, warn IE users
+		var ua = window.navigator.userAgent;
+		// If Internet Explorer, warn user
+		var msie = ua.indexOf("MSIE ");
+		if(msie > 0){
+			alert("This experiment does not work with Internet Explorer.\nPlease, use Chrome, Firefox, Safari or a related browser");
+		};
+	</script>
 	<script language="JavaScript" src="InitABXListeningExperiment.js"></script>
 	<script language="JavaScript" src="Read_ABX_Stimuluslist.js"></script>
 	<script language="JavaScript">
@@ -248,7 +257,7 @@
 	<audio id="SpeakerB" src="" preload="auto" title="" onplaying="unblockAnswers ('SpeakerB');"></audio>
 	<a href="" Id="SaveLink" download onclick="onSave ()" style="font-size:30px;visibility:hidden"></a>
 	
-	<h1 style="text-align:center"><div id="TitleText">JavaScript required to do this experiment <br /> Enable JavaScript in your browser</div></h1>
+	<h1 style="text-align:center"><div id="TitleText">Please enable JavaScript in your browser</div></h1>
 	
 	<h2 style="text-align:center">
 	<div id="IntroductionText">The voices of the speakers have been changed. Which one do you think is the unknown speaker X?</div>
