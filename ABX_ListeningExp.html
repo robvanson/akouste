@@ -19,6 +19,7 @@
         var playedX = false;
         var playedA = false;
         var playedB = false;
+        var playedSamples = false;
 		var finishedExperiment = false;
 		var answerList = [];
 		var answer = "";
@@ -78,21 +79,30 @@
 		};
 
 		function setColor(x){
-			if(! x.match(/^[AB]$/) || playedSamples > 0) {
+			if(! x.match(/^[AB]$/) || playedSamples) {
 				answer = x;
 				if(answer == "A") {
 					document.getElementById('AnswerA').style.backgroundColor="green";
-					document.getElementById('AnswerB').style.backgroundColor="white";
+					document.getElementById('AnswerB').style.backgroundColor="#F0F0F0";
 				} else if(answer == "B"){
-					document.getElementById('AnswerA').style.backgroundColor="white";
+					document.getElementById('AnswerA').style.backgroundColor="#F0F0F0";
 					document.getElementById('AnswerB').style.backgroundColor="green";
 				} else if (answer == "BLOCKED") {
 					document.getElementById('AnswerA').style.backgroundColor="gray";
 					document.getElementById('AnswerB').style.backgroundColor="gray";
+					document.getElementById('NextText').style.backgroundColor = "gray";
+					document.getElementById('NextButton').style.backgroundColor = "gray";
 					answer = "";
 				} else {
-					document.getElementById('AnswerA').style.backgroundColor="white";
-					document.getElementById('AnswerB').style.backgroundColor="white";
+					document.getElementById('AnswerA').style.backgroundColor="#F0F0F0";
+					document.getElementById('AnswerB').style.backgroundColor="#F0F0F0";
+					document.getElementById('NextText').style.backgroundColor = "gray";
+					document.getElementById('NextButton').style.backgroundColor = "gray";
+				};
+				// Unblock Next button
+				if(answer.match(/^[AB]$/) && playedSamples) {
+					document.getElementById('NextText').style.backgroundColor = "#F0F0F0";
+					document.getElementById('NextButton').style.backgroundColor = "#F0F0F0";
 				};
 			} else {
 				alert(ListenAlert [language]);
@@ -105,9 +115,19 @@
 			playedA = playedA || x=="SpeakerA";
 			playedB = playedB || x=="SpeakerB";
 			playedSamples = playedX &&  playedA && playedB;
-			if(answer == "" && playedSamples == true) {
-				document.getElementById('AnswerA').style.backgroundColor="white";
-				document.getElementById('AnswerB').style.backgroundColor="white";
+			if(answer == "" && playedSamples) {
+				document.getElementById('AnswerA').style.backgroundColor="#F0F0F0";
+				document.getElementById('AnswerB').style.backgroundColor="#F0F0F0";
+			};
+			if (x=="SpeakerX") {
+				document.getElementById('PlayXText').style.backgroundColor = "#EEFFEE";
+				document.getElementById('PlayXText').parentNode.parentNode.style.backgroundColor = "#EEFFEE";
+			} else if (x=="SpeakerA") {
+				document.getElementById('PlayAText').style.backgroundColor = "#EEFFEE";
+				document.getElementById('PlayAText').parentNode.parentNode.style.backgroundColor = "#EEFFEE";
+			} else if (x=="SpeakerB") {
+				document.getElementById('PlayBText').style.backgroundColor = "#EEFFEE";
+				document.getElementById('PlayBText').parentNode.parentNode.style.backgroundColor = "#EEFFEE";
 			};
 		};
         
@@ -118,6 +138,12 @@
 			document.getElementById('SpeakerX').title = stimulusTable[1][i][0].replace(/^.*\/([^\/]+)\.wav$/, "$1");
 			document.getElementById('SpeakerA').title = stimulusTable[1][i][1].replace(/^.*\/([^\/]+)\.wav$/, "$1");
 			document.getElementById('SpeakerB').title = stimulusTable[1][i][2].replace(/^.*\/([^\/]+)\.wav$/, "$1");
+			document.getElementById('PlayXText').style.backgroundColor = "#F0F0F0";
+			document.getElementById('PlayXText').parentNode.parentNode.style.backgroundColor = "#F0F0F0";
+			document.getElementById('PlayAText').style.backgroundColor = "#F0F0F0";
+			document.getElementById('PlayAText').parentNode.parentNode.style.backgroundColor = "#F0F0F0";
+			document.getElementById('PlayBText').style.backgroundColor = "#F0F0F0";
+			document.getElementById('PlayBText').parentNode.parentNode.style.backgroundColor = "#F0F0F0";
 			
 			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (data.length - i)+"");
 			setColor("BLOCKED")
@@ -170,7 +196,11 @@
 				setAudio(stimulusNbr, stimulusTable);
 				return true;
 			} else {
-				alert(NextAlert ["NL"]);
+				if (playedSamples) {
+					alert(NextAlert [language]);
+				} else {
+					alert(ListenAlert [language]);
+				};
 				return false;
 			};
 			
@@ -195,6 +225,7 @@
 			displayArray(answerList);
 			document.getElementById('NextText').innerHTML = ReadyText[language];
 			document.getElementById('NextText').style.backgroundColor = "gray";
+			document.getElementById('NextButton').style.backgroundColor = "gray";
 			document.getElementById('SaveText').innerHTML =  SaveText [language];
 			finishedExperiment = true;
 		};
@@ -289,9 +320,9 @@
 	    <td>&nbsp;</td>
 	  </tr>
 	  <tr>
-	    <td><a href="javascript:void(0)" id="ToolTipAnswerA" data-toggle="tooltip" title="Speaker A is the same as speaker X"><button id="AnswerA" onclick="setColor('A');" style="font-size:30px;"><strong><div id="AnswerAText">A</div></strong></button></a></td>
+	    <td><a href="javascript:void(0)" id="ToolTipAnswerA" data-toggle="tooltip" title="Speaker A is the same as speaker X"><button id="AnswerA" onclick="setColor('A');" style="font-size:30px;"><strong><div id="AnswerAText">answer A</div></strong></button></a></td>
 	    <td style="font-size:30px"><div id="YourChoiceText">Your choice</div></td>
-	    <td><a href="javascript:void(0)" id="ToolTipAnswerB" data-toggle="tooltip" title="Speaker B is the same as speaker X"><button id="AnswerB" onclick="setColor('B');" style="font-size:30px;"><strong><div id="AnswerBText">B</div></strong></button></a></td>
+	    <td><a href="javascript:void(0)" id="ToolTipAnswerB" data-toggle="tooltip" title="Speaker B is the same as speaker X"><button id="AnswerB" onclick="setColor('B');" style="font-size:30px;"><strong><div id="AnswerBText">answer B</div></strong></button></a></td>
 	  </tr>
 	  <tr style="font-size:30px">
 	    <td>&nbsp;</td>

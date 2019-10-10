@@ -89,14 +89,20 @@
 			changedLikert5 = changedLikert5 || x=="Likert5";
 			playedSamples = playedA && changedLikert5;
 			if(playedSamples == true) {
-				document.getElementById('NextText').style.backgroundColor="white";
-				document.getElementById('NextButton').style.backgroundColor="white";
+				document.getElementById('NextText').style.backgroundColor="#F0F0F0";
+				document.getElementById('NextButton').style.backgroundColor="#F0F0F0";
+			};
+			if(x=="SpeakerA") {
+				document.getElementById('PlayAText').style.backgroundColor = "#EEFFEE";
+				document.getElementById('PlayAText').parentNode.parentNode.style.backgroundColor = "#EEFFEE";
 			};
 		};
         
         function setAudio(i, stimulusTable) {
 			document.getElementById('SpeakerA').src = audioBaseURL + stimulusTable[1][i][0];
 			document.getElementById('SpeakerA').title = stimulusTable[1][i][0].replace(/^.*\/([^\/]+)\.wav$/, "$1");
+			document.getElementById('PlayAText').style.backgroundColor = "#F0F0F0";
+			document.getElementById('PlayAText').parentNode.parentNode.style.backgroundColor = "#F0F0F0";
 			
 			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (data.length - i)+"");
 		};
