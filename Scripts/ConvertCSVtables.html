@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Convert CSV tables into ako&uacute;ste JSON stimulus list</title>
+    <meta name="description" content="Webpage for converting CSV tables into JSON stimulus lists">
+    <script>
+		var tableJSON = "";
+		function readTableFromFile (elementId) {
+			var file = document.getElementById(elementId).files[0];
+			if (file) {
+				var tableList = [];
+			    var reader = new FileReader();
+			    reader.readAsText(file, "UTF-8");
+			    reader.onload = function (evt) {
+					var separator = /\t/;
+					if(evt.target.result.match(/\t/)){
+						separator = /\t/;
+					} else if (evt.target.result.match(/;/)){
+						separator = /;/;
+					} else if (evt.target.result.match(/,/)){
+						separator = /,/;
+					} else if (evt.target.result.match(/:/)){
+						separator = /:/;
+					};
+					var textRead = evt.target.result.split(/\n/);
+					if(textRead.length <= 1) {
+						alert("Not a valid CSV table: "+file);
+						return void(0);
+					};
+					for(var i in  textRead) {
+						tableList.push((textRead[i]).split(separator));
+					};
+					if(tableList.length <= 1) {
+						alert("Not a valid CSV table: "+file);
+						return void(0);
+					};
+					var displayText = '<table style="text-align:left;width:90%;margin-left:auto;margin-right:auto;">\n';
+					// header
+					displayText += "";
+					for(r in tableList){
+						row = tableList[r];
+						displayText += "<tr><td>"+row.join("</td><td>")+"</td></tr>\n";
+					};
+
+			        document.getElementById("fileContents").innerHTML = displayText;
+					tableJSON = JSON.stringify([tableList[0],tableList.slice(1)]);
+					document.getElementById('SaveButton').style.visibility = 'visible';
+			    }
+			    reader.onerror = function (evt) {
+			        document.getElementById("fileContents").innerHTML = "error reading file";
+			    }
+			} else {
+				alert("Select a file first");
+			};
+		};
+		
+		function createFileData (tableJSON) {
+			var output = "var stimulusTableJSON = '";
+			output += tableJSON + "';\n";
+			
+			var blob = new Blob([output], {type: "text/plain"});
+			var blobURL = URL.createObjectURL(blob);
+			document.getElementById('SaveLink').href = blobURL;
+			document.getElementById('SaveLink').download = "Read_{ABX,VAS,Likert5}_Stimuluslist.js";
+		};
+		
+		function reset () {
+			document.getElementById('SaveButton').style.visibility = 'hidden';
+			tableJSON = "";
+			document.getElementById("fileContents").innerHTML = "";
+		};
+		
+	</script>
+  </head>
+  <body> 
+	<a href="" Id="SaveLink" download onclick="javascript:void(0);" style="font-size:30px;visibility:hidden"></a>
+	
+    <h1 style="text-align:center;width:60%;margin-left:auto;margin-right:auto;">Convert CSV tables into ako&uacute;ste JSON stimulus list</h1>
+    <p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">Read a local CSV table and convert it to a .js file that can be used as a stimulus list for the ako&uacute;ste listening experiments. This page can process CSV files with separators: tab, semicolon (;), comma (,), and colon (:), checked in that order. It will not handle "quoted" separators, e.g., ",,,". File extensions must be <em>.csv</em> or <em>.txt</em>.</p>
+    <h3 style="text-align:center;width:60%;margin-left:auto;margin-right:auto;">Read CSV table</h3>
+    <p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">
+	<form id="fileForUpload" style="font-size:20px;" style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"  action="javascript:readTableFromFile ('CVStable'); void(0);">
+		<p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">
+		<input type="file" id="CVStable" name="CSVtable" accept="text/csv, text/plain" style="font-size:20px;" >
+		</p>
+		<p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">
+			<table style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">
+				<tr>
+					<td><input id="Convert" type="submit" style="font-size:20px;" value="Start conversion"></td>
+					<td>&nbsp;</td>
+					<td><a href="javascript:void(0)" id="ToolTipSave" data-toggle="tooltip" title="Save to file" style="visibility:hidden"><button onclick="createFileData (tableJSON); document.getElementById('SaveLink').click();" style="font-size:20px;visibility:hidden;" id="SaveButton"><strong><div id="SaveButtonText"style="color:blue;">Save Results</div></strong></button></a></td>
+				</tr>
+		</table>		
+		</p>
+    </form>
+    </p>
+    <p style="text-align:left;width:90%;margin-left:auto;margin-right:auto;">
+		<div id="fileContents" style="text-align:left;width:90%;margin-left:auto;margin-right:auto;">&nbsp;</div>
+	</p>
+  </body>
+</html>
