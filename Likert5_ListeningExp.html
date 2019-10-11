@@ -24,6 +24,7 @@
 	<script language="JavaScript" src="InitLikert5ListeningExperiment.js"></script>
 	<script language="JavaScript" src="Read_Likert5_Stimuluslist.js"></script>
 	<script language="JavaScript">
+		var stimulusTable;
         var changedLikert5 = false;
         var playedA = false;
         var playedSamples = false;
@@ -31,11 +32,13 @@
 		var answerList = [];
 		var answer = new Array(NumberOfScales).fill(-1);
 		var stimulusNbr = 0;
-		function loadList (csv) {
-			//fetch('Stimuli_LK5buttons.csv')
+		var posA = 0;
+		function loadList () {
+			//fetch('Stimuli_LK5.csv')
 			//	.then(response => response.text())
 			//	.then(text => csv = text);
 			var columnNames = ["A"];
+			// Check whether there is an ongoing experiment
 			if(typeof(Storage) !== "undefined" && localStorage.getItem('LK5stimuluslist')){
 				// Store
 				data = JSON.parse(localStorage.getItem('LK5stimuluslist'));
@@ -52,35 +55,49 @@
 					// The experiment has been finished, but not reset
 					FinishExperimentRun ();
 					onSave ();
-				};				
+				};
 			} else {
-			    // Split the input into lines
-			    lines = csv.split('\n').filter(e => e);
-			
-			    // Extract column names from the first line
-			    columnNamesLine = lines[0];
-			    columnNames = columnNamesLine.split(/[;\t]/g).filter(e => e);
-			
-			    // Extract data from subsequent lines
-			    dataLines = lines.slice(1);
-			    while(dataLines[dataLines.length-1] == [])dataLines.pop();
-			    data = dataLines.map(function(x){return x.split(/[;\t]/g).filter(e => e)});
-			    
+				// Read and process the stimulus list
+				// First try the JSON options
+				if(typeof stimulusTableJSON !== 'undefined' && stimulusTableJSON) {
+					var stimulusTableParsed = JSON.parse(stimulusTableJSON);
+					columnNames = stimulusTableParsed [0];
+					data = stimulusTableParsed [1];
+				// No JSON data, use CSV			
+				} else if (csv !== 'undefined' && csv) {
+				    // Split the input into lines
+				    lines = csv.split('\n');
+				
+				    // Extract column names from the first line
+				    columnNamesLine = lines[0];
+				    columnNames = columnNamesLine.split(/[;\t]/g).filter(e => e);
+				
+				    // Extract data from subsequent lines
+				    dataLines = lines.slice(1);
+				    while(dataLines[dataLines.length-1] == [])dataLines.pop();
+				    data = dataLines.map(function(x){return x.split(/[;\t]/g).filter(e => e)});
+				};	
+				
+			    // Prepare the stimulus list
 			    if(ShuffleStimulusList)data = shuffle(data);
 			    if(PracticeItems > 0){
 					practise = data.slice(data.length-PracticeItems, data.length).reverse();
 					tmp = practise.concat(data);
 					data = tmp.concat();
 				};
-				
+				// Store the stimulus data
 				if (typeof(Storage) !== "undefined") {
 					// Store
 					localStorage.setItem('LK5stimuluslist', JSON.stringify(data));
 					localStorage.setItem('LK5columnnames', JSON.stringify(columnNames));
-				}
+				};
 			};
+			
+			// Locate the stimuli
+			posA = columnNames.indexOf("A");
 		    
 			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (data.length - stimulusNbr)+"");
+			
 		    return [columnNames, data];
 		};
         
@@ -99,8 +116,8 @@
 		};
         
         function setAudio(i, stimulusTable) {
-			document.getElementById('SpeakerA').src = audioBaseURL + stimulusTable[1][i][0];
-			document.getElementById('SpeakerA').title = stimulusTable[1][i][0].replace(/^.*\/([^\/]+)\.wav$/, "$1");
+			document.getElementById('SpeakerA').src = audioBaseURL + stimulusTable[1][i][posA];
+			document.getElementById('SpeakerA').title = stimulusTable[1][i][posA].replace(/^.*\/([^\/]+)\.wav$/, "$1");
 			document.getElementById('PlayAText').style.backgroundColor = "#F0F0F0";
 			document.getElementById('PlayAText').parentNode.parentNode.style.backgroundColor = "#F0F0F0";
 			
@@ -177,7 +194,7 @@
 			answer = new Array(NumberOfScales).fill(-1);
 			stimulusNbr = 0;
 			replaceTexts (language);
-			stimulusTable = loadList (csv); 
+			stimulusTable = loadList (); 
 			setAudio(stimulusNbr, stimulusTable);
 		};
 		

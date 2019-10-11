@@ -16,6 +16,7 @@
 	<script language="JavaScript" src="InitABXListeningExperiment.js"></script>
 	<script language="JavaScript" src="Read_ABX_Stimuluslist.js"></script>
 	<script language="JavaScript">
+		var stimulusTable;
         var playedX = false;
         var playedA = false;
         var playedB = false;
@@ -24,11 +25,15 @@
 		var answerList = [];
 		var answer = "";
 		var stimulusNbr = 0;
-		function loadList (csv) {
+		var posX = 0;
+		var posA = 1;
+		var posB = 2;
+		function loadList () {
 			//fetch('Stimuli_ABX.csv')
 			//	.then(response => response.text())
 			//	.then(text => csv = text);
 			var columnNames = ["X", "A", "B"];
+			// Check whether there is an ongoing experiment
 			if(typeof(Storage) !== "undefined" && localStorage.getItem('ABXstimuluslist')){
 				// Store
 				data = JSON.parse(localStorage.getItem('ABXstimuluslist'));
@@ -45,33 +50,48 @@
 					// The experiment has been finished, but not reset
 					FinishExperimentRun ();
 					onSave ();
-				};				
+				};
 			} else {
-			    // Split the input into lines
-			    lines = csv.split('\n');
-			
-			    // Extract column names from the first line
-			    columnNamesLine = lines[0];
-			    columnNames = columnNamesLine.split(/[;\t]/g).filter(e => e);
-			
-			    // Extract data from subsequent lines
-			    dataLines = lines.slice(1);
-			    while(dataLines[dataLines.length-1] == [])dataLines.pop();
-			    data = dataLines.map(function(x){return x.split(/[;\t]/g).filter(e => e)});
-			    
+				// Read and process the stimulus list
+				// First try the JSON options
+				if(typeof stimulusTableJSON !== 'undefined' && stimulusTableJSON) {
+					var stimulusTableParsed = JSON.parse(stimulusTableJSON);
+					columnNames = stimulusTableParsed [0];
+					data = stimulusTableParsed [1];
+				// No JSON data, use CSV			
+				} else if (csv !== 'undefined' && csv) {
+				    // Split the input into lines
+				    lines = csv.split('\n');
+				
+				    // Extract column names from the first line
+				    columnNamesLine = lines[0];
+				    columnNames = columnNamesLine.split(/[;\t]/g).filter(e => e);
+				
+				    // Extract data from subsequent lines
+				    dataLines = lines.slice(1);
+				    while(dataLines[dataLines.length-1] == [])dataLines.pop();
+				    data = dataLines.map(function(x){return x.split(/[;\t]/g).filter(e => e)});
+				};	
+				
+			    // Prepare the stimulus list
 			    if(ShuffleStimulusList)data = shuffle(data);
 			    if(PracticeItems > 0){
 					practise = data.slice(data.length-PracticeItems, data.length).reverse();
 					tmp = practise.concat(data);
 					data = tmp.concat();
 				};
-				
+				// Store the stimulus data
 				if (typeof(Storage) !== "undefined") {
 					// Store
 					localStorage.setItem('ABXstimuluslist', JSON.stringify(data));
 					localStorage.setItem('ABXcolumnnames', JSON.stringify(columnNames));
-				}
+				};
 			};
+			
+			// Locate the stimuli
+			posX = columnNames.indexOf("X");
+			posA = columnNames.indexOf("A");
+			posB = columnNames.indexOf("B");
 		    
 			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (data.length - stimulusNbr)+"");
 			
@@ -132,12 +152,12 @@
 		};
         
         function setAudio(i, stimulusTable) {
-			document.getElementById('SpeakerX').src = audioBaseURL + stimulusTable[1][i][0];
-			document.getElementById('SpeakerA').src = audioBaseURL + stimulusTable[1][i][1];
-			document.getElementById('SpeakerB').src = audioBaseURL + stimulusTable[1][i][2];
-			document.getElementById('SpeakerX').title = stimulusTable[1][i][0].replace(/^.*\/([^\/]+)\.wav$/, "$1");
-			document.getElementById('SpeakerA').title = stimulusTable[1][i][1].replace(/^.*\/([^\/]+)\.wav$/, "$1");
-			document.getElementById('SpeakerB').title = stimulusTable[1][i][2].replace(/^.*\/([^\/]+)\.wav$/, "$1");
+			document.getElementById('SpeakerX').src = audioBaseURL + stimulusTable[1][i][posX];
+			document.getElementById('SpeakerA').src = audioBaseURL + stimulusTable[1][i][posA];
+			document.getElementById('SpeakerB').src = audioBaseURL + stimulusTable[1][i][posB];
+			document.getElementById('SpeakerX').title = stimulusTable[1][i][posX].replace(/^.*\/([^\/]+)\.wav$/, "$1");
+			document.getElementById('SpeakerA').title = stimulusTable[1][i][posA].replace(/^.*\/([^\/]+)\.wav$/, "$1");
+			document.getElementById('SpeakerB').title = stimulusTable[1][i][posB].replace(/^.*\/([^\/]+)\.wav$/, "$1");
 			document.getElementById('PlayXText').style.backgroundColor = "#F0F0F0";
 			document.getElementById('PlayXText').parentNode.parentNode.style.backgroundColor = "#F0F0F0";
 			document.getElementById('PlayAText').style.backgroundColor = "#F0F0F0";
@@ -217,7 +237,7 @@
 			stimulusNbr = 0;
 			replaceTexts (language);
 			setColor('');
-			stimulusTable = loadList (csv); 
+			stimulusTable = loadList (); 
 			setAudio(stimulusNbr, stimulusTable);
 		};
 		
