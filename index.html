@@ -1,8 +1,9 @@
 <html>
 <header>
 <title>ako&uacute;ste</title>
-<link rel="icon" sizes="192x192" href="akouste-ear.png" />
-<link rel="shortcut icon" href="akouste-ear.png" />
+	<meta charset="UTF-8">
+	<link rel="icon" sizes="192x192" href="akouste-ear.png" />
+	<link rel="shortcut icon" href="akouste-ear.png" />
 </header>
 <body>
 	
@@ -26,6 +27,16 @@
 	<h3 style="width:90%;margin-left:auto;margin-right:auto;">Under the hood</h3>
 	<p style="text-align:left;width:90%;margin-left:auto;margin-right:auto;">
 		The ako&uacute;ste experiments are constructed from self-contained plain HTML, CSS, and Javascript pages. Each experiment is controlled by a settings, or initialisation, file and a file listing the stimuli. All user visible texts are listed in the settings file by language. Adding new languages and translations amounts to copying the list and translating the items. User language detection can be automatic or fixed by the experimenter. 
+	</p>
+	<p style="text-align:left;width:90%;margin-left:auto;margin-right:auto;">
+		Loading local CSV table files is not always possible. Therefore, stimulus lists must be present as Javascript, <em>.js</em> files. There is a special 'page' that will convert CSV text tables into the required form.
+	</p>
+	<p></p>
+		<table style="text-align:left;width:90%;margin-left:auto;margin-right:auto;">
+			<tr style="font-size:25px;"><td>
+				<a href="Scripts/ConvertCSVtables.html" target="_blank">Convert</a></td><td>Convert CSV tables into ako&uacute;ste JSON stimulus lists</td>
+			</tr>
+		</table>
 	</p>
 	<p>
 	<div style="font-size:15px;text-align:right;">ako&uacute;ste icon <em>Ear</em> by Gregor Cresnar from the Noun Project</div>

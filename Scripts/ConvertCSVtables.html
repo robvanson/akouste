@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Convert CSV tables into ako&uacute;ste JSON stimulus list</title>
+    <title>Convert CSV tables into ako&uacute;ste JSON stimulus lists</title>
     <meta name="description" content="Webpage for converting CSV tables into JSON stimulus lists">
     <script>
 		var tableJSON = "";
@@ -41,7 +41,9 @@
 						alert("Not a valid CSV table: "+file);
 						return void(0);
 					};
-					var displayText = '<h3 style="text-align:center;">Review data</h3><table style="text-align:left;width:90%;margin-left:auto;margin-right:auto;">\n';
+					var displayText = '<h3 style="text-align:center;center;width:60%;margin-left:auto;margin-right:auto;">Review data</h3>'
+					+'<p style="font-style:italic;width:60%;margin-left:auto;margin-right:auto;">Note that ABX stimulus lists require columns labeled "A", "B", and "X". VAS and Likert5 lists require an "A" column. If there are no such columns, the first column (VAS en Likert5) or first three columns (ABX) are used.</p>'
+					+'<table style="text-align:left;width:90%;margin-left:auto;margin-right:auto;">\n';
 					// header
 					displayText += "";
 					for(r in tableList){
@@ -86,8 +88,9 @@
   <body> 
 	<a href="" Id="SaveLink" download onclick="javascript:void(0);" style="font-size:30px;visibility:hidden"></a>
 	
-    <h1 style="text-align:center;width:60%;margin-left:auto;margin-right:auto;">Convert CSV tables into ako&uacute;ste JSON stimulus list</h1>
-    <p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">Read a local CSV table and convert it to a .js file that can be used as a stimulus list for the ako&uacute;ste listening experiments. This page can process CSV files with separators: tab, semicolon (;), and comma (,), checked in that order. It will not handle "quoted" separators, e.g., ",,,". File extensions must be <em>.csv</em> or <em>.txt</em>.</p>
+    <h1 style="text-align:center;width:60%;margin-left:auto;margin-right:auto;">Convert CSV tables into ako&uacute;ste JSON stimulus lists</h1>
+    <p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">Read a local CSV table and convert it to a .js file that can be used as a stimulus list for the ako&uacute;ste listening experiments. This page can process CSV files with separators: tab, semicolon (;), and comma (,). It will not handle "quoted" separators, e.g., ',",",' , nor backslash (\) characters well. File extensions must be <em>.csv</em> or <em>.txt</em>.
+    </p>
     <h3 style="text-align:center;width:60%;margin-left:auto;margin-right:auto;">Read CSV table</h3>
     <p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">
 	<form id="fileForUpload" style="font-size:20px;" style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"  action="javascript:readTableFromFile ('CVStable'); void(0);">
@@ -124,8 +127,8 @@
 		</p>
     </form>
     </p>
-    <p style="text-align:left;width:90%;margin-left:auto;margin-right:auto;">
-		<div id="fileContents" style="text-align:left;width:90%;margin-left:auto;margin-right:auto;">&nbsp;</div>
+    <p style="text-align:left;">
+		<div id="fileContents" style="text-align:left;">&nbsp;</div>
 	</p>
   </body>
 </html>
