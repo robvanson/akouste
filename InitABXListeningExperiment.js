@@ -43,7 +43,7 @@ var ToolTipRestart = [];
 
 // Specify language specific texts
 PageTitleText ["EN"] = "ABX Listening Experiment";
-TitleText ["EN"] = "Who is the unknown speaker? Spreaker A or B?";
+TitleText ["EN"] = "Who is the unknown speaker? Speaker A or B?";
 IntroductionText ["EN"] = "The voices of the speakers have been changed. Which one do you think is the unknown speaker X?";
 StimulusNumberText ["EN"] = "XXX answers to go";
 PlayAText ["EN"] = " A &#9658; ";
