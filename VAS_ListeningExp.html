@@ -299,6 +299,8 @@
 			document.getElementById('NextText').style.backgroundColor = "gray";
 			document.getElementById('SaveText').innerHTML =  SaveText [language];
 			finishedExperiment = true;
+			setProgress(100);
+			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (0)+"");
 		};
 	
 		function onSave () {
