@@ -9,8 +9,12 @@
 # 
 import fileinput
 import re
+import math
 
 output_path = False
+
+totalCorrect = 0
+totalWrong = 0
 
 l = 0
 for line in fileinput.input():
@@ -38,6 +42,10 @@ for line in fileinput.input():
 		psDistr = (re.search('PS([\d]+)A_', values[3])).group(1)
 	if (values[1] == "A") and (speakerX == speakerA): correct = True
 	if (values[1] == "B") and (speakerX == speakerB): correct = True
+	if correct:
+		totalCorrect += 1
+	else:
+		totalWrong += 1
 	
 	# HL or LH
 	manipulationType = "LH" if  re.match('_510', values[2]) else "HL"
@@ -45,4 +53,9 @@ for line in fileinput.input():
 
 # Close output table file
 results_table.close()
-	
+
+prob = totalCorrect / (totalCorrect+totalWrong)
+Hresp = -(prob*math.log2(prob)+(1-prob)*math.log2(1-prob))
+print("Correct: %i, Wrong: %i, Pcorr: %.3f"%(totalCorrect, totalWrong, prob))
+print("Hresp: %.3f bit (missing info)"%(Hresp))
+
