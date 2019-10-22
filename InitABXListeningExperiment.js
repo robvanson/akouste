@@ -44,7 +44,7 @@ var ToolTipRestart = [];
 // Specify language specific texts
 PageTitleText ["EN"] = "ABX Listening Experiment";
 TitleText ["EN"] = "Who is the unknown speaker? Speaker A or B?";
-IntroductionText ["EN"] = "The voices of the speakers have been changed. Which one do you think is the unknown speaker X?";
+IntroductionText ["EN"] = "The voices of the speakers A and B have been changed. Which one do you think is the unknown speaker X?";
 StimulusNumberText ["EN"] = "XXX answers to go";
 PlayAText ["EN"] = " A &#9658; ";
 PlayXText ["EN"] = " X &#9658; ";
@@ -74,7 +74,7 @@ languageSet.add("NL");
 
 PageTitleText ["NL"] = "ABX Luisterexperiment";
 TitleText ["NL"] = "Wie is de onbekende spreker? Spreker A or B?";
-IntroductionText ["NL"] = "De stemmen van de sprekers zijn vervormd. Wie denk je dat spreker X is?";
+IntroductionText ["NL"] = "De stemmen van de sprekers A en B zijn vervormd. Wie denk je dat spreker X is?";
 StimulusNumberText ["NL"] = "XXX antwoorden te gaan";
 PlayAText ["NL"] = " A &#9658; ";
 PlayXText ["NL"] = " X &#9658; ";
