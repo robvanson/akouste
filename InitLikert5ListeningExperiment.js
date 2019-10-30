@@ -12,7 +12,7 @@ var NumberOfScales = 1;
 var audioBaseURL = ""; // Default = nothing
 // Example, if located at Github, read from URL
 if(document.location.href.match(/github\.io\/akouste/)){ 
-	audioBaseURL = "https://robvanson.000webhostapp.com/";
+	audioBaseURL = "http://www.fon.hum.uva.nl/rob/akouste/";
 };
 
 // Add languages to your heart's content
