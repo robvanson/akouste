@@ -1,0 +1,227 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Analyse results of ako&uacute;ste listening experiments</title>
+    <meta name="description" content="Webpage for converting CSV tables into JSON stimulus lists">
+    <script>
+		var tableJSON = "";
+		var filename = "";
+		var subjectname = "";
+		var timestamp = "";
+		var answerpos = -1;
+		var apos = -1;
+		var bpos = -1;
+		var xpos = -1;
+		var corrpos = -1;
+		var sumcorrect = 0;
+		var numvalues = 0;
+		var sumanswers = 0;
+		function readTableFromFile (elementId) {
+			var filetype = document.getElementById('Targetfile').value;
+			var file = document.getElementById(elementId).files[0];
+			filename = file.name.replace(/^.+_Results_/, "").replace(/\.txt/, "");
+			subjectname = filename.replace(/_.*$/, "");
+			timestamp = filename.replace(/[^_]*_/, "");
+			if(document.getElementById('Subject').value != "--" && document.getElementById('Subject').value != ""){
+				subjectname = document.getElementById('Subject').value;
+			};
+			if (file) {
+				var tableList = [];
+			    var reader = new FileReader();
+			    reader.readAsText(file, "UTF-8");
+			    reader.onload = function (evt) {						
+					var separator = document.getElementById('Separator').value;
+					if(separator == "tab"){
+						separator = /\t/;
+					} else if(separator == "semicolon") {
+						separator = /;/;
+					} else if(separator == "comma") {
+						separator = /,/;
+					} else if(evt.target.result.match(/\t/)){
+						separator = /\t/;
+					} else if (evt.target.result.match(/;/)){
+						separator = /;/;
+					} else if (evt.target.result.match(/,/)){
+						separator = /,/;
+					} else {
+						separator = /\t/;
+					};
+					var textRead = evt.target.result.split(/\n/);
+					if(textRead.length <= 1) {
+						alert("Not a valid CSV table: "+file);
+						return void(0);
+					};
+					for(var i in  textRead) {
+						var currentRow = [];
+						row = textRead[i];
+						if(i > 0){
+							if(row.length > 1){
+								currentRow = row.split(separator);
+								currentRow.push(subjectname);
+								if(filetype == "ABX"){
+									currentRow.push(0);
+								};
+							};
+						} else {
+							currentRow = row.split(separator);
+							currentRow.push("Subject");
+							if(filetype == "ABX"){
+								currentRow.push("Correct");
+							};
+							answerpos = currentRow.indexOf("Answer");
+							apos = currentRow.indexOf("A");
+							if(filetype == "ABX"){
+								corrpos = currentRow.length - 1;
+								bpos = currentRow.indexOf("B");
+								xpos = currentRow.indexOf("X");
+							};
+						};
+							
+						tableList.push(currentRow);
+					};
+					if(tableList.length <= 1) {
+						alert("Not a valid CSV table: "+file);
+						return void(0);
+					};
+					if(document.getElementById('Practice').value > 0){
+						tableList.splice(1, document.getElementById('Practice').value);
+					};
+					
+					var answer = "";
+					var a = "";
+					var b = "";
+					var x = "";
+					for(r=1; r < tableList.length; r++){
+						row = tableList[r];
+						if(row.length > 0){
+							answer = row[answerpos];
+							a = row[apos];
+							if(filetype == "ABX"){
+								b = row[bpos];
+								x = row[xpos];
+								
+								var correctAnswer = "-";
+								var correct = -1;
+								if(x.substr(0,4) == a.substr(0,4)){
+									correctAnswer = "A";
+								} else if (x.substr(0,4) == b.substr(0,4)){
+									correctAnswer = "B";
+								};
+								if(correctAnswer == "-" || answer.match(/[^AB]/)){
+									correct = -1;
+								} else {
+									correct = (answer == correctAnswer) ? 1 : 0;
+									if(correct > 0)sumcorrect += 1;
+									numvalues += 1;
+								};
+								tableList[r][corrpos] = correct;
+							} else {
+								if(! inNaN(answer) ){
+									n = Number(answer);
+									sumanswers += n;
+									numvalues += 1;
+								};
+							};
+						};
+					};
+					
+					var fractionCorr = sumcorrect/numvalues;
+					var missingInfo = -(fractionCorr*Math.log2(fractionCorr)+(1-fractionCorr)*Math.log2(1-fractionCorr));
+					var displayText = '<h3 style="text-align:center;center;width:60%;margin-left:auto;margin-right:auto;">Review data</h3>'
+					+'<p style="font-style:italic;width:60%;margin-left:auto;margin-right:auto;">'
+					+'Correct: '+sumcorrect+'/'+numvalues+' ('+(100*fractionCorr).toPrecision(2)+'%)<br/>'
+					+'Missing information: '+missingInfo.toPrecision(3)+' bits ('+(100*missingInfo).toPrecision(2)+'%)<br/>'
+					+'</p>'
+					+'<table style="text-align:left;width:90%;margin-left:auto;margin-right:auto;">\n';
+					// header
+					displayText += "";
+					for(r in tableList){
+						row = tableList[r];
+						displayText += "<tr><td>"+row.join("</td><td>")+"</td></tr>\n";
+					};
+
+			        document.getElementById("fileContents").innerHTML = displayText;
+					tableJSON = JSON.stringify([tableList[0],tableList.slice(1)]);
+					document.getElementById('SaveButton').style.visibility = 'visible';
+			    }
+			    reader.onerror = function (evt) {
+			        document.getElementById("fileContents").innerHTML = "error reading file";
+			    }
+			} else {
+				alert("Select a file first");
+			};
+		};
+		
+		function createFileData (tableJSON) {
+			var output = "";
+			output += tableJSON + "';\n";
+			var filetype = document.getElementById('Targetfile').value;
+			var targetFile = "akouste_results_table"+subjectname+"_"+timestamp+".csv";
+			if(filetype != "none") {
+				targetFile = filetype+"_"+targetFile
+			};
+			var blob = new Blob([output], {type: "text/plain"});
+			var blobURL = URL.createObjectURL(blob);
+			document.getElementById('SaveLink').href = blobURL;
+			document.getElementById('SaveLink').download = targetFile;
+		};
+		
+		function reset () {
+			document.getElementById('SaveButton').style.visibility = 'hidden';
+			tableJSON = "";
+			document.getElementById("fileContents").innerHTML = "";
+		};
+		
+	</script>
+  </head>
+  <body> 
+	<a href="" Id="SaveLink" download onclick="javascript:void(0);" style="font-size:30px;visibility:hidden"></a>
+	
+    <h1 style="text-align:center;width:60%;margin-left:auto;margin-right:auto;">Analyse results of ako&uacute;ste listening experiments</h1>
+    <p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">Read a local  ako&uacute;ste results table and analyse it. File extension must be <em>.txt</em>.
+    </p>
+    <h3 style="text-align:center;width:60%;margin-left:auto;margin-right:auto;">Read CSV table</h3>
+    <p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">
+	<form id="fileForUpload" style="font-size:20px;" style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"  action="javascript:readTableFromFile ('CVStable'); void(0);">
+		<p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">
+		<input type="file" id="CVStable" name="CSVtable" accept="text/csv, text/plain" style="font-size:20px;" >
+		</p>
+		<p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">
+			<table style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">
+				<tr>
+					<td colspan="3">Separator
+					<select id="Separator">
+						<option value="auto">---</option>
+						<option value="tab">tab</option>
+						<option value="semicolon" selected>;</option>
+						<option value="comma">,</option>
+					</select>
+					&nbsp;
+					Subject <input id="Subject" type="text" value="--" onclick="var field=document.getElementById('Subject'); if(field.value=='--'){field.value=''};" size="5">
+					&nbsp;
+					Practice <input id="Practice" type="text" value="4" size="2">
+					&nbsp;
+					Target 
+					<select id="Targetfile">
+						<option value="none">--Filename--</option>
+						<option value="ABX" selected>ABX</option>
+						<option value="VAS">VAS</option>
+						<option value="Likert5">Likert5</option>
+					</select>
+					</td>
+				</tr>
+				<tr>
+					<td><input id="Convert" type="submit" style="font-size:20px;" value="Start conversion"></td>
+					<td>&nbsp;</td>
+					<td><a href="javascript:void(0)" id="ToolTipSave" data-toggle="tooltip" title="Save to file" style="visibility:hidden"><button onclick="createFileData (tableJSON); document.getElementById('SaveLink').click();" style="font-size:20px;visibility:hidden;" id="SaveButton"><strong><div id="SaveButtonText"style="color:blue;">Save Results</div></strong></button></a></td>
+				</tr>
+		</table>		
+		</p>
+    </form>
+    </p>
+    <p style="text-align:left;">
+		<div id="fileContents" style="text-align:left;">&nbsp;</div>
+	</p>
+  </body>
+</html>
