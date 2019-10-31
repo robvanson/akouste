@@ -10,6 +10,8 @@
 		var subjectname = "";
 		var timestamp = "";
 		var answerpos = -1;
+		var subjectpos = -1;
+		var correctpos = -1;
 		var apos = -1;
 		var bpos = -1;
 		var xpos = -1;
@@ -17,14 +19,34 @@
 		var sumcorrect = 0;
 		var numvalues = 0;
 		var sumanswers = 0;
+		var IDchars = 4;
+		var startChars = 0;
 		function readTableFromFile (elementId) {
 			var filetype = document.getElementById('Targetfile').value;
 			var file = document.getElementById(elementId).files[0];
+			sumcorrect = 0;
+			numvalues = 0;
+			sumanswers = 0;
+			answerpos = -1;
+			subjectpos = -1;
+			correctpos = -1;
+			apos = -1;
+			bpos = -1;
+			xpos = -1;
+			corrpos = -1;
+					
 			filename = file.name.replace(/^.+_Results_/, "").replace(/\.txt/, "");
 			subjectname = filename.replace(/_.*$/, "");
 			timestamp = filename.replace(/[^_]*_/, "");
 			if(document.getElementById('Subject').value != "--" && document.getElementById('Subject').value != ""){
 				subjectname = document.getElementById('Subject').value;
+			};
+			if(document.getElementById('IDchars').value.match(/[ ;,]/)){
+				bounds = (document.getElementById('IDchars').value).split(/[ ;,]+/);
+				startChars = bounds[0];
+				IDchars = bounds[1];
+			} else {
+				IDchars = document.getElementById('IDchars').value;
 			};
 			if (file) {
 				var tableList = [];
@@ -58,15 +80,26 @@
 						if(i > 0){
 							if(row.length > 1){
 								currentRow = row.split(separator);
-								currentRow.push(subjectname);
-								if(filetype == "ABX"){
+								if(subjectpos < 0){
+									currentRow.push(subjectname);
+								} else {
+									currentRow[subjectpos] = subjectname;
+								};
+								if(filetype == "ABX" && correctpos < 0){
 									currentRow.push(0);
+								} else {
+									currentRow[correctpos] = 0;
 								};
 							};
 						} else {
 							currentRow = row.split(separator);
-							currentRow.push("Subject");
-							if(filetype == "ABX"){
+							subjectpos = currentRow.indexOf("Subject");
+							if(subjectpos < 0){
+								currentRow.push("Subject");
+							};
+							
+							correctpos = currentRow.indexOf("Correct");
+							if(filetype == "ABX" && correctpos < 0){
 								currentRow.push("Correct");
 							};
 							answerpos = currentRow.indexOf("Answer");
@@ -103,9 +136,9 @@
 								
 								var correctAnswer = "-";
 								var correct = -1;
-								if(x.substr(0,4) == a.substr(0,4)){
+								if(x.substr(startChars,IDchars) == a.substr(startChars,IDchars)){
 									correctAnswer = "A";
-								} else if (x.substr(0,4) == b.substr(0,4)){
+								} else if (x.substr(startChars,IDchars) == b.substr(startChars,IDchars)){
 									correctAnswer = "B";
 								};
 								if(correctAnswer == "-" || answer.match(/[^AB]/)){
@@ -202,7 +235,9 @@
 					&nbsp;
 					Practice <input id="Practice" type="text" value="4" size="2">
 					&nbsp;
-					Target 
+					Spk ID <input id="IDchars" type="text" value="4" size="2">
+					&nbsp;
+					Exp 
 					<select id="Targetfile">
 						<option value="none">--Filename--</option>
 						<option value="ABX" selected>ABX</option>
@@ -221,7 +256,19 @@
     </form>
     </p>
     <p style="text-align:left;">
-		<div id="fileContents" style="text-align:left;">&nbsp;</div>
+		<div id="fileContents" style="text-align:left;">
+			<dl>
+			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">Separator:
+			The character separating the values, one of [,;tab]</dd>
+			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">Subject:
+			Subject, or listener, identificator</dd>
+			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">Practice:
+			Number of practice items. These will be removed</dd>
+			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">Spkr ID:
+			Characters in audio filenames that identify the speaker as &lt;start position&gt;, &lt;length&gt;. Default "0, 4". With only a single number, this is the number of characters from 0.</dd>
+			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">Exp: Experiment type, one of ABX, VAS or Likert5.</dd>
+			</dl>
+		</div>
 	</p>
   </body>
 </html>
