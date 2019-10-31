@@ -5,7 +5,7 @@
     <title>Analyse results of ako&uacute;ste listening experiments</title>
     <meta name="description" content="Webpage for converting CSV tables into JSON stimulus lists">
     <script>
-		var tableJSON = "";
+		var tableCSV = "";
 		var filename = "";
 		var subjectname = "";
 		var timestamp = "";
@@ -175,7 +175,11 @@
 					};
 
 			        document.getElementById("fileContents").innerHTML = displayText;
-					tableJSON = JSON.stringify([tableList[0],tableList.slice(1)]);
+					tableCSV = "";
+					for(i=0; i<tableList.length; i++){
+						tableCSV += tableList[i].join(";");
+						tableCSV += "\n";
+					};
 					document.getElementById('SaveButton').style.visibility = 'visible';
 			    }
 			    reader.onerror = function (evt) {
@@ -186,11 +190,11 @@
 			};
 		};
 		
-		function createFileData (tableJSON) {
+		function createFileData (tableCSV) {
 			var output = "";
-			output += tableJSON + "';\n";
+			output += tableCSV + "';\n";
 			var filetype = document.getElementById('Targetfile').value;
-			var targetFile = "akouste_results_table"+subjectname+"_"+timestamp+".csv";
+			var targetFile = "akouste_results_table_"+subjectname+"_"+timestamp+".csv";
 			if(filetype != "none") {
 				targetFile = filetype+"_"+targetFile
 			};
@@ -202,7 +206,7 @@
 		
 		function reset () {
 			document.getElementById('SaveButton').style.visibility = 'hidden';
-			tableJSON = "";
+			tableCSV = "";
 			document.getElementById("fileContents").innerHTML = "";
 		};
 		
@@ -246,10 +250,11 @@
 					</select>
 					</td>
 				</tr>
+				<tr><td colspan="3">&nbsp;</td></tr>
 				<tr>
 					<td><input id="Convert" type="submit" style="font-size:20px;" value="Start conversion"></td>
 					<td>&nbsp;</td>
-					<td><a href="javascript:void(0)" id="ToolTipSave" data-toggle="tooltip" title="Save to file" style="visibility:hidden"><button onclick="createFileData (tableJSON); document.getElementById('SaveLink').click();" style="font-size:20px;visibility:hidden;" id="SaveButton"><strong><div id="SaveButtonText"style="color:blue;">Save Results</div></strong></button></a></td>
+					<td><a href="javascript:void(0)" id="ToolTipSave" data-toggle="tooltip" title="Save to file" style="visibility:hidden"><button onclick="createFileData (tableCSV); document.getElementById('SaveLink').click();" style="font-size:20px;visibility:hidden;" id="SaveButton"><strong><div id="SaveButtonText"style="color:blue;">Save Results</div></strong></button></a></td>
 				</tr>
 		</table>		
 		</p>
@@ -258,15 +263,15 @@
     <p style="text-align:left;">
 		<div id="fileContents" style="text-align:left;">
 			<dl>
-			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">Separator:
-			The character separating the values, one of [,;tab]</dd>
-			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">Subject:
-			Subject, or listener, identificator</dd>
-			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">Practice:
+			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em>Separator</em>:
+			The character separating the values, one of [, ; tab]</dd>
+			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em>Subject</em>:
+			Subject, or listener, identifier</dd>
+			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em>Practice</em>:
 			Number of practice items. These will be removed</dd>
-			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">Spkr ID:
+			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em>Spkr ID</em>:
 			Characters in audio filenames that identify the speaker as &lt;start position&gt;, &lt;length&gt;. Default "0, 4". With only a single number, this is the number of characters from 0.</dd>
-			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">Exp: Experiment type, one of ABX, VAS or Likert5.</dd>
+			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em>Exp</em>: Experiment type, one of ABX, VAS or Likert5.</dd>
 			</dl>
 		</div>
 	</p>
