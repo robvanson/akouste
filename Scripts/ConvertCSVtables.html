@@ -35,7 +35,9 @@
 						return void(0);
 					};
 					for(var i in  textRead) {
-						tableList.push((textRead[i]).split(separator));
+						// Silly Javascript hack to remove CR \r
+						row = textRead[i].replace(/\r/g,"");
+						tableList.push(row.split(separator));
 					};
 					if(tableList.length <= 1) {
 						alert("Not a valid CSV table: "+file);
