@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Analyse results of ako&uacute;ste listening experiments</title>
+    <title>Process results of ako&uacute;ste listening experiments</title>
     <meta name="description" content="Webpage for converting CSV tables into JSON stimulus lists">
     <script>
 		var tableCSV = "";
@@ -21,19 +21,30 @@
 		var sumanswers = 0;
 		var IDchars = 4;
 		var startChars = 0;
+		var valuesList = [];
 		function readTableFromFile (elementId) {
 			var filetype = document.getElementById('Targetfile').value;
 			var file = document.getElementById(elementId).files[0];
+			
+			// Re initialize
 			sumcorrect = 0;
 			numvalues = 0;
 			sumanswers = 0;
+			sumanswersSQR = 0;
 			answerpos = -1;
 			subjectpos = -1;
 			correctpos = -1;
 			apos = -1;
 			bpos = -1;
 			xpos = -1;
+			normalizedpos = -1;
 			corrpos = -1;
+			sumcorrect = 0;
+			numvalues = 0;
+			sumanswers = 0;
+			IDchars = 4;
+			startChars = 0;
+			valuesList = [];
 					
 			filename = file.name.replace(/^.+_Results_/, "").replace(/\.txt/, "");
 			subjectname = filename.replace(/_.*$/, "");
@@ -109,6 +120,7 @@
 								bpos = currentRow.indexOf("B");
 								xpos = currentRow.indexOf("X");
 							};
+							normalizedpos = currentRow.indexOf("Z");
 						};
 							
 						tableList.push(currentRow);
@@ -150,23 +162,104 @@
 								};
 								tableList[r][corrpos] = correct;
 							} else {
-								if(! inNaN(answer) ){
+								if(! isNaN(answer) ){
 									n = Number(answer);
 									sumanswers += n;
+									sumanswersSQR += n*n;
 									numvalues += 1;
+									valuesList.push(n);
 								};
 							};
 						};
 					};
 					
-					var fractionCorr = sumcorrect/numvalues;
-					var missingInfo = -(fractionCorr*Math.log2(fractionCorr)+(1-fractionCorr)*Math.log2(1-fractionCorr));
 					var displayText = '<h3 style="text-align:center;center;width:60%;margin-left:auto;margin-right:auto;">Review data</h3>'
-					+'<p style="font-style:italic;width:60%;margin-left:auto;margin-right:auto;">'
-					+'Correct: '+sumcorrect+'/'+numvalues+' ('+(100*fractionCorr).toPrecision(2)+'%)<br/>'
-					+'Missing information: '+missingInfo.toPrecision(3)+' bits ('+(100*missingInfo).toPrecision(2)+'%)<br/>'
-					+'</p>'
-					+'<table style="text-align:left;width:90%;margin-left:auto;margin-right:auto;">\n';
+					+'<p style="font-style:italic;width:60%;margin-left:auto;margin-right:auto;">';
+					if(filetype == "ABX"){
+						var fractionCorr = sumcorrect/numvalues;
+						var missingInfo = -(fractionCorr*Math.log2(fractionCorr)+(1-fractionCorr)*Math.log2(1-fractionCorr));
+						displayText += 'Correct: '+sumcorrect+'/'+numvalues+' ('+(100*fractionCorr).toPrecision(2)+'%)<br/>';
+						displayText += 'Missing information: '+missingInfo.toPrecision(3)+' bits ('+(100*missingInfo).toPrecision(2)+'%)<br/>';
+					} else if(filetype == "VAS") {
+						var meanVAS = sumanswers/numvalues;
+						var sdVAS = Math.sqrt((sumanswersSQR - (sumanswers**2/numvalues))/(numvalues-1));
+						valuesList.sort();
+						// Add normalized Z column
+						for(r=0; r < tableList.length; r++){
+							row = tableList[r];
+							if(row.length > 0){
+								if(r > 0){
+									n = row[answerpos];
+									if(! isNaN(n)){
+										if(normalizedpos < 0){
+											var z = (n-meanVAS)/sdVAS;
+											row.push(z.toPrecision(4));
+										};
+									} else {
+										row.push(n);
+									};
+								} else {
+									if(normalizedpos < 0){
+										row.push("Z");
+									};
+								};
+							};
+						};
+						
+						var perc50pos = Math.floor(valuesList.length/2) - 1;
+						var perc05pos = Math.floor(valuesList.length/20) - 1;
+						var perc95pos = valuesList.length - perc05pos - 1;
+						var medianVAS = valuesList[perc50pos];
+						var perc05VAS = valuesList[perc05pos];
+						var perc95VAS = valuesList[perc95pos];
+						if(valuesList.length % 2 == 0){
+							medianVAS = (valuesList[perc50pos] + valuesList[perc50pos + 1])/2
+						};
+
+						displayText += 'Mean: '+meanVAS.toPrecision(3)+'&plusmn; '+sdVAS.toPrecision(3)+' (1 sd)<br/>';
+						displayText += 'Median: '+medianVAS.toPrecision(4)+' (5%: '+perc05VAS.toPrecision(3)+', 95%: '+perc95VAS.toPrecision(3)+')<br/>';
+						
+					} else if(filetype == "Likert5") {
+						var meanLikert5 = sumanswers/numvalues;
+						var sdLikert5 = Math.sqrt((sumanswersSQR - (sumanswers**2/numvalues))/(numvalues-1));
+						valuesList.sort();
+						// Add normalized Z column
+						for(r=0; r < tableList.length; r++){
+							row = tableList[r];
+							if(row.length > 0){
+								if(r > 0){
+									n = row[answerpos];
+									if(! isNaN(n)){
+										if(normalizedpos < 0){
+											var z = (n - meanLikert5)/sdLikert5;
+											row.push(z.toPrecision(4));
+										};
+									} else {
+										row.push(n);
+									};
+								} else {
+									if(normalizedpos < 0){
+										row.push("Z");
+									};
+								};
+							};
+						};
+						
+						var perc50pos = Math.floor(valuesList.length/2) - 1;
+						var perc05pos = Math.floor(valuesList.length/20) - 1;
+						var perc95pos = valuesList.length - perc05pos - 1;
+						var medianLikert5 = valuesList[perc50pos];
+						var perc05Likert5 = valuesList[perc05pos];
+						var perc95Likert5 = valuesList[perc95pos];
+						if(valuesList.length % 2 == 0){
+							medianLikert5 = (valuesList[perc50pos] + valuesList[perc50pos + 1])/2
+						};
+
+						displayText += 'Mean: '+meanLikert5.toPrecision(3)+'&plusmn; '+sdLikert5.toPrecision(3)+' (1 sd)<br/>';
+						displayText += 'Median: '+medianLikert5.toPrecision(4)+' (5%: '+perc05Likert5.toPrecision(3)+', 95%: '+perc95Likert5.toPrecision(3)+')<br/>';
+					};
+					displayText += 'N: '+numvalues+'</p>'
+							+'<table style="text-align:left;width:90%;margin-left:auto;margin-right:auto;">\n';
 					// header
 					displayText += "";
 					for(r in tableList){
@@ -183,7 +276,7 @@
 					document.getElementById('SaveButton').style.visibility = 'visible';
 			    }
 			    reader.onerror = function (evt) {
-			        document.getElementById("fileContents").innerHTML = "error reading file";
+			        document.getElementById("fileContents").innerHTML = "error reading file "+evt;
 			    }
 			} else {
 				alert("Select a file first");
@@ -215,8 +308,8 @@
   <body> 
 	<a href="" Id="SaveLink" download onclick="javascript:void(0);" style="font-size:30px;visibility:hidden"></a>
 	
-    <h1 style="text-align:center;width:60%;margin-left:auto;margin-right:auto;">Analyse results of ako&uacute;ste listening experiments</h1>
-    <p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">Read a local  ako&uacute;ste results table and analyse it. File extension must be <em>.txt</em>.
+    <h1 style="text-align:center;width:60%;margin-left:auto;margin-right:auto;">Inspect and process results of ako&uacute;ste listening experiments</h1>
+    <p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">Read a local ako&uacute;ste results table and inspect and process it. File extension must be <em>.txt</em>.
     </p>
     <h3 style="text-align:center;width:60%;margin-left:auto;margin-right:auto;">Read CSV table</h3>
     <p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">
@@ -270,8 +363,8 @@
 			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em>Practice</em>:
 			Number of practice items. These will be removed</dd>
 			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em>Spkr ID</em>:
-			Characters in audio filenames that identify the speaker, as &lt;start position&gt;, &lt;length&gt;. Default "0, 4". With only a single number, this is the number of characters from 0.</dd>
-			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em>Exp</em>: Experiment type, one of ABX, VAS or Likert5.</dd>
+			Characters in audio filenames that identify the speaker, as &lt;start position&gt;, &lt;length&gt;. Default "0, 4". With only a single number, this is the number of characters from 0. (Only relevant when <em>Exp</em> is <em>ABX</em>)</dd>
+			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em>Exp</em>: Experiment type, one of ABX, VAS or Likert5. The choice of experiment affects the processing. With <em>ABX</em>, the correct choices are marked. With <em>VAS</em> and <em>Likert5</em>, a normalized Z-score is calculated.</dd>
 			</dl>
 		</div>
 	</p>
