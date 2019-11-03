@@ -37,7 +37,9 @@
 					for(var i in  textRead) {
 						// Silly Javascript hack to remove CR \r
 						row = textRead[i].replace(/\r/g,"");
-						tableList.push(row.split(separator));
+						if(row.search(/\w/) >= 0){
+							tableList.push(row.split(separator));
+						};
 					};
 					if(tableList.length <= 1) {
 						alert("Not a valid CSV table: "+file);
