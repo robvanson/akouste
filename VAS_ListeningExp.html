@@ -141,60 +141,7 @@
 		    return [columnNames, data];
 		};
         
-		function loadListOLD (csv) {
-			//fetch('Stimuli_VASslider.csv')
-			//	.then(response => response.text())
-			//	.then(text => csv = text);
-			var columnNames = ["A"];
-			if(typeof(Storage) !== "undefined" && localStorage.getItem('VASstimuluslist')){
-				// Store
-				data = JSON.parse(localStorage.getItem('VASstimuluslist'));
-				if(localStorage.getItem('VAScolumnnames')){
-					columnNames = JSON.parse(localStorage.getItem('VAScolumnnames'));
-				} else {
-					localStorage.setItem('VAScolumnnames', JSON.stringify(columnNames));
-				};
-				if(localStorage.getItem('VASanswerlist')){
-					answerList = JSON.parse(localStorage.getItem('VASanswerlist'));
-					stimulusNbr = answerList.length;
-				};
-				if(stimulusNbr >= data.length){
-					// The experiment has been finished, but not reset
-					FinishExperimentRun ();
-					onSave ();
-				};				
-			} else {
-			    // Split the input into lines
-			    lines = csv.split('\n').filter(e => e);
-			
-			    // Extract column names from the first line
-			    columnNamesLine = lines[0];
-			    columnNames = columnNamesLine.split(/[;\t]/g).filter(e => e);
-			
-			    // Extract data from subsequent lines
-			    dataLines = lines.slice(1);
-			    while(dataLines[dataLines.length-1] == [])dataLines.pop();
-			    data = dataLines.map(function(x){return x.split(/[;\t]/g).filter(e => e)});
-			    
-			    if(ShuffleStimulusList)data = shuffle(data);
-			    if(PracticeItems > 0){
-					practise = data.slice(data.length-PracticeItems, data.length).reverse();
-					tmp = practise.concat(data);
-					data = tmp.concat();
-				};
-				
-				if (typeof(Storage) !== "undefined") {
-					// Store
-					localStorage.setItem('VASstimuluslist', JSON.stringify(data));
-					localStorage.setItem('VAScolumnnames', JSON.stringify(columnNames));
-				}
-			};
-		    
-			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (data.length - stimulusNbr)+"");
-		    return [columnNames, data];
-		};
-        
-        function unblockNext (x) {
+       function unblockNext (x) {
 			playedA = playedA || x=="SpeakerA";
 			changedSlider = changedSlider || x=="Slider";
 			playedSamples = playedA && changedSlider;
@@ -222,7 +169,7 @@
         function collectAnswer () {
 			var speakerA = document.getElementById('SpeakerA').title;
 			
-			answerList.push((stimulusNbr+1)+";"+answer.join(";")+";"+speakerA);
+			answerList.push((stimulusNbr+1)+";"+answer.join(";")+";"+(stimulusTable[1][stimulusNbr]).join(";"));
 			if (typeof(Storage) !== "undefined") {
 				// Store
 				localStorage.setItem('VASanswerlist', JSON.stringify(answerList));
@@ -233,7 +180,7 @@
 			var answerNums = Array.from(Array(NumberOfScales+1).keys());
 			var answerTexts = Array(NumberOfScales).fill("Answer");
 			answerTexts = answerTexts.map(function(el, idx){return el+answerNums[idx+1]})
-			var output = "Num;"+answerTexts.join(";")+";Stimulus\n";
+			var output = "Num;"+answerTexts.join(";")+";"+(stimulusTable[0]).join(";")+"\n";
 			for (var i=0; i<x.length; i++) {
 				line = "";
 				output += x[i] + '\n';

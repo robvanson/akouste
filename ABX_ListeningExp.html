@@ -179,7 +179,7 @@
 			var speakerA = document.getElementById('SpeakerA').title;
 			var speakerB = document.getElementById('SpeakerB').title;
 			
-			answerList.push((stimulusNbr+1)+";"+answer+";"+speakerX+";"+speakerA+";"+speakerB);
+			answerList.push((stimulusNbr+1)+";"+answer+";"+(stimulusTable[1][stimulusNbr]).join(";"));
 			if (typeof(Storage) !== "undefined") {
 				// Store
 				localStorage.setItem('ABXanswerlist', JSON.stringify(answerList));
@@ -187,7 +187,7 @@
 		};
 
 		function displayArray (x) {
-			var output = "Num;Answer;X;A;B\n";
+			var output = "Num;Answer;"+(stimulusTable[0]).join(";")+"\n"
 			for (var i=0; i<x.length; i++) {
 				line = "";
 				output += x[i] + '\n';

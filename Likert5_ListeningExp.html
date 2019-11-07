@@ -131,7 +131,7 @@
         function collectAnswer () {
 			var speakerA = document.getElementById('SpeakerA').title;
 			
-			answerList.push((stimulusNbr+1)+";"+answer.join(";")+";"+speakerA);
+			answerList.push((stimulusNbr+1)+";"+answer.join(";")+";"+(stimulusTable[1][stimulusNbr]).join(";"));
 			if (typeof(Storage) !== "undefined") {
 				// Store
 				localStorage.setItem('LK5answerlist', JSON.stringify(answerList));
@@ -142,7 +142,7 @@
 			var answerNums = Array.from(Array(NumberOfScales+1).keys());
 			var answerTexts = Array(NumberOfScales).fill("Answer");
 			answerTexts = answerTexts.map(function(el, idx){return el+answerNums[idx+1]})
-			var output = "Num;"+answerTexts.join(";")+";Stimulus\n";
+			var output = "Num;"+answerTexts.join(";")+";"+(stimulusTable[0]).join(";")+"\n";
 			for (var i=0; i<x.length; i++) {
 				line = "";
 				output += x[i] + '\n';
