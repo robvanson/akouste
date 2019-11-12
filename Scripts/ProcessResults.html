@@ -54,7 +54,7 @@
 			numvalues = 0;
 			sumanswers = 0;
 			sumanswersSQR = 0;
-			answerpos = -1;
+			answerpos = [];
 			subjectpos = -1;
 			apos = -1;
 			bpos = -1;
@@ -148,7 +148,10 @@
 							if(filetype == "ABX" && corrpos < 0){
 								currentRow.push("Correct");
 							};
-							answerpos = currentRow.indexOf("Answer");
+							answersList = currentRow.filter(function(x, i){return x.match(/^Answer/)});
+							for (x in answersList) {
+								answerpos.push(currentRow.indexOf(answersList[x]));
+							};
 							apos = currentRow.indexOf("A");
 							if(filetype == "ABX"){
 								bpos = currentRow.indexOf("B");
@@ -179,11 +182,14 @@
 					for(r=1; r < tableList.length; r++){
 						row = tableList[r];
 						if(row.length > 0){
-							answer = row[answerpos];
-							a = row[apos];
+							answer = [];
+							for(x in answerpos) {
+								answer.push(row[answerpos[x]]);
+							};
+							a = row[apos].replace(/^.*\/([^/]+)$/g, "$1");
 							if(filetype == "ABX" && xpos >= 0 && bpos >= 0){
-								b = row[bpos];
-								x = row[xpos];
+								b = row[bpos].replace(/^.*\/([^/]+)$/g, "$1");
+								x = row[xpos].replace(/^.*\/([^/]+)$/g, "$1");
 								
 								var correctAnswer = "-";
 								var correct = -1;
@@ -192,21 +198,23 @@
 								} else if (x.substr(startChars,IDchars) == b.substr(startChars,IDchars)){
 									correctAnswer = "B";
 								};
-								if(correctAnswer == "-" || answer.match(/[^AB]/)){
+								if(correctAnswer == "-" || answer[0].match(/[^AB]/)){
 									correct = -1;
 								} else {
-									correct = (answer == correctAnswer) ? 1 : 0;
+									correct = (answer[0] == correctAnswer) ? 1 : 0;
 									if(correct > 0)sumcorrect += 1;
 									numvalues += 1;
 								};
 								tableList[r][corrpos] = correct;
 							} else {
-								if(! isNaN(answer) ){
-									n = Number(answer);
-									sumanswers += n;
-									sumanswersSQR += n*n;
-									numvalues += 1;
-									valuesList.push(n);
+								for(x in answer){
+									if(! isNaN(answer[x]) ){
+										n = Number(answer[x]);
+										sumanswers += n;
+										sumanswersSQR += n*n;
+										numvalues += 1;
+										valuesList.push(n);
+									};
 								};
 							};
 						};
