@@ -22,6 +22,28 @@
 			alert("This experiment does not work with Internet Explorer.\nPlease, use Chrome, Firefox, Safari or related browsers");
 		};
 	</script>
+	<script language="Javascript" src="sha.js"></script>
+	<script language="JavaScript">
+		// Hash Function definitions
+		function hex_sha1 (plaintext) {
+			var shaObj = new jsSHA("SHA-1", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		function hex_sha256 (plaintext) {
+			var shaObj = new jsSHA("SHA-256", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		function hex_sha512 (plaintext) {
+			var shaObj = new jsSHA("SHA-512", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		function chained_sha (plaintext) {
+			return hex_sha256( hex_sha256( hex_sha512(plaintext) ) );
+		};
+	</script>
 	<script language="JavaScript" src="InitLikert5ListeningExperiment.js"></script>
 	<script language="JavaScript" src="Read_Likert5_Stimuluslist.js"></script>
 	<script language="JavaScript">
@@ -51,6 +73,9 @@
 				if(localStorage.getItem('LK5answerlist')){
 					answerList = JSON.parse(localStorage.getItem('LK5answerlist'));
 					stimulusNbr = answerList.length;
+				};
+				if(localStorage.getItem('LK5lastDigest')){
+					lastDigest = localStorage.getItem('LK5lastDigest');
 				};
 				if(stimulusNbr >= data.length){
 					// The experiment has been finished, but not reset
@@ -128,13 +153,23 @@
 			setProgress(100*stimulusNbr/data.length);
 		};
         
+        var lastDigest = hex_sha256 (" ".repeat(256));
         function collectAnswer () {
+			if(localStorage.getItem('LK5lastDigest')){
+				lastDigest = localStorage.getItem('LK5lastDigest');
+			};
+			
 			var speakerA = document.getElementById('SpeakerA').title;
 			
-			answerList.push((stimulusNbr+1)+";"+answer.join(";")+";"+(stimulusTable[1][stimulusNbr]).join(";"));
+			var newLine = (stimulusNbr+1)+";"+answer.join(";")+";"+(stimulusTable[1][stimulusNbr]).join(";");
+			var newDigest = hex_sha256(lastDigest + newLine);
+			lastDigest = newDigest;
+			answerList.push(newLine + ";" + newDigest.substr(0,6));
+
 			if (typeof(Storage) !== "undefined") {
 				// Store
 				localStorage.setItem('LK5answerlist', JSON.stringify(answerList));
+				localStorage.setItem('LK5lastDigest', lastDigest);
 			};
 		};
 
@@ -142,7 +177,7 @@
 			var answerNums = Array.from(Array(NumberOfScales+1).keys());
 			var answerTexts = Array(NumberOfScales).fill("Answer");
 			answerTexts = answerTexts.map(function(el, idx){return el+answerNums[idx+1]})
-			var output = "Num;"+answerTexts.join(";")+";"+(stimulusTable[0]).join(";")+"\n";
+			var output = "Num;"+answerTexts.join(";")+";"+(stimulusTable[0]).join(";")+";Digest\n";
 			for (var i=0; i<x.length; i++) {
 				line = "";
 				output += x[i] + '\n';

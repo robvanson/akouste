@@ -4,14 +4,35 @@
     <meta charset="utf-8">
     <title>Process results of ako&uacute;ste listening experiments</title>
     <meta name="description" content="Webpage for converting CSV tables into JSON stimulus lists">
-    <script>
+	<script language="Javascript" src="../sha.js"></script>
+	<script language="JavaScript">
+		// Hash Function definitions
+		function hex_sha1 (plaintext) {
+			var shaObj = new jsSHA("SHA-1", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		function hex_sha256 (plaintext) {
+			var shaObj = new jsSHA("SHA-256", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		function hex_sha512 (plaintext) {
+			var shaObj = new jsSHA("SHA-512", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		function chained_sha (plaintext) {
+			return hex_sha256( hex_sha256( hex_sha512(plaintext) ) );
+		};
+	</script>
+    <script language="JavaScript">
 		var tableCSV = "";
 		var filename = "";
 		var subjectname = "";
 		var timestamp = "";
 		var answerpos = -1;
 		var subjectpos = -1;
-		var correctpos = -1;
 		var apos = -1;
 		var bpos = -1;
 		var xpos = -1;
@@ -22,6 +43,8 @@
 		var IDchars = 4;
 		var startChars = 0;
 		var valuesList = [];
+		var tableList = [];
+		var digestList = ["Check"];
 		function readTableFromFile (elementId) {
 			var filetype = document.getElementById('Targetfile').value;
 			var file = document.getElementById(elementId).files[0];
@@ -33,12 +56,12 @@
 			sumanswersSQR = 0;
 			answerpos = -1;
 			subjectpos = -1;
-			correctpos = -1;
 			apos = -1;
 			bpos = -1;
 			xpos = -1;
 			normalizedpos = -1;
 			corrpos = -1;
+			digestpos = -1;
 			sumcorrect = 0;
 			numvalues = 0;
 			sumanswers = 0;
@@ -60,7 +83,9 @@
 				IDchars = document.getElementById('IDchars').value;
 			};
 			if (file) {
-				var tableList = [];
+				var lastDigest = hex_sha256 (" ".repeat(256));
+				digestList = ["Check"];
+				tableList = [];
 			    var reader = new FileReader();
 			    reader.readAsText(file, "UTF-8");
 			    reader.onload = function (evt) {						
@@ -91,18 +116,27 @@
 						row = textRead[i].replace(/\r/g,"");
 						if(i > 0){
 							if(row.length > 1){
+								if(digestpos > -1){
+									// Only works at the END of a line
+									originalDigest = row.substr(row.lastIndexOf(";")+1);
+									row = row.substr(0, row.lastIndexOf(";"));
+									var currentDigest = hex_sha256(lastDigest + row);
+									lastDigest = currentDigest;
+									digestList.push(originalDigest == currentDigest.substr(0, originalDigest.length));
+								};
 								currentRow = row.split(separator);
 								if(subjectpos < 0){
 									currentRow.push(subjectname);
 								} else {
 									currentRow[subjectpos] = subjectname;
 								};
-								if(filetype == "ABX" && correctpos < 0){
+								if(filetype == "ABX" && corrpos < 0){
 									currentRow.push(0);
+									corrpos = currentRow.length - 1;
 								} else {
-									currentRow[correctpos] = 0;
+									currentRow[corrpos] = 0;
 								};
-							};
+						};
 						} else {
 							currentRow = row.split(separator);
 							subjectpos = currentRow.indexOf("Subject");
@@ -110,18 +144,22 @@
 								currentRow.push("Subject");
 							};
 							
-							correctpos = currentRow.indexOf("Correct");
-							if(filetype == "ABX" && correctpos < 0){
+							corrpos = currentRow.indexOf("Correct");
+							if(filetype == "ABX" && corrpos < 0){
 								currentRow.push("Correct");
 							};
 							answerpos = currentRow.indexOf("Answer");
 							apos = currentRow.indexOf("A");
 							if(filetype == "ABX"){
-								corrpos = currentRow.length - 1;
 								bpos = currentRow.indexOf("B");
 								xpos = currentRow.indexOf("X");
 							};
 							normalizedpos = currentRow.indexOf("Z");
+							digestpos = currentRow.indexOf("Digest");
+							// Remove digest
+							if(digestpos > -1){
+								currentRow.splice(digestpos, 1);
+							};
 						};
 							
 						tableList.push(currentRow);
@@ -265,7 +303,20 @@
 					displayText += "";
 					for(r in tableList){
 						row = tableList[r];
-						displayText += "<tr><td>"+row.join("</td><td>")+"</td></tr>\n";
+						var digestInsert = "";
+						if(digestList.length > 1){
+							digestValue = digestList[r];
+							digestInsert = "<td>"+digestValue+"</td>"
+							if(digestValue){
+								digestInsert = "<td style='color:green;'>"+digestValue+"</td>"
+							} else {
+								digestInsert = "<td style='color:red;'>"+digestValue+"</td>"
+							};
+						};
+						// Skip empty rows
+						if(row.length > 0){
+							displayText += "<tr><td>"+row.join("</td><td>")+"</td>"+digestInsert+"</tr>\n";
+						};
 					};
 
 			        document.getElementById("fileContents").innerHTML = displayText;
@@ -366,6 +417,7 @@
 			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em>Spkr ID</em>:
 			Characters in audio filenames that identify the speaker, as &lt;start position&gt;, &lt;length&gt;. Default "0, 4". With only a single number, this is the number of characters from 0. (Only relevant when <em>Exp</em> is <em>ABX</em>)</dd>
 			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em>Exp</em>: Experiment type, one of ABX, VAS or Likert5. The choice of experiment affects the processing. With <em>ABX</em>, the correct choices are marked. With <em>VAS</em> and <em>Likert5</em>, a normalized Z-score is calculated.</dd>
+			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em style="color:green">Check</em> column: The integrity of the rows in a response files from <em>ako&uacute;ste</em> are checked. Rows with (red) <em style="color:red">false</em> entries have been corrupted. After a <em>false</em> row, all rows below will fail the test too.</dd>
 			</dl>
 		</div>
 	</p>

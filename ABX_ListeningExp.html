@@ -13,6 +13,28 @@
 			alert("This experiment does not work with Internet Explorer.\nPlease, use Chrome, Firefox, Safari or a related browser");
 		};
 	</script>
+	<script language="Javascript" src="sha.js"></script>
+	<script language="JavaScript">
+		// Hash Function definitions
+		function hex_sha1 (plaintext) {
+			var shaObj = new jsSHA("SHA-1", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		function hex_sha256 (plaintext) {
+			var shaObj = new jsSHA("SHA-256", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		function hex_sha512 (plaintext) {
+			var shaObj = new jsSHA("SHA-512", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		function chained_sha (plaintext) {
+			return hex_sha256( hex_sha256( hex_sha512(plaintext) ) );
+		};
+	</script>
 	<script language="JavaScript" src="InitABXListeningExperiment.js"></script>
 	<script language="JavaScript" src="Read_ABX_Stimuluslist.js"></script>
 	<script language="JavaScript">
@@ -45,6 +67,9 @@
 				if(localStorage.getItem('ABXanswerlist')){
 					answerList = JSON.parse(localStorage.getItem('ABXanswerlist'));
 					stimulusNbr = answerList.length;
+				};
+				if(localStorage.getItem('ABXlastDigest')){
+					lastDigest = localStorage.getItem('ABXlastDigest');
 				};
 				if(stimulusNbr >= data.length){
 					// The experiment has been finished, but not reset
@@ -174,20 +199,29 @@
 			setProgress(100*stimulusNbr/data.length);
 		};
         
+        var lastDigest = hex_sha256 (" ".repeat(256));
         function collectAnswer () {
+			if(localStorage.getItem('ABXlastDigest')){
+				lastDigest = localStorage.getItem('ABXlastDigest');
+			};
+			
 			var speakerX = document.getElementById('SpeakerX').title;
 			var speakerA = document.getElementById('SpeakerA').title;
 			var speakerB = document.getElementById('SpeakerB').title;
 			
-			answerList.push((stimulusNbr+1)+";"+answer+";"+(stimulusTable[1][stimulusNbr]).join(";"));
+			var newLine = (stimulusNbr+1)+";"+answer+";"+(stimulusTable[1][stimulusNbr]).join(";")
+			var newDigest = hex_sha256(lastDigest + newLine);
+			lastDigest = newDigest;
+			answerList.push(newLine + ";" + newDigest.substr(0,6));
 			if (typeof(Storage) !== "undefined") {
 				// Store
 				localStorage.setItem('ABXanswerlist', JSON.stringify(answerList));
+				localStorage.setItem('ABXlastDigest', lastDigest);
 			};
 		};
 
 		function displayArray (x) {
-			var output = "Num;Answer;"+(stimulusTable[0]).join(";")+"\n"
+			var output = "Num;Answer;"+(stimulusTable[0]).join(";")+";Digest\n"
 			for (var i=0; i<x.length; i++) {
 				line = "";
 				output += x[i] + '\n';
