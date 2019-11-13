@@ -132,7 +132,27 @@
     </form>
     </p>
     <p style="text-align:left;">
-		<div id="fileContents" style="text-align:left;">&nbsp;</div>
+		<div id="fileContents" style="text-align:left;">
+			<dl>
+			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em>Separator</em>:
+			The character separating the values, one of [, ; tab]</dd>
+			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em>Target</em>:
+			The target filname. One of: <br />
+			<em>Read_ABX_Stimuluslist.js</em>, <em>Read_VAS_Stimuluslist.js</em>, <em>Read_Likert5_Stimuluslist.js</em>
+			</dd>
+			</dl>
+			<h3 style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">How to construct a stimulus <em>CSV</em> table</h3>
+			<p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">
+				 ako&uacute;ste needs a list of stimuli in the format of a Javascript (.js) file to run an experiment. This page converts a table file in <a href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV</a> format to the required Javascript file. Such a CSV file can easily be created using any spreadsheet, database, or statistical application. A detailed, step by step, description of how to create a CSV file can be found <a href="https://www.wikihow.com/Create-a-CSV-File">here</a>. In this place, we will only describe the parts specific for ako&uacute;ste.
+			</p>
+			<p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">
+				The paths, or (relative) url's, of the stimuli needed by ako&uacute;ste should be placed in columns labeled <strong>A</strong> (for all experiments), <strong>B</strong>, and <strong>X</strong> (for <em>ABX</em> experiments). If no such columns are present, the first three columns are used in the order ABX. Any other columns will be written to the response file too. This means that you can add the data needed for later processing of the answers in separate columns.<br />
+				<em>Note: You are free to choose any one of the three separators, tab, semicolon (;), and comma (,). But this page will not handle attempts to quote or escape the sepatator.</em>
+			</p>
+			<p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">
+				When your CSV file is ready, select it with the <em>Browse...</em> button. Select your <em>separator</em> and <em>target</em> file name and click on <em>Start conversion</em>. You will see the data you submitted in table form. Check whether the data have been correctly interpreted and formatted. Then click <em>Save Results</em>. The Javascript file will be downloaded into the customary place on your computer, depending on your browser configuration.
+			</p>
+		</div>
 	</p>
   </body>
 </html>

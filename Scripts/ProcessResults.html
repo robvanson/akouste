@@ -136,7 +136,7 @@
 								} else {
 									currentRow[corrpos] = 0;
 								};
-						};
+							};
 						} else {
 							currentRow = row.split(separator);
 							subjectpos = currentRow.indexOf("Subject");
@@ -187,9 +187,12 @@
 								answer.push(row[answerpos[x]]);
 							};
 							a = row[apos].replace(/^.*\/([^/]+)$/g, "$1");
+							row[apos] = a.replace(/\.[^\.\/]+$/g, "");
 							if(filetype == "ABX" && xpos >= 0 && bpos >= 0){
 								b = row[bpos].replace(/^.*\/([^/]+)$/g, "$1");
+								row[bpos] = b.replace(/\.[^\.\/]+$/g, "");
 								x = row[xpos].replace(/^.*\/([^/]+)$/g, "$1");
+								row[xpos] = x.replace(/\.[^\.\/]+$/g, "");
 								
 								var correctAnswer = "-";
 								var correct = -1;
