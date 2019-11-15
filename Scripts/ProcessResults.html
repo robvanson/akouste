@@ -333,8 +333,10 @@
 			        document.getElementById("fileContents").innerHTML = displayText;
 					tableCSV = "";
 					for(i=0; i<tableList.length; i++){
-						tableCSV += tableList[i].join(";");
-						tableCSV += "\n";
+						if(tableList[i].length > 1){
+							tableCSV += tableList[i].join(";");
+							tableCSV += "\n";
+						};
 					};
 					document.getElementById('SaveButton').style.visibility = 'visible';
 			    }
@@ -348,7 +350,7 @@
 		
 		function createFileData (tableCSV) {
 			var output = "";
-			output += tableCSV + "';\n";
+			output += tableCSV;
 			var filetype = document.getElementById('Targetfile').value;
 			var targetFile = "akouste_results_table_"+subjectname+"_"+timestamp+".csv";
 			if(filetype != "none") {
