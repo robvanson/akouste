@@ -187,12 +187,12 @@
 								answer.push(row[answerpos[x]]);
 							};
 							a = row[apos].replace(/^.*\/([^/]+)$/g, "$1");
-							row[apos] = a.replace(/\.[^\.\/]+$/g, "");
+							row[apos] = a;
 							if(filetype == "ABX" && xpos >= 0 && bpos >= 0){
 								b = row[bpos].replace(/^.*\/([^/]+)$/g, "$1");
-								row[bpos] = b.replace(/\.[^\.\/]+$/g, "");
+								row[bpos] = b;
 								x = row[xpos].replace(/^.*\/([^/]+)$/g, "$1");
-								row[xpos] = x.replace(/\.[^\.\/]+$/g, "");
+								row[xpos] = x;
 								
 								var correctAnswer = "-";
 								var correct = -1;
