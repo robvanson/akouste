@@ -62,6 +62,9 @@
 			normalizedpos = -1;
 			corrpos = -1;
 			digestpos = -1;
+			speakerXpos = -1;
+			speakerApos = -1;
+			speakerBpos = -1;
 			sumcorrect = 0;
 			numvalues = 0;
 			sumanswers = 0;
@@ -156,6 +159,9 @@
 							if(filetype == "ABX"){
 								bpos = currentRow.indexOf("B");
 								xpos = currentRow.indexOf("X");
+								speakerXpos = currentRow.indexOf("SpeakerX");
+								speakerApos = currentRow.indexOf("SpeakerA");
+								speakerBpos = currentRow.indexOf("SpeakerB");
 							};
 							normalizedpos = currentRow.indexOf("Z");
 							digestpos = currentRow.indexOf("Digest");
@@ -189,16 +195,34 @@
 							a = row[apos].replace(/^.*\/([^/]+)$/g, "$1");
 							row[apos] = a;
 							if(filetype == "ABX" && xpos >= 0 && bpos >= 0){
+								var SpeakerX = "-";
+								var SpeakerA = "-";
+								var SpeakerB = "-";
 								b = row[bpos].replace(/^.*\/([^/]+)$/g, "$1");
 								row[bpos] = b;
 								x = row[xpos].replace(/^.*\/([^/]+)$/g, "$1");
 								row[xpos] = x;
+								if(IDchars <= 0){
+									if(speakerXpos > -1){
+										SpeakerX = row[speakerXpos];
+									};
+									if(speakerApos > -1){
+										SpeakerA = row[speakerApos];
+									};
+									if(speakerBpos > -1){
+										SpeakerB = row[speakerBpos];
+									};
+								} else {
+									SpeakerX = x.substr(startChars,IDchars)
+									SpeakerA = a.substr(startChars,IDchars)
+									SpeakerB = b.substr(startChars,IDchars)
+								};
 								
 								var correctAnswer = "-";
 								var correct = -1;
-								if(x.substr(startChars,IDchars) == a.substr(startChars,IDchars)){
+								if(SpeakerX != "-" & SpeakerX == SpeakerA){
 									correctAnswer = "A";
-								} else if (x.substr(startChars,IDchars) == b.substr(startChars,IDchars)){
+								} else if (SpeakerX != "-" & SpeakerX == SpeakerB){
 									correctAnswer = "B";
 								};
 								if(correctAnswer == "-" || answer[0].match(/[^AB]/)){
@@ -428,7 +452,7 @@
 			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em>Practice</em>:
 			Number of practice items. These will be removed</dd>
 			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em>Spkr ID</em>:
-			Characters in audio filenames that identify the speaker, as &lt;start position&gt;, &lt;length&gt;. Default "0, 4". With only a single number, this is the number of characters from 0. (Only relevant when <em>Exp</em> is <em>ABX</em>)</dd>
+			Characters in audio filenames that identify the speaker, as &lt;start position&gt;, &lt;length&gt;. Default "0, 4". With only a single number, this is the number of characters from 0. (Only relevant when <em>Exp</em> is <em>ABX</em>. If this number is 0, and there are columns named <em>SpeakerA</em>, <em>SpeakerB</em>, and <em>SpeakerX</em>, the values in these columns are used to detemine whether the answer is correct.</dd>
 			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em>Exp</em>: Experiment type, one of ABX, VAS or Likert5. The choice of experiment affects the processing. With <em>ABX</em>, the correct choices are marked. With <em>VAS</em> and <em>Likert5</em>, a normalized Z-score is calculated.</dd>
 			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em style="color:green">Check</em> column: The integrity of the rows in a response files from <em>ako&uacute;ste</em> are checked. Rows with (red) <em style="color:red">false</em> entries have been corrupted. After a <em>false</em> row, all rows below will fail the test too.</dd>
 			</dl>
