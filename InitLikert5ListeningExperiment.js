@@ -114,10 +114,11 @@ ToolTipNext ["NL"] = "Ga naar de volgende stimulus";
 ToolTipSave ["NL"] = "Bewaar de antwoorden in een bestand";
 ToolTipRestart ["NL"] = "Begin een nieuwe luster sessie";
 
-for(var l in ["EN", "NL"]) {
+languageArray = Array.from(languageSet);
+for(var l in languageArray) {
 	for(var j = 0; j < 5; j++) {
 		for(var i = 1; i < NumberOfScales; i++) {		
-			LK5label [languageSet [l]] [i] [j] = LK5label [l] [0] [j];
+			LK5label [languageArray [l]] [i] [j] = LK5label [languageArray [l]] [0] [j];
 		};
 	};
 };
