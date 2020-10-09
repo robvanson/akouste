@@ -280,8 +280,8 @@
 							};
 						};
 						
-						var perc50pos = Math.floor(valuesList.length/2) - 1;
-						var perc05pos = Math.floor(valuesList.length/20) - 1;
+						var perc50pos = Math.max(0, Math.floor(valuesList.length/2) - 1);
+						var perc05pos = Math.max(0, Math.floor(valuesList.length/20) - 1);
 						var perc95pos = valuesList.length - perc05pos - 1;
 						var medianVAS = valuesList[perc50pos];
 						var perc05VAS = valuesList[perc05pos];
