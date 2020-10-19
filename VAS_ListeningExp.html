@@ -122,9 +122,26 @@
 				};
 			} else {
 				// Read and process the stimulus list
+				// If a list number has been given, read it
+				var expnum = 0;
+				var params = new URLSearchParams(location.search);
+				if(params.get('expnum') != "undefined" && Number(params.get('expnum')) > 0) {
+							   expnum = Number(params.get('expnum'));
+				};
+
 				// First try the JSON options
 				if(typeof stimulusTableJSON !== 'undefined' && stimulusTableJSON) {
-					var stimulusTableParsed = JSON.parse(stimulusTableJSON);
+					var stimulusTableParsed;
+					if(Array.isArray(stimulusTableJSON) && expnum > 0 && expnum <= stimulusTableJSON.length){
+						stimulusTableParsed = JSON.parse(stimulusTableJSON[expnum - 1]);
+					} else if((stimulusTableJSON instanceof String) || (typeof stimulusTableJSON === "string")) {
+						stimulusTableParsed = JSON.parse(stimulusTableJSON);
+					} else {
+						stimulusTableParsed = [["A","B","X"], ["", "", ""]];
+						alert("ERROR: invalid stimulus list");
+						document.getElementById('TitleText').innerHTML = "ERROR: invalid stimulus list";
+					};
+				
 					columnNames = stimulusTableParsed [0];
 					data = stimulusTableParsed [1];
 				// No JSON data, use CSV			
