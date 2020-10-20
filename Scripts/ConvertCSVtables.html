@@ -6,7 +6,39 @@
     <meta name="description" content="Webpage for converting CSV tables into JSON stimulus lists">
     <script>
 		var tableJSON = "";
+		var tableListJSON = new Array();
+		var expNumName = "ExpNum";
+		var expnum = -1;
+		var col = -1;
+		
+		// Auxiliary functions
+		function getExpNumCol (item) {
+			return item == expNumName;
+		};
+		
+		function selectExpNum (row) {
+			return row[col] == expnum;
+		};
+		
+		function getColumn(anArray, columnNumber) {
+			return anArray.map(function(row) {
+				return row[columnNumber];
+			});
+		};
+		
+		function onlyUnique(value, index, self) {
+			return self.indexOf(value) === index;
+		};
+		
+		function uniqueColumnValues (anArray, columnNumber) {
+			var list = getColumn(anArray, columnNumber);
+			return list.filter(onlyUnique);
+		};
+
+		// Main functions
 		function readTableFromFile (elementId) {
+			tableJSON = "";
+			tableListJSON = new Array();
 			var file = document.getElementById(elementId).files[0];
 			if (file) {
 				var tableList = [];
@@ -56,7 +88,20 @@
 					};
 
 			        document.getElementById("fileContents").innerHTML = displayText;
+			        // One single list
 					tableJSON = JSON.stringify([tableList[0],tableList.slice(1)]);
+					
+					// Several stimulus lists
+					col = tableList[0].findIndex(getExpNumCol);
+					if(col >= 0) {
+						var expNumValues = uniqueColumnValues(tableList.slice(1), col).sort();
+						for(e in expNumValues) {
+							expnum = expNumValues[e];
+							var singleList = tableList.slice(1).filter(selectExpNum);
+							tableListJSON.push(JSON.stringify([tableList[0],singleList]));
+						};
+					};
+					
 					document.getElementById('SaveButton').style.visibility = 'visible';
 			    }
 			    reader.onerror = function (evt) {
@@ -68,8 +113,16 @@
 		};
 		
 		function createFileData (tableJSON) {
-			var output = "var stimulusTableJSON = '";
-			output += tableJSON + "';\n";
+			var output = "var stimulusTableJSON = ";
+			if(tableListJSON.length){
+				output += "new Array();\n";
+				for(i in tableListJSON) {
+					output += "stimulusTableJSON.push('";
+					output += tableListJSON[i] + "');\n";
+				}
+			} else {
+				output += "'" + tableJSON + "';\n";		
+			};
 			var filetype = document.getElementById('Targetfile').value;
 			var targetFile = "Read_{ABX,VAS,Likert5}_Stimuluslist.js";
 			if(filetype != "none") {

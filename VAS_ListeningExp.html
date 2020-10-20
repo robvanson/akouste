@@ -132,8 +132,12 @@
 				// First try the JSON options
 				if(typeof stimulusTableJSON !== 'undefined' && stimulusTableJSON) {
 					var stimulusTableParsed;
-					if(Array.isArray(stimulusTableJSON) && expnum > 0 && expnum <= stimulusTableJSON.length){
+					// Use Array version if possible, but not if expnum > length
+					if(Array.isArray(stimulusTableJSON) && stimulusTableJSON.length > 0 && expnum <= stimulusTableJSON.length){
+						// Default if there is no expnum
+						if(expnum <= 0) { expnum = 1;};
 						stimulusTableParsed = JSON.parse(stimulusTableJSON[expnum - 1]);
+					// Old: single JSON string
 					} else if((stimulusTableJSON instanceof String) || (typeof stimulusTableJSON === "string")) {
 						stimulusTableParsed = JSON.parse(stimulusTableJSON);
 					} else {
