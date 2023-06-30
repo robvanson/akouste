@@ -155,7 +155,14 @@
 							for (x in answersList) {
 								answerpos.push(currentRow.indexOf(answersList[x]));
 							};
-							apos = currentRow.indexOf("A");
+							if(currentRow.indexOf("A") > -1){
+								apos = currentRow.indexOf("A");
+							} else if(currentRow.indexOf("file") > -1){
+								apos = currentRow.indexOf("file");
+							} else if(currentRow.indexOf("File") > -1){
+								apos = currentRow.indexOf("File");
+							};
+
 							if(filetype == "ABX"){
 								bpos = currentRow.indexOf("B");
 								xpos = currentRow.indexOf("X");
@@ -402,9 +409,9 @@
     </p>
     <h3 style="text-align:center;width:60%;margin-left:auto;margin-right:auto;">Read CSV table</h3>
     <p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">
-	<form id="fileForUpload" style="font-size:20px;" style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"  action="javascript:readTableFromFile ('CVStable'); void(0);">
+	<form id="fileForUpload" style="font-size:20px;" style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"  action="javascript:readTableFromFile ('CSVtable'); void(0);" method="POST" enctype="multipart/form-data">
 		<p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">
-		<input type="file" id="CVStable" name="CSVtable" accept="text/csv, text/plain" style="font-size:20px;" >
+		<input type="file" id="CSVtable" name="CSVtable" accept="text/csv, text/plain" style="font-size:20px;" >
 		</p>
 		<p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">
 			<table style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">
