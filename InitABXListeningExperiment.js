@@ -97,7 +97,7 @@ ToolTipAnswerA ["NL"] = "A en X zijn dezelfde spreker";
 ToolTipAnswerB ["NL"] = "B en X zijn dezelfde spreker";
 ToolTipNext ["NL"] = "Ga naar de volgende vergelijking";
 ToolTipSave ["NL"] = "Bewaar de antwoorden in een bestand";
-ToolTipRestart ["NL"] = "Begin een nieuwe luster sessie";
+ToolTipRestart ["NL"] = "Begin een nieuwe luister sessie";
 
 
 // Set language

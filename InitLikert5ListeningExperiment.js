@@ -28,8 +28,9 @@ var HeaderLineText0 = [];
 var RightText0 = [];
 var LeftText0 = [];
 var LK5label = new Array(2);
-LK5label ["EN"] = new Array(3).fill(new Array(5));
-LK5label ["NL"] = new Array(3).fill(new Array(5));
+// Use actual NumberOfScales defined
+LK5label ["EN"] = Array.from({length: 3}, e => Array(5).fill(0));
+LK5label ["NL"] = Array.from({length: 3}, e => Array(5).fill(0));
 var HeaderLineText1 = [];
 var RightText1 = [];
 var LeftText1 = [];
@@ -66,9 +67,19 @@ LK5label ["EN"] [0] [4] = "&nbsp;";
 HeaderLineText1 ["EN"] = "The speech sounds distorted";
 RightText1 ["EN"] = "Strongly disagree";
 LeftText1 ["EN"] = "Strongly agree";
+LK5label ["EN"] [1] [0] = "&nbsp;";
+LK5label ["EN"] [1] [1] = "agree";
+LK5label ["EN"] [1] [2] = "neutral";
+LK5label ["EN"] [1] [3] = "disagree";
+LK5label ["EN"] [1] [4] = "&nbsp;";
 HeaderLineText2 ["EN"] = "The speech sounds distorted";
 RightText2 ["EN"] = "Strongly disagree";
 LeftText2 ["EN"] = "Strongly agree";
+LK5label ["EN"] [2] [0] = "&nbsp;";
+LK5label ["EN"] [2] [1] = "agree";
+LK5label ["EN"] [2] [2] = "neutral";
+LK5label ["EN"] [2] [3] = "disagree";
+LK5label ["EN"] [2] [4] = "&nbsp;";
 ReadyText ["EN"] = "Ready";
 SaveLinkText ["EN"] = 'Save Results';
 RestartPageText ["EN"] = 'Restart';
@@ -100,9 +111,19 @@ LK5label ["NL"] [0] [4] = "&nbsp;";
 HeaderLineText1 ["NL"] = "De spraak klinkt vervormd";
 RightText1 ["NL"] = "Helemaal<br />mee oneens";
 LeftText1 ["NL"] = "Helemaal<br />mee eens";
+LK5label ["NL"] [1] [0] = "&nbsp;";
+LK5label ["NL"] [1] [1] = "mee eens";
+LK5label ["NL"] [1] [2] = "neutraal";
+LK5label ["NL"] [1] [3] = "mee oneens";
+LK5label ["NL"] [1] [4] = "&nbsp;";
 HeaderLineText2 ["NL"] = "De spraak klinkt vervormd";
 RightText2 ["NL"] = "Helemaal<br />mee oneens";
 LeftText2 ["NL"] = "Helemaal<br />mee eens";
+LK5label ["NL"] [2] [0] = "&nbsp;";
+LK5label ["NL"] [2] [1] = "mee eens";
+LK5label ["NL"] [2] [2] = "neutraal";
+LK5label ["NL"] [2] [3] = "mee oneens";
+LK5label ["NL"] [2] [4] = "&nbsp;";
 ReadyText ["NL"] = "Klaar";
 SaveLinkText ["NL"] = 'Bewaar resultaten';
 RestartPageText ["NL"] = 'Opnieuw';
@@ -114,11 +135,14 @@ ToolTipNext ["NL"] = "Ga naar de volgende stimulus";
 ToolTipSave ["NL"] = "Bewaar de antwoorden in een bestand";
 ToolTipRestart ["NL"] = "Begin een nieuwe luster sessie";
 
+// Copy all scale button texts for "undefined" scales
 languageArray = Array.from(languageSet);
 for(var l in languageArray) {
 	for(var j = 0; j < 5; j++) {
 		for(var i = 1; i < NumberOfScales; i++) {		
-			LK5label [languageArray [l]] [i] [j] = LK5label [languageArray [l]] [0] [j];
+			if ( LK5label [languageArray [l]] [i] [j] == 0 ) {
+				LK5label [languageArray [l]] [i] [j] = LK5label [languageArray [l]] [0] [j];
+			};
 		};
 	};
 };
