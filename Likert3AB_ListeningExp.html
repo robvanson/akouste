@@ -127,9 +127,19 @@
 				    data = dataLines.map(function(x){return x.split(/[;\t]/g).filter(e => e)});
 				};	
 				
+				// Locate the stimuli
+				posA = columnNames.indexOf("A");
+				if(posA < 0)posA = 0;
+				posB = columnNames.indexOf("B");
+				if(RandomizeAB) {
+					columnNames.push("ABswitch");
+				} else {
+					posB = -1;
+				};
+				
 			    // Prepare the stimulus list
 			    if(columnNames.indexOf("B") < 0) RandomizeAB = false;
-			    if(RandomizeAB)data = shuffleAB(data, 0, 1);
+			    if(RandomizeAB)data = shuffleAB(data, posA, posB);
 			    if(ShuffleStimulusList)data = shuffle(data);
 			    if(PracticeItems > 0){
 					practise = data.slice(data.length-PracticeItems, data.length).reverse();
@@ -142,14 +152,6 @@
 					localStorage.setItem('LK3stimuluslist', JSON.stringify(data));
 					localStorage.setItem('LK3columnnames', JSON.stringify(columnNames));
 				};
-			};
-			
-			// Locate the stimuli
-			posA = columnNames.indexOf("A");
-			if(posA < 0)posA = 0;
-			posB = columnNames.indexOf("B");
-			if(RandomizeAB) {
-				columnNames.push("ABswitch");
 			};
 		    
 			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (data.length - stimulusNbr)+"");

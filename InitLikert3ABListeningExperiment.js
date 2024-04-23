@@ -1,23 +1,23 @@
 // Shuffle stimuli or not
 ShuffleStimulusList = true;
+RandomizeAB = true;
 
 // If practice items > 0, the last PracticeItems stimuli will be 
-// prepended in reverse order. (NOT YET IMPLEMENTED)
+// prepended in reverse order.
 PracticeItems = 4;
 
 // Set number of visible questions
 var NumberOfScales = 1;
-var RandomizeAB = true;
 
 // Allow to dynamically change the base URL of the stimulus files
-var audioBaseURL = "Stimuli/"; // Default = nothing
+var audioBaseURL = "Stimuli/"; // Default = "Stimuli/", can be nothing ""
 // Example, if located at Github, read from URL
 if(document.location.href.match(/github\.io\/akouste/)){ 
-	audioBaseURL = "https://www.fon.hum.uva.nl/rob/PseudonymizedSpeechExp/";
+	audioBaseURL = "https://www.fon.hum.uva.nl/rob/PseudonymizedSpeechExp/Stimuli/";
 };
 
 // Add languages to your heart's content
-var languageSet = new Set(["EN", "NL"]);
+var languageSet = new Set(["EN"]);
 
 // Define language specific texts
 var TitleText = [];
@@ -182,7 +182,7 @@ function replaceTexts (language) {
 		document.getElementById('LK3.0-'+(j+1)).innerHTML = LK3label [language] [0] [j];
 	};
 
-	// Make the required number of sliders visible
+	// Make the required number of questions visible
 	for(var i = 1; i < NumberOfScales; i++) {
 		document.getElementById('EmptyRow'+i).style.display = '';
 		document.getElementById('HeaderLineRow'+i).style.display = '';

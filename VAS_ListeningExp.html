@@ -88,12 +88,14 @@
 		var stimulusTable;
         var changedSlider = false;
         var playedA = false;
+        var playedB = false;
         var playedSamples = false;
 		var finishedExperiment = false;
 		var answerList = [];
 		var answer = new Array(NumberOfScales).fill(-1);
 		var stimulusNbr = 0;
 		var posA = 0;
+		var posB = 1;
 		function loadList () {
 			//fetch('Stimuli_VAS.csv')
 			//	.then(response => response.text())
@@ -163,7 +165,20 @@
 				    data = dataLines.map(function(x){return x.split(/[;\t]/g).filter(e => e)});
 				};	
 				
+				// Locate the stimuli
+				posA = columnNames.indexOf("A");
+				if(posA < 0)posA = 0;
+				posB = columnNames.indexOf("B");
+				if(posB < 0)posB = 1;
+				if(RandomizeAB) {
+					columnNames.push("ABswitch");
+				} else {
+					posB = -1;
+				};
+
 			    // Prepare the stimulus list
+			    if(posB < 0) RandomizeAB = false;
+			    if(RandomizeAB)data = shuffleAB(data, posA, posB);
 			    if(ShuffleStimulusList)data = shuffle(data);
 			    if(PracticeItems > 0){
 					practise = data.slice(data.length-PracticeItems, data.length).reverse();
@@ -177,10 +192,6 @@
 					localStorage.setItem('VAScolumnnames', JSON.stringify(columnNames));
 				};
 			};
-			
-			// Locate the stimuli
-			posA = columnNames.indexOf("A");
-			if(posA < 0)posA = 0;
 		    
 			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (data.length - stimulusNbr)+"");
 			
@@ -189,8 +200,13 @@
         
        function unblockNext (x) {
 			playedA = playedA || x=="SpeakerA";
+			playedB = playedB || x=="SpeakerB";
 			changedSlider = changedSlider || x=="Slider";
-			playedSamples = playedA && changedSlider;
+			if(ShowPlayBbutton) {
+				playedSamples = playedA && playedB && changedSlider;
+			} else {
+				playedSamples = playedA && changedSlider;
+			};
 			if(playedSamples == true) {
 				document.getElementById('NextText').style.backgroundColor="#F0F0F0";
 				document.getElementById('NextButton').style.backgroundColor="#F0F0F0";
@@ -199,6 +215,10 @@
 				document.getElementById('PlayAText').style.backgroundColor = "#EEFFEE";
 				document.getElementById('PlayAText').parentNode.parentNode.style.backgroundColor = "#EEFFEE";
 			};
+			if(ShowPlayBbutton && x=="SpeakerB") {
+				document.getElementById('PlayBText').style.backgroundColor = "#EEFFEE";
+				document.getElementById('PlayBText').parentNode.parentNode.style.backgroundColor = "#EEFFEE";
+			};
 		};
         
         function setAudio(i, stimulusTable) {
@@ -206,6 +226,13 @@
 			document.getElementById('SpeakerA').title = stimulusTable[1][i][posA].replace(/^.*\/([^\/]+)\.wav$/, "$1");
 			document.getElementById('PlayAText').style.backgroundColor = "#F0F0F0";
 			document.getElementById('PlayAText').parentNode.parentNode.style.backgroundColor = "#F0F0F0";
+
+			if(ShowPlayBbutton) {
+				document.getElementById('SpeakerB').src = audioBaseURL + stimulusTable[1][i][posB];
+				document.getElementById('SpeakerB').title = stimulusTable[1][i][posB].replace(/^.*\/([^\/]+)\.wav$/, "$1");
+				document.getElementById('PlayBText').style.backgroundColor = "#F0F0F0";
+				document.getElementById('PlayBText').parentNode.parentNode.style.backgroundColor = "#F0F0F0";
+			};
 			
 			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (data.length - i)+"");
 			
@@ -219,6 +246,7 @@
 			};
 			
 			var speakerA = document.getElementById('SpeakerA').title;
+			var speakerB = document.getElementById('SpeakerB').title;
 			
 			var newLine = (stimulusNbr+1)+";"+answer.join(";")+";"+(stimulusTable[1][stimulusNbr]).join(";");
 			var newDigest = hex_sha256(lastDigest + newLine);
@@ -254,7 +282,7 @@
 			if(finishedExperiment)return false;
 			if(playedSamples) {
 				// Reset played
-				playedSamples = changedSlider = playedA = false;
+				playedSamples = changedSlider = playedA = playedB = false;
 				document.getElementById('VASslider0').value = '';
 				document.getElementById('VASslider1').value = '';
 				document.getElementById('VASslider2').value = '';
@@ -318,7 +346,7 @@
 			localStorage.removeItem('VAScolumnnames');
 			localStorage.removeItem('VASanswerlist');
 
-	        playedSamples = changedSlider = playedA = false;
+	        playedSamples = changedSlider = playedA = playedB = false;
 			document.getElementById('VASslider0').value = '';
 			document.getElementById('VASslider1').value = '';
 			document.getElementById('VASslider2').value = '';
@@ -346,6 +374,25 @@
 		
 		  return array;
 		}
+
+		function shuffleAB(array, apos, bpos) {
+		  var temporaryValue, switchAB, currentSubarray;
+		
+		  // While there remain elements to shuffle...
+		  for (var i=0; i<array.length; i++) {
+			currentSubarray = array[i];
+			// Random uniform Integer [0, 2>
+			switchAB = Math.floor(Math.random() * 2) == 1;
+			if (switchAB){
+				temporaryValue = currentSubarray[apos];
+				currentSubarray[apos] = currentSubarray[bpos];
+				currentSubarray[bpos] = temporaryValue;
+			};
+			currentSubarray.push(switchAB)
+		  }
+		
+		  return array;
+		}
 	
 		// Warning before leaving the page (back button, or outgoing link)
 		window.onbeforeunload = function () {
@@ -355,7 +402,7 @@
 				return;
 			};
 		};
-			
+	
 		function setProgress(percentComplete) {
 		  var elem = document.getElementById("progressBar");
 		  elem.style.width = percentComplete + '%';
@@ -369,6 +416,7 @@
 	</div> 
 	
 	<audio id="SpeakerA" src="" preload="auto" title="" onplaying="unblockNext ('SpeakerA');"></audio>
+	<audio id="SpeakerB" src="" preload="auto" title="" onplaying="unblockNext ('SpeakerB');"></audio>
 	<a href="" Id="SaveLink" download onclick="onSave ()" style="font-size:30px;visibility:hidden"></a>
 	
 	<h1 style="text-align:center"><div id="TitleText">Please enable JavaScript in your browser</div></h1>
@@ -392,7 +440,11 @@
 	  </tr>
 	  <tr>
 	    <td>&nbsp;</td>
-	    <td><a href="javascript:void(0)" id="ToolTipPlayA" data-toggle="tooltip" title="Play sound"><button onclick="document.getElementById('SpeakerA').play();" style="font-size:30px;background-color:white;"><strong><div id="PlayAText">Play A</div></strong></button></a></td>
+	    <td>
+			<a href="javascript:void(0)" id="ToolTipPlayA" data-toggle="tooltip" title="Play sound"><button onclick="document.getElementById('SpeakerA').play();" style="font-size:30px;background-color:white;"><strong><div id="PlayAText">Play A</div></strong></button></a>
+			<div id="ButtonBVisible" style="display:none;visibility:invisible">&nbsp;
+			<a href="javascript:void(0)" id="ToolTipPlayB" data-toggle="tooltip" title="Play sound"><button onclick="document.getElementById('SpeakerB').play();" style="font-size:30px;background-color:white;"><strong><div id="PlayBText">Play B</div></strong></button></a></div>
+	    </td>
 	    <td>&nbsp;</td>
 	  </tr>
 	  <tr style="font-size:30px">

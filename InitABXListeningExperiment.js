@@ -1,8 +1,13 @@
 // Shuffle stimuli or not
 ShuffleStimulusList = true;
+RandomizeAB = false;
+
 // If practice items > 0, the last PracticeItems stimuli will be 
-// prepended in reverse order. (NOT YET IMPLEMENTED)
+// prepended in reverse order.
 PracticeItems = 4;
+
+
+
 
 // Allow to dynamically change the base URL of the stimulus files
 var audioBaseURL = ""; // Default = nothing

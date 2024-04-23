@@ -1,28 +1,31 @@
 // Shuffle stimuli or not
 ShuffleStimulusList = true;
+RandomizeAB = true;
+ShowPlayBbutton = true;
 
 // If practice items > 0, the last PracticeItems stimuli will be 
-// prepended in reverse order. (NOT YET IMPLEMENTED)
+// prepended in reverse order.
 PracticeItems = 4;
 
-// Set number of visible sliders
+// Set number of visible questions
 var NumberOfScales = 1;
 
 // Allow to dynamically change the base URL of the stimulus files
-var audioBaseURL = ""; // Default = nothing
+var audioBaseURL = "Stimuli/"; // Default = "Stimuli/", can be nothing ""
 // Example, if located at Github, read from URL
-if(document.location.href.match(/github\.io\/akouste/)){ 
+if(1 || document.location.href.match(/github\.io\/akouste/)){ 
 	audioBaseURL = "https://www.fon.hum.uva.nl/rob/PseudonymizedSpeechExp/";
 };
 
 // Add languages to your heart's content
-var languageSet = new Set(["EN", "NL"]);
+var languageSet = new Set(["EN"]);
 
 // Define language specific texts
 var TitleText = [];
 var IntroductionText = [];
 var StimulusNumberText = [];
 var PlayAText = [];
+var PlayBText = [];
 var NextText = [];
 var HeaderLineText0 = [];
 var RightText0 = [];
@@ -55,6 +58,7 @@ TitleText ["EN"] = "How distorted is the speech?";
 IntroductionText ["EN"] = "The speech has been manipulated. How distorted does it sound?";
 StimulusNumberText ["EN"] = "XXX answers to go";
 PlayAText ["EN"] = " Speech &#9658; ";
+PlayBText ["EN"] = " Speech &#9658; ";
 NextText ["EN"] = "Next &rarr;";
 HeaderLineText0 ["EN"] = "The speech sounds distorted";
 RightText0 ["EN"] = "Strongly disagree";
@@ -99,6 +103,7 @@ TitleText ["NL"] = "Hoe vervormd klinkt de spraak?";
 IntroductionText ["NL"] = "De spraak is gemanipuleerd. Hoe vervormd klinkt het?";
 StimulusNumberText ["NL"] = "XXX antwoorden te gaan";
 PlayAText ["NL"] = " Spraak &#9658; ";
+PlayBText ["NL"] = " Spraak &#9658; ";
 NextText ["NL"] = "Volgende &rarr;";
 HeaderLineText0 ["NL"] = "De spraak klinkt vervormd";
 RightText0 ["NL"] = "Helemaal<br />mee oneens";
@@ -184,8 +189,16 @@ function replaceTexts (language) {
 	for(var j = 0; j < 5; j++) {
 		document.getElementById('LK5.0-'+(j+1)).innerHTML = LK5label [language] [0] [j];
 	};
+	
+	// If there is a PlayB button
+	if(ShowPlayBbutton){
+		document.getElementById('PlayBText').innerHTML = PlayBText[language];
+		document.getElementById('ToolTipPlayB').title = ToolTipPlayB [language];
+		document.getElementById('ButtonBVisible').style.display = 'inline';
+		document.getElementById('ButtonBVisible').style.visibility = 'visible';
+	};
 
-	// Make the required number of sliders visible
+	// Make the required number of questions visible
 	for(var i = 1; i < NumberOfScales; i++) {
 		document.getElementById('EmptyRow'+i).style.display = '';
 		document.getElementById('HeaderLineRow'+i).style.display = '';

@@ -1,17 +1,19 @@
 // Shuffle stimuli or not
 ShuffleStimulusList = true;
+RandomizeAB = true;
+ShowPlayBbutton = true;
 
 // If practice items > 0, the last PracticeItems stimuli will be 
-// prepended in reverse order. (NOT YET IMPLEMENTED)
+// prepended in reverse order. 
 PracticeItems = 4;
 
 // Set number of visible sliders
 var NumberOfScales = 1;
 
 // Allow to dynamically change the base URL of the stimulus files
-var audioBaseURL = ""; // Default is nothing
+var audioBaseURL = ""; // Default = "", can be a folder "Stimuli/"
 // Example, if located at Github, read from URL
-if(document.location.href.match(/github\.io\/akouste/)){ 
+if(1 || document.location.href.match(/github\.io\/akouste/)){ 
 	audioBaseURL = "https://www.fon.hum.uva.nl/rob/PseudonymizedSpeechExp/";
 };
 
@@ -24,6 +26,7 @@ var TitleText = [];
 var IntroductionText = [];
 var StimulusNumberText = [];
 var PlayAText = [];
+var PlayBText = [];
 var NextText = [];
 var HeaderLineText0 = [];
 var RightText0 = [];
@@ -41,6 +44,7 @@ var RestartPageText = [];
 var RestartButtonText = [];
 var NextAlert = [];
 var ToolTipPlayA = [];
+var ToolTipPlayB = [];
 var ToolTipNext = [];
 var ToolTipSave = [];
 var ToolTipRestart = [];
@@ -52,6 +56,7 @@ TitleText ["EN"] = "How distorted is the speech?";
 IntroductionText ["EN"] = "The speech has been manipulated. How distorted does it sound?";
 StimulusNumberText ["EN"] = "XXX answers to go";
 PlayAText ["EN"] = " Speech &#9658; ";
+PlayBText ["EN"] = " Speech &#9658; ";
 NextText ["EN"] = "Next &rarr;";
 HeaderLineText0 ["EN"] = "The speech sounds distorted";
 RightText0 ["EN"] = "Not at all";
@@ -69,6 +74,7 @@ SaveText ["EN"] = 'Please, click "'+SaveLinkText ["EN"] + '" and store the file'
 RestartButtonText ["EN"] = 'The experiment can be restarted by clicking "'+RestartPageText ["EN"]+'"';
 NextAlert ["EN"] = "Please, listen to the recording and select a level";
 ToolTipPlayA ["EN"] = "Play sound";
+ToolTipPlayB ["EN"] = "Play sound";
 ToolTipNext ["EN"] = "Go to next item";
 ToolTipSave ["EN"] = "Save the answer to a file";
 ToolTipRestart ["EN"] = "Start a new experiment session";
@@ -81,6 +87,7 @@ TitleText ["NL"] = "Hoe vervormd klinkt de spraak?";
 IntroductionText ["NL"] = "De spraak is gemanipuleerd. Hoe vervormd klinkt het?";
 StimulusNumberText ["NL"] = "XXX antwoorden te gaan";
 PlayAText ["NL"] = " Spraak &#9658; ";
+PlayBText ["NL"] = " Spraak &#9658; ";
 NextText ["NL"] = "Volgende &rarr;";
 HeaderLineText0 ["NL"] = "De spraak klinkt vervormd";
 RightText0 ["NL"] = "Helemaal niet";
@@ -98,6 +105,7 @@ SaveText ["NL"] = 'Klik AUB op "'+SaveLinkText ["NL"] + '" en sla het bestand op
 RestartButtonText ["NL"] = 'Het experiment kan opnieuw gestart worden door op "'+RestartPageText ["NL"]+'" te drukken';
 NextAlert ["NL"] = "Luister naar de opname en selecteer een anwoord, AUB";
 ToolTipPlayA ["NL"] = "Luister naar de spreker";
+ToolTipPlayB ["NL"] = "Luister naar de spreker";
 ToolTipNext ["NL"] = "Ga naar de volgende stimulus";
 ToolTipSave ["NL"] = "Bewaar de antwoorden in een bestand";
 ToolTipRestart ["NL"] = "Begin een nieuwe luster sessie";
@@ -134,6 +142,14 @@ function replaceTexts (language) {
 	document.getElementById('ToolTipNext').title = ToolTipNext [language];
 	document.getElementById('ToolTipSave').title = ToolTipSave [language];
 	document.getElementById('ToolTipRestart').title = ToolTipRestart [language];
+	
+	// If there is a PlayB button
+	if(ShowPlayBbutton){
+		document.getElementById('PlayBText').innerHTML = PlayBText[language];
+		document.getElementById('ToolTipPlayB').title = ToolTipPlayB [language];
+		document.getElementById('ButtonBVisible').style.display = 'inline';
+		document.getElementById('ButtonBVisible').style.visibility = 'visible';
+	};
 
 	// Make the required number of sliders visible
 	for(var i = 1; i < NumberOfScales; i++) {

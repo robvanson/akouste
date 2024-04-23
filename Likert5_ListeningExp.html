@@ -50,12 +50,14 @@
 		var stimulusTable;
         var changedLikert5 = false;
         var playedA = false;
+        var playedB = false;
         var playedSamples = false;
 		var finishedExperiment = false;
 		var answerList = [];
 		var answer = new Array(NumberOfScales).fill(-1);
 		var stimulusNbr = 0;
 		var posA = 0;
+		var posB = 1;
 		function loadList () {
 			//fetch('Stimuli_LK5.csv')
 			//	.then(response => response.text())
@@ -125,7 +127,20 @@
 				    data = dataLines.map(function(x){return x.split(/[;\t]/g).filter(e => e)});
 				};	
 				
+				// Locate the stimuli
+				posA = columnNames.indexOf("A");
+				if(posA < 0)posA = 0;
+				posB = columnNames.indexOf("B");
+				if(posB < 0)posB = 1;
+				if(RandomizeAB) {
+					columnNames.push("ABswitch");
+				} else {
+					posB = -1;
+				};
+				
 			    // Prepare the stimulus list
+			    if(posB < 0) RandomizeAB = false;
+			    if(RandomizeAB)data = shuffleAB(data, posA, posB);
 			    if(ShuffleStimulusList)data = shuffle(data);
 			    if(PracticeItems > 0){
 					practise = data.slice(data.length-PracticeItems, data.length).reverse();
@@ -151,16 +166,25 @@
         
         function unblockNext (x) {
 			playedA = playedA || x=="SpeakerA";
+			playedB = playedB || x=="SpeakerB";
 			changedLikert5 = changedLikert5 || x=="Likert5";
-			playedSamples = playedA && changedLikert5;
+			if(ShowPlayBbutton) {
+				playedSamples = playedA && playedB && changedLikert5;
+			} else {
+				playedSamples = playedA && changedLikert5;
+			};
 			if(playedSamples == true) {
-				document.getElementById('NextText').style.backgroundColor="#F0F0F0";
-				document.getElementById('NextButton').style.backgroundColor="#F0F0F0";
-			};
-			if(x=="SpeakerA") {
-				document.getElementById('PlayAText').style.backgroundColor = "#EEFFEE";
-				document.getElementById('PlayAText').parentNode.parentNode.style.backgroundColor = "#EEFFEE";
-			};
+					document.getElementById('NextText').style.backgroundColor="#F0F0F0";
+					document.getElementById('NextButton').style.backgroundColor="#F0F0F0";
+				};
+				if(x=="SpeakerA") {
+					document.getElementById('PlayAText').style.backgroundColor = "#EEFFEE";
+					document.getElementById('PlayAText').parentNode.parentNode.style.backgroundColor = "#EEFFEE";
+				};
+				if(x=="SpeakerB") {
+					document.getElementById('PlayBText').style.backgroundColor = "#EEFFEE";
+					document.getElementById('PlayBText').parentNode.parentNode.style.backgroundColor = "#EEFFEE";
+				};
 		};
         
         function setAudio(i, stimulusTable) {
@@ -168,7 +192,14 @@
 			document.getElementById('SpeakerA').title = stimulusTable[1][i][posA].replace(/^.*\/([^\/]+)\.wav$/, "$1");
 			document.getElementById('PlayAText').style.backgroundColor = "#F0F0F0";
 			document.getElementById('PlayAText').parentNode.parentNode.style.backgroundColor = "#F0F0F0";
-			
+
+			if(ShowPlayBbutton) {
+				document.getElementById('SpeakerB').src = audioBaseURL + stimulusTable[1][i][posB];
+				document.getElementById('SpeakerB').title = stimulusTable[1][i][posB].replace(/^.*\/([^\/]+)\.wav$/, "$1");
+				document.getElementById('PlayBText').style.backgroundColor = "#F0F0F0";
+				document.getElementById('PlayBText').parentNode.parentNode.style.backgroundColor = "#F0F0F0";
+			};
+						
 			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (data.length - i)+"");
 			
 			setProgress(100*stimulusNbr/data.length);
@@ -181,6 +212,7 @@
 			};
 			
 			var speakerA = document.getElementById('SpeakerA').title;
+			var speakerB = document.getElementById('SpeakerB').title;
 			
 			var newLine = (stimulusNbr+1)+";"+answer.join(";")+";"+(stimulusTable[1][stimulusNbr]).join(";");
 			var newDigest = hex_sha256(lastDigest + newLine);
@@ -216,7 +248,7 @@
 			if(finishedExperiment)return false;
 			if(playedSamples) {
 				// Reset played
-				playedSamples = changedLikert5 = playedA = false;
+				playedSamples = changedLikert5 = playedA = playedB = false;
 				document.getElementById('LK5buttons0.1').checked = document.getElementById('LK5buttons0.2').checked = document.getElementById('LK5buttons0.3').checked = document.getElementById('LK5buttons0.4').checked = document.getElementById('LK5buttons0.5').checked = false;
 				document.getElementById('LK5buttons1.1').checked = document.getElementById('LK5buttons1.2').checked = document.getElementById('LK5buttons1.3').checked = document.getElementById('LK5buttons1.4').checked = document.getElementById('LK5buttons1.5').checked = false;
 				document.getElementById('LK5buttons2.1').checked = document.getElementById('LK5buttons2.2').checked = document.getElementById('LK5buttons2.3').checked = document.getElementById('LK5buttons2.4').checked = document.getElementById('LK5buttons2.5').checked = false;
@@ -280,7 +312,7 @@
 			localStorage.removeItem('LK5columnnames');
 			localStorage.removeItem('LK5answerlist');
 
-	        playedSamples = changedLikert5 = playedA = false;
+	        playedSamples = changedLikert5 = playedA = playedB = false;
 			document.getElementById('LK5buttons0').value = '';
 			document.getElementById('LK5buttons1').value = '';
 			document.getElementById('LK5buttons2').value = '';
@@ -308,6 +340,25 @@
 		
 		  return array;
 		}
+			
+		function shuffleAB(array, apos, bpos) {
+		  var temporaryValue, switchAB, currentSubarray;
+		
+		  // While there remain elements to shuffle...
+		  for (var i=0; i<array.length; i++) {
+			currentSubarray = array[i];
+			// Random uniform Integer [0, 2>
+			switchAB = Math.floor(Math.random() * 2) == 1;
+			if (switchAB){
+				temporaryValue = currentSubarray[apos];
+				currentSubarray[apos] = currentSubarray[bpos];
+				currentSubarray[bpos] = temporaryValue;
+			};
+			currentSubarray.push(switchAB)
+		  }
+		
+		  return array;
+		}
 	
 		// Warning before leaving the page (back button, or outgoing link)
 		window.onbeforeunload = function () {
@@ -317,7 +368,7 @@
 				return;
 			};
 		};
-			
+
 		function setProgress(percentComplete) {
 		  var elem = document.getElementById("progressBar");
 		  elem.style.width = percentComplete + '%';
@@ -333,6 +384,7 @@
 	
 	<script>answer="";</script>
 	<audio id="SpeakerA" src="" preload="auto" title="" onplaying="unblockNext ('SpeakerA');"></audio>
+	<audio id="SpeakerB" src="" preload="auto" title="" onplaying="unblockNext ('SpeakerB');"></audio>
 	<a href="" Id="SaveLink" download onclick="onSave ()" style="font-size:30px;visibility:hidden"></a>
 	
 	<h1 style="text-align:center"><div id="TitleText">Please enable JavaScript in your browser</div></h1>
@@ -356,7 +408,10 @@
 	  </tr>
 	  <tr>
 	    <td>&nbsp;</td>
-	    <td><a href="javascript:void(0)" id="ToolTipPlayA" data-toggle="tooltip" title="Play sound"><button onclick="document.getElementById('SpeakerA').play();" style="font-size:30px;background-color:white;"><strong><div id="PlayAText">Play </div></strong></button></a></td>
+	    <td>
+				<a href="javascript:void(0)" id="ToolTipPlayA" data-toggle="tooltip" title="Play sound"><button onclick="document.getElementById('SpeakerA').play();" style="font-size:30px;background-color:white;"><strong><div id="PlayAText">Play </div></strong></button></a>
+		        <div id="ButtonBVisible" style="display:none;visibility:invisible">&nbsp;
+				<a href="javascript:void(0)" id="ToolTipPlayB" data-toggle="tooltip" title="Play sound"><button onclick="document.getElementById('SpeakerB').play();" style="font-size:30px;background-color:white;"><strong><div id="PlayBText">Play B</div></strong></button></a></div></td>
 	    <td>&nbsp;</td>
 	  </tr>
 	  <tr style="font-size:30px">
