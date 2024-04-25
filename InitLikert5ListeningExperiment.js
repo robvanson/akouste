@@ -8,7 +8,7 @@ ShowPlayBbutton = true;
 PracticeItems = 4;
 
 // Set number of visible questions
-var NumberOfScales = 1;
+var NumberOfScales = 2;
 
 // Allow to dynamically change the base URL of the stimulus files
 var audioBaseURL = "Stimuli/"; // Default = "Stimuli/", can be nothing ""
@@ -68,7 +68,7 @@ LK5label ["EN"] [0] [1] = "agree";
 LK5label ["EN"] [0] [2] = "neutral";
 LK5label ["EN"] [0] [3] = "disagree";
 LK5label ["EN"] [0] [4] = "&nbsp;";
-HeaderLineText1 ["EN"] = "The speech sounds distorted";
+HeaderLineText1 ["EN"] = "The speech sounds distorted-2";
 RightText1 ["EN"] = "Strongly disagree";
 LeftText1 ["EN"] = "Strongly agree";
 LK5label ["EN"] [1] [0] = "&nbsp;";
@@ -76,7 +76,7 @@ LK5label ["EN"] [1] [1] = "agree";
 LK5label ["EN"] [1] [2] = "neutral";
 LK5label ["EN"] [1] [3] = "disagree";
 LK5label ["EN"] [1] [4] = "&nbsp;";
-HeaderLineText2 ["EN"] = "The speech sounds distorted";
+HeaderLineText2 ["EN"] = "The speech sounds distorted-3";
 RightText2 ["EN"] = "Strongly disagree";
 LeftText2 ["EN"] = "Strongly agree";
 LK5label ["EN"] [2] [0] = "&nbsp;";

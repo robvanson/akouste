@@ -139,8 +139,12 @@
 				};
 				
 			    // Prepare the stimulus list
-			    if(posB < 0) RandomizeAB = false;
-			    if(RandomizeAB)data = shuffleAB(data, posA, posB);
+			    if(ShowPlayBbutton) {
+				    if(posB < 0) {
+						RandomizeAB = false;
+					};
+				    if(RandomizeAB)data = shuffleAB(data, posA, posB);
+				};
 			    if(ShuffleStimulusList)data = shuffle(data);
 			    if(PracticeItems > 0){
 					practise = data.slice(data.length-PracticeItems, data.length).reverse();
@@ -173,18 +177,19 @@
 			} else {
 				playedSamples = playedA && changedLikert5;
 			};
+			
 			if(playedSamples == true) {
 					document.getElementById('NextText').style.backgroundColor="#F0F0F0";
 					document.getElementById('NextButton').style.backgroundColor="#F0F0F0";
-				};
-				if(x=="SpeakerA") {
-					document.getElementById('PlayAText').style.backgroundColor = "#EEFFEE";
-					document.getElementById('PlayAText').parentNode.parentNode.style.backgroundColor = "#EEFFEE";
-				};
-				if(x=="SpeakerB") {
-					document.getElementById('PlayBText').style.backgroundColor = "#EEFFEE";
-					document.getElementById('PlayBText').parentNode.parentNode.style.backgroundColor = "#EEFFEE";
-				};
+			};
+			if(x=="SpeakerA") {
+				document.getElementById('PlayAText').style.backgroundColor = "#EEFFEE";
+				document.getElementById('PlayAText').parentNode.parentNode.style.backgroundColor = "#EEFFEE";
+			};
+			if(ShowPlayBbutton && x=="SpeakerB") {
+				document.getElementById('PlayBText').style.backgroundColor = "#EEFFEE";
+				document.getElementById('PlayBText').parentNode.parentNode.style.backgroundColor = "#EEFFEE";
+			};
 		};
         
         function setAudio(i, stimulusTable) {

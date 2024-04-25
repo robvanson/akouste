@@ -8,7 +8,7 @@ ShowPlayBbutton = true;
 PracticeItems = 4;
 
 // Set number of visible sliders
-var NumberOfScales = 1;
+var NumberOfScales = 2;
 
 // Allow to dynamically change the base URL of the stimulus files
 var audioBaseURL = ""; // Default = "", can be a folder "Stimuli/"
@@ -61,10 +61,10 @@ NextText ["EN"] = "Next &rarr;";
 HeaderLineText0 ["EN"] = "The speech sounds distorted";
 RightText0 ["EN"] = "Not at all";
 LeftText0 ["EN"] = "Very";
-HeaderLineText1 ["EN"] = "The speech sounds distorted";
+HeaderLineText1 ["EN"] = "The speech sounds distorted-2";
 RightText1 ["EN"] = "Not at all";
 LeftText1 ["EN"] = "Very";
-HeaderLineText2 ["EN"] = "The speech sounds distorted";
+HeaderLineText2 ["EN"] = "The speech sounds distorted-3";
 RightText2 ["EN"] = "Not at all";
 LeftText2 ["EN"] = "Very";
 ReadyText ["EN"] = "Ready";

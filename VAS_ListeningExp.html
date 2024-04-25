@@ -177,8 +177,12 @@
 				};
 
 			    // Prepare the stimulus list
-			    if(posB < 0) RandomizeAB = false;
-			    if(RandomizeAB)data = shuffleAB(data, posA, posB);
+			    if(ShowPlayBbutton) {
+				    if(posB < 0) {
+						RandomizeAB = false;
+					};
+				    if(RandomizeAB)data = shuffleAB(data, posA, posB);
+				};
 			    if(ShuffleStimulusList)data = shuffle(data);
 			    if(PracticeItems > 0){
 					practise = data.slice(data.length-PracticeItems, data.length).reverse();

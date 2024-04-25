@@ -44,11 +44,11 @@
 			return hex_sha256( hex_sha256( hex_sha512(plaintext) ) );
 		};
 	</script>
-	<script language="JavaScript" src="InitLikert3ABListeningExperiment.js"></script>
-	<script language="JavaScript" src="Read_Likert3AB_Stimuluslist.js"></script>
+	<script language="JavaScript" src="InitLikert3ListeningExperiment.js"></script>
+	<script language="JavaScript" src="Read_Likert3_Stimuluslist.js"></script>
 	<script language="JavaScript">
 		var stimulusTable;
-        var changedLikert3AB = false;
+        var changedLikert3 = false;
         var playedA = false;
         var playedB = false;
         var playedSamples = false;
@@ -138,8 +138,12 @@
 				};
 				
 			    // Prepare the stimulus list
-			    if(columnNames.indexOf("B") < 0) RandomizeAB = false;
-			    if(RandomizeAB)data = shuffleAB(data, posA, posB);
+			    if(ShowPlayBbutton) {
+				    if(posB < 0) {
+						RandomizeAB = false;
+					};
+				    if(RandomizeAB)data = shuffleAB(data, posA, posB);
+				};
 			    if(ShuffleStimulusList)data = shuffle(data);
 			    if(PracticeItems > 0){
 					practise = data.slice(data.length-PracticeItems, data.length).reverse();
@@ -153,6 +157,10 @@
 					localStorage.setItem('LK3columnnames', JSON.stringify(columnNames));
 				};
 			};
+			
+			// Locate the stimuli
+			posA = columnNames.indexOf("A");
+			if(posA < 0)posA = 0;
 		    
 			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (data.length - stimulusNbr)+"");
 			
@@ -162,8 +170,13 @@
         function unblockNext (x) {
 			playedA = playedA || x=="SpeakerA";
 			playedB = playedB || x=="SpeakerB";
-			changedLikert3AB = changedLikert3AB || x=="Likert3AB";
-			playedSamples = playedA && playedB && changedLikert3AB;
+			changedLikert3 = changedLikert3 || x=="Likert3";
+			if(ShowPlayBbutton) {
+				playedSamples = playedA && playedB && changedLikert3;
+			} else {
+				playedSamples = playedA && changedLikert3;
+			};
+			
 			if(playedSamples == true) {
 				document.getElementById('NextText').style.backgroundColor="#F0F0F0";
 				document.getElementById('NextButton').style.backgroundColor="#F0F0F0";
@@ -172,7 +185,7 @@
 				document.getElementById('PlayAText').style.backgroundColor = "#EEFFEE";
 				document.getElementById('PlayAText').parentNode.parentNode.style.backgroundColor = "#EEFFEE";
 			};
-			if(x=="SpeakerB") {
+			if(ShowPlayBbutton && x=="SpeakerB") {
 				document.getElementById('PlayBText').style.backgroundColor = "#EEFFEE";
 				document.getElementById('PlayBText').parentNode.parentNode.style.backgroundColor = "#EEFFEE";
 			};
@@ -183,10 +196,13 @@
 			document.getElementById('SpeakerA').title = stimulusTable[1][i][posA].replace(/^.*\/([^\/]+)\.wav$/, "$1");
 			document.getElementById('PlayAText').style.backgroundColor = "#F0F0F0";
 			document.getElementById('PlayAText').parentNode.parentNode.style.backgroundColor = "#F0F0F0";
-			document.getElementById('SpeakerB').src = audioBaseURL + stimulusTable[1][i][posB];
-			document.getElementById('SpeakerB').title = stimulusTable[1][i][posB].replace(/^.*\/([^\/]+)\.wav$/, "$1");
-			document.getElementById('PlayBText').style.backgroundColor = "#F0F0F0";
-			document.getElementById('PlayBText').parentNode.parentNode.style.backgroundColor = "#F0F0F0";
+
+			if(ShowPlayBbutton) {
+				document.getElementById('SpeakerB').src = audioBaseURL + stimulusTable[1][i][posB];
+				document.getElementById('SpeakerB').title = stimulusTable[1][i][posB].replace(/^.*\/([^\/]+)\.wav$/, "$1");
+				document.getElementById('PlayBText').style.backgroundColor = "#F0F0F0";
+				document.getElementById('PlayBText').parentNode.parentNode.style.backgroundColor = "#F0F0F0";
+			};
 			
 			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (data.length - i)+"");
 			
@@ -236,7 +252,7 @@
 			if(finishedExperiment)return false;
 			if(playedSamples) {
 				// Reset played
-				playedSamples = changedLikert3AB = playedA = playedB = false;
+				playedSamples = changedLikert3 = playedA = playedB = false;
 				document.getElementById('LK3buttons0.1').checked = document.getElementById('LK3buttons0.2').checked = document.getElementById('LK3buttons0.3').checked  = false;
 				document.getElementById('LK3buttons1.1').checked = document.getElementById('LK3buttons1.2').checked = document.getElementById('LK3buttons1.3').checked = false;
 				document.getElementById('LK3buttons2.1').checked = document.getElementById('LK3buttons2.2').checked = document.getElementById('LK3buttons2.3').checked = false;
@@ -300,7 +316,7 @@
 			localStorage.removeItem('LK3columnnames');
 			localStorage.removeItem('LK3answerlist');
 
-	        playedSamples = changedLikert3AB = playedA = playedB = false;
+	        playedSamples = changedLikert3 = playedA = playedB = false;
 			document.getElementById('LK3buttons0').value = '';
 			document.getElementById('LK3buttons1').value = '';
 			document.getElementById('LK3buttons2').value = '';
@@ -413,9 +429,9 @@
 	    <td><strong><div id="LeftText0" style="font-size:20px;">Not at all</div></strong></td>
 	    <td>
 			<table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;"><tr>
-			<td><input type="radio" value="1" name="LK3buttons0" id="LK3buttons0.1" onchange="unblockNext('Likert3AB')" oninput="answer[0]=this.value"></td>
-			<td><input type="radio" value="2" name="LK3buttons0" id="LK3buttons0.2" onchange="unblockNext('Likert3AB')" oninput="answer[0]=this.value"></td>
-			<td><input type="radio" value="3" name="LK3buttons0" id="LK3buttons0.3" onchange="unblockNext('Likert3AB')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="1" name="LK3buttons0" id="LK3buttons0.1" onchange="unblockNext('Likert3')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="2" name="LK3buttons0" id="LK3buttons0.2" onchange="unblockNext('Likert3')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="3" name="LK3buttons0" id="LK3buttons0.3" onchange="unblockNext('Likert3')" oninput="answer[0]=this.value"></td>
 			</tr>
 			<tr style="font-size:15px;">
 			<td><div id="LK3.0-1" style="font-size:20px;">&nbsp;</div></td>
@@ -440,9 +456,9 @@
 	    <td><strong><div id="LeftText1" style="font-size:20px;">Not at all</div></strong></td>
 	    <td>
 			<table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;"><tr>
-			<td><input type="radio" value="1" name="LK3buttons1" id="LK3buttons1.1" onchange="unblockNext('Likert3AB')" oninput="answer[0]=this.value"></td>
-			<td><input type="radio" value="2" name="LK3buttons1" id="LK3buttons1.2" onchange="unblockNext('Likert3AB')" oninput="answer[0]=this.value"></td>
-			<td><input type="radio" value="3" name="LK3buttons1" id="LK3buttons1.3" onchange="unblockNext('Likert3AB')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="1" name="LK3buttons1" id="LK3buttons1.1" onchange="unblockNext('Likert3')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="2" name="LK3buttons1" id="LK3buttons1.2" onchange="unblockNext('Likert3')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="3" name="LK3buttons1" id="LK3buttons1.3" onchange="unblockNext('Likert3')" oninput="answer[0]=this.value"></td>
 			</tr>
 			<tr style="font-size:15px;">
 			<td><div id="LK3.1-1" style="font-size:20px;">&nbsp;</div></td>
@@ -467,9 +483,9 @@
 	    <td><strong><div id="LeftText2" style="font-size:20px;">Completely agree</div></strong></td>
 	    <td>
 			<table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;"><tr>
-			<td><input type="radio" value="1" name="LK3buttons2" id="LK3buttons2.1" onchange="unblockNext('Likert3AB')" oninput="answer[0]=this.value"></td>
-			<td><input type="radio" value="2" name="LK3buttons2" id="LK3buttons2.2" onchange="unblockNext('Likert3AB')" oninput="answer[0]=this.value"></td>
-			<td><input type="radio" value="3" name="LK3buttons2" id="LK3buttons2.3" onchange="unblockNext('Likert3AB')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="1" name="LK3buttons2" id="LK3buttons2.1" onchange="unblockNext('Likert3')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="2" name="LK3buttons2" id="LK3buttons2.2" onchange="unblockNext('Likert3')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="3" name="LK3buttons2" id="LK3buttons2.3" onchange="unblockNext('Likert3')" oninput="answer[0]=this.value"></td>
 			</tr>
 			<tr style="font-size:15px;">
 			<td><div id="LK3.2-1" style="font-size:20px;">&nbsp;</div></td>
