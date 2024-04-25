@@ -13,7 +13,7 @@ var NumberOfScales = 2;
 // Allow to dynamically change the base URL of the stimulus files
 var audioBaseURL = "Stimuli/"; // Default = "Stimuli/", can be nothing ""
 // Example, if located at Github, read from URL
-if(1 || document.location.href.match(/github\.io\/akouste/)){ 
+if(document.location.href.match(/github\.io\/akouste/)){ 
 	audioBaseURL = "https://www.fon.hum.uva.nl/rob/PseudonymizedSpeechExp/";
 };
 

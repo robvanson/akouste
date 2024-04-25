@@ -14,7 +14,7 @@ var NumberOfScales = 2;
 var audioBaseURL = "Stimuli/"; // Default = "Stimuli/", can be nothing ""
 // Example, if located at Github, read from URL
 if(document.location.href.match(/github\.io\/akouste/)){ 
-	audioBaseURL = "https://www.fon.hum.uva.nl/rob/PseudonymizedSpeechExp/Stimuli/";
+	audioBaseURL = "https://www.fon.hum.uva.nl/rob/PseudonymizedSpeechExp/";
 };
 
 // Add languages to your heart's content
