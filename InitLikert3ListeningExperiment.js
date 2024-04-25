@@ -97,7 +97,7 @@ ToolTipRestart ["EN"] = "Start a new experiment session";
 // Add Language = NL
 languageSet.add("NL");
 
-PageTitleText ["NL"] = "Likert 5 punt schaal Luisterexperiment";
+PageTitleText ["NL"] = "Likert 3 punt schaal Luisterexperiment";
 TitleText ["NL"] = "Hoe vervormd klinkt de spraak?";
 IntroductionText ["NL"] = "De spraak is gemanipuleerd. Hoe vervormd klinkt het?";
 StimulusNumberText ["NL"] = "XXX antwoorden te gaan";
