@@ -57,30 +57,30 @@ var ToolTipRestart = [];
 
 // Specify language specific texts
 // Language = EN
-PageTitleText ["EN"] = "Same or different speaker";
-TitleText ["EN"] = "Is this the same speaker?";
-IntroductionText ["EN"] = "Are these two recordigns from the same speaker?";
+PageTitleText ["EN"] = "Likert 3 point scale Listening Experiment";
+TitleText ["EN"] = "How distorted is the speech?";
+IntroductionText ["EN"] = "The speech has been manipulated. How distorted does it sound?";
 StimulusNumberText ["EN"] = "XXX answers to go";
 PlayAText ["EN"] = " Speech &#9658; ";
 PlayBText ["EN"] = " Speech &#9658; ";
 NextText ["EN"] = "Next &rarr;";
-HeaderLineText0 ["EN"] = "These recordings are from the same speaker";
-RightText0 ["EN"] = "Yes";
-LeftText0 ["EN"] = "No";
+HeaderLineText0 ["EN"] = "The speech sounds distorted";
+RightText0 ["EN"] = "Strongly disagree";
+LeftText0 ["EN"] = "Strongly agree";
 LK3label ["EN"] [0] [0] = "&nbsp;";
-LK3label ["EN"] [0] [1] = "maybe";
+LK3label ["EN"] [0] [1] = "neutral";
 LK3label ["EN"] [0] [2] = "&nbsp;";
-HeaderLineText1 ["EN"] = "The speech sounds distorted";
+HeaderLineText1 ["EN"] = "The speech sounds distorted-2";
 RightText1 ["EN"] = "Strongly disagree";
 LeftText1 ["EN"] = "Strongly agree";
 LK3label ["EN"] [1] [0] = "&nbsp;";
-LK3label ["EN"] [1] [1] = "maybe";
+LK3label ["EN"] [1] [1] = "neutral";
 LK3label ["EN"] [1] [2] = "&nbsp;";
-HeaderLineText2 ["EN"] = "The speech sounds distorted";
+HeaderLineText2 ["EN"] = "The speech sounds distorted-3";
 RightText2 ["EN"] = "Strongly disagree";
 LeftText2 ["EN"] = "Strongly agree";
 LK3label ["EN"] [2] [0] = "&nbsp;";
-LK3label ["EN"] [2] [1] = "maybe";
+LK3label ["EN"] [2] [1] = "neutral";
 LK3label ["EN"] [2] [2] = "&nbsp;";
 ReadyText ["EN"] = "Ready";
 SaveLinkText ["EN"] = 'Save Results';
@@ -97,30 +97,30 @@ ToolTipRestart ["EN"] = "Start a new experiment session";
 // Add Language = NL
 languageSet.add("NL");
 
-PageTitleText ["NL"] = "Zelfde of verschillende sprekers";
-TitleText ["NL"] = "Is dit dezelfde spreker?";
-IntroductionText ["NL"] = "Zijn deze twee opnamen van dezelfde spreker?";
+PageTitleText ["NL"] = "Likert 5 punt schaal Luisterexperiment";
+TitleText ["NL"] = "Hoe vervormd klinkt de spraak?";
+IntroductionText ["NL"] = "De spraak is gemanipuleerd. Hoe vervormd klinkt het?";
 StimulusNumberText ["NL"] = "XXX antwoorden te gaan";
 PlayAText ["NL"] = " Spraak &#9658; ";
 PlayBText ["NL"] = " Spraak &#9658; ";
 NextText ["NL"] = "Volgende &rarr;";
-HeaderLineText0 ["NL"] = "Deze opnamen zijn van dezelfde spreker";
-RightText0 ["NL"] = "Ja";
-LeftText0 ["NL"] = "Nee";
+HeaderLineText0 ["NL"] = "De spraak klinkt vervormd";
+RightText0 ["NL"] = "Helemaal<br />mee oneens";
+LeftText0 ["NL"] = "Helemaal<br />mee eens";
 LK3label ["NL"] [0] [0] = "&nbsp;";
-LK3label ["NL"] [0] [1] = "misschien";
+LK3label ["NL"] [0] [1] = "neutraal";
 LK3label ["NL"] [0] [2] = "&nbsp;";
 HeaderLineText1 ["NL"] = "De spraak klinkt vervormd";
 RightText1 ["NL"] = "Helemaal<br />mee oneens";
 LeftText1 ["NL"] = "Helemaal<br />mee eens";
 LK3label ["NL"] [1] [0] = "&nbsp;";
-LK3label ["NL"] [1] [1] = "misschien";
+LK3label ["NL"] [1] [1] = "neutraal";
 LK3label ["NL"] [1] [2] = "&nbsp;";
 HeaderLineText2 ["NL"] = "De spraak klinkt vervormd";
 RightText2 ["NL"] = "Helemaal<br />mee oneens";
 LeftText2 ["NL"] = "Helemaal<br />mee eens";
 LK3label ["NL"] [2] [0] = "&nbsp;";
-LK3label ["NL"] [2] [1] = "misschien";
+LK3label ["NL"] [2] [1] = "neutraal";
 LK3label ["NL"] [2] [2] = "&nbsp;";
 ReadyText ["NL"] = "Klaar";
 SaveLinkText ["NL"] = 'Bewaar resultaten';
@@ -148,7 +148,7 @@ for(var l in languageArray) {
 
 
 // Set language
-var language = "NL";
+var language = "EN";
 var userLanguage = (navigator.language) ? navigator.language : navigator.userLanguage;
 userLanguage = userLanguage.substr(0,2).toUpperCase();
 if (languageSet.has(userLanguage)) {
