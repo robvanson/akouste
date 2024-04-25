@@ -1,6 +1,5 @@
 // Shuffle stimuli or not
 ShuffleStimulusList = true;
-RandomizeAB = false;
 
 // If practice items > 0, the last PracticeItems stimuli will be 
 // prepended in reverse order.

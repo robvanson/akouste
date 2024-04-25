@@ -1,14 +1,17 @@
 // Shuffle stimuli or not
 ShuffleStimulusList = true;
-RandomizeAB = true;
-ShowPlayBbutton = true;
+
+// Set to true if each answer relates to two stimuli (A and B)
+ShowPlayBbutton = false;
+// Set to true if the A and B stimuli should be randomly change place.
+RandomizeAB = false;
 
 // If practice items > 0, the last PracticeItems stimuli will be 
 // prepended in reverse order.
 PracticeItems = 4;
 
-// Set number of visible questions
-var NumberOfScales = 2;
+// Set number of visible questions (1-3)
+var NumberOfScales = 1;
 
 // Allow to dynamically change the base URL of the stimulus files
 var audioBaseURL = "Stimuli/"; // Default = "Stimuli/", can be nothing ""

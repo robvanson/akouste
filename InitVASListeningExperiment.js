@@ -1,17 +1,20 @@
 // Shuffle stimuli or not
 ShuffleStimulusList = true;
-RandomizeAB = true;
-ShowPlayBbutton = true;
+
+// Set to true if each answer relates to two stimuli (A and B)
+ShowPlayBbutton = false;
+// Set to true if the A and B stimuli should be randomly change place.
+RandomizeAB = false;
 
 // If practice items > 0, the last PracticeItems stimuli will be 
 // prepended in reverse order. 
 PracticeItems = 4;
 
-// Set number of visible sliders
-var NumberOfScales = 2;
+// Set number of visible sliders (1-3)
+var NumberOfScales = 1;
 
 // Allow to dynamically change the base URL of the stimulus files
-var audioBaseURL = ""; // Default = "", can be a folder "Stimuli/"
+var audioBaseURL = "Stimuli/"; // Default = "Stimuli/", can be nothing ""
 // Example, if located at Github, read from URL
 if(1 || document.location.href.match(/github\.io\/akouste/)){ 
 	audioBaseURL = "https://www.fon.hum.uva.nl/rob/PseudonymizedSpeechExp/";
