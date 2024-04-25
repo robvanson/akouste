@@ -165,7 +165,6 @@ function replaceTexts (language) {
 	document.getElementById('IntroductionText').innerHTML = IntroductionText[language];
 	document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language];
 	document.getElementById('PlayAText').innerHTML = PlayAText[language];
-	document.getElementById('PlayBText').innerHTML = PlayBText[language];
 	document.getElementById('NextText').innerHTML = NextText[language];
 	document.getElementById('HeaderLineText0').innerHTML = HeaderLineText0[language];
 	document.getElementById('RightText0').innerHTML = RightText0[language];
@@ -178,12 +177,19 @@ function replaceTexts (language) {
 	document.getElementById('LeftText2').innerHTML = LeftText2[language];
 	document.getElementById('RestartPageText').innerHTML = RestartPageText[language];
 	document.getElementById('ToolTipPlayA').title = ToolTipPlayA [language];
-	document.getElementById('ToolTipPlayB').title = ToolTipPlayB [language];
 	document.getElementById('ToolTipNext').title = ToolTipNext [language];
 	document.getElementById('ToolTipSave').title = ToolTipSave [language];
 	document.getElementById('ToolTipRestart').title = ToolTipRestart [language];
 	for(var j = 0; j < 3; j++) {
 		document.getElementById('LK3.0-'+(j+1)).innerHTML = LK3label [language] [0] [j];
+	};
+	
+	// If there is a PlayB button
+	if(ShowPlayBbutton){
+		document.getElementById('PlayBText').innerHTML = PlayBText[language];
+		document.getElementById('ToolTipPlayB').title = ToolTipPlayB [language];
+		document.getElementById('ButtonBVisible').style.display = 'inline';
+		document.getElementById('ButtonBVisible').style.visibility = 'visible';
 	};
 
 	// Make the required number of questions visible
