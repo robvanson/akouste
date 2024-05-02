@@ -1,0 +1,543 @@
+<!DOCTYPE HTML>
+<html lang = "en">
+<head>
+  <!-- basic.html -->
+  <title id="PageTitleText">Likert Listening Experiment</title>
+  <meta charset="UTF-8">
+  <style>
+	  input[type="radio"]  {
+		  height:40px; 
+		  width:40px; 
+		  vertical-align: middle;
+		  horizontal-align: middle;
+	  };
+	  </style>
+  <meta charset = "UTF-8" />
+	<script language="JavaScript">
+		// Before anything else, warn IE users
+		var ua = window.navigator.userAgent;
+		// If Internet Explorer, warn user
+		var msie = ua.indexOf("MSIE ");
+		if(msie > 0){
+			alert("This experiment does not work with Internet Explorer.\nPlease, use Chrome, Firefox, Safari or related browsers");
+		};
+	</script>
+	<script language="Javascript" src="sha.js"></script>
+	<script language="JavaScript">
+		// Hash Function definitions
+		function hex_sha1 (plaintext) {
+			var shaObj = new jsSHA("SHA-1", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		function hex_sha256 (plaintext) {
+			var shaObj = new jsSHA("SHA-256", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		function hex_sha512 (plaintext) {
+			var shaObj = new jsSHA("SHA-512", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		function chained_sha (plaintext) {
+			return hex_sha256( hex_sha256( hex_sha512(plaintext) ) );
+		};
+	</script>
+	<script language="JavaScript" src="InitABListeningExperiment.js"></script>
+	<script language="JavaScript" src="Read_AB_Stimuluslist.js"></script>
+	<script language="JavaScript">
+		var stimulusTable;
+        var changedLikert3 = false;
+        var playedA = false;
+        var playedB = false;
+        var playedSamples = false;
+		var finishedExperiment = false;
+		var answerList = [];
+		var answer = new Array(NumberOfScales).fill(-1);
+		var stimulusNbr = 0;
+		var posA = 0;
+		var posB = 1;
+		function loadList () {
+			//fetch('Stimuli_LK3.csv')
+			//	.then(response => response.text())
+			//	.then(text => csv = text);
+			var columnNames = ["A"];
+			// Check whether there is an ongoing experiment
+			if(typeof(Storage) !== "undefined" && localStorage.getItem('LK3stimuluslist')){
+				// Store
+				data = JSON.parse(localStorage.getItem('LK3stimuluslist'));
+				if(localStorage.getItem('LK3columnnames')){
+					columnNames = JSON.parse(localStorage.getItem('LK3columnnames'));
+				} else {
+					localStorage.setItem('LK3columnnames', JSON.stringify(columnNames));
+				};
+				if(localStorage.getItem('LK3answerlist')){
+					answerList = JSON.parse(localStorage.getItem('LK3answerlist'));
+					stimulusNbr = answerList.length;
+				};
+				if(localStorage.getItem('LK3lastDigest')){
+					lastDigest = localStorage.getItem('LK3lastDigest');
+				};
+				if(stimulusNbr >= data.length){
+					// The experiment has been finished, but not reset
+					FinishExperimentRun ();
+					onSave ();
+				};
+			} else {
+				// Read and process the stimulus list
+				// If a list number has been given, read it
+				var expnum = 0;
+				var params = new URLSearchParams(location.search);
+				if(params.get('expnum') != "undefined" && Number(params.get('expnum')) > 0) {
+							   expnum = Number(params.get('expnum'));
+				};
+
+				// First try the JSON options
+				if(typeof stimulusTableJSON !== 'undefined' && stimulusTableJSON) {
+					var stimulusTableParsed;
+					// Use Array version if possible, but not if expnum > length
+					if(Array.isArray(stimulusTableJSON) && stimulusTableJSON.length > 0 && expnum <= stimulusTableJSON.length){
+						// Default if there is no expnum
+						if(expnum <= 0) { expnum = 1;};
+						stimulusTableParsed = JSON.parse(stimulusTableJSON[expnum - 1]);
+					// Old: single JSON string
+					} else if((stimulusTableJSON instanceof String) || (typeof stimulusTableJSON === "string")) {
+						stimulusTableParsed = JSON.parse(stimulusTableJSON);
+					} else {
+						stimulusTableParsed = [["A","B","X"], ["", "", ""]];
+						alert("ERROR: invalid stimulus list");
+						document.getElementById('TitleText').innerHTML = "ERROR: invalid stimulus list";
+					};
+				
+					columnNames = stimulusTableParsed [0];
+					data = stimulusTableParsed [1];
+				// No JSON data, use CSV			
+				} else if (csv !== 'undefined' && csv) {
+				    // Split the input into lines
+				    lines = csv.split('\n');
+				
+				    // Extract column names from the first line
+				    columnNamesLine = lines[0];
+				    columnNames = columnNamesLine.split(/[;\t]/g).filter(e => e);
+				
+				    // Extract data from subsequent lines
+				    dataLines = lines.slice(1);
+				    while(dataLines[dataLines.length-1] == [])dataLines.pop();
+				    data = dataLines.map(function(x){return x.split(/[;\t]/g).filter(e => e)});
+				};	
+				
+				// Locate the stimuli
+				posA = columnNames.indexOf("A");
+				if(posA < 0)posA = 0;
+				posB = columnNames.indexOf("B");
+				if(RandomizeAB) {
+					columnNames.push("ABswitch");
+				} else {
+					posB = -1;
+				};
+				
+			    // Prepare the stimulus list
+			    if(ShowPlayBbutton) {
+				    if(posB < 0) {
+						RandomizeAB = false;
+					};
+				    if(RandomizeAB)data = shuffleAB(data, posA, posB);
+				};
+			    if(ShuffleStimulusList)data = shuffle(data);
+			    if(PracticeItems > 0){
+					practise = data.slice(data.length-PracticeItems, data.length).reverse();
+					tmp = practise.concat(data);
+					data = tmp.concat();
+				};
+				// Store the stimulus data
+				if (typeof(Storage) !== "undefined") {
+					// Store
+					localStorage.setItem('LK3stimuluslist', JSON.stringify(data));
+					localStorage.setItem('LK3columnnames', JSON.stringify(columnNames));
+				};
+			};
+			
+			// Locate the stimuli
+			posA = columnNames.indexOf("A");
+			if(posA < 0)posA = 0;
+		    
+			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (data.length - stimulusNbr)+"");
+			
+		    return [columnNames, data];
+		};
+        
+        function unblockNext (x) {
+			playedA = playedA || x=="SpeakerA";
+			playedB = playedB || x=="SpeakerB";
+			changedLikert3 = changedLikert3 || x=="Likert3";
+			if(ShowPlayBbutton) {
+				playedSamples = playedA && playedB && changedLikert3;
+			} else {
+				playedSamples = playedA && changedLikert3;
+			};
+			
+			if(playedSamples == true) {
+				document.getElementById('NextText').style.backgroundColor="#F0F0F0";
+				document.getElementById('NextButton').style.backgroundColor="#F0F0F0";
+			};
+			if(x=="SpeakerA") {
+				document.getElementById('PlayAText').style.backgroundColor = "#EEFFEE";
+				document.getElementById('PlayAText').parentNode.parentNode.style.backgroundColor = "#EEFFEE";
+			};
+			if(ShowPlayBbutton && x=="SpeakerB") {
+				document.getElementById('PlayBText').style.backgroundColor = "#EEFFEE";
+				document.getElementById('PlayBText').parentNode.parentNode.style.backgroundColor = "#EEFFEE";
+			};
+		};
+        
+        function setAudio(i, stimulusTable) {
+			document.getElementById('SpeakerA').src = audioBaseURL + stimulusTable[1][i][posA];
+			document.getElementById('SpeakerA').title = stimulusTable[1][i][posA].replace(/^.*\/([^\/]+)\.wav$/, "$1");
+			document.getElementById('PlayAText').style.backgroundColor = "#F0F0F0";
+			document.getElementById('PlayAText').parentNode.parentNode.style.backgroundColor = "#F0F0F0";
+
+			if(ShowPlayBbutton) {
+				document.getElementById('SpeakerB').src = audioBaseURL + stimulusTable[1][i][posB];
+				document.getElementById('SpeakerB').title = stimulusTable[1][i][posB].replace(/^.*\/([^\/]+)\.wav$/, "$1");
+				document.getElementById('PlayBText').style.backgroundColor = "#F0F0F0";
+				document.getElementById('PlayBText').parentNode.parentNode.style.backgroundColor = "#F0F0F0";
+			};
+			
+			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (data.length - i)+"");
+			
+			setProgress(100*stimulusNbr/data.length);
+		};
+        
+        var lastDigest = hex_sha256 (" ".repeat(256));
+        function collectAnswer () {
+			if(localStorage.getItem('LK3lastDigest')){
+				lastDigest = localStorage.getItem('LK3lastDigest');
+			};
+			
+			var speakerA = document.getElementById('SpeakerA').title;
+			var speakerB = document.getElementById('SpeakerB').title;
+			
+			var newLine = (stimulusNbr+1)+";"+answer.join(";")+";"+(stimulusTable[1][stimulusNbr]).join(";");
+			var newDigest = hex_sha256(lastDigest + newLine);
+			lastDigest = newDigest;
+			answerList.push(newLine + ";" + newDigest.substr(0,6));
+
+			if (typeof(Storage) !== "undefined") {
+				// Store
+				localStorage.setItem('LK3answerlist', JSON.stringify(answerList));
+				localStorage.setItem('LK3lastDigest', lastDigest);
+			};
+		};
+
+		function displayArray (x) {
+			var answerNums = Array.from(Array(NumberOfScales+1).keys());
+			var answerTexts = Array(NumberOfScales).fill("Answer");
+			answerTexts = answerTexts.map(function(el, idx){return el+answerNums[idx+1]})
+			var output = "Num;"+answerTexts.join(";")+";"+(stimulusTable[0]).join(";")+";Digest\n";
+			for (var i=0; i<x.length; i++) {
+				line = "";
+				output += x[i] + '\n';
+			}
+			var blob = new Blob([output], {type: "text/plain"});
+			var blobURL = URL.createObjectURL(blob);
+			document.getElementById('SaveButtonText').innerHTML = SaveLinkText[language]
+			document.getElementById('SaveButton').style.visibility = 'visible';
+			document.getElementById('ToolTipSave').style.visibility = 'visible';
+			document.getElementById('SaveLink').href = blobURL;
+			document.getElementById('SaveLink').download = "LK3buttons_Results_"+((new Date()).toISOString()).replace(/\.[0-9Z]+/, "").replace(/\:/g,".") + ".txt";
+		}
+		
+		function nextStimulus () {
+			if(finishedExperiment)return false;
+			if(playedSamples) {
+				// Reset played
+				playedSamples = changedLikert3 = playedA = playedB = false;
+				document.getElementById('LK3buttons0.1').checked = document.getElementById('LK3buttons0.2').checked = document.getElementById('LK3buttons0.3').checked  = false;
+				document.getElementById('LK3buttons1.1').checked = document.getElementById('LK3buttons1.2').checked = document.getElementById('LK3buttons1.3').checked = false;
+				document.getElementById('LK3buttons2.1').checked = document.getElementById('LK3buttons2.2').checked = document.getElementById('LK3buttons2.3').checked = false;
+				// Process answers
+				collectAnswer ();
+				stimulusNbr = answerList.length;
+				
+				// Block Next button
+				document.getElementById('NextText').style.backgroundColor = "gray";
+				document.getElementById('NextButton').style.backgroundColor = "gray";
+				
+				// Check whether the run is finished
+				// If so, display results and restart
+				if(stimulusNbr >= data.length){
+					FinishExperimentRun ();
+					return true;
+				};
+				// Next stimulus
+				setAudio(stimulusNbr, stimulusTable);
+				return true;
+			} else {
+				alert(NextAlert [language]);
+				return false;
+			};
+			
+		};
+		
+		function SetUp () {
+			// Check localStorage
+			if(typeof(Storage) !== "undefined"){
+				document.getElementById('LocalStoragePresent').style.background = '#90EE90';
+			};
+			// The following are set by the Init function
+			answerList = [];
+			answer = new Array(NumberOfScales).fill(-1);
+			stimulusNbr = 0;
+			replaceTexts (language);
+			stimulusTable = loadList (); 
+			setAudio(stimulusNbr, stimulusTable);
+		};
+		
+		function FinishExperimentRun () {
+			displayArray(answerList);
+			document.getElementById('NextText').innerHTML = ReadyText[language];
+			document.getElementById('NextText').style.backgroundColor = "gray";
+			document.getElementById('SaveText').innerHTML =  SaveText [language];
+			finishedExperiment = true;
+			setProgress(100);
+			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (0)+"");
+		};
+	
+		function onSave () {
+			document.getElementById('RestartPage').style.visibility = 'visible'
+			document.getElementById('ToolTipRestart').style.visibility = 'visible'
+			document.getElementById('SaveText').innerHTML =  RestartButtonText [language];
+		};
+		
+		function resetPage () {
+			// Reset all
+			localStorage.removeItem('LK3stimuluslist');
+			localStorage.removeItem('LK3columnnames');
+			localStorage.removeItem('LK3answerlist');
+
+	        playedSamples = changedLikert3 = playedA = playedB = false;
+			document.getElementById('LK3buttons0').value = '';
+			document.getElementById('LK3buttons1').value = '';
+			document.getElementById('LK3buttons2').value = '';
+			finishedExperiment = false;
+			answerList = [];
+			answer = new Array(NumberOfScales).fill(-1);
+			stimulusNbr = 0;
+		};
+		
+		function shuffle(array) {
+		  var currentIndex = array.length, temporaryValue, randomIndex;
+		
+		  // While there remain elements to shuffle...
+		  while (0 !== currentIndex) {
+		
+		    // Pick a remaining element...
+		    randomIndex = Math.floor(Math.random() * currentIndex);
+		    currentIndex -= 1;
+		
+		    // And swap it with the current element.
+		    temporaryValue = array[currentIndex];
+		    array[currentIndex] = array[randomIndex];
+		    array[randomIndex] = temporaryValue;
+		  }
+		
+		  return array;
+		}
+	
+		function shuffleAB(array, apos, bpos) {
+		  var temporaryValue, switchAB, currentSubarray;
+		
+		  // While there remain elements to shuffle...
+		  for (var i=0; i<array.length; i++) {
+			currentSubarray = array[i];
+			// Random uniform Integer [0, 2>
+			switchAB = Math.floor(Math.random() * 2) == 1;
+			if (switchAB){
+				temporaryValue = currentSubarray[apos];
+				currentSubarray[apos] = currentSubarray[bpos];
+				currentSubarray[bpos] = temporaryValue;
+			};
+			currentSubarray.push(switchAB)
+		  }
+		
+		  return array;
+		}
+	
+		// Warning before leaving the page (back button, or outgoing link)
+		window.onbeforeunload = function () {
+			if(answerList.length > 0){
+				return "-";
+			} else {
+				return;
+			};
+		};
+			
+		function setProgress(percentComplete) {
+		  var elem = document.getElementById("progressBar");
+		  elem.style.width = percentComplete + '%';
+		}
+			
+	</script>
+    </script>
+</head>
+<body onload="SetUp ()">
+	<div id="progress" style="background-color:#F0F0F0;height:10px;text-align:left;width:60%;margin-left:auto;margin-right:auto;">
+	  <div id="progressBar" style="background-color:#cce6ff;height:8px;width:0%"></div>
+	</div> 
+	
+	<script>answer="";</script>
+	<audio id="SpeakerA" src="" preload="auto" title="" onplaying="unblockNext ('SpeakerA');"></audio>
+	<audio id="SpeakerB" src="" preload="auto" title="" onplaying="unblockNext ('SpeakerB');"></audio>
+	<a href="" Id="SaveLink" download onclick="onSave ()" style="font-size:30px;visibility:hidden"></a>
+	
+	<h1 style="text-align:center"><div id="TitleText">Please enable JavaScript in your browser</div></h1>
+	
+	<h2 style="text-align:center">
+	<div id="IntroductionText">The speech has been manipulated. How natural does it sound?</div>
+	</h2>
+	<h2 style="text-align:center">
+	<div id="StimulusNumberText">0 answers to go</div>
+	</h2>
+	
+	<p style="text-align:center;">
+	<table style="text-align:center;width:50%;margin-left:auto;margin-right:auto;">
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr>
+	    <td>&nbsp;</td>
+	    <td  colspan="1" style="text-align:center">
+			<a href="javascript:void(0)" id="ToolTipPlayA" data-toggle="tooltip" title="Play sound A"><button onclick="document.getElementById('SpeakerA').play();" style="font-size:30px;background-color:white;"><strong><div id="PlayAText">Play </div></strong></button></a>
+		    <div id="ButtonBVisible" style="display:none;visibility:invisible">&nbsp;&nbsp;
+			<a href="javascript:void(0)" id="ToolTipPlayB" data-toggle="tooltip" title="Play sound B"><button onclick="document.getElementById('SpeakerB').play();" style="font-size:30px;background-color:white;"><strong><div id="PlayBText">Play </div></strong></button></a>
+			</div>
+	    </td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td><div id="HeaderLineText0" style="font-size:25px;text-align:left">The speech sounds distorted</div></td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr>
+	    <td><strong><div id="LeftText0" style="font-size:20px;">Not at all</div></strong></td>
+	    <td>
+			<table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;"><tr>
+			<td><input type="radio" value="1" name="LK3buttons0" id="LK3buttons0.1" onchange="unblockNext('Likert3')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="2" name="LK3buttons0" id="LK3buttons0.2" onchange="unblockNext('Likert3')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="3" name="LK3buttons0" id="LK3buttons0.3" onchange="unblockNext('Likert3')" oninput="answer[0]=this.value"></td>
+			</tr>
+			<tr style="font-size:15px;">
+			<td><div id="LK3.0-1" style="font-size:20px;">&nbsp;</div></td>
+			<td><div id="LK3.0-2" style="font-size:20px;">neutral</div></td>
+			<td><div id="LK3.0-3" style="font-size:20px;">&nbsp;</div></td>
+			</tr>
+			</table>
+		</td>	    
+	    <td><strong><div id="RightText0" style="font-size:20px;">Very much</div></strong></td>
+	  </tr>
+	  <tr style="display:none;" id="EmptyRow1">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px;display:none;" id="HeaderLineRow1">
+	    <td>&nbsp;</td>
+	    <td><div id="HeaderLineText1" style="font-size:25px;text-align:left">The speech sounds distorted</div></td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="display:none;" id="LK3row1">
+	    <td><strong><div id="LeftText1" style="font-size:20px;">Not at all</div></strong></td>
+	    <td>
+			<table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;"><tr>
+			<td><input type="radio" value="1" name="LK3buttons1" id="LK3buttons1.1" onchange="unblockNext('Likert3')" oninput="answer[1]=this.value"></td>
+			<td><input type="radio" value="2" name="LK3buttons1" id="LK3buttons1.2" onchange="unblockNext('Likert3')" oninput="answer[1]=this.value"></td>
+			<td><input type="radio" value="3" name="LK3buttons1" id="LK3buttons1.3" onchange="unblockNext('Likert3')" oninput="answer[1]=this.value"></td>
+			</tr>
+			<tr style="font-size:15px;">
+			<td><div id="LK3.1-1" style="font-size:20px;">&nbsp;</div></td>
+			<td><div id="LK3.1-2" style="font-size:20px;">neutral</div></td>
+			<td><div id="LK3.1-3" style="font-size:20px;">&nbsp;</div></td>
+			</tr>
+			</table>
+		</td>	    
+	    <td><strong><div id="RightText1" style="font-size:20px;">Very much</div></strong></td>
+	  </tr>
+	  <tr style="display:none;" style="display:none;" id="EmptyRow2">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px;display:none;" id="HeaderLineRow2">
+	    <td>&nbsp;</td>
+	    <td><div id="HeaderLineText2" style="font-size:25px;text-align:left">The speech sounds distorted</div></td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="display:none;" id="LK3row2">
+	    <td><strong><div id="LeftText2" style="font-size:20px;">Completely agree</div></strong></td>
+	    <td>
+			<table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;"><tr>
+			<td><input type="radio" value="1" name="LK3buttons2" id="LK3buttons2.1" onchange="unblockNext('Likert3')" oninput="answer[2]=this.value"></td>
+			<td><input type="radio" value="2" name="LK3buttons2" id="LK3buttons2.2" onchange="unblockNext('Likert3')" oninput="answer[2]=this.value"></td>
+			<td><input type="radio" value="3" name="LK3buttons2" id="LK3buttons2.3" onchange="unblockNext('Likert3')" oninput="answer[2]=this.value"></td>
+			</tr>
+			<tr style="font-size:15px;">
+			<td><div id="LK3.2-1" style="font-size:20px;">&nbsp;</div></td>
+			<td><div id="LK3.2-2" style="font-size:20px;">neutral</div></td>
+			<td><div id="LK3.2-3" style="font-size:20px;">&nbsp;</div></td>
+			</tr>
+			</table>
+		</td>	    
+	    <td><strong><div id="RightText2" style="font-size:20px;">Completely disagree</div></strong></td>
+	  </tr>
+	  <tr style="display:none;" id="EmptyRow1">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td><a href="javascript:void(0)" id="ToolTipNext" data-toggle="tooltip" title="Go to next item"><button id="NextButton" onclick="nextStimulus ();" style="font-size:30px;background-color:gray"><strong><div id="NextText" style="font-size:30px;background-color:gray">Next</div></strong></button></a></td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  </table>
+	  </p>
+	  <p>
+	  <table style="text-align:center;width:50%;margin-left:auto;margin-right:auto;">
+	  <tr style="font-size:30px">
+	    <td><a href="javascript:void(0)" id="ToolTipRestart" data-toggle="tooltip" title="Start a new experiment session" style="visibility:hidden"><button id="RestartPage" onclick="resetPage(); location.reload();" style="font-size:30px;visibility:v;"><strong><div id="RestartPageText">Restart</div></strong></button></a></td>
+	    <td>&nbsp;</td>
+	    <td><a href="javascript:void(0)" id="ToolTipSave" data-toggle="tooltip" title="Save the answer to a file" style="visibility:hidden"><button onclick="document.getElementById('SaveLink').click();" style="font-size:30px;visibility:hidden;" id="SaveButton"><strong><div id="SaveButtonText"style="color:blue;">Save Results</div></strong></button></a></td>
+	  </tr>
+	  </table>
+	  <br />
+	  <h2 style="text-align:center"><div id="SaveText"></div></h2>
+	  </p>
+	  
+	<table style="text-align:center;width:99%;margin-left:auto;margin-right:auto;">
+		<col width="90%">
+		<col width="10%">
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td><div style="text-align:right;height:25px;width:25px;border-radius: 45px;background:#ee9090;" id="LocalStoragePresent">&nbsp;</div></td>
+	  </tr>
+	</table>
+</body>
+</html>

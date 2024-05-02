@@ -2,19 +2,19 @@
 ShuffleStimulusList = true;
 
 // Set to true if each answer relates to two stimuli (A and B)
-ShowPlayBbutton = false;
+ShowPlayBbutton = true;
 // Set to true if the A and B stimuli should be randomly change place.
-RandomizeAB = false;
+RandomizeAB = true;
 
 // Set true if it should be an AB binary choice experiment
-BinaryChoiceExperiment = false;
+BinaryChoiceExperiment = true;
 
 // If practice items > 0, the last PracticeItems stimuli will be 
 // prepended in reverse order.
 PracticeItems = 4;
 
 // Set number of visible questions (1-3)
-var NumberOfScales = 1;
+var NumberOfScales = 3;
 
 // Allow to dynamically change the base URL of the stimulus files
 var audioBaseURL = "Stimuli/"; // Default = "Stimuli/", can be nothing ""
@@ -60,30 +60,30 @@ var ToolTipRestart = [];
 
 // Specify language specific texts
 // Language = EN
-PageTitleText ["EN"] = "Likert 3 point scale Listening Experiment";
-TitleText ["EN"] = "How distorted is the speech?";
-IntroductionText ["EN"] = "The speech has been manipulated. How distorted does it sound?";
+PageTitleText ["EN"] = "AB Listening Experiment";
+TitleText ["EN"] = "Which speaker sounds better";
+IntroductionText ["EN"] = "The speech has been manipulated. Which speaker sounds better?";
 StimulusNumberText ["EN"] = "XXX answers to go";
-PlayAText ["EN"] = " Speech &#9658; ";
-PlayBText ["EN"] = " Speech &#9658; ";
+PlayAText ["EN"] = " Speaker A &#9658; ";
+PlayBText ["EN"] = " Speaker B &#9658; ";
 NextText ["EN"] = "Next &rarr;";
-HeaderLineText0 ["EN"] = "The speech sounds distorted";
-RightText0 ["EN"] = "Strongly disagree";
-LeftText0 ["EN"] = "Strongly agree";
+HeaderLineText0 ["EN"] = "Which spreaker is more intelligible?";
+RightText0 ["EN"] = "B<br/>&nbsp;";
+LeftText0 ["EN"] = "A<br/>&nbsp;";
 LK3label ["EN"] [0] [0] = "&nbsp;";
-LK3label ["EN"] [0] [1] = "neutral";
+LK3label ["EN"] [0] [1] = "&nbsp;";
 LK3label ["EN"] [0] [2] = "&nbsp;";
-HeaderLineText1 ["EN"] = "The speech sounds distorted-2";
-RightText1 ["EN"] = "Strongly disagree";
-LeftText1 ["EN"] = "Strongly agree";
+HeaderLineText1 ["EN"] = "Which spreaker sounds more pleasant?";
+RightText1 ["EN"] = "B<br/>&nbsp;";
+LeftText1 ["EN"] = "A<br/>&nbsp;";
 LK3label ["EN"] [1] [0] = "&nbsp;";
-LK3label ["EN"] [1] [1] = "neutral";
+LK3label ["EN"] [1] [1] = "&nbsp;";
 LK3label ["EN"] [1] [2] = "&nbsp;";
-HeaderLineText2 ["EN"] = "The speech sounds distorted-3";
-RightText2 ["EN"] = "Strongly disagree";
-LeftText2 ["EN"] = "Strongly agree";
+HeaderLineText2 ["EN"] = "Which spreaker is more acceptable?";
+RightText2 ["EN"] = "B<br/>&nbsp;";
+LeftText2 ["EN"] = "A<br/>&nbsp;";
 LK3label ["EN"] [2] [0] = "&nbsp;";
-LK3label ["EN"] [2] [1] = "neutral";
+LK3label ["EN"] [2] [1] = "&nbsp;";
 LK3label ["EN"] [2] [2] = "&nbsp;";
 ReadyText ["EN"] = "Ready";
 SaveLinkText ["EN"] = 'Save Results';
@@ -100,30 +100,30 @@ ToolTipRestart ["EN"] = "Start a new experiment session";
 // Add Language = NL
 languageSet.add("NL");
 
-PageTitleText ["NL"] = "Likert 3 punt schaal Luisterexperiment";
-TitleText ["NL"] = "Hoe vervormd klinkt de spraak?";
-IntroductionText ["NL"] = "De spraak is gemanipuleerd. Hoe vervormd klinkt het?";
+PageTitleText ["NL"] = "AB Luisterexperiment";
+TitleText ["NL"] = "Welke spreker klinkt beter?";
+IntroductionText ["NL"] = "De spraak is gemanipuleerd. Welke spreker klinkt beter?";
 StimulusNumberText ["NL"] = "XXX antwoorden te gaan";
-PlayAText ["NL"] = " Spraak &#9658; ";
-PlayBText ["NL"] = " Spraak &#9658; ";
+PlayAText ["NL"] = " Spreker A &#9658; ";
+PlayBText ["NL"] = " Spreker B &#9658; ";
 NextText ["NL"] = "Volgende &rarr;";
-HeaderLineText0 ["NL"] = "De spraak klinkt vervormd";
-RightText0 ["NL"] = "Helemaal<br />mee oneens";
-LeftText0 ["NL"] = "Helemaal<br />mee eens";
+HeaderLineText0 ["NL"] = "Welke spreker is beter verstaanbaar?";
+RightText0 ["NL"] = "B<br />&nbsp;";
+LeftText0 ["NL"] = "A<br />&nbsp;";
 LK3label ["NL"] [0] [0] = "&nbsp;";
-LK3label ["NL"] [0] [1] = "neutraal";
+LK3label ["NL"] [0] [1] = "&nbsp;";
 LK3label ["NL"] [0] [2] = "&nbsp;";
-HeaderLineText1 ["NL"] = "De spraak klinkt vervormd";
-RightText1 ["NL"] = "Helemaal<br />mee oneens";
-LeftText1 ["NL"] = "Helemaal<br />mee eens";
+HeaderLineText1 ["NL"] = "Welke spreker klinkt prettiger?";
+RightText1 ["NL"] = "B<br />&nbsp;";
+LeftText1 ["NL"] = "A<br />&nbsp;";
 LK3label ["NL"] [1] [0] = "&nbsp;";
-LK3label ["NL"] [1] [1] = "neutraal";
+LK3label ["NL"] [1] [1] = "&nbsp;";
 LK3label ["NL"] [1] [2] = "&nbsp;";
-HeaderLineText2 ["NL"] = "De spraak klinkt vervormd";
-RightText2 ["NL"] = "Helemaal<br />mee oneens";
-LeftText2 ["NL"] = "Helemaal<br />mee eens";
+HeaderLineText2 ["NL"] = "Welke spreker is beter acceptabel?";
+RightText2 ["NL"] = "B<br />&nbsp;";
+LeftText2 ["NL"] = "A<br />&nbsp;";
 LK3label ["NL"] [2] [0] = "&nbsp;";
-LK3label ["NL"] [2] [1] = "neutraal";
+LK3label ["NL"] [2] [1] = "&nbsp;";
 LK3label ["NL"] [2] [2] = "&nbsp;";
 ReadyText ["NL"] = "Klaar";
 SaveLinkText ["NL"] = 'Bewaar resultaten';

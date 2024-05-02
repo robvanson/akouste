@@ -181,7 +181,7 @@ function replaceTexts (language) {
 	document.getElementById('HeaderLineText1').innerHTML = HeaderLineText1[language];
 	document.getElementById('RightText1').innerHTML = RightText1[language];
 	document.getElementById('LeftText1').innerHTML = LeftText1[language];
-	document.getElementById('HeaderLineText2').innerHTML = HeaderLineText1[language];
+	document.getElementById('HeaderLineText2').innerHTML = HeaderLineText2[language];
 	document.getElementById('RightText2').innerHTML = RightText2[language];
 	document.getElementById('LeftText2').innerHTML = LeftText2[language];
 	document.getElementById('RestartPageText').innerHTML = RestartPageText[language];
@@ -190,6 +190,7 @@ function replaceTexts (language) {
 	document.getElementById('ToolTipSave').title = ToolTipSave [language];
 	document.getElementById('ToolTipRestart').title = ToolTipRestart [language];
 	for(var j = 0; j < 5; j++) {
+		
 		document.getElementById('LK5.0-'+(j+1)).innerHTML = LK5label [language] [0] [j];
 	};
 	

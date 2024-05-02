@@ -137,7 +137,7 @@ function replaceTexts (language) {
 	document.getElementById('HeaderLineText1').innerHTML = HeaderLineText1[language];
 	document.getElementById('RightText1').innerHTML = RightText1[language];
 	document.getElementById('LeftText1').innerHTML = LeftText1[language];
-	document.getElementById('HeaderLineText2').innerHTML = HeaderLineText1[language];
+	document.getElementById('HeaderLineText2').innerHTML = HeaderLineText2[language];
 	document.getElementById('RightText2').innerHTML = RightText2[language];
 	document.getElementById('LeftText2').innerHTML = LeftText2[language];
 	document.getElementById('RestartPageText').innerHTML = RestartPageText[language];
