@@ -64,20 +64,20 @@
 			//	.then(text => csv = text);
 			var columnNames = ["A"];
 			// Check whether there is an ongoing experiment
-			if(typeof(Storage) !== "undefined" && localStorage.getItem('LK3stimuluslist')){
+			if(typeof(Storage) !== "undefined" && localStorage.getItem(CurrentExperimentID+'LK3stimuluslist')){
 				// Store
-				data = JSON.parse(localStorage.getItem('LK3stimuluslist'));
-				if(localStorage.getItem('LK3columnnames')){
-					columnNames = JSON.parse(localStorage.getItem('LK3columnnames'));
+				data = JSON.parse(localStorage.getItem(CurrentExperimentID+'LK3stimuluslist'));
+				if(localStorage.getItem(CurrentExperimentID+'LK3columnnames')){
+					columnNames = JSON.parse(localStorage.getItem(CurrentExperimentID+'LK3columnnames'));
 				} else {
-					localStorage.setItem('LK3columnnames', JSON.stringify(columnNames));
+					localStorage.setItem(CurrentExperimentID+'LK3columnnames', JSON.stringify(columnNames));
 				};
-				if(localStorage.getItem('LK3answerlist')){
-					answerList = JSON.parse(localStorage.getItem('LK3answerlist'));
+				if(localStorage.getItem(CurrentExperimentID+'LK3answerlist')){
+					answerList = JSON.parse(localStorage.getItem(CurrentExperimentID+'LK3answerlist'));
 					stimulusNbr = answerList.length;
 				};
-				if(localStorage.getItem('LK3lastDigest')){
-					lastDigest = localStorage.getItem('LK3lastDigest');
+				if(localStorage.getItem(CurrentExperimentID+'LK3lastDigest')){
+					lastDigest = localStorage.getItem(CurrentExperimentID+'LK3lastDigest');
 				};
 				if(stimulusNbr >= data.length){
 					// The experiment has been finished, but not reset
@@ -153,8 +153,8 @@
 				// Store the stimulus data
 				if (typeof(Storage) !== "undefined") {
 					// Store
-					localStorage.setItem('LK3stimuluslist', JSON.stringify(data));
-					localStorage.setItem('LK3columnnames', JSON.stringify(columnNames));
+					localStorage.setItem(CurrentExperimentID+'LK3stimuluslist', JSON.stringify(data));
+					localStorage.setItem(CurrentExperimentID+'LK3columnnames', JSON.stringify(columnNames));
 				};
 			};
 			
@@ -211,8 +211,8 @@
         
         var lastDigest = hex_sha256 (" ".repeat(256));
         function collectAnswer () {
-			if(localStorage.getItem('LK3lastDigest')){
-				lastDigest = localStorage.getItem('LK3lastDigest');
+			if(localStorage.getItem(CurrentExperimentID+'LK3lastDigest')){
+				lastDigest = localStorage.getItem(CurrentExperimentID+'LK3lastDigest');
 			};
 			
 			var speakerA = document.getElementById('SpeakerA').title;
@@ -225,8 +225,8 @@
 
 			if (typeof(Storage) !== "undefined") {
 				// Store
-				localStorage.setItem('LK3answerlist', JSON.stringify(answerList));
-				localStorage.setItem('LK3lastDigest', lastDigest);
+				localStorage.setItem(CurrentExperimentID+'LK3answerlist', JSON.stringify(answerList));
+				localStorage.setItem(CurrentExperimentID+'LK3lastDigest', lastDigest);
 			};
 		};
 
@@ -312,9 +312,9 @@
 		
 		function resetPage () {
 			// Reset all
-			localStorage.removeItem('LK3stimuluslist');
-			localStorage.removeItem('LK3columnnames');
-			localStorage.removeItem('LK3answerlist');
+			localStorage.removeItem(CurrentExperimentID+'LK3stimuluslist');
+			localStorage.removeItem(CurrentExperimentID+'LK3columnnames');
+			localStorage.removeItem(CurrentExperimentID+'LK3answerlist');
 
 	        playedSamples = changedLikert3 = playedA = playedB = false;
 			document.getElementById('LK3buttons0').value = '';

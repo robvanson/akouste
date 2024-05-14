@@ -56,20 +56,20 @@
 			//	.then(text => csv = text);
 			var columnNames = ["X", "A", "B"];
 			// Check whether there is an ongoing experiment
-			if(typeof(Storage) !== "undefined" && localStorage.getItem('ABXstimuluslist')){
+			if(typeof(Storage) !== "undefined" && localStorage.getItem(CurrentExperimentID+'ABXstimuluslist')){
 				// Store
-				data = JSON.parse(localStorage.getItem('ABXstimuluslist'));
-				if(localStorage.getItem('ABXcolumnnames')){
-					columnNames = JSON.parse(localStorage.getItem('ABXcolumnnames'));
+				data = JSON.parse(localStorage.getItem(CurrentExperimentID+'ABXstimuluslist'));
+				if(localStorage.getItem(CurrentExperimentID+'ABXcolumnnames')){
+					columnNames = JSON.parse(localStorage.getItem(CurrentExperimentID+'ABXcolumnnames'));
 				} else {
-					localStorage.setItem('ABXcolumnnames', JSON.stringify(columnNames));
+					localStorage.setItem(CurrentExperimentID+'ABXcolumnnames', JSON.stringify(columnNames));
 				};
-				if(localStorage.getItem('ABXanswerlist')){
-					answerList = JSON.parse(localStorage.getItem('ABXanswerlist'));
+				if(localStorage.getItem(CurrentExperimentID+'ABXanswerlist')){
+					answerList = JSON.parse(localStorage.getItem(CurrentExperimentID+'ABXanswerlist'));
 					stimulusNbr = answerList.length;
 				};
-				if(localStorage.getItem('ABXlastDigest')){
-					lastDigest = localStorage.getItem('ABXlastDigest');
+				if(localStorage.getItem(CurrentExperimentID+'ABXlastDigest')){
+					lastDigest = localStorage.getItem(CurrentExperimentID+'ABXlastDigest');
 				};
 				if(stimulusNbr >= data.length){
 					// The experiment has been finished, but not reset
@@ -129,8 +129,8 @@
 				// Store the stimulus data
 				if (typeof(Storage) !== "undefined") {
 					// Store
-					localStorage.setItem('ABXstimuluslist', JSON.stringify(data));
-					localStorage.setItem('ABXcolumnnames', JSON.stringify(columnNames));
+					localStorage.setItem(CurrentExperimentID+'ABXstimuluslist', JSON.stringify(data));
+					localStorage.setItem(CurrentExperimentID+'ABXcolumnnames', JSON.stringify(columnNames));
 				};
 			};
 			
@@ -222,8 +222,8 @@
         
         var lastDigest = hex_sha256 (" ".repeat(256));
         function collectAnswer () {
-			if(localStorage.getItem('ABXlastDigest')){
-				lastDigest = localStorage.getItem('ABXlastDigest');
+			if(localStorage.getItem(CurrentExperimentID+'ABXlastDigest')){
+				lastDigest = localStorage.getItem(CurrentExperimentID+'ABXlastDigest');
 			};
 			
 			var speakerX = document.getElementById('SpeakerX').title;
@@ -236,8 +236,8 @@
 			answerList.push(newLine + ";" + newDigest.substr(0,6));
 			if (typeof(Storage) !== "undefined") {
 				// Store
-				localStorage.setItem('ABXanswerlist', JSON.stringify(answerList));
-				localStorage.setItem('ABXlastDigest', lastDigest);
+				localStorage.setItem(CurrentExperimentID+'ABXanswerlist', JSON.stringify(answerList));
+				localStorage.setItem(CurrentExperimentID+'ABXlastDigest', lastDigest);
 			};
 		};
 
@@ -320,9 +320,9 @@
 		
 		function resetPage () {
 			// Reset all
-			localStorage.removeItem('ABXstimuluslist');
-			localStorage.removeItem('ABXcolumnnames');
-			localStorage.removeItem('ABXanswerlist');
+			localStorage.removeItem(CurrentExperimentID+'ABXstimuluslist');
+			localStorage.removeItem(CurrentExperimentID+'ABXcolumnnames');
+			localStorage.removeItem(CurrentExperimentID+'ABXanswerlist');
 
 	        playedX = false;
 	        playedA = false;
