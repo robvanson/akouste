@@ -102,20 +102,20 @@
 			//	.then(text => csv = text);
 			var columnNames = ["A"];
 			// Check whether there is an ongoing experiment
-			if(typeof(Storage) !== "undefined" && localStorage.getItem('VASstimuluslist')){
+			if(typeof(Storage) !== "undefined" && localStorage.getItem(CurrentExperimentID+'VASstimuluslist')){
 				// Store
-				data = JSON.parse(localStorage.getItem('VASstimuluslist'));
-				if(localStorage.getItem('VAScolumnnames')){
-					columnNames = JSON.parse(localStorage.getItem('VAScolumnnames'));
+				data = JSON.parse(localStorage.getItem(CurrentExperimentID+'VASstimuluslist'));
+				if(localStorage.getItem(CurrentExperimentID+'VAScolumnnames')){
+					columnNames = JSON.parse(localStorage.getItem(CurrentExperimentID+'VAScolumnnames'));
 				} else {
-					localStorage.setItem('VAScolumnnames', JSON.stringify(columnNames));
+					localStorage.setItem(CurrentExperimentID+'VAScolumnnames', JSON.stringify(columnNames));
 				};
-				if(localStorage.getItem('VASanswerlist')){
-					answerList = JSON.parse(localStorage.getItem('VASanswerlist'));
+				if(localStorage.getItem(CurrentExperimentID+'VASanswerlist')){
+					answerList = JSON.parse(localStorage.getItem(CurrentExperimentID+'VASanswerlist'));
 					stimulusNbr = answerList.length;
 				};
-				if(localStorage.getItem('VASlastDigest')){
-					lastDigest = localStorage.getItem('VASlastDigest');
+				if(localStorage.getItem(CurrentExperimentID+'VASlastDigest')){
+					lastDigest = localStorage.getItem(CurrentExperimentID+'VASlastDigest');
 				};
 				if(stimulusNbr >= data.length){
 					// The experiment has been finished, but not reset
@@ -192,8 +192,8 @@
 				// Store the stimulus data
 				if (typeof(Storage) !== "undefined") {
 					// Store
-					localStorage.setItem('VASstimuluslist', JSON.stringify(data));
-					localStorage.setItem('VAScolumnnames', JSON.stringify(columnNames));
+					localStorage.setItem(CurrentExperimentID+'VASstimuluslist', JSON.stringify(data));
+					localStorage.setItem(CurrentExperimentID+'VAScolumnnames', JSON.stringify(columnNames));
 				};
 			};
 		    
@@ -245,8 +245,8 @@
         
         var lastDigest = hex_sha256 (" ".repeat(256));
         function collectAnswer () {
-			if(localStorage.getItem('VASlastDigest')){
-				lastDigest = localStorage.getItem('VASlastDigest');
+			if(localStorage.getItem(CurrentExperimentID+'VASlastDigest')){
+				lastDigest = localStorage.getItem(CurrentExperimentID+'VASlastDigest');
 			};
 			
 			var speakerA = document.getElementById('SpeakerA').title;
@@ -259,8 +259,8 @@
 
 			if (typeof(Storage) !== "undefined") {
 				// Store
-				localStorage.setItem('VASanswerlist', JSON.stringify(answerList));
-				localStorage.setItem('VASlastDigest', lastDigest);
+				localStorage.setItem(CurrentExperimentID+'VASanswerlist', JSON.stringify(answerList));
+				localStorage.setItem(CurrentExperimentID+'VASlastDigest', lastDigest);
 			};
 		};
 
@@ -346,9 +346,9 @@
 		
 		function resetPage () {
 			// Reset all
-			localStorage.removeItem('VASstimuluslist');
-			localStorage.removeItem('VAScolumnnames');
-			localStorage.removeItem('VASanswerlist');
+			localStorage.removeItem(CurrentExperimentID+'VASstimuluslist');
+			localStorage.removeItem(CurrentExperimentID+'VAScolumnnames');
+			localStorage.removeItem(CurrentExperimentID+'VASanswerlist');
 
 	        playedSamples = changedSlider = playedA = playedB = false;
 			document.getElementById('VASslider0').value = '';

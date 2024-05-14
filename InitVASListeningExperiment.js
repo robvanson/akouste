@@ -1,3 +1,6 @@
+// Name of the experiment, make it unique!
+CurrentExperimentID = 'Test';
+
 // Shuffle stimuli or not
 ShuffleStimulusList = true;
 
