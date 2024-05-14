@@ -279,7 +279,7 @@
 			document.getElementById('SaveButton').style.visibility = 'visible';
 			document.getElementById('ToolTipSave').style.visibility = 'visible';
 			document.getElementById('SaveLink').href = blobURL;
-			document.getElementById('SaveLink').download = "VASslider_Results_"+((new Date()).toISOString()).replace(/\.[0-9Z]+/, "").replace(/\:/g,".") + ".txt";
+			document.getElementById('SaveLink').download = CurrentExperimentID+"VASslider_Results_"+((new Date()).toISOString()).replace(/\.[0-9Z]+/, "").replace(/\:/g,".") + ".txt";
 		}
 		
 		function nextStimulus () {
