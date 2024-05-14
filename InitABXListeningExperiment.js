@@ -1,15 +1,16 @@
 // Name of the experiment, make it unique!
 CurrentExperimentID = 'ID1-';
 
+// Uncomment to unfix/fix language independent of browser settings
+//FixedLanguage = 'NL';
+FixedLanguage = false;
+
 // Shuffle stimuli or not
 ShuffleStimulusList = true;
 
 // If practice items > 0, the last PracticeItems stimuli will be 
 // prepended in reverse order.
 PracticeItems = 4;
-
-
-
 
 // Allow to dynamically change the base URL of the stimulus files
 var audioBaseURL = ""; // Default = nothing
@@ -115,6 +116,11 @@ if (languageSet.has(userLanguage)) {
 	language = userLanguage;
 } else {
 	language = "EN";
+};
+
+// If language should be fixed
+if(FixedLanguage) {
+	language = FixedLanguage;
 };
 
 // Funtion that changes the texts
