@@ -231,9 +231,6 @@ function replaceTexts (language) {
 		document.getElementById('HeaderLineText'+i).style.visibility = 'visible';
 		document.getElementById('RightText'+i).style.visibility = 'visible';
 		document.getElementById('LeftText'+i).style.visibility = 'visible';
-		for(var j = 0; j < 3; j++) {
-			document.getElementById('LK3.'+ i +'-'+(j+1)).innerHTML = LK3label [language] [i] [j];
-		};
 	};
 		
 	// Remove middle option in Binary choice

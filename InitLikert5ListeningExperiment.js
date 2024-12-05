@@ -237,8 +237,5 @@ function replaceTexts (language) {
 		document.getElementById('HeaderLineText'+i).style.visibility = 'visible';
 		document.getElementById('RightText'+i).style.visibility = 'visible';
 		document.getElementById('LeftText'+i).style.visibility = 'visible';
-		for(var j = 0; j < 5; j++) {
-			document.getElementById('LK5.'+ i +'-'+(j+1)).innerHTML = LK5label [language] [i] [j];
-		};
 	};
 };
