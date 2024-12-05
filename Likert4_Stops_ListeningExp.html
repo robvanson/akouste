@@ -1,0 +1,922 @@
+<!DOCTYPE HTML>
+<html lang = "en">
+<head>
+  <!-- basic.html -->
+  <title id="PageTitleText">Likert Listening Experiment</title>
+  <meta charset="UTF-8">
+  <style>
+	  input[type="radio"]  {
+		  height:40px; 
+		  width:40px; 
+		  vertical-align: middle;
+		  horizontal-align: middle;
+	  };
+	  </style>
+  <meta charset = "UTF-8" />
+	<script language="JavaScript">
+		// Before anything else, warn IE users
+		var ua = window.navigator.userAgent;
+		// If Internet Explorer, warn user
+		var msie = ua.indexOf("MSIE ");
+		if(msie > 0){
+			alert("This experiment does not work with Internet Explorer.\nPlease, use Chrome, Firefox, Safari or related browsers");
+		};
+	</script>
+	<script language="Javascript" src="sha.js"></script>
+	<script language="JavaScript">
+		// Hash Function definitions
+		function hex_sha1 (plaintext) {
+			var shaObj = new jsSHA("SHA-1", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		function hex_sha256 (plaintext) {
+			var shaObj = new jsSHA("SHA-256", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		function hex_sha512 (plaintext) {
+			var shaObj = new jsSHA("SHA-512", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		function chained_sha (plaintext) {
+			return hex_sha256( hex_sha256( hex_sha512(plaintext) ) );
+		};
+	</script>
+	<script language="JavaScript" src="InitLikert4_Stops_ListeningExperiment.js"></script>
+	<script language="JavaScript" src="Read_Likert4_Stops_Stimuluslist.js"></script>
+	<script language="JavaScript" src="SToPS_rating_guidance.js"></script>
+	<script language="JavaScript">
+		var stimulusTable;
+        var changedLikert4 = false;
+        var countAnswers = 0;
+        var playedA = false;
+        var playedB = false;
+        var playedSamples = false;
+		var finishedExperiment = false;
+		var answerList = [];
+		var answer = new Array(NumberOfScales).fill(-1);
+		var stimulusNbr = 0;
+		var posA = 0;
+		var posB = 1;
+		function loadList () {
+			//fetch('Stimuli_LK4.csv')
+			//	.then(response => response.text())
+			//	.then(text => csv = text);
+			var columnNames = ["A"];
+			// Check whether there is an ongoing experiment
+			if(typeof(Storage) !== "undefined" && localStorage.getItem(CurrentExperimentID+'LK4stimuluslist')){
+				// Store
+				data = JSON.parse(localStorage.getItem(CurrentExperimentID+'LK4stimuluslist'));
+				if(localStorage.getItem(CurrentExperimentID+'LK4columnnames')){
+					columnNames = JSON.parse(localStorage.getItem(CurrentExperimentID+'LK4columnnames'));
+				} else {
+					localStorage.setItem(CurrentExperimentID+'LK4columnnames', JSON.stringify(columnNames));
+				};
+				if(localStorage.getItem(CurrentExperimentID+'LK4answerlist')){
+					answerList = JSON.parse(localStorage.getItem(CurrentExperimentID+'LK4answerlist'));
+					stimulusNbr = answerList.length;
+				};
+				if(localStorage.getItem(CurrentExperimentID+'LK4lastDigest')){
+					lastDigest = localStorage.getItem(CurrentExperimentID+'LK4lastDigest');
+				};
+				if(stimulusNbr >= data.length){
+					// The experiment has been finished, but not reset
+					FinishExperimentRun ();
+					onSave ();
+				};
+			} else {
+				// Read and process the stimulus list
+				// If a list number has been given, read it
+				var expnum = 0;
+				var params = new URLSearchParams(location.search);
+				if(params.get('expnum') != "undefined" && Number(params.get('expnum')) > 0) {
+							   expnum = Number(params.get('expnum'));
+				};
+
+				// First try the JSON options
+				if(typeof stimulusTableJSON !== 'undefined' && stimulusTableJSON) {
+					var stimulusTableParsed;
+					// Use Array version if possible, but not if expnum > length
+					if(Array.isArray(stimulusTableJSON) && stimulusTableJSON.length > 0 && expnum <= stimulusTableJSON.length){
+						// Default if there is no expnum
+						if(expnum <= 0) { expnum = 1;};
+						stimulusTableParsed = JSON.parse(stimulusTableJSON[expnum - 1]);
+					// Old: single JSON string
+					} else if((stimulusTableJSON instanceof String) || (typeof stimulusTableJSON === "string")) {
+						stimulusTableParsed = JSON.parse(stimulusTableJSON);
+					} else {
+						stimulusTableParsed = [["A","B","X"], ["", "", ""]];
+						alert("ERROR: invalid stimulus list");
+						document.getElementById('TitleText').innerHTML = "ERROR: invalid stimulus list";
+					};
+				
+					columnNames = stimulusTableParsed [0];
+					data = stimulusTableParsed [1];
+				// No JSON data, use CSV			
+				} else if (typeof(csv) !== 'undefined' && csv) {
+				    // Split the input into lines
+				    lines = csv.split('\n');
+				
+				    // Extract column names from the first line
+				    columnNamesLine = lines[0];
+				    columnNames = columnNamesLine.split(/[;\t]/g).filter(e => e);
+				
+				    // Extract data from subsequent lines
+				    dataLines = lines.slice(1);
+				    while(dataLines[dataLines.length-1] == [])dataLines.pop();
+				    data = dataLines.map(function(x){return x.split(/[;\t]/g).filter(e => e)});
+				};	
+				
+				// Locate the stimuli
+				posA = columnNames.indexOf("A");
+				if(posA < 0)posA = 0;
+				posB = columnNames.indexOf("B");
+				if(RandomizeAB) {
+					columnNames.push("ABswitch");
+				};
+				
+			    // Prepare the stimulus list
+			    if(ShowPlayBbutton) {
+				    if(posB < 0) {
+						RandomizeAB = false;
+					};
+				    if(RandomizeAB)data = shuffleAB(data, posA, posB);
+				};
+			    if(ShuffleStimulusList){
+					if(PracticeItems < 0){
+						practiceList = data.slice(0,-PracticeItems);
+						shuffleList = shuffle(data.slice(-PracticeItems,));
+						data = practiceList.concat(shuffleList);
+					} else {
+						data = shuffle(data);
+					};
+				};
+			    if(PracticeItems > 0){
+					practise = data.slice(data.length-PracticeItems, data.length).reverse();
+					tmp = practise.concat(data);
+					data = tmp.concat();
+				};
+				// Store the stimulus data
+				if (typeof(Storage) !== "undefined") {
+					// Store
+					localStorage.setItem(CurrentExperimentID+'LK4stimuluslist', JSON.stringify(data));
+					localStorage.setItem(CurrentExperimentID+'LK4columnnames', JSON.stringify(columnNames));
+				};
+			};
+			
+			// Locate the stimuli
+			posA = columnNames.indexOf("A");
+			if(posA < 0)posA = 0;
+		    
+			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (data.length - stimulusNbr)+"");
+			
+		    return [columnNames, data];
+		};
+        
+        function unblockNext (x) {
+			playedA = playedA || x=="SpeakerA";
+			playedB = playedB || x=="SpeakerB";
+			changedLikert4 = changedLikert4 || x=="Likert4";
+			if(x == "Likert4"){
+				countAnswers += 1;
+			};
+			if(ShowPlayBbutton) {
+				playedSamples = playedA && playedB && changedLikert4 && (countAnswers >= NumberOfScales);
+			} else {
+				playedSamples = playedA && changedLikert4 && (countAnswers >= NumberOfScales);
+			};
+			
+			if(playedSamples == true) {
+					document.getElementById('NextText').style.backgroundColor="#F0F0F0";
+					document.getElementById('NextButton').style.backgroundColor="#F0F0F0";
+			};
+			if(x=="SpeakerA") {
+				document.getElementById('PlayAText').style.backgroundColor = "#EEFFEE";
+				document.getElementById('PlayAText').parentNode.parentNode.style.backgroundColor = "#EEFFEE";
+			};
+			if(ShowPlayBbutton && x=="SpeakerB") {
+				document.getElementById('PlayBText').style.backgroundColor = "#EEFFEE";
+				document.getElementById('PlayBText').parentNode.parentNode.style.backgroundColor = "#EEFFEE";
+			};
+		};
+        
+        function setAudio(i, stimulusTable) {
+			document.getElementById('SpeakerA').src = audioBaseURL + stimulusTable[1][i][posA];
+			document.getElementById('SpeakerA').title = stimulusTable[1][i][posA].replace(/^.*\/([^\/]+)\.wav$/, "$1");
+			document.getElementById('PlayAText').style.backgroundColor = "#F0F0F0";
+			document.getElementById('PlayAText').parentNode.parentNode.style.backgroundColor = "#F0F0F0";
+
+			if(ShowPlayBbutton) {
+				document.getElementById('SpeakerB').src = audioBaseURL + stimulusTable[1][i][posB];
+				document.getElementById('SpeakerB').title = stimulusTable[1][i][posB].replace(/^.*\/([^\/]+)\.wav$/, "$1");
+				document.getElementById('PlayBText').style.backgroundColor = "#F0F0F0";
+				document.getElementById('PlayBText').parentNode.parentNode.style.backgroundColor = "#F0F0F0";
+			};
+						
+			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (data.length - i)+"");
+			
+			setProgress(100*stimulusNbr/data.length);
+		};
+        
+        var lastDigest = hex_sha256 (" ".repeat(256));
+        function collectAnswer () {
+			if(localStorage.getItem(CurrentExperimentID+'LK4lastDigest')){
+				lastDigest = localStorage.getItem(CurrentExperimentID+'LK4lastDigest');
+			};
+			
+			var speakerA = document.getElementById('SpeakerA').title;
+			var speakerB = document.getElementById('SpeakerB').title;
+			
+			var newLine = (stimulusNbr+1)+";"+answer.join(";")+";"+(stimulusTable[1][stimulusNbr]).join(";");
+			var newDigest = hex_sha256(lastDigest + newLine);
+			lastDigest = newDigest;
+			answerList.push(newLine + ";" + newDigest.substr(0,6));
+
+			if (typeof(Storage) !== "undefined") {
+				// Store
+				localStorage.setItem(CurrentExperimentID+'LK4answerlist', JSON.stringify(answerList));
+				localStorage.setItem(CurrentExperimentID+'LK4lastDigest', lastDigest);
+			};
+		};
+
+		function displayArray (x) {
+			var answerNums = Array.from(Array(NumberOfScales+1).keys());
+			var answerTexts = Array(NumberOfScales).fill("Answer");
+			answerTexts = answerTexts.map(function(el, idx){return el+answerNums[idx+1]})
+			var output = "Num;"+answerTexts.join(";")+";"+(stimulusTable[0]).join(";")+";Digest\n";
+			for (var i=0; i<x.length; i++) {
+				line = "";
+				output += x[i] + '\n';
+			}
+			var blob = new Blob([output], {type: "text/plain"});
+			var blobURL = URL.createObjectURL(blob);
+			document.getElementById('SaveButtonText').innerHTML = SaveLinkText[language]
+			document.getElementById('SaveButton').style.visibility = 'visible';
+			document.getElementById('ToolTipSave').style.visibility = 'visible';
+			document.getElementById('SaveLink').href = blobURL;
+			document.getElementById('SaveLink').download = CurrentExperimentID+"LK4buttons_Results_"+((new Date()).toISOString()).replace(/\.[0-9Z]+/, "").replace(/\:/g,".") + ".txt";
+		}
+		
+		function nextStimulus () {
+			if(finishedExperiment)return false;
+			if(playedSamples) {
+				// Reset played
+				playedSamples = changedLikert4 = playedA = playedB = false;
+				countAnswers = 0;
+				for(var i=0; i<14; i++){
+					for(var j=0; j<4; j++){
+						document.getElementById('LK4buttons'+ i +'.'+(j+1)).checked = false;
+					};
+				};
+				// Tonicity
+				for(var j=0; j<11; j++){
+					document.getElementById('LK4buttons1.'+(j+1)).checked = false;
+				};
+				
+				document.getElementById('LK4buttons0.1').checked = document.getElementById('LK4buttons0.2').checked = document.getElementById('LK4buttons0.3').checked = document.getElementById('LK4buttons0.4').checked = false;
+				document.getElementById('LK4buttons1.1').checked = document.getElementById('LK4buttons1.2').checked = document.getElementById('LK4buttons1.3').checked = document.getElementById('LK4buttons1.4').checked = false;
+				document.getElementById('LK4buttons2.1').checked = document.getElementById('LK4buttons2.2').checked = document.getElementById('LK4buttons2.3').checked = document.getElementById('LK4buttons2.4').checked = false;
+
+				// Process answers
+				collectAnswer ();
+				stimulusNbr = answerList.length;
+				
+				// Block Next button
+				document.getElementById('NextText').style.backgroundColor = "gray";
+				document.getElementById('NextButton').style.backgroundColor = "gray";
+				
+				// Check whether the run is finished
+				// If so, display results and restart
+				if(stimulusNbr >= data.length){
+					FinishExperimentRun ();
+					return true;
+				};
+				// Next stimulus
+				setAudio(stimulusNbr, stimulusTable);
+				return true;
+			} else {
+				alert(NextAlert [language]);
+				return false;
+			};
+			
+		};
+		
+		function SetUp () {
+			// Check localStorage
+			if(typeof(Storage) !== "undefined"){
+				document.getElementById('LocalStoragePresent').style.background = '#90EE90';
+			};
+			// The following are set by the Init function
+			answerList = [];
+			answer = new Array(NumberOfScales).fill(-1);
+			stimulusNbr = 0;
+			replaceTexts (language);
+			stimulusTable = loadList (); 
+			setAudio(stimulusNbr, stimulusTable);
+		};
+		
+		function FinishExperimentRun () {
+			displayArray(answerList);
+			document.getElementById('NextText').innerHTML = ReadyText[language];
+			document.getElementById('NextText').style.backgroundColor = "gray";
+			document.getElementById('SaveText').innerHTML =  SaveText [language];
+			finishedExperiment = true;
+			setProgress(100);
+			document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language].replace("XXX", (0)+"");
+		};
+	
+		function onSave () {
+			document.getElementById('RestartPage').style.visibility = 'visible'
+			document.getElementById('ToolTipRestart').style.visibility = 'visible'
+			document.getElementById('SaveText').innerHTML =  RestartButtonText [language];
+		};
+		
+		function resetPage () {
+			// Reset all
+			localStorage.removeItem(CurrentExperimentID+'LK4stimuluslist');
+			localStorage.removeItem(CurrentExperimentID+'LK4columnnames');
+			localStorage.removeItem(CurrentExperimentID+'LK4answerlist');
+
+	        playedSamples = changedLikert4 = playedA = playedB = false;
+	        countAnswers = 0;
+			document.getElementById('LK4buttons0').value = '';
+			document.getElementById('LK4buttons1').value = '';
+			document.getElementById('LK4buttons2').value = '';
+			finishedExperiment = false;
+			answerList = [];
+			answer = new Array(NumberOfScales).fill(-1);
+			stimulusNbr = 0;
+		};
+		
+		function shuffle(array) {
+		  var currentIndex = array.length, temporaryValue, randomIndex;
+		
+		  // While there remain elements to shuffle...
+		  while (0 !== currentIndex) {
+		
+		    // Pick a remaining element...
+		    randomIndex = Math.floor(Math.random() * currentIndex);
+		    currentIndex -= 1;
+		
+		    // And swap it with the current element.
+		    temporaryValue = array[currentIndex];
+		    array[currentIndex] = array[randomIndex];
+		    array[randomIndex] = temporaryValue;
+		  }
+		
+		  return array;
+		}
+			
+		function shuffleAB(array, apos, bpos) {
+		  var temporaryValue, switchAB, currentSubarray;
+		
+		  // While there remain elements to shuffle...
+		  for (var i=0; i<array.length; i++) {
+			currentSubarray = array[i];
+			// Random uniform Integer [0, 2>
+			switchAB = Math.floor(Math.random() * 2) == 1;
+			if (switchAB){
+				temporaryValue = currentSubarray[apos];
+				currentSubarray[apos] = currentSubarray[bpos];
+				currentSubarray[bpos] = temporaryValue;
+			};
+			currentSubarray.push(switchAB)
+		  }
+		
+		  return array;
+		}
+	
+		// Warning before leaving the page (back button, or outgoing link)
+		window.onbeforeunload = function () {
+			if(answerList.length > 0){
+				return "-";
+			} else {
+				return;
+			};
+		};
+
+		function setProgress(percentComplete) {
+		  var elem = document.getElementById("progressBar");
+		  elem.style.width = percentComplete + '%';
+		}
+			
+	</script>
+    </script>
+</head>
+<body onload="SetUp ()">
+	<div id="progress" style="background-color:#F0F0F0;height:10px;text-align:left;width:60%;margin-left:auto;margin-right:auto;">
+	  <div id="progressBar" style="background-color:#cce6ff;height:8px;width:0%"></div>
+	</div> 
+	
+	<script>answer="";</script>
+	<audio id="SpeakerA" src="" preload="auto" title="" onplaying="unblockNext ('SpeakerA');"></audio>
+	<audio id="SpeakerB" src="" preload="auto" title="" onplaying="unblockNext ('SpeakerB');"></audio>
+	<audio id="HypoTonic" src="Examples/Hypotonicity.wav" preload="auto"  ></audio>
+	<audio id="HyperTonic" src="Examples/Hypertonicity.wav" preload="auto" ></audio>
+	<audio id="Fluency" src="Examples/Fluency.wav" preload="auto" ></audio>
+	<audio id="Stomablast" src="Examples/Stoma_blast.wav" preload="auto" ></audio>
+	<audio id="Gurgling" src="Examples/Intelligibility - wet voice.wav" preload="auto" ></audio>
+	<audio id="GurglingGood" src="Examples/Intelligibility - good voice.wav" preload="auto" ></audio>
+	<a href="" Id="SaveLink" download onclick="onSave ()" style="font-size:30px;visibility:hidden" ></a>
+	
+	<h1 style="text-align:center"><div id="TitleText">SToPS scoring</div></h1>
+	
+	<h2 style="text-align:center">
+	<div id="IntroductionText">Please listen to the speech below and rate it based on the 14 below criteria.</div>
+	</h2>
+	<h2 style="text-align:center">
+	<div id="StimulusNumberText">0 answers to go</div>
+	</h2>
+	
+	<p style="text-align:center;">
+	<table style="text-align:center;width:50%;margin-left:auto;margin-right:auto;">
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="position:fixed;bottom:70%;right:10%">
+	    <td>&nbsp;</td>
+	    <td>
+				<a href="javascript:void(0)" id="ToolTipPlayA" data-toggle="tooltip" title="Play sound"><button onclick="document.getElementById('SpeakerA').play();" style="font-size:30px;background-color:white;"><strong><div id="PlayAText">Play </div></strong></button></a>
+		        <div id="ButtonBVisible" style="display:none;visibility:invisible">&nbsp;&nbsp;
+				<a href="javascript:void(0)" id="ToolTipPlayB" data-toggle="tooltip" title="Play sound"><button onclick="document.getElementById('SpeakerB').play();" style="font-size:30px;background-color:white;"><strong><div id="PlayBText">Play B</div></strong></button></a>
+				</div>
+		</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px" onclick="alert(SToPS_guidance_Q1);">
+	    <td>&nbsp;</td>
+	    <td><div id="HeaderLineText0" style="font-size:25px;text-align:left;background:lightgray;">1. Overall Voice Rating</div></td>
+	    <td style="font-size:20px;text-align:left;">?&nbsp;</td>
+	  </tr>
+	  <tr>
+	    <td><strong><div id="LeftText0" style="font-size:20px;">&nbsp;</div></strong></td>
+	    <td>
+			<table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;"><tr>
+			<td><input type="radio" value="0" name="LK4buttons0" id="LK4buttons0.1" onchange="unblockNext('Likert4')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="1" name="LK4buttons0" id="LK4buttons0.2" onchange="unblockNext('Likert4')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="2" name="LK4buttons0" id="LK4buttons0.3" onchange="unblockNext('Likert4')" oninput="answer[0]=this.value"></td>
+			<td><input type="radio" value="3" name="LK4buttons0" id="LK4buttons0.4" onchange="unblockNext('Likert4')" oninput="answer[0]=this.value"></td>
+			</tr>
+			<tr style="font-size:15px;">
+			<td><div id="LK4.0-1" style="font-size:20px;">0<br/>Excellent</div></td>
+			<td><div id="LK4.0-2" style="font-size:20px;">1<br/>Good</div></td>
+			<td><div id="LK4.0-3" style="font-size:20px;">2<br/>Adequate</div></td>
+			<td><div id="LK4.0-4" style="font-size:20px;">3<br/>Poor</div></td>
+			</tr>
+			</table>
+		</td>	    
+	    <td><strong><div id="RightText0" style="font-size:20px;">&nbsp;</div></strong></td>
+	  </tr>
+	  <tr style="display:none;" id="EmptyRow1">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px;display:none;" id="HeaderLineRow1">
+	    <td style="font-size:25px;text-align:left;color:blue;" onclick="alert(SToPS_guidance_Q2A);">&emsp;?&emsp;</td>
+	    <td><div id="HeaderLineText1" style="font-size:25px;text-align:left;background:lightgray;">2. Perceptual Voice Tonicity</div></td>
+	    <td style="font-size:25px;text-align:right;color:blue;"  style="font-size:20px;text-align:left;" onclick="alert(SToPS_guidance_Q2B);">&emsp;?&emsp;</td>
+	  </tr>
+	  <tr style="display:none;" id="LK4row1">
+	    <td><div id="LeftText1" style="font-size:20px;"><a href="javascript:void(0)" id="" title="Hypo"><button onclick="document.getElementById('HypoTonic').play();" style="font-size:18px;background-color:white;">Hypo</button></a></div>&emsp;</td>
+	    <td>
+			<table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;"><tr>
+			<td><input type="radio" value="-5" name="LK4buttons1" id="LK4buttons1.1" onchange="unblockNext('Likert4')" oninput="answer[1]=this.value"></td>
+			<td><input type="radio" value="-4" name="LK4buttons1" id="LK4buttons1.2" onchange="unblockNext('Likert4')" oninput="answer[1]=this.value"></td>
+			<td><input type="radio" value="-3" name="LK4buttons1" id="LK4buttons1.3" onchange="unblockNext('Likert4')" oninput="answer[1]=this.value"></td>
+			<td><input type="radio" value="-2" name="LK4buttons1" id="LK4buttons1.4" onchange="unblockNext('Likert4')" oninput="answer[1]=this.value"></td>
+			<td><input type="radio" value="-1" name="LK4buttons1" id="LK4buttons1.5" onchange="unblockNext('Likert4')" oninput="answer[1]=this.value"></td>
+			<td><input type="radio" value="0" name="LK4buttons1" id="LK4buttons1.6" onchange="unblockNext('Likert4')" oninput="answer[1]=this.value"></td>
+			<td><input type="radio" value="1" name="LK4buttons1" id="LK4buttons1.7" onchange="unblockNext('Likert4')" oninput="answer[1]=this.value"></td>
+			<td><input type="radio" value="2" name="LK4buttons1" id="LK4buttons1.8" onchange="unblockNext('Likert4')" oninput="answer[1]=this.value"></td>
+			<td><input type="radio" value="3" name="LK4buttons1" id="LK4buttons1.9" onchange="unblockNext('Likert4')" oninput="answer[1]=this.value"></td>
+			<td><input type="radio" value="4" name="LK4buttons1" id="LK4buttons1.10" onchange="unblockNext('Likert4')" oninput="answer[1]=this.value"></td>
+			<td><input type="radio" value="5" name="LK4buttons1" id="LK4buttons1.11" onchange="unblockNext('Likert4')" oninput="answer[1]=this.value"></td>
+			</tr>
+			<tr style="font-size:15px;">
+			<td><div id="LK4.1-1" style="font-size:20px;">5<br/>Hypo</div></td>
+			<td><div id="LK4.1-2" style="font-size:20px;">4<br/>&nbsp;</div></td>
+			<td><div id="LK4.1-3" style="font-size:20px;">3<br/>&nbsp;</div></td>
+			<td><div id="LK4.1-4" style="font-size:20px;">2<br/>&nbsp;</div></td>
+			<td><div id="LK4.1-5" style="font-size:20px;">1<br/>&nbsp;</div></td>
+			<td><div id="LK4.1-6" style="font-size:20px;">0<br/>Tonic</div></td>
+			<td><div id="LK4.1-7" style="font-size:20px;">1<br/>&nbsp;</div></td>
+			<td><div id="LK4.1-8" style="font-size:20px;">2<br/>&nbsp;</div></td>
+			<td><div id="LK4.1-9" style="font-size:20px;">3<br/>&nbsp;</div></td>
+			<td><div id="LK4.1-10" style="font-size:20px;">4<br/>&nbsp;</div></td>
+			<td><div id="LK4.1-11" style="font-size:20px;">5<br/>Hyper</div></td>
+			</tr>
+			</table>
+		</td>	    
+	    <td><div id="RightText1" style="font-size:20px;"><a href="javascript:void(0)" id="" title="Hypo"><button onclick="document.getElementById('HyperTonic').play();" style="font-size:18px;background-color:white;">Hyper </button></a></div></div>&emsp;</td>
+	  </tr>
+	  <tr style="display:none;" style="display:none;" id="EmptyRow2">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px;display:none;" id="HeaderLineRow2" onclick="alert(SToPS_guidance_Q3);">
+	    <td>&nbsp;</td>
+	    <td><div id="HeaderLineText2" style="font-size:25px;text-align:left;background:lightgray;">3. Strain (Audible Effort for Voicing)</div></td>
+	    <td style="font-size:20px;text-align:left;">?&nbsp;</td>
+	  </tr>
+	  <tr style="display:none;" id="LK4row2">
+	    <td><strong><div id="LeftText2" style="font-size:20px;">&nbsp;</div></strong></td>
+	    <td>
+			<table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;"><tr>
+			<td><input type="radio" value="0" name="LK4buttons2" id="LK4buttons2.1" onchange="unblockNext('Likert4')" oninput="answer[2]=this.value"></td>
+			<td><input type="radio" value="1" name="LK4buttons2" id="LK4buttons2.2" onchange="unblockNext('Likert4')" oninput="answer[2]=this.value"></td>
+			<td><input type="radio" value="2" name="LK4buttons2" id="LK4buttons2.3" onchange="unblockNext('Likert4')" oninput="answer[2]=this.value"></td>
+			<td><input type="radio" value="3" name="LK4buttons2" id="LK4buttons2.4" onchange="unblockNext('Likert4')" oninput="answer[2]=this.value"></td>
+			</tr>
+			<tr style="font-size:15px;">
+			<td><div id="LK4.2-1" style="font-size:20px;">0<br/>None</div></td>
+			<td><div id="LK4.2-2" style="font-size:20px;">1<br/>Mild</div></td>
+			<td><div id="LK4.2-3" style="font-size:20px;">2<br/>Moderate</div></td>
+			<td><div id="LK4.2-4" style="font-size:20px;">3<br/>Severe</div></td>
+			</tr>
+			</table>
+		</td>	    
+	    <td><strong><div id="RightText2" style="font-size:20px;">&nbsp;</div></strong></td>
+	  </tr>
+	  <tr style="display:none;" id="EmptyRow3">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px;display:none;" id="HeaderLineRow3" onclick="alert(SToPS_guidance_Q4);">
+	    <td>&nbsp;</td>
+	    <td><div id="HeaderLineText3" style="font-size:25px;text-align:left;background:lightgray;">4. Wetness (gurgliness) of Voice Quality</div></td>
+	    <td style="font-size:20px;text-align:left;">?&nbsp;</td>
+	  </tr>
+	  <tr style="display:none;" id="LK4row3">
+	    <td><strong><div id="LeftText3" style="font-size:20px;">&nbsp;</div></strong></td>
+	    <td>
+			<table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;"><tr>
+			<td><input type="radio" value="0" name="LK4buttons3" id="LK4buttons3.1" onchange="unblockNext('Likert4')" oninput="answer[3]=this.value"></td>
+			<td><input type="radio" value="1" name="LK4buttons3" id="LK4buttons3.2" onchange="unblockNext('Likert4')" oninput="answer[3]=this.value"></td>
+			<td><input type="radio" value="2" name="LK4buttons3" id="LK4buttons3.3" onchange="unblockNext('Likert4')" oninput="answer[3]=this.value"></td>
+			<td><input type="radio" value="3" name="LK4buttons3" id="LK4buttons3.4" onchange="unblockNext('Likert4')" oninput="answer[3]=this.value"></td>
+			</tr>
+			<tr style="font-size:15px;">
+			<td><div id="LK4.3-1" style="font-size:20px;">0<br/>None</div></td>
+			<td><div id="LK4.3-2" style="font-size:20px;">1<br/>Mild</div></td>
+			<td><div id="LK4.3-3" style="font-size:20px;">2<br/>Moderate</div></td>
+			<td><div id="LK4.3-4" style="font-size:20px;">3<br/>Severe</div></td>
+			</tr>
+			</table>
+		</td>	    
+	    <td><strong><div id="RightText3" style="font-size:20px;"><a href="javascript:void(0)" id="" title="Hypo"><button onclick="document.getElementById('Gurgling').play();" style="font-size:18px;background-color:white;">Wet</button></a>&nbsp;</div></strong></td>
+	  </tr>
+	  <tr style="display:none;" id="EmptyRow4">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px;display:none;" id="HeaderLineRow4" onclick="alert(SToPS_guidance_Q5);">
+	    <td>&nbsp;</td>
+	    <td><div id="HeaderLineText4" style="font-size:25px;text-align:left;background:lightgray;">5. Impairment of volume</div></td>
+	    <td style="font-size:20px;text-align:left;">?&nbsp;</td>
+	  </tr>
+	  <tr style="display:none;" id="LK4row4">
+	    <td><strong><div id="LeftText4" style="font-size:20px;">&nbsp;</div></strong></td>
+	    <td>
+			<table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;"><tr>
+			<td><input type="radio" value="0" name="LK4buttons4" id="LK4buttons4.1" onchange="unblockNext('Likert4')" oninput="answer[4]=this.value"></td>
+			<td><input type="radio" value="1" name="LK4buttons4" id="LK4buttons4.2" onchange="unblockNext('Likert4')" oninput="answer[4]=this.value"></td>
+			<td><input type="radio" value="2" name="LK4buttons4" id="LK4buttons4.3" onchange="unblockNext('Likert4')" oninput="answer[4]=this.value"></td>
+			<td><input type="radio" value="3" name="LK4buttons4" id="LK4buttons4.4" onchange="unblockNext('Likert4')" oninput="answer[4]=this.value"></td>
+			</tr>
+			<tr style="font-size:15px;">
+			<td><div id="LK4.4-1" style="font-size:20px;">0<br/>Normal</div></td>
+			<td><div id="LK4.4-2" style="font-size:20px;">1<br/>Mild</div></td>
+			<td><div id="LK4.4-3" style="font-size:20px;">2<br/>Moderate</div></td>
+			<td><div id="LK4.4-4" style="font-size:20px;">3<br/>Severe</div></td>
+			</tr>
+			</table>
+		</td>	    
+	    <td><strong><div id="RightText4" style="font-size:20px;">&nbsp;</div></strong></td>
+	  </tr>
+	  <tr style="display:none;" id="EmptyRow5">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px;display:none;" id="HeaderLineRow5" onclick="alert(SToPS_guidance_Q6);">
+	    <td>&nbsp;</td>
+	    <td><div id="HeaderLineText5" style="font-size:25px;text-align:left;background:lightgray;">6. Impairment of Social Acceptability of Voice</div></td>
+	    <td style="font-size:20px;text-align:left;">?&nbsp;</td>
+	  </tr>
+	  <tr style="display:none;" id="LK4row5">
+	    <td><strong><div id="LeftText5" style="font-size:20px;">&nbsp;</div></strong></td>
+	    <td>
+			<table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;"><tr>
+			<td><input type="radio" value="0" name="LK4buttons5" id="LK4buttons5.1" onchange="unblockNext('Likert4')" oninput="answer[5]=this.value"></td>
+			<td><input type="radio" value="1" name="LK4buttons5" id="LK4buttons5.2" onchange="unblockNext('Likert4')" oninput="answer[5]=this.value"></td>
+			<td><input type="radio" value="2" name="LK4buttons5" id="LK4buttons5.3" onchange="unblockNext('Likert4')" oninput="answer[5]=this.value"></td>
+			<td><input type="radio" value="3" name="LK4buttons5" id="LK4buttons5.4" onchange="unblockNext('Likert4')" oninput="answer[5]=this.value"></td>
+			</tr>
+			<tr style="font-size:15px;">
+			<td><div id="LK4.5-1" style="font-size:20px;">0<br/>Optimal</div></td>
+			<td><div id="LK4.5-2" style="font-size:20px;">1<br/>Mild</div></td>
+			<td><div id="LK4.5-3" style="font-size:20px;">2<br/>Moderate</div></td>
+			<td><div id="LK4.5-4" style="font-size:20px;">3<br/>Severe</div></td>
+			</tr>
+			</table>
+		</td>	    
+	    <td><strong><div id="RightText5" style="font-size:20px;">&nbsp;</div></strong></td>
+	  </tr>
+	  <tr style="display:none;" id="EmptyRow6">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px;display:none;" id="HeaderLineRow6" onclick="alert(SToPS_guidance_Q7);">
+	    <td>&nbsp;</td>
+	    <td><div id="HeaderLineText6" style="font-size:25px;text-align:left;background:lightgray;">7. Whisper</div></td>
+	    <td style="font-size:20px;text-align:left;">?&nbsp;</td>
+	  </tr>
+	  <tr style="display:none;" id="LK4row6">
+	    <td><strong><div id="LeftText6" style="font-size:20px;">&nbsp;</div></strong></td>
+	    <td>
+			<table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;"><tr>
+			<td><input type="radio" value="0" name="LK4buttons6" id="LK4buttons6.1" onchange="unblockNext('Likert4')" oninput="answer[6]=this.value"></td>
+			<td><input type="radio" value="1" name="LK4buttons6" id="LK4buttons6.2" onchange="unblockNext('Likert4')" oninput="answer[6]=this.value"></td>
+			<td><input type="radio" value="2" name="LK4buttons6" id="LK4buttons6.3" onchange="unblockNext('Likert4')" oninput="answer[6]=this.value"></td>
+			<td><input type="radio" value="3" name="LK4buttons6" id="LK4buttons6.4" onchange="unblockNext('Likert4')" oninput="answer[6]=this.value"></td>
+			</tr>
+			<tr style="font-size:15px;">
+			<td><div id="LK4.6-1" style="font-size:20px;">0<br/>None</div></td>
+			<td><div id="LK4.6-2" style="font-size:20px;">1<br/>Mild</div></td>
+			<td><div id="LK4.6-3" style="font-size:20px;">2<br/>Moderate</div></td>
+			<td><div id="LK4.6-4" style="font-size:20px;">3<br/>Severe</div></td>
+			</tr>
+			</table>
+		</td>	    
+	    <td><strong><div id="RightText6" style="font-size:20px;">&nbsp;</div></strong></td>
+	  </tr>
+	  <tr style="display:none;" id="EmptyRow7">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px;display:none;" id="HeaderLineRow7" onclick="alert(SToPS_guidance_Q8);">
+	    <td>&nbsp;</td>
+	    <td><div id="HeaderLineText7" style="font-size:25px;text-align:left;background:lightgray;">8. Impairment of Intelligibility</div></td>
+	    <td style="font-size:20px;text-align:left;">?&nbsp;</td>
+	  </tr>
+	  <tr style="display:none;" id="LK4row7">
+	    <td><strong><div id="LeftText7" style="font-size:20px;">&nbsp;</div></strong></td>
+	    <td>
+			<table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;"><tr>
+			<td><input type="radio" value="0" name="LK4buttons7" id="LK4buttons7.1" onchange="unblockNext('Likert4')" oninput="answer[7]=this.value"></td>
+			<td><input type="radio" value="1" name="LK4buttons7" id="LK4buttons7.2" onchange="unblockNext('Likert4')" oninput="answer[7]=this.value"></td>
+			<td><input type="radio" value="2" name="LK4buttons7" id="LK4buttons7.3" onchange="unblockNext('Likert4')" oninput="answer[7]=this.value"></td>
+			<td><input type="radio" value="3" name="LK4buttons7" id="LK4buttons7.4" onchange="unblockNext('Likert4')" oninput="answer[7]=this.value"></td>
+			</tr>
+			<tr style="font-size:15px;">
+			<td><div id="LK4.7-1" style="font-size:20px;">0<br/>Normal</div></td>
+			<td><div id="LK4.7-2" style="font-size:20px;">1<br/>Mild</div></td>
+			<td><div id="LK4.7-3" style="font-size:20px;">2<br/>Moderate</div></td>
+			<td><div id="LK4.7-4" style="font-size:20px;">3<br/>Severe</div></td>
+			</tr>
+			</table>
+		</td>	    
+	    <td><strong><div id="RightText7" style="font-size:20px;">&nbsp;</div></strong></td>
+	  </tr>
+	  <tr style="display:none;" id="EmptyRow8">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px;display:none;" id="HeaderLineRow8" onclick="alert(SToPS_guidance_Q9);">
+	    <td>&nbsp;</td>
+	    <td><div id="HeaderLineText8" style="font-size:25px;text-align:left;background:lightgray;">9. Stoma blast</div></td>
+	    <td style="font-size:20px;text-align:left;">?&nbsp;</td>
+	  </tr>
+	  <tr style="display:none;" id="LK4row8">
+	    <td><strong><div id="LeftText8" style="font-size:20px;">&nbsp;</div></strong></td>
+	    <td>
+			<table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;"><tr>
+			<td><input type="radio" value="0" name="LK4buttons8" id="LK4buttons8.1" onchange="unblockNext('Likert4')" oninput="answer[8]=this.value"></td>
+			<td><input type="radio" value="1" name="LK4buttons8" id="LK4buttons8.2" onchange="unblockNext('Likert4')" oninput="answer[8]=this.value"></td>
+			<td><input type="radio" value="2" name="LK4buttons8" id="LK4buttons8.3" onchange="unblockNext('Likert4')" oninput="answer[8]=this.value"></td>
+			<td><input type="radio" value="3" name="LK4buttons8" id="LK4buttons8.4" onchange="unblockNext('Likert4')" oninput="answer[8]=this.value"></td>
+			</tr>
+			<tr style="font-size:15px;">
+			<td><div id="LK4.8-1" style="font-size:20px;">0<br/>Absent</div></td>
+			<td><div id="LK4.8-2" style="font-size:20px;">1<br/>Mild</div></td>
+			<td><div id="LK4.8-3" style="font-size:20px;">2<br/>Moderate</div></td>
+			<td><div id="LK4.8-4" style="font-size:20px;">3<br/>Severe</div></td>
+			</tr>
+			</table>
+		</td>	    
+	    <td><strong><div id="RightText8" style="font-size:20px;"><a href="javascript:void(0)" id="" title="Hypo"><button onclick="document.getElementById('Stomablast').play();" style="font-size:18px;background-color:white;">Stoma</button></a>&nbsp;</div></strong></td>
+	  </tr>
+	  <tr style="display:none;" id="EmptyRow9">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px;display:none;" id="HeaderLineRow9" onclick="alert(SToPS_guidance_Q10);">
+	    <td>&nbsp;</td>
+	    <td><div id="HeaderLineText9" style="font-size:25px;text-align:left;background:lightgray;">10. Impairment of Fluency</div></td>
+	    <td style="font-size:20px;text-align:left;">?&nbsp;</td>
+	  </tr>
+	  <tr style="display:none;" id="LK4row9">
+	    <td><strong><div id="LeftText9" style="font-size:20px;">&nbsp;</div></strong></td>
+	    <td>
+			<table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;"><tr>
+			<td><input type="radio" value="0" name="LK4buttons9" id="LK4buttons9.1" onchange="unblockNext('Likert4')" oninput="answer[9]=this.value"></td>
+			<td><input type="radio" value="1" name="LK4buttons9" id="LK4buttons9.2" onchange="unblockNext('Likert4')" oninput="answer[9]=this.value"></td>
+			<td><input type="radio" value="2" name="LK4buttons9" id="LK4buttons9.3" onchange="unblockNext('Likert4')" oninput="answer[9]=this.value"></td>
+			<td><input type="radio" value="3" name="LK4buttons9" id="LK4buttons9.4" onchange="unblockNext('Likert4')" oninput="answer[9]=this.value"></td>
+			</tr>
+			<tr style="font-size:15px;">
+			<td><div id="LK4.9-1" style="font-size:20px;">0<br/>Normal</div></td>
+			<td><div id="LK4.9-2" style="font-size:20px;">1<br/>Mild</div></td>
+			<td><div id="LK4.9-3" style="font-size:20px;">2<br/>Moderate</div></td>
+			<td><div id="LK4.9-4" style="font-size:20px;">3<br/>Severe</div></td>
+			</tr>
+			</table>
+		</td>	    
+	    <td><strong><div id="RightText9" style="font-size:20px;"><a href="javascript:void(0)" id="" title="Hypo"><button onclick="document.getElementById('Fluency').play();" style="font-size:18px;background-color:white;">Impaired</button></a>&nbsp;</div></strong></td>
+	  </tr>
+	  <tr style="display:none;" id="EmptyRow10">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px;display:none;" id="HeaderLineRow10" onclick="alert(SToPS_guidance_Q11);">
+	    <td>&nbsp;</td>
+	    <td><div id="HeaderLineText10" style="font-size:25px;text-align:left;background:lightgray;">11. Impairment of Articulatory Precision</div></td>
+	    <td style="font-size:20px;text-align:left;">?&nbsp;</td>
+	  </tr>
+	  <tr style="display:none;" id="LK4row10">
+	    <td><strong><div id="LeftText10" style="font-size:20px;">&nbsp;</div></strong></td>
+	    <td>
+			<table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;"><tr>
+			<td><input type="radio" value="0" name="LK4buttons10" id="LK4buttons10.1" onchange="unblockNext('Likert4')" oninput="answer[10]=this.value"></td>
+			<td><input type="radio" value="1" name="LK4buttons10" id="LK4buttons10.2" onchange="unblockNext('Likert4')" oninput="answer[10]=this.value"></td>
+			<td><input type="radio" value="2" name="LK4buttons10" id="LK4buttons10.3" onchange="unblockNext('Likert4')" oninput="answer[10]=this.value"></td>
+			<td><input type="radio" value="3" name="LK4buttons10" id="LK4buttons10.4" onchange="unblockNext('Likert4')" oninput="answer[10]=this.value"></td>
+			</tr>
+			<tr style="font-size:15px;">
+			<td><div id="LK4.10-1" style="font-size:20px;">0<br/>Normal</div></td>
+			<td><div id="LK4.10-2" style="font-size:20px;">1<br/>Mild</div></td>
+			<td><div id="LK4.10-3" style="font-size:20px;">2<br/>Moderate</div></td>
+			<td><div id="LK4.10-4" style="font-size:20px;">3<br/>Severe</div></td>
+			</tr>
+			</table>
+		</td>	    
+	    <td><strong><div id="RightText10" style="font-size:20px;">&nbsp;</div></strong></td>
+	  </tr>
+	  <tr style="display:none;" id="EmptyRow11">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px;display:none;" id="HeaderLineRow11" onclick="alert(SToPS_guidance_Q12);">
+	    <td>&nbsp;</td>
+	    <td><div id="HeaderLineText11" style="font-size:25px;text-align:left;background:lightgray;">12. Positive features of articulation</div></td>
+	    <td style="font-size:20px;text-align:left;">?&nbsp;</td>
+	  </tr>
+	  <tr style="display:none;" id="LK4row11">
+	    <td><strong><div id="LeftText11" style="font-size:20px;">&nbsp;</div></strong></td>
+	    <td>
+			<table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;"><tr>
+			<td><input type="radio" value="0" name="LK4buttons11" id="LK4buttons11.1" onchange="unblockNext('Likert4')" oninput="answer[11]=this.value"></td>
+			<td><input type="radio" value="1" name="LK4buttons11" id="LK4buttons11.2" onchange="unblockNext('Likert4')" oninput="answer[11]=this.value"></td>
+			<td><input type="radio" value="2" name="LK4buttons11" id="LK4buttons11.3" onchange="unblockNext('Likert4')" oninput="answer[11]=this.value"></td>
+			<td><input type="radio" value="3" name="LK4buttons11" id="LK4buttons11.4" onchange="unblockNext('Likert4')" oninput="answer[11]=this.value"></td>
+			</tr>
+			<tr style="font-size:15px;">
+			<td><div id="LK4.11-1" style="font-size:20px;">0<br/>Neutral</div></td>
+			<td><div id="LK4.11-2" style="font-size:20px;">1<br/>Good</div></td>
+			<td><div id="LK4.11-3" style="font-size:20px;">2<br/>Excellent</div></td>
+			<td><div id="LK4.11-4" style="font-size:20px;">3<br/>Outstanding</div></td>
+			</tr>
+			</table>
+		</td>	    
+	    <td><strong><div id="RightText11" style="font-size:20px;">&nbsp;</div></strong></td>
+	  </tr>
+	  <tr style="display:none;" id="EmptyRow12">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px;display:none;" id="HeaderLineRow12" onclick="alert(SToPS_guidance_Q13);">
+	    <td>&nbsp;</td>
+	    <td><div id="HeaderLineText12" style="font-size:25px;text-align:left;background:lightgray;">13. Accent</div></td>
+	    <td style="font-size:20px;text-align:left;">?&nbsp;</td>
+	  </tr>
+	  <tr style="display:none;" id="LK4row12">
+	    <td><strong><div id="LeftText12" style="font-size:20px;">&nbsp;</div></strong></td>
+	    <td>
+			<table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;"><tr>
+			<td><input type="radio" value="0" name="LK4buttons12" id="LK4buttons12.1" onchange="unblockNext('Likert4')" oninput="answer[12]=this.value"></td>
+			<td><input type="radio" value="1" name="LK4buttons12" id="LK4buttons12.2" onchange="unblockNext('Likert4')" oninput="answer[12]=this.value"></td>
+			<td><input type="radio" value="2" name="LK4buttons12" id="LK4buttons12.3" onchange="unblockNext('Likert4')" oninput="answer[12]=this.value"></td>
+			<td><input type="radio" value="3" name="LK4buttons12" id="LK4buttons12.4" onchange="unblockNext('Likert4')" oninput="answer[12]=this.value"></td>
+			</tr>
+			<tr style="font-size:15px;">
+			<td><div id="LK4.12-1" style="font-size:20px;">0<br/>None</div></td>
+			<td><div id="LK4.12-2" style="font-size:20px;">1<br/>Mild</div></td>
+			<td><div id="LK4.12-3" style="font-size:20px;">2<br/>Moderate</div></td>
+			<td><div id="LK4.12-4" style="font-size:20px;">3<br/>Severe</div></td>
+			</tr>
+			</table>
+		</td>	    
+	    <td><strong><div id="RightText12" style="font-size:20px;">&nbsp;</div></strong></td>
+	  </tr>
+	  <tr style="display:none;" id="EmptyRow13">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px;display:none;" id="HeaderLineRow13" onclick="alert(SToPS_guidance_Q14);">
+	    <td>&nbsp;</td>
+	    <td><div id="HeaderLineText13" style="font-size:25px;text-align:left;background:lightgray;">14. Poor reader</div></td>
+	    <td style="font-size:18px;text-align:left;">?&nbsp;</td>
+	  </tr>
+	  <tr style="display:none;" id="LK4row13">
+	    <td><strong><div id="LeftText13" style="font-size:20px;">&nbsp;</div></strong></td>
+	    <td>
+			<table style="text-align:center;width:100%;margin-left:auto;margin-right:auto;">
+			<tr style="text-align:center">
+			<td><input type="radio" value="0" name="LK4buttons13" id="LK4buttons13.1" onchange="unblockNext('Likert4')" oninput="answer[13]=this.value"></td>
+			<td><input type="radio" value="1" name="LK4buttons13" id="LK4buttons13.2" onchange="unblockNext('Likert4')" oninput="answer[13]=this.value"></td>
+			<td><input type="radio" value="2" name="LK4buttons13" id="LK4buttons13.3" onchange="unblockNext('Likert4')" oninput="answer[13]=this.value"></td>
+			<td><input type="radio" value="3" name="LK4buttons13" id="LK4buttons13.4" onchange="unblockNext('Likert4')" oninput="answer[13]=this.value"></td>
+			</tr>
+			<tr style="font-size:15px;">
+			<td><div id="LK4.13-1" style="font-size:20px;">0<br/>Not</div></td>
+			<td><div id="LK4.13-2" style="font-size:20px;">1<br/>Mild</div></td>
+			<td><div id="LK4.13-3" style="font-size:20px;">2<br/>Moderate</div></td>
+			<td><div id="LK4.13-4" style="font-size:20px;">3<br/>Severe</div></td>
+			</tr>
+			</table>
+		</td>	    
+	    <td><strong><div id="RightText13" style="font-size:20px;">&nbsp;</div></strong></td>
+	  </tr>
+	  <tr style="display:none;" id="EmptyRow14">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="display:none;" id="EmptyRow15">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td><a href="javascript:void(0)" id="ToolTipNext" data-toggle="tooltip" title="Go to next item"><button id="NextButton" onclick="nextStimulus ();" style="font-size:30px;background-color:gray"><strong><div id="NextText" style="font-size:30px;background-color:gray">Next</div></strong></button></a></td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  </table>
+	  </p>
+	  <p>
+	  <table style="text-align:center;width:50%;margin-left:auto;margin-right:auto;">
+	  <tr style="font-size:30px">
+	    <td><a href="javascript:void(0)" id="ToolTipRestart" data-toggle="tooltip" title="Start a new experiment session" style="visibility:hidden"><button id="RestartPage" onclick="resetPage(); location.reload();" style="font-size:30px;visibility:v;"><strong><div id="RestartPageText">Restart</div></strong></button></a></td>
+	    <td>&nbsp;</td>
+	    <td><a href="javascript:void(0)" id="ToolTipSave" data-toggle="tooltip" title="Save the answer to a file" style="visibility:hidden"><button onclick="document.getElementById('SaveLink').click();" style="font-size:30px;visibility:hidden;" id="SaveButton"><strong><div id="SaveButtonText"style="color:blue;">Save Results</div></strong></button></a></td>
+	  </tr>
+	  </table>
+	  <br />
+	  <h2 style="text-align:center"><div id="SaveText"></div></h2>
+	  </p>
+	  
+	<table style="text-align:center;width:99%;margin-left:auto;margin-right:auto;">
+		<col width="90%">
+		<col width="10%">
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td><div style="text-align:right;height:25px;width:25px;border-radius: 45px;background:#ee9090;" id="LocalStoragePresent">&nbsp;</div></td>
+	  </tr>
+	</table>
+</body>
+</html>
