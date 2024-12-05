@@ -39,6 +39,8 @@
 	<script language="JavaScript" src="Read_ABX_Stimuluslist.js"></script>
 	<script language="JavaScript">
 		var stimulusTable;
+		var changedAnswers = false;
+        var countAnswers = 0;
         var playedX = false;
         var playedA = false;
         var playedB = false;
@@ -120,7 +122,15 @@
 				};	
 				
 			    // Prepare the stimulus list
-			    if(ShuffleStimulusList)data = shuffle(data);
+			    if(ShuffleStimulusList){
+					if(PracticeItems < 0){
+						practiceList = data.slice(0,-PracticeItems);
+						shuffleList = shuffle(data.slice(-PracticeItems,));
+						data = practiceList.concat(shuffleList);
+					} else {
+						data = shuffle(data);
+					};
+				};
 			    if(PracticeItems > 0){
 					practise = data.slice(data.length-PracticeItems, data.length).reverse();
 					tmp = practise.concat(data);
@@ -183,7 +193,11 @@
 			playedX = playedX || x=="SpeakerX";
 			playedA = playedA || x=="SpeakerA";
 			playedB = playedB || x=="SpeakerB";
-			playedSamples = playedX &&  playedA && playedB;
+			changedAnswers = changedAnswers || x=="";
+			if(x == ""){
+				countAnswers += 1;
+			};
+			playedSamples = playedX &&  playedA && playedB && (countAnswers >= NumberOfScales);
 			if(answer == "" && playedSamples) {
 				document.getElementById('AnswerA').style.backgroundColor="#F0F0F0";
 				document.getElementById('AnswerB').style.backgroundColor="#F0F0F0";

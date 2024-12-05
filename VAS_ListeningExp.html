@@ -87,6 +87,7 @@
 	<script language="JavaScript">
 		var stimulusTable;
         var changedSlider = false;
+        var countAnswers = 0;
         var playedA = false;
         var playedB = false;
         var playedSamples = false;
@@ -180,7 +181,15 @@
 					};
 				    if(RandomizeAB)data = shuffleAB(data, posA, posB);
 				};
-			    if(ShuffleStimulusList)data = shuffle(data);
+			    if(ShuffleStimulusList){
+					if(PracticeItems < 0){
+						practiceList = data.slice(0,-PracticeItems);
+						shuffleList = shuffle(data.slice(-PracticeItems,));
+						data = practiceList.concat(shuffleList);
+					} else {
+						data = shuffle(data);
+					};
+				};
 			    if(PracticeItems > 0){
 					practise = data.slice(data.length-PracticeItems, data.length).reverse();
 					tmp = practise.concat(data);
@@ -203,10 +212,13 @@
 			playedA = playedA || x=="SpeakerA";
 			playedB = playedB || x=="SpeakerB";
 			changedSlider = changedSlider || x=="Slider";
+			if(x == "Slider"){
+				countAnswers += 1;
+			};
 			if(ShowPlayBbutton) {
-				playedSamples = playedA && playedB && changedSlider;
+				playedSamples = playedA && playedB && changedSlider && (countAnswers >= NumberOfScales);
 			} else {
-				playedSamples = playedA && changedSlider;
+				playedSamples = playedA && changedSlider && (countAnswers >= NumberOfScales);
 			};
 			if(playedSamples == true) {
 				document.getElementById('NextText').style.backgroundColor="#F0F0F0";

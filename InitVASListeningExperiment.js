@@ -5,6 +5,11 @@ CurrentExperimentID = 'ID1-';
 //FixedLanguage = 'NL';
 FixedLanguage = false;
 
+// Variable or fxed text. 
+// If the text is variable (true), eg, by language, the text will be adapted by the code below.
+// If the text is fixed (false), the text in the HTML page will be displayed as is. 
+VariableText = true;
+
 // Shuffle stimuli or not
 ShuffleStimulusList = true;
 
@@ -23,7 +28,7 @@ var NumberOfScales = 1;
 // Allow to dynamically change the base URL of the stimulus files
 var audioBaseURL = "Stimuli/"; // Default = "Stimuli/", can be nothing ""
 // Example, if located at Github, read from URL
-if(1 || document.location.href.match(/github\.io\/akouste/)){ 
+if(document.location.href.match(/github\.io\/akouste/)){ 
 	audioBaseURL = "https://www.fon.hum.uva.nl/rob/PseudonymizedSpeechExp/";
 };
 
@@ -137,26 +142,29 @@ if(FixedLanguage) {
 
 // Funtion that changes the texts
 function replaceTexts (language) {
-	document.getElementById('PageTitleText').innerHTML = PageTitleText[language];
-	document.getElementById('TitleText').innerHTML = TitleText[language];
-	document.getElementById('IntroductionText').innerHTML = IntroductionText[language];
-	document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language];
-	document.getElementById('PlayAText').innerHTML = PlayAText[language];
-	document.getElementById('NextText').innerHTML = NextText[language];
-	document.getElementById('HeaderLineText0').innerHTML = HeaderLineText0[language];
-	document.getElementById('RightText0').innerHTML = RightText0[language];
-	document.getElementById('LeftText0').innerHTML = LeftText0[language];
-	document.getElementById('HeaderLineText1').innerHTML = HeaderLineText1[language];
-	document.getElementById('RightText1').innerHTML = RightText1[language];
-	document.getElementById('LeftText1').innerHTML = LeftText1[language];
-	document.getElementById('HeaderLineText2').innerHTML = HeaderLineText2[language];
-	document.getElementById('RightText2').innerHTML = RightText2[language];
-	document.getElementById('LeftText2').innerHTML = LeftText2[language];
-	document.getElementById('RestartPageText').innerHTML = RestartPageText[language];
-	document.getElementById('ToolTipPlayA').title = ToolTipPlayA [language];
-	document.getElementById('ToolTipNext').title = ToolTipNext [language];
-	document.getElementById('ToolTipSave').title = ToolTipSave [language];
-	document.getElementById('ToolTipRestart').title = ToolTipRestart [language];
+	
+	if(VariableText){
+		document.getElementById('PageTitleText').innerHTML = PageTitleText[language];
+		document.getElementById('TitleText').innerHTML = TitleText[language];
+		document.getElementById('IntroductionText').innerHTML = IntroductionText[language];
+		document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language];
+		document.getElementById('PlayAText').innerHTML = PlayAText[language];
+		document.getElementById('NextText').innerHTML = NextText[language];
+		document.getElementById('HeaderLineText0').innerHTML = HeaderLineText0[language];
+		document.getElementById('RightText0').innerHTML = RightText0[language];
+		document.getElementById('LeftText0').innerHTML = LeftText0[language];
+		document.getElementById('HeaderLineText1').innerHTML = HeaderLineText1[language];
+		document.getElementById('RightText1').innerHTML = RightText1[language];
+		document.getElementById('LeftText1').innerHTML = LeftText1[language];
+		document.getElementById('HeaderLineText2').innerHTML = HeaderLineText2[language];
+		document.getElementById('RightText2').innerHTML = RightText2[language];
+		document.getElementById('LeftText2').innerHTML = LeftText2[language];
+		document.getElementById('RestartPageText').innerHTML = RestartPageText[language];
+		document.getElementById('ToolTipPlayA').title = ToolTipPlayA [language];
+		document.getElementById('ToolTipNext').title = ToolTipNext [language];
+		document.getElementById('ToolTipSave').title = ToolTipSave [language];
+		document.getElementById('ToolTipRestart').title = ToolTipRestart [language];
+	};
 	
 	// If there is a PlayB button
 	if(ShowPlayBbutton){

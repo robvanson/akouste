@@ -5,6 +5,11 @@ CurrentExperimentID = 'ID1-';
 //FixedLanguage = 'NL';
 FixedLanguage = false;
 
+// Variable or fxed text. 
+// If the text is variable (true), eg, by language, the text will be adapted by the code below.
+// If the text is fixed (false), the text in the HTML page will be displayed as is. 
+VariableText = true;
+
 // Shuffle stimuli or not
 ShuffleStimulusList = true;
 
@@ -174,29 +179,40 @@ if(FixedLanguage) {
 
 // Funtion that changes the texts
 function replaceTexts (language) {
-	
-	document.getElementById('PageTitleText').innerHTML = PageTitleText[language];
-	document.getElementById('TitleText').innerHTML = TitleText[language];
-	document.getElementById('IntroductionText').innerHTML = IntroductionText[language];
-	document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language];
-	document.getElementById('PlayAText').innerHTML = PlayAText[language];
-	document.getElementById('NextText').innerHTML = NextText[language];
-	document.getElementById('HeaderLineText0').innerHTML = HeaderLineText0[language];
-	document.getElementById('RightText0').innerHTML = RightText0[language];
-	document.getElementById('LeftText0').innerHTML = LeftText0[language];
-	document.getElementById('HeaderLineText1').innerHTML = HeaderLineText1[language];
-	document.getElementById('RightText1').innerHTML = RightText1[language];
-	document.getElementById('LeftText1').innerHTML = LeftText1[language];
-	document.getElementById('HeaderLineText2').innerHTML = HeaderLineText2[language];
-	document.getElementById('RightText2').innerHTML = RightText2[language];
-	document.getElementById('LeftText2').innerHTML = LeftText2[language];
-	document.getElementById('RestartPageText').innerHTML = RestartPageText[language];
-	document.getElementById('ToolTipPlayA').title = ToolTipPlayA [language];
-	document.getElementById('ToolTipNext').title = ToolTipNext [language];
-	document.getElementById('ToolTipSave').title = ToolTipSave [language];
-	document.getElementById('ToolTipRestart').title = ToolTipRestart [language];
-	for(var j = 0; j < 3; j++) {
-		document.getElementById('LK3.0-'+(j+1)).innerHTML = LK3label [language] [0] [j];
+		
+	if(VariableText){
+		document.getElementById('PageTitleText').innerHTML = PageTitleText[language];
+		document.getElementById('TitleText').innerHTML = TitleText[language];
+		document.getElementById('IntroductionText').innerHTML = IntroductionText[language];
+		document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language];
+		document.getElementById('PlayAText').innerHTML = PlayAText[language];
+		document.getElementById('NextText').innerHTML = NextText[language];
+		document.getElementById('HeaderLineText0').innerHTML = HeaderLineText0[language];
+		document.getElementById('RightText0').innerHTML = RightText0[language];
+		document.getElementById('LeftText0').innerHTML = LeftText0[language];
+		document.getElementById('HeaderLineText1').innerHTML = HeaderLineText1[language];
+		document.getElementById('RightText1').innerHTML = RightText1[language];
+		document.getElementById('LeftText1').innerHTML = LeftText1[language];
+		document.getElementById('HeaderLineText2').innerHTML = HeaderLineText2[language];
+		document.getElementById('RightText2').innerHTML = RightText2[language];
+		document.getElementById('LeftText2').innerHTML = LeftText2[language];
+		document.getElementById('RestartPageText').innerHTML = RestartPageText[language];
+		document.getElementById('ToolTipPlayA').title = ToolTipPlayA [language];
+		document.getElementById('ToolTipNext').title = ToolTipNext [language];
+		document.getElementById('ToolTipSave').title = ToolTipSave [language];
+		document.getElementById('ToolTipRestart').title = ToolTipRestart [language];
+		for(var j = 0; j < 3; j++) {
+			document.getElementById('LK3.0-'+(j+1)).innerHTML = LK3label [language] [0] [j];
+		};
+		for(var i = 1; i < NumberOfScales; i++) {
+			for(var j = 0; j < 3; j++) {
+				if(typeof( LK3label [language] [i]) == "undefined") {
+					document.getElementById('LK3.'+ i +'-'+(j+1)).innerHTML = document.getElementById('LK3.'+ (i-1) +'-'+(j+1)).innerHTML;
+				} else {
+					document.getElementById('LK3.'+ i +'-'+(j+1)).innerHTML = LK3label [language] [i] [j];
+				}
+			};
+		};		
 	};
 	
 	// If there is a PlayB button

@@ -49,6 +49,7 @@
 	<script language="JavaScript">
 		var stimulusTable;
         var changedLikert3 = false;
+        var countAnswers = 0;
         var playedA = false;
         var playedB = false;
         var playedSamples = false;
@@ -142,7 +143,15 @@
 					};
 				    if(RandomizeAB)data = shuffleAB(data, posA, posB);
 				};
-			    if(ShuffleStimulusList)data = shuffle(data);
+			    if(ShuffleStimulusList){
+					if(PracticeItems < 0){
+						practiceList = data.slice(0,-PracticeItems);
+						shuffleList = shuffle(data.slice(-PracticeItems,));
+						data = practiceList.concat(shuffleList);
+					} else {
+						data = shuffle(data);
+					};
+				};
 			    if(PracticeItems > 0){
 					practise = data.slice(data.length-PracticeItems, data.length).reverse();
 					tmp = practise.concat(data);
@@ -169,10 +178,13 @@
 			playedA = playedA || x=="SpeakerA";
 			playedB = playedB || x=="SpeakerB";
 			changedLikert3 = changedLikert3 || x=="Likert3";
+			if(x == "Likert3"){
+				countAnswers += 1;
+			};
 			if(ShowPlayBbutton) {
-				playedSamples = playedA && playedB && changedLikert3;
+				playedSamples = playedA && playedB && changedLikert3 && (countAnswers >= NumberOfScales);
 			} else {
-				playedSamples = playedA && changedLikert3;
+				playedSamples = playedA && changedLikert3 && (countAnswers >= NumberOfScales);
 			};
 			
 			if(playedSamples == true) {

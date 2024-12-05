@@ -5,6 +5,11 @@ CurrentExperimentID = 'ID1-';
 //FixedLanguage = 'NL';
 FixedLanguage = false;
 
+// Variable or fxed text. 
+// If the text is variable (true), eg, by language, the text will be adapted by the code below.
+// If the text is fixed (false), the text in the HTML page will be displayed as is. 
+VariableText = true;
+
 // Shuffle stimuli or not
 ShuffleStimulusList = true;
 
@@ -125,24 +130,27 @@ if(FixedLanguage) {
 
 // Funtion that changes the texts
 function replaceTexts (language) {
-	document.getElementById('PageTitleText').innerHTML = PageTitleText[language];
-	document.getElementById('TitleText').innerHTML = TitleText[language];
-	document.getElementById('IntroductionText').innerHTML = IntroductionText[language];
-	document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language];
-	document.getElementById('PlayAText').innerHTML = PlayAText[language];
-	document.getElementById('PlayXText').innerHTML = PlayXText[language];
-	document.getElementById('PlayBText').innerHTML = PlayBText[language];
-	document.getElementById('AnswerAText').innerHTML = AnswerAText[language];
-	document.getElementById('AnswerBText').innerHTML = AnswerBText[language];
-	document.getElementById('YourChoiceText').innerHTML = YourChoiceText[language];
-	document.getElementById('NextText').innerHTML = NextText[language];
-	document.getElementById('RestartPageText').innerHTML = RestartPageText[language];
-	document.getElementById('ToolTipPlayA').title = ToolTipPlayA [language];
-	document.getElementById('ToolTipPlayX').title = ToolTipPlayX [language];
-	document.getElementById('ToolTipPlayB').title = ToolTipPlayB [language];
-	document.getElementById('ToolTipAnswerA').title = ToolTipAnswerA [language]
-	document.getElementById('ToolTipAnswerB').title = ToolTipAnswerB [language]
-	document.getElementById('ToolTipNext').title = ToolTipNext [language];
-	document.getElementById('ToolTipSave').title = ToolTipSave [language];
-	document.getElementById('ToolTipRestart').title = ToolTipRestart [language];
+
+	if(VariableText){
+		document.getElementById('PageTitleText').innerHTML = PageTitleText[language];
+		document.getElementById('TitleText').innerHTML = TitleText[language];
+		document.getElementById('IntroductionText').innerHTML = IntroductionText[language];
+		document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText[language];
+		document.getElementById('PlayAText').innerHTML = PlayAText[language];
+		document.getElementById('PlayXText').innerHTML = PlayXText[language];
+		document.getElementById('PlayBText').innerHTML = PlayBText[language];
+		document.getElementById('AnswerAText').innerHTML = AnswerAText[language];
+		document.getElementById('AnswerBText').innerHTML = AnswerBText[language];
+		document.getElementById('YourChoiceText').innerHTML = YourChoiceText[language];
+		document.getElementById('NextText').innerHTML = NextText[language];
+		document.getElementById('RestartPageText').innerHTML = RestartPageText[language];
+		document.getElementById('ToolTipPlayA').title = ToolTipPlayA [language];
+		document.getElementById('ToolTipPlayX').title = ToolTipPlayX [language];
+		document.getElementById('ToolTipPlayB').title = ToolTipPlayB [language];
+		document.getElementById('ToolTipAnswerA').title = ToolTipAnswerA [language]
+		document.getElementById('ToolTipAnswerB').title = ToolTipAnswerB [language]
+		document.getElementById('ToolTipNext').title = ToolTipNext [language];
+		document.getElementById('ToolTipSave').title = ToolTipSave [language];
+		document.getElementById('ToolTipRestart').title = ToolTipRestart [language];
+	};
 };
