@@ -23,7 +23,7 @@ RandomizeAB = false;
 PracticeItems = 4;
 
 // Set number of visible questions (1-3)
-var NumberOfScales = 1;
+var NumberOfScales = 3;
 
 // Allow to dynamically change the base URL of the stimulus files
 var audioBaseURL = "Stimuli/"; // Default = "Stimuli/", can be nothing ""
