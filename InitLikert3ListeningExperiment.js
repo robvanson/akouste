@@ -25,7 +25,7 @@ BinaryChoiceExperiment = false;
 // prepended in reverse order.
 PracticeItems = 4;
 
-// Set number of visible questions (1-3)
+// Set number of visible questions (1-8)
 var NumberOfScales = 3;
 
 // Allow to dynamically change the base URL of the stimulus files
@@ -152,9 +152,10 @@ ToolTipRestart ["NL"] = "Begin een nieuwe luster sessie";
 // Copy all scale button texts for "undefined" scales
 languageArray = Array.from(languageSet);
 for(var l in languageArray) {
-	for(var j = 0; j < 3; j++) {
-		for(var i = 1; i < NumberOfScales; i++) {		
-			if ( LK3label [languageArray [l]] [i] [j] == 0 ) {
+	for(var i = 1; i < NumberOfScales; i++) {
+		if ( typeof(LK3label [languageArray [l]] [i]) == "undefined" ) {
+			LK3label [languageArray [l]] [i] = Array(3).fill(0)
+			for(var j = 0; j < 3; j++) {		
 				LK3label [languageArray [l]] [i] [j] = LK3label [languageArray [l]] [0] [j];
 			};
 		};
@@ -201,15 +202,15 @@ function replaceTexts (language) {
 		document.getElementById('ToolTipNext').title = ToolTipNext [language];
 		document.getElementById('ToolTipSave').title = ToolTipSave [language];
 		document.getElementById('ToolTipRestart').title = ToolTipRestart [language];
-		for(var j = 0; j < 3; j++) {
+		for(var j = 0; j < 3; ++j) {
 			document.getElementById('LK3.0-'+(j+1)).innerHTML = LK3label [language] [0] [j];
 		};
 		for(var i = 1; i < NumberOfScales; i++) {
-			for(var j = 0; j < 3; j++) {
+			for(var j = 0; j < 3; ++j) {
 				if(typeof( LK3label [language] [i]) == "undefined") {
-					document.getElementById('LK3.'+ i +'-'+(j+1)).innerHTML = document.getElementById('LK3.'+ (i-1) +'-'+(j+1)).innerHTML;
+					document.getElementById('LK3.'+ i +'-'+(j+1)) = document.getElementById('LK3.'+ (i-1) +'-'+(j+1));
 				} else {
-					document.getElementById('LK3.'+ i +'-'+(j+1)).innerHTML = LK3label [language] [i] [j];
+					document.getElementById('LK3.'+ i +'-'+(j+1)).innerHTML = LK3label [language] [i-1] [j];
 				}
 			};
 		};		
