@@ -10,7 +10,7 @@ preamble = `<!DOCTYPE html>
 		.slidecontainer {
 		  width: 10cm; /* Width of the outside container */
 		}
-		
+				
 		/* The slider itself */
 		.slider {
 		  -webkit-appearance: none;  /* Override default CSS styles */
@@ -37,6 +37,10 @@ preamble = `<!DOCTYPE html>
 		  cursor: pointer; /* Cursor on hover */
 		}
 
+		/* Table layout */
+		td {
+		  background-color: #ffffff;
+		}
 </style>
 
 <meta charset = "UTF-8" />
@@ -50,7 +54,7 @@ preamble = `<!DOCTYPE html>
 	};
 </script>
 
-<script language="JavaScript" src="XXEXPERIMENTNAMEXX_Stimuluslist.js"></script>
+<script language="JavaScript" src="./XXEXPERIMENTNAMEXX_Stimuluslist.js"></script>
 <script language="JavaScript">
 // temp Kludge
 var stimulusTableJSON = '[["A","B","X","Col1","Col2"],[["LA_D_9121123_LA_0030[0].wav","LA_D_9841321_LA_0100[1].wav","LA_D_9919064_LA_0103[2].wav","1","A"],["LA_D_9523504_LA_0021[0].wav","LA_D_9835881_LA_0030[1].wav","LA_T_9429183_LA_0043[2].wav","2","B"],["LA_D_9834938_LA_0104[0].wav","LA_D_9820905_LA_0040[1].wav","LA_T_9497115_LA_0011[2].wav","3","C"],["LA_D_9922523_LA_0099[0].wav","LA_D_9668611_LA_0081[1].wav","LA_T_9635654_LA_0058[2].wav","4","D"],["LA_D_9965439_LA_0057[0].wav","LA_D_9567593_LA_0093[1].wav","LA_T_9896961_LA_0011[2].wav","5","E"]]]';
@@ -69,8 +73,9 @@ var audioPos = [];
 
 var answerList = [];
 var requiredNames = [];
-var requiredAnswers = [];
-playedSamples = false;
+var requiredAnswers = new Array(requiredNames.length).fill(false);
+var playedSamples = false;
+var finishedExperiment = false;
 
 var answer = new Array(NumberOfScales).fill(-1);
 var stimulusNbr = 0;
@@ -91,11 +96,6 @@ function loadList () {
 		};
 		if(localStorage.getItem(CurrentExperimentID+'lastDigest')){
 			lastDigest = localStorage.getItem(CurrentExperimentID+'lastDigest');
-		};
-		if(stimulusNbr >= data.length){
-			// The experiment has been finished, but not reset
-			FinishExperimentRun ();
-			onSave ();
 		};
 	} else {
 		// Read and process the stimulus list
@@ -139,13 +139,6 @@ function loadList () {
 			while(dataLines[dataLines.length-1] == [])dataLines.pop();
 			data = dataLines.map(function(x){return x.split(/[;\t]/g).filter(e => e)});
 		};	
-		
-		// Locate the stimuli
-		audioPos = [];
-		for(i in audioNames){
-			audioPos.push(columnNames.indexOf(audioNames[i]));
-			if(audioPos[i] < 0)audioPos[i] = -1;
-		};
 
 		if(RandomizeAB) {
 			columnNames.push("ABswitch");
@@ -176,53 +169,107 @@ function loadList () {
 		};
 	};
 	
-	document.getElementById('StimulusNumberText').innerHTML = document.getElementById('StimulusNumberText').innerHTML.replace(/[0-9]+/g, (data.length - stimulusNbr)+"");
+	// Locate the stimuli
+	audioPos = [];
+	for(i in audioNames){
+		audioPos.push(columnNames.indexOf(audioNames[i]));
+		if(audioPos[i] < 0)audioPos[i] = -1;
+	};
 	
-	return [columnNames, data];
+	document.getElementById('StimulusNumberText').innerHTML = document.getElementById('StimulusNumberText').innerHTML.replace(/[0-9]+/g, (data.length - stimulusNbr)+"");
+
+	stimulusTable = [columnNames, data];
+	
+	// The experiment has been finished, but not reset
+	if(stimulusNbr >= data.length){
+		// The experiment has been finished, but not reset
+		FinishExperimentRun ();
+		onSave ();
+	};
+	
+	return stimulusTable;
 };
 
 
 function unblockNext (x) {
-	requiredAnswers[requiredNames.indexof(x)] = true;
+	requiredAnswers[requiredNames.indexOf(x)] = true;
 	playedSamples = requiredAnswers.reduce((a, b) => a & b) ;
 	if(playedSamples) {
-		document.getElementById('NextText').style.backgroundColor="#F0F0F0";
-		document.getElementById('NextButton').style.backgroundColor="#F0F0F0";
+		document.getElementById('NextText').style.backgroundColor="white";
+		document.getElementById('NextButton').style.backgroundColor="white";
 	};
 	if(x.match("Audio")){
 		document.getElementById(x).style.backgroundColor = "#EEFFEE";
-		document.getElementById(x).parentNode.parentNode.style.backgroundColor = "#EEFFEE";
+		document.getElementById("Play"+x+"Text").style.backgroundColor = "#EEFFEE";
 	};
 };
 
 
 function setAudio(i, stimulusTable) {
+	if(finishedExperiment) return;
 	for(var i in  audioNames) {
-		document.getElementById('Audio'+audioNames[i]).src = audioBaseURL + stimulusTable[1][i][audioPos[0]];
-		//document.getElementById('Audio'+audioNames[i]).title = stimulusTable[1][i][0].replace(/^.*\/([^\/]+)\.wav$/, "$1");
+		document.getElementById('Audio'+audioNames[i]).src = audioBaseURL + stimulusTable[1][stimulusNbr][audioPos[i]];
+		document.getElementById('Audio'+audioNames[i]).title = stimulusTable[1][stimulusNbr][audioPos[i]].replace(/^.*\\/([^\\/]+)\.wav$/, "$1");
 		document.getElementById('Audio'+audioNames[i]).style.backgroundColor = "#F0F0F0";
 		document.getElementById('Audio'+audioNames[i]).parentNode.parentNode.style.backgroundColor = "#F0F0F0";
 	};
 
-	document.getElementById('StimulusNumberText').innerHTML = document.getElementById('StimulusNumberText').innerHTML.replace("XXX", (data.length - i)+"");
+	document.getElementById('StimulusNumberText').innerHTML = document.getElementById('StimulusNumberText').innerHTML.replace(/[0-9]+/, (stimulusTable[1].length - stimulusNbr)+"");
 	
 	setProgress(100*stimulusNbr/data.length);
 };
 
+function collectAnswer () {
+	var newLine = (stimulusNbr+1)+";"+answer.join(";")+";"+(stimulusTable[1][stimulusNbr]).join(";");
+	answerList.push(newLine);
+	if (typeof(Storage) !== "undefined") {
+		// Store
+		localStorage.setItem(CurrentExperimentID+'answerlist', JSON.stringify(answerList));
+	};
+};
+
+function displayArray (x) {
+	var answerNums = Array.from(Array(NumberOfScales+1).keys());
+	var answerTexts = Array(NumberOfScales).fill("Answer");
+	answerTexts = answerTexts.map(function(el, idx){return el+answerNums[idx+1]});
+	var output = "Num;"+answerTexts.join(";")+";"+(stimulusTable[0]).join(";")+"\\n";
+	for (var i=0; i<x.length; i++) {
+		line = "";
+		output += x[i] + '\\n';
+	}
+	var blob = new Blob([output], {type: "text/plain"});
+	var blobURL = URL.createObjectURL(blob);
+	document.getElementById('SaveButtonText').innerHTML = "XXSaveButtonTextXX";
+	document.getElementById('SaveButton').style.visibility = 'visible';
+	document.getElementById('ToolTipSave').style.visibility = 'visible';
+	document.getElementById('SaveLink').href = blobURL;
+	document.getElementById('SaveLink').download = CurrentExperimentID+"LK5buttons_Results_"+((new Date()).toISOString()).replace(/\.[0-9Z]+/, "").replace(/\:/g,".") + ".txt";
+}
 
 function nextStimulus () {
 	if(finishedExperiment)return false;
 	if(playedSamples) {
 		// Reset played
 		playedSamples = false
+		requiredAnswers = new Array(requiredNames.length).fill(false);
 		for(i in audioNames) {
-			document.getElementById('Audio'+audioNames[i]).style.backgroundColor = "#EEFFEE";
-			document.getElementById('Audio'+audioNames[i]).parentNode.parentNode.style.backgroundColor = "#EEFFEE";
+			document.getElementById('Audio'+audioNames[i]).style.backgroundColor = "white";
+			document.getElementById("Play"+'Audio'+audioNames[i]+"Text").style.backgroundColor = "white";
 		};
-		playedSamples = changedLikert5 = playedA = playedB = false;
-		document.getElementById('LK5buttons0.1').checked = document.getElementById('LK5buttons0.2').checked = document.getElementById('LK5buttons0.3').checked = document.getElementById('LK5buttons0.4').checked = document.getElementById('LK5buttons0.5').checked = false;
-		document.getElementById('LK5buttons1.1').checked = document.getElementById('LK5buttons1.2').checked = document.getElementById('LK5buttons1.3').checked = document.getElementById('LK5buttons1.4').checked = document.getElementById('LK5buttons1.5').checked = false;
-		document.getElementById('LK5buttons2.1').checked = document.getElementById('LK5buttons2.2').checked = document.getElementById('LK5buttons2.3').checked = document.getElementById('LK5buttons2.4').checked = document.getElementById('LK5buttons2.5').checked = false;
+		
+		playedSamples = false;
+		for(q in requiredNames) {
+			optionsList = document.getElementsByName(requiredNames[q]);
+			for(o in optionsList) {
+				object = optionsList[o];
+				if(object.type == "radio") {
+					object.checked = false;
+				} else if (object.type == "range") {
+					object.value = 500;
+				};
+			};
+		}
+
 		// Process answers
 		collectAnswer ();
 		stimulusNbr = answerList.length;
@@ -241,10 +288,52 @@ function nextStimulus () {
 		setAudio(stimulusNbr, stimulusTable);
 		return true;
 	} else {
-		alert(NextAlert [language]);
+		alert('XXNextAlertTextXX');
 		return false;
 	};
 	
+};
+
+function FinishExperimentRun () {
+	displayArray(answerList);
+	document.getElementById('NextText').innerHTML = "XXReadyTextXX";
+	document.getElementById('NextText').title = "XXToolTipReadyXX";
+	document.getElementById('NextText').style.backgroundColor = "gray";
+	document.getElementById('SaveText').innerHTML =  "XXSaveTextXX";
+	finishedExperiment = true;
+	setProgress(100);
+	document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText.innerHTML.replace("[0-9]+", "0");
+};
+
+function onSave () {
+	document.getElementById('RestartPage').style.visibility = 'visible'
+	document.getElementById('ToolTipRestart').style.visibility = 'visible'
+	document.getElementById('SaveText').innerHTML =  'XXSaveTextXX';
+};
+
+function resetPage () {
+	// Reset all
+	localStorage.removeItem(CurrentExperimentID+'stimuluslist');
+	localStorage.removeItem(CurrentExperimentID+'columnnames');
+	localStorage.removeItem(CurrentExperimentID+'answerlist');
+
+	playedSamples = false;
+	for(q in requiredNames) {
+		optionsList = document.getElementsByName(requiredNames[q]);
+		for(o in optionsList) {
+			object = optionsList[o];
+			if(object.type == "radio") {
+				object.checked = false;
+			} else if (object.type == "range") {
+				object.value = 500;
+			};
+		};
+	};
+
+	finishedExperiment = false;
+	answerList = [];
+	answer = new Array(NumberOfScales).fill(-1);
+	stimulusNbr = 0;
 };
 
 
@@ -348,6 +437,7 @@ postamble = `
 	  </table>
 	  <br />
 	  <h2 style="text-align:center"><div id="SaveText"></div></h2>
+	  <a href="" Id="SaveLink" download onclick="onSave ()" style="font-size:30px;visibility:hidden"></a>
 	  </p>
 	  
 	<table style="text-align:center;width:99%;margin-left:auto;margin-right:auto;">

@@ -21,12 +21,15 @@
 [//parameter]: # "ShuffleStimuli:true"
 [//parameter]: # "RandomizeAB:false"
 [//buttontext]: # "NextText:Next"
+[//buttontext]: # "NextAlertText:Please, listen to the recordings and answer the questions"
+[//buttontext]: # "ReadyText:Ready"
 [//buttontext]: # "PlayText:Play"
 [//buttontext]: # "RestartPageText:Restart"
 [//buttontext]: # "SaveButtonText:Save Results"
 [//buttontext]: # "SaveText:Please, click XXSaveButtonTextXX and store the file"
 [//tooltiptext]: # "ToolTipPlay:Play sound"
 [//tooltiptext]: # "ToolTipNext:Go to next item"
+[//tooltiptext]: # "ToolTipReady:Ready, please save results"
 [//tooltiptext]: # "ToolTipRestart:Start a new experiment session"
 [//tooltiptext]: # "ToolTipSave:Save the answer to a file"
 [//comment]: # "----------"
@@ -209,17 +212,19 @@ Here you can put the text which tells the subjects what they are supposed to do.
 	var PracticeItems = 4;
 	var NumberOfScales = 0;
 	var NextText = "Next";
+	var NextAlertText = "Please, listen to the recordings and answer the questions first";
+	var ReadyText = "Ready";
 	var PlayText = "Play";
 	var RestartPageText = "Restart";
 	var SaveButtonText = "Save Results";
 	var SaveText = "Please, click XXSaveButtonTextXX and store the file";
 	var ToolTipPlay = "Play sound";
 	var ToolTipNext = "Go to next item";
+	var ToolTipReady = "Ready, please save results";
 	var ToolTipRestart = "Start a new experiment session";
 	var ToolTipSave = "Save the answer to a file";
 
 	var requiredNames = [];
-	var requiredAnswers = [];
 	var audioNames = [];
 	var markdownStack = [];
 	var currentMarkdown = "";
@@ -316,12 +321,15 @@ Here you can put the text which tells the subjects what they are supposed to do.
 			['[//parameter]: # "ShuffleStimuli:'+cleanString(ShuffleStimuli)+'"'],
 			['[//parameter]: # "RandomizeAB:'+cleanString(RandomizeAB)+'"'],
 			['[//buttontext]: # "NextText:'+cleanString(NextText)+'"'],
+			['[//buttontext]: # "NextAlertText:'+cleanString(NextAlertText)+'"'],
+			['[//buttontext]: # "ReadyText:'+cleanString(ReadyText)+'"'],
 			['[//buttontext]: # "PlayText:'+cleanString(PlayText)+'"'],
 			['[//buttontext]: # "RestartPageText:'+cleanString(RestartPageText)+'"'],
 			['[//buttontext]: # "SaveButtonText:'+cleanString(SaveButtonText)+'"'],
 			['[//buttontext]: # "SaveText:'+cleanString(SaveText)+'"'],
 			['[//tooltiptext]: # "ToolTipPlay:'+cleanString(ToolTipPlay)+'"'],
 			['[//tooltiptext]: # "ToolTipNext:'+cleanString(ToolTipNext)+'"'],
+			['[//tooltiptext]: # "ToolTipReady'+cleanString(ToolTipReady)+'"'],
 			['[//tooltiptext]: # "ToolTipRestart:'+cleanString(ToolTipRestart)+'"'],
 			['[//tooltiptext]: # "ToolTipSave:'+cleanString(ToolTipSave)+'"'],
 			['[//comment]: # "----------"']
@@ -377,6 +385,12 @@ Here you can put the text which tells the subjects what they are supposed to do.
 						case "NextText":
 							NextText = parameterValue;
 							break;
+						case "NextAlertText":
+							NextAlertText = parameterValue;
+							break;
+						case "ReadyText":
+							ReadyText = parameterValue;
+							break;
 						case "PlayText":
 							PlayText = parameterValue;
 							break;
@@ -394,6 +408,9 @@ Here you can put the text which tells the subjects what they are supposed to do.
 							break;
 						case "ToolTipNext":
 							ToolTipNext = parameterValue;
+							break;
+						case "ToolTipReady":
+							ToolTipReady = parameterValue;
 							break;
 						case "ToolTipRestart":
 							ToolTipRestart = parameterValue;
@@ -422,6 +439,12 @@ Here you can put the text which tells the subjects what they are supposed to do.
 		document.getElementById('NextTextButton').title = ToolTipNext;
 		document.getElementById('NextText').value = NextText;
 		document.getElementById('ToolTipNext').value = ToolTipNext;
+		document.getElementById('NextAlertText').value = NextAlertText;
+		
+		document.getElementById('ReadyTextButton').value = ReadyText;
+		document.getElementById('ReadyTextButton').title = ToolTipReady;
+		document.getElementById('ReadyText').value = ReadyText;
+		document.getElementById('ToolTipReady').value = ToolTipReady;
 		
 		document.getElementById('RestartPageTextButton').value = RestartPageText;
 		document.getElementById('RestartPageTextButton').title = ToolTipRestart;
@@ -454,7 +477,6 @@ Here you can put the text which tells the subjects what they are supposed to do.
 		requiredNames = document.getElementById('htmlText').value.match(/name\s*\=\s*['"](Audio|Question)[^'"]*['"]/ig);
 		requiredNames = requiredNames.map(x => x.replace(/name\s*\=\s*['"]([^'"]*)['"]/, "$1"));
 		requiredNames = requiredNames.filter(onlyUnique);
-		requiredAnswers = new Array(requiredNames.length).fill(false);
 	}
 	
 	var HTMLchanged = false;
@@ -528,7 +550,7 @@ Here you can put the text which tells the subjects what they are supposed to do.
 	};
 	
 	function replaceVASslider (text) {
-		return text.replace(/\>\>[-]{10,}\<\</g,	'<div class="slidecontainer"><input type="range" min="1" max="1000" value="500" class="slider" id="QuestionXXXX" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value" style="width: 100%"></div>')
+		return text.replace(/\>\>[-]{10,}\<\</g,	'<div class="slidecontainer"><input type="range" min="1" max="1000" value="500" class="slider" id="QuestionXXXX" name="QuestionXXXX" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value" style="width: 100%"></div>')
 	};
 	
 	function replaceAudio (text) {
@@ -537,7 +559,7 @@ Here you can put the text which tells the subjects what they are supposed to do.
 		audioNames = audioNames.flat();
 		
 		
-		return text.replace(/\[\[\[([^\]]*)\]\]\]/g, '<audio id="Audio$1" name="Audio$1" src="" preload="auto" title="" onplaying="unblockNext (\'Audio$1\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$1" data-toggle="tooltip" title="'+ToolTipPlay+'"><button onclick="document.getElementById(\'Audio$1\').play();" style="font-size:30px;background-color:white;"><strong><div id="PlayAudio$1Text">'+PlayText+' $1</div></strong></button></a>');
+		return text.replace(/\[\[\[([^\]]*)\]\]\]/g, '<audio id="Audio$1" name="Audio$1" src="" preload="auto" title="" onplaying="unblockNext (\'Audio$1\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$1" data-toggle="tooltip" title="'+ToolTipPlay+'"><button onclick="document.getElementById(\'Audio$1\').play();" style="font-size:30px;background-color:white;"><strong><div id="PlayAudio$1Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
 		
 	};
 
@@ -577,16 +599,18 @@ Here you can put the text which tells the subjects what they are supposed to do.
 			processedPreamble = processedPreamble.replace(/XXSHUFFLESTIMULUSLISTXX/g, ShuffleStimuli);
 			processedPreamble = processedPreamble.replace(/XXPracticeItemsXX/g, PracticeItems);
 			processedPreamble = processedPreamble.replace(/XXNextTextXX/g, NextText);
+			processedPreamble = processedPreamble.replace(/XXNextAlertTextXX/g, NextAlertText);
+			processedPreamble = processedPreamble.replace(/XXReadyTextXX/g, ReadyText);
 			processedPreamble = processedPreamble.replace(/XXPlayTextXX/g, PlayText);
 			processedPreamble = processedPreamble.replace(/XXRestartPageTextXX/g, RestartPageText);
 			processedPreamble = processedPreamble.replace(/XXSaveTextXX/g, SaveText);
 			processedPreamble = processedPreamble.replace(/XXSaveButtonTextXX/g, SaveButtonText);
 			processedPreamble = processedPreamble.replace(/XXToolTipNextXX/g, ToolTipNext);
+			processedPreamble = processedPreamble.replace(/XXToolTipReadyXX/g, ToolTipReady);
 			processedPreamble = processedPreamble.replace(/XXToolTipRestartXX/g, ToolTipRestart);
 			processedPreamble = processedPreamble.replace(/XXToolTipSaveXX/g, ToolTipSave);
 			processedPreamble = processedPreamble.replace(/var audioNames\s*\=\s*\[\];/, 'var audioNames = ["'+audioNames.join('", "')+'"];');
 			processedPreamble = processedPreamble.replace(/var requiredNames\s*\=\s*\[\];/, 'var requiredNames = ["'+requiredNames.join('", "')+'"];');
-			processedPreamble = processedPreamble.replace(/var requiredAnswers\s*\=\s*\[\];/, 'var requiredAnswers = ["'+requiredAnswers.join(', ')+'"];');
 			return processedPreamble;
 	};
 	
@@ -625,33 +649,44 @@ Here you can put the text which tells the subjects what they are supposed to do.
 	</div>
 	<div style="width: 50%; float: right;"> 
 		<table style="width:80%">
-			<tr  style='font-size:80%'><td></td><td>Button</td><td>Text</td><td>Tooltip</td></tr>
+		<tr  style='font-size:80%'><th>a</th><th>Button</td><th>Text</th><th>Tooltip</th></tr>
 		<tr>
-			<td  style='font-size:80%'>Play text: </td>
+			<td  style='font-size:80%'>Play&nbsp;text: </td>
 			<td><input type="button" id="PlayTextButton" value=""  title="" style="background-color: MediumAquaMarine"></td>
 			<td><input type="text" id="PlayText" name="PlayText" value='' onfocus="if(this.value==PlayText)this.value='';" onchange="PlayText=this.value;document.getElementById('PlayTextButton').value=this.value;parameters2Markdown();" size=15></td>
 			<td><input type="text" id="ToolTipPlay" name="ToolTipPlay" value='' onfocus="if(this.value==ToolTipPlay)this.value='';" onchange="ToolTipPlay=this.value;document.getElementById('PlayTextButton').title=this.value;parameters2Markdown();" size=35></td>
 		</tr>
 		<tr>
-			<td  style='font-size:80%'>Next text: </td>
+			<td  style='font-size:80%'>Next&nbsp;text: </td>
 			<td><input type="button" id="NextTextButton" value="" title="" style="background-color: MediumAquaMarine"> </td>
 			<td><input type="text" id="NextText" name="NextText" value='' onfocus="if(this.value==NextText)this.value='';" onchange="NextText=this.value;document.getElementById('NextTextButton').value=this.value;parameters2Markdown();" size=15></td>
 			<td><input type="text" id="ToolTipNext" name="ToolTipNext" value='' onfocus="if(this.value==ToolTipNext)this.value='';" onchange="ToolTipNext=this.value;document.getElementById('NextTextButton').title=this.value;parameters2Markdown();" size=35></td>
 		</tr>
 		<tr>
-			<td  style='font-size:80%'>Restart text: </td>
+			<td  style='font-size:80%'>Next&nbsp;page&nbsp;Alert: </td>
+			<td></td>
+			<td colspan="2"><input type="text" id="NextAlertText" name="NextText" value='' onfocus="if(this.value==NextText)this.value='';" onchange="NextAlertText=this.value;parameters2Markdown();" size=35></td>
+		</tr>
+		<tr>
+			<td  style='font-size:80%'>Ready&nbsp;text: </td>
+			<td><input type="button" id="ReadyTextButton" value="" title="" style="background-color: MediumAquaMarine"> </td>
+			<td><input type="text" id="ReadyText" name="ReadyText" value='' onfocus="if(this.value==ReadyText)this.value='';" onchange="ReadyText=this.value;document.getElementById('ReadyTextButton').value=this.value;parameters2Markdown();" size=15></td>
+			<td><input type="text" id="ToolTipReady" name="ToolTipReady" value='' onfocus="if(this.value==ToolTipReady)this.value='';" onchange="ToolTipReady=this.value;document.getElementById('ReadyTextButton').title=this.value;parameters2Markdown();" size=35></td>
+		</tr>
+		<tr>
+			<td  style='font-size:80%'>Restart&nbsp;text: </td>
 			<td><input type="button" id="RestartPageTextButton" value=""  title="" style="background-color: MediumAquaMarine"></td>
 			<td><input type="text" id="RestartPageText" name="RestartPageText" value='' onfocus="if(this.value==RestartPageText)this.value='';" onchange="RestartPageText=this.value;document.getElementById('RestartPageTextButton').value=this.value;parameters2Markdown();" size=15> </td>
 			<td><input type="text" id="ToolTipRestart" name="ToolTipRestart" value='' onfocus="if(this.value==ToolTipRestart)this.value='';" onchange="ToolTipRestart=this.value;document.getElementById('NextTextButton').title=this.value;parameters2Markdown();" size=35></td>
 		</tr>
 		<tr>
-			<td  style='font-size:80%'>Save button text: </td>
+			<td  style='font-size:80%'>Save&nbsp;button&nbsp;text: </td>
 			<td><input type="button" id="SaveButtonTextButton" value=""  title="" style="background-color: MediumAquaMarine"> </td>
 			<td><input type="text" id="SaveButtonText" name="SaveButtonText" value='' onfocus="if(this.value==SaveButtonText)this.value='';" onchange="SaveButtonText=this.value;document.getElementById('SaveButtonTextButton').value=this.value;parameters2Markdown();" size=15></td>
 			<td><input type="text" id="ToolTipSave" name="ToolTipSave" value='' onfocus="if(this.value==ToolTipSave)this.value='';" onchange="ToolTipSave=this.value;document.getElementById('NextTextButton').title=this.value;parameters2Markdown();" size=35></td>
 		</tr>
 		<tr>
-			<td  style='font-size:80%'>Save text: </td><td>&nbsp;</td>
+			<td  style='font-size:80%'>Save&nbsp;text: </td><td>&nbsp;</td>
 			<td colspan="2"><input type="textarea" rows=2 id="SaveText" name="SaveText" value='' onfocus="if(this.value==SaveText)this.value='';" onchange="SaveText=this.value;parameters2Markdown();" size=50></td>
 			
 		</tr>
