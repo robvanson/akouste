@@ -108,7 +108,7 @@ Here you can put the text which tells the subjects what they are supposed to do.
 					initializeMarkdown();
 			    };
 			    reader.onerror = function (evt) {
-			        document.getElementById("fileContents").innerHTML = "error reading file";
+			        alert("error reading file");
 			    };
 			} else {
 				alert("Select a file first");
@@ -116,9 +116,16 @@ Here you can put the text which tells the subjects what they are supposed to do.
 			
 			return mdFileText;
 		};
+		
+		function setStimulusTableValue (x) {
+			stimulusTableJSON = x.replace(/\],\[/g, "],\n[");
+			document.getElementById('SaveStimulusTable').style.visibility = 'visible';
+			document.getElementById('SaveStimulusTable').style.backgroundColor = 'MediumAquaMarine';
+		};
+		
 		function readTableFromFile (elementId) {
 			tableJSON = "";
-			tableListJSON = new Array();
+			var tableListJSON = new Array();
 			var file = document.getElementById(elementId).files[0];
 			if (file) {
 				var tableList = [];
@@ -159,50 +166,16 @@ Here you can put the text which tells the subjects what they are supposed to do.
 					};
 
 			        // One single list
-					tableJSON = JSON.stringify([tableList[0],tableList.slice(1)]);
-					
-					// Several stimulus lists
-					col = tableList[0].findIndex(getExpNumCol);
-					if(col >= 0) {
-						var expNumValues = uniqueColumnValues(tableList.slice(1), col).sort();
-						for(e in expNumValues) {
-							expnum = expNumValues[e];
-							var singleList = tableList.slice(1).filter(selectExpNum);
-							tableListJSON.push(JSON.stringify([tableList[0],singleList]));
-						};
-					};
-					
-					document.getElementById('SaveButton').style.visibility = 'visible';
-			    }
+					setStimulusTableValue("\` \n" + JSON.stringify([tableList[0],tableList.slice(1)]) + "\n\`");
+				};
 			    reader.onerror = function (evt) {
 			        document.getElementById("fileContents").innerHTML = "error reading file";
 			    }
 			} else {
 				alert("Select a file first");
-			};
+			};			
 		};
-		
-		function createFileData (tableJSON) {
-			var output = "var stimulusTableJSON = ";
-			if(tableListJSON.length){
-				output += "new Array();\n";
-				for(i in tableListJSON) {
-					output += "stimulusTableJSON.push('";
-					output += tableListJSON[i] + "');\n";
-				}
-			} else {
-				output += "'" + tableJSON + "';\n";		
-			};
-			var filetype = document.getElementById('Targetfile').value;
-			var targetFile = "Read_{ABX,VAS,Likert5}_Stimuluslist.js";
-			if(filetype != "none") {
-				targetFile = "Read_"+filetype+"_Stimuluslist.js"
-			};
-			var blob = new Blob([output], {type: "text/plain"});
-			var blobURL = URL.createObjectURL(blob);
-			document.getElementById('SaveLink').href = blobURL;
-			document.getElementById('SaveLink').download = targetFile;
-		};
+
 </script>
 <script type="text/javascript">	 
 	// Global variables
@@ -224,6 +197,7 @@ Here you can put the text which tells the subjects what they are supposed to do.
 	var ToolTipRestart = "Start a new experiment session";
 	var ToolTipSave = "Save the answer to a file";
 
+	var stimulusTableJSON = '[["A","B","X"], ["A", "B", "X"]]';
 	var requiredNames = [];
 	var audioNames = [];
 	var markdownStack = [];
@@ -537,6 +511,21 @@ Here you can put the text which tells the subjects what they are supposed to do.
 			 URL.revokeObjectURL(htmlBlobUrl);
 		};
 	
+	function saveStimulusTableJSON() {
+			var stimBlob = new Blob(["var stimulusTableJSON = \`\n"+stimulusTableJSON+"\n\`;"], {type: 'text/plain'});
+			var stimBlobUrl = URL.createObjectURL(stimBlob);
+			const anchor = document.createElement('a');
+			anchor.href = stimBlobUrl;
+			anchor.target = "_blank";
+			anchor.download = ExperimentAcronym+"_Stimuluslist.js";
+
+			 // Auto click on a element, trigger the file download
+			 anchor.click();
+
+			 // This is required
+			 URL.revokeObjectURL(stimBlobUrl);
+		};
+	
 	var buttonCounter = 0;
 	function brackets2radiobuttons (text, offset, string) {
 		buttonCounter += 1;
@@ -544,7 +533,7 @@ Here you can put the text which tells the subjects what they are supposed to do.
 		
 		return result;
 	};
-	
+
 	function replaceRadioButons (text) {
 		return text.replace(/\(\(\)\)/g, brackets2radiobuttons)
 	};
@@ -609,6 +598,8 @@ Here you can put the text which tells the subjects what they are supposed to do.
 			processedPreamble = processedPreamble.replace(/XXToolTipReadyXX/g, ToolTipReady);
 			processedPreamble = processedPreamble.replace(/XXToolTipRestartXX/g, ToolTipRestart);
 			processedPreamble = processedPreamble.replace(/XXToolTipSaveXX/g, ToolTipSave);
+			processedPreamble = processedPreamble.replace(/XXstimulusTableJSONXX/g, stimulusTableJSON);
+			
 			processedPreamble = processedPreamble.replace(/var audioNames\s*\=\s*\[\];/, 'var audioNames = ["'+audioNames.join('", "')+'"];');
 			processedPreamble = processedPreamble.replace(/var requiredNames\s*\=\s*\[\];/, 'var requiredNames = ["'+requiredNames.join('", "')+'"];');
 			return processedPreamble;
@@ -625,9 +616,9 @@ Here you can put the text which tells the subjects what they are supposed to do.
 <div style="width: 100%; overflow: hidden;">
 	<div style="width: 50%; float: left;"> 
 		<table style="width:80%">
-			<tr><td>&nbsp;</td></tr>
+			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 			<tr>
-				<td>Select an acronym for the experiment (no spaces): </td><td><input type="text" id="ExperimentAcronym" name="ExperimentAcronym" value="name_without_spaces" onfocus="if(this.value=='name_without_spaces')this.value='';" onchange="this.value=this.value.replace(/\s+/g, '_'); ExperimentAcronym=this.value; parameters2Markdown();"> </td>
+				<td>Select an acronym for <br />the experiment (no spaces): </td><td><input type="text" id="ExperimentAcronym" name="ExperimentAcronym" value="name_without_spaces" onfocus="if(this.value=='name_without_spaces')this.value='';" onchange="this.value=this.value.replace(/\s+/g, '_'); ExperimentAcronym=this.value; parameters2Markdown();" > </td>
 			</tr>
 			<tr>
 				<td>Randomize stimuli: </td><td>Yes  <input type="radio" id="ShuffleStimuliYes" name="ShuffleStimuli" value="Yes" onchange="ShuffleStimuli=true;parameters2Markdown();"> No <input type="radio" id="ShuffleStimuliNo" name="ShuffleStimuli" value="No" onchange="ShuffleStimuli=false;parameters2Markdown();"> </td>
@@ -638,13 +629,36 @@ Here you can put the text which tells the subjects what they are supposed to do.
 			<tr>
 				<td>Randomize AB stimulus pairs:  </td><td>Yes <input type="radio" id="RandomizeABYes" name="RandomizeAB" value="Yes" onchange="RandomizeAB=true;parameters2Markdown();"> No <input type="radio" id="RandomizeABNo" name="RandomizeAB" value="No" onchange="RandomizeAB=false;parameters2Markdown();"> </td>
 			</tr>
-			<tr><td>&nbsp;</td></tr>
 			<tr>
-				<td><form action="javascript:readMDFromFile ('MarkdownFileUpload'); void(0);" accept="text/plain">
-					Load Markdown file: <input type="file" id="MarkdownFileUpload" onchange="document.getElementById('md-upload-button').style.backgroundColor='MediumAquaMarine'"> 
-					</td><td><button id="md-upload-button" onclick="this.style.backgroundColor='white'"> Upload </button>
+			<td colspan=2> 
+					<form action="javascript:readTableFromFile ('StimulusFileUpload'); void(0);" accept="text/plain">
+					<label for="StimulusFileUpload">Load a Stimulus Table (.csv):</label>
+					<input type="file" id="StimulusFileUpload" onchange="document.getElementById('csv-upload-button').style.backgroundColor='MediumAquaMarine'"> 
+					<button id="csv-upload-button" onclick="this.style.backgroundColor='white'"> Upload </button>
+					</form>	
+				</td>
+			</tr>
+			<tr>
+				<td>Separator for stimulus table: </td>
+				<td style='text-align:right;'>
+						<select id="Separator">
+						  <option value="automatic">automatic</option>
+						  <option value="semicolon">semicolon</option>
+						  <option value="tab">tab</option>
+						  <option value="comma">comma</option>
+						</select> 
+					&emsp;&emsp;
+						<input type="button" id='SaveStimulusTable' value="Download stimuli" onclick="saveStimulusTableJSON()" style='background-color:gray;visibility:hidden'></td>
+				</td>
+			</tr>
+			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+			<tr>
+			<td colspan=2><form action="javascript:readMDFromFile ('MarkdownFileUpload'); void(0);" accept="text/plain">
+					<label for="MarkdownFileUpload">Load a Markdown file (.md):</label> <input type="file" id="MarkdownFileUpload" onchange="document.getElementById('md-upload-button').style.backgroundColor='MediumAquaMarine'"> 
+					<button id="md-upload-button" onclick="this.style.backgroundColor='white'"> Upload </button>
 				</form></td>
 			</tr>
+			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 		</table>
 	</div>
 	<div style="width: 50%; float: right;"> 
@@ -688,7 +702,6 @@ Here you can put the text which tells the subjects what they are supposed to do.
 		<tr>
 			<td  style='font-size:80%'>Save&nbsp;text: </td><td>&nbsp;</td>
 			<td colspan="2"><input type="textarea" rows=2 id="SaveText" name="SaveText" value='' onfocus="if(this.value==SaveText)this.value='';" onchange="SaveText=this.value;parameters2Markdown();" size=50></td>
-			
 		</tr>
 		<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 		</table>

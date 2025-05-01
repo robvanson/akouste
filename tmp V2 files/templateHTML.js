@@ -56,8 +56,8 @@ preamble = `<!DOCTYPE html>
 
 <script language="JavaScript" src="./XXEXPERIMENTNAMEXX_Stimuluslist.js"></script>
 <script language="JavaScript">
-// temp Kludge
-var stimulusTableJSON = '[["A","B","X","Col1","Col2"],[["LA_D_9121123_LA_0030[0].wav","LA_D_9841321_LA_0100[1].wav","LA_D_9919064_LA_0103[2].wav","1","A"],["LA_D_9523504_LA_0021[0].wav","LA_D_9835881_LA_0030[1].wav","LA_T_9429183_LA_0043[2].wav","2","B"],["LA_D_9834938_LA_0104[0].wav","LA_D_9820905_LA_0040[1].wav","LA_T_9497115_LA_0011[2].wav","3","C"],["LA_D_9922523_LA_0099[0].wav","LA_D_9668611_LA_0081[1].wav","LA_T_9635654_LA_0058[2].wav","4","D"],["LA_D_9965439_LA_0057[0].wav","LA_D_9567593_LA_0093[1].wav","LA_T_9896961_LA_0011[2].wav","5","E"]]]';
+// Insert stimulus table
+var stimulusTableJSON = XXstimulusTableJSONXX;
 
 var NumberOfScales = XXNUMBEROFSCALESXX;
 var RandomizeAB = XXRANDOMIZEABXX;
@@ -99,32 +99,19 @@ function loadList () {
 		};
 	} else {
 		// Read and process the stimulus list
-		// If a list number has been given, read it
-		var expnum = 0;
-		var params = new URLSearchParams(location.search);
-		if(params.get('expnum') != "undefined" && Number(params.get('expnum')) > 0) {
-					   expnum = Number(params.get('expnum'));
-		};
 
 		// First try the JSON options
-		if(typeof stimulusTableJSON !== 'undefined' && stimulusTableJSON) {
-			var stimulusTableParsed;
+		if(typeof stimulusTableJSON !== 'undefined' && stimulusTableJSON.length > 0) {
+			var stimulusTableParsed = JSON.parse(stimulusTableJSON);
 			// Use Array version if possible, but not if expnum > length
-			if(Array.isArray(stimulusTableJSON) && stimulusTableJSON.length > 0 && expnum <= stimulusTableJSON.length){
-				// Default if there is no expnum
-				if(expnum <= 0) { expnum = 1;};
-				stimulusTableParsed = JSON.parse(stimulusTableJSON[expnum - 1]);
-			// Old: single JSON string
-			} else if((stimulusTableJSON instanceof String) || (typeof stimulusTableJSON === "string")) {
-				stimulusTableParsed = JSON.parse(stimulusTableJSON);
-			} else {
+			if(! Array.isArray(stimulusTableParsed) || stimulusTableParsed.length < 2){
 				stimulusTableParsed = [["A","B","X"], ["", "", ""]];
 				alert("ERROR: invalid stimulus list");
 				document.getElementById('TitleText').innerHTML = "ERROR: invalid stimulus list";
 			};
-		
 			columnNames = stimulusTableParsed [0];
 			data = stimulusTableParsed [1];
+		
 		// No JSON data, use CSV			
 		} else if (typeof csv != 'undefined' && csv != null) {
 			// Split the input into lines
@@ -208,10 +195,14 @@ function unblockNext (x) {
 function setAudio(i, stimulusTable) {
 	if(finishedExperiment) return;
 	for(var i in  audioNames) {
-		document.getElementById('Audio'+audioNames[i]).src = audioBaseURL + stimulusTable[1][stimulusNbr][audioPos[i]];
-		document.getElementById('Audio'+audioNames[i]).title = stimulusTable[1][stimulusNbr][audioPos[i]].replace(/^.*\\/([^\\/]+)\.wav$/, "$1");
-		document.getElementById('Audio'+audioNames[i]).style.backgroundColor = "#F0F0F0";
-		document.getElementById('Audio'+audioNames[i]).parentNode.parentNode.style.backgroundColor = "#F0F0F0";
+		if(stimulusTable[1][stimulusNbr][audioPos[i]] != undefined && stimulusTable[1][stimulusNbr][audioPos[i]].length > 0){
+			document.getElementById('Audio'+audioNames[i]).src = audioBaseURL + stimulusTable[1][stimulusNbr][audioPos[i]];
+			document.getElementById('Audio'+audioNames[i]).title = stimulusTable[1][stimulusNbr][audioPos[i]].replace(/^.*\\/([^\\/]+)\.wav$/, "$1");
+			document.getElementById('Audio'+audioNames[i]).style.backgroundColor = "#F0F0F0";
+			document.getElementById('Audio'+audioNames[i]).parentNode.parentNode.style.backgroundColor = "#F0F0F0";
+		} else {
+			alert("No Audio " + audioNames[i]);
+		};
 	};
 
 	document.getElementById('StimulusNumberText').innerHTML = document.getElementById('StimulusNumberText').innerHTML.replace(/[0-9]+/, (stimulusTable[1].length - stimulusNbr)+"");
