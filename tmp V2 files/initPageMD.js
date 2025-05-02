@@ -1,22 +1,4 @@
 initialMarkdown = ` 
-[//comment]: # "These are internal parameters for the experiment and visible texts not in this Markdown"
-[//parameter]: # "ExperimentAcronym:name_without_spaces"
-[//parameter]: # "PracticeItems:4"
-[//parameter]: # "ShuffleStimuli:true"
-[//parameter]: # "RandomizeAB:false"
-[//buttontext]: # "NextText:Next"
-[//buttontext]: # "NextAlertText:Please, listen to the recordings and answer the questions first"
-[//buttontext]: # "ReadyText:Ready"
-[//buttontext]: # "PlayText:Play"
-[//buttontext]: # "RestartPageText:Restart"
-[//buttontext]: # "SaveButtonText:Save Results"
-[//buttontext]: # "SaveText:Please, click XXSaveButtonTextXX and store the file"
-[//tooltiptext]: # "ToolTipPlay:Play sound"
-[//tooltiptext]: # "ToolTipNext:Go to next item"
-[//tooltiptext]: # "ToolTipReady:Ready, please save results"
-[//tooltiptext]: # "ToolTipRestart:Start a new experiment session"
-[//tooltiptext]: # "ToolTipSave:Save the answer to a file"
-[//comment]: # "----------"
 
 <center>
 
@@ -71,5 +53,24 @@ Here you can put the text which tells the subjects what they are supposed to do.
 
 
 ---------------------------
+
+[//comment]: # "These are internal parameters for the experiment and visible texts not in this Markdown"
+[//parameter]: # "ExperimentAcronym:name_without_spaces"
+[//parameter]: # "PracticeItems:4"
+[//parameter]: # "ShuffleStimuli:true"
+[//parameter]: # "RandomizeAB:false"
+[//buttontext]: # "NextText:Next"
+[//buttontext]: # "NextAlertText:Please, listen to the recordings and answer the questions first"
+[//buttontext]: # "ReadyText:Ready"
+[//buttontext]: # "PlayText:Play"
+[//buttontext]: # "RestartPageText:Restart"
+[//buttontext]: # "SaveButtonText:Save Results"
+[//buttontext]: # "SaveText:Please, click XXSaveButtonTextXX and store the file"
+[//tooltiptext]: # "ToolTipPlay:Play sound"
+[//tooltiptext]: # "ToolTipNext:Go to next item"
+[//tooltiptext]: # "ToolTipReady:Ready, please save results"
+[//tooltiptext]: # "ToolTipRestart:Start a new experiment session"
+[//tooltiptext]: # "ToolTipSave:Save the answer to a file"
+[//comment]: # "----------"
 
 `

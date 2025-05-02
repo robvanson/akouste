@@ -15,24 +15,6 @@
 	};
 	if(typeof initialMarkdown != "string" || initialMarkdown == null){
 		initialMarkdown = ` 
-[//comment]: # "These are internal parameters for the experiment and visible texts not in this Markdown"
-[//parameter]: # "ExperimentAcronym:name_without_spaces"
-[//parameter]: # "PracticeItems:4"
-[//parameter]: # "ShuffleStimuli:true"
-[//parameter]: # "RandomizeAB:false"
-[//buttontext]: # "NextText:Next"
-[//buttontext]: # "NextAlertText:Please, listen to the recordings and answer the questions"
-[//buttontext]: # "ReadyText:Ready"
-[//buttontext]: # "PlayText:Play"
-[//buttontext]: # "RestartPageText:Restart"
-[//buttontext]: # "SaveButtonText:Save Results"
-[//buttontext]: # "SaveText:Please, click XXSaveButtonTextXX and store the file"
-[//tooltiptext]: # "ToolTipPlay:Play sound"
-[//tooltiptext]: # "ToolTipNext:Go to next item"
-[//tooltiptext]: # "ToolTipReady:Ready, please save results"
-[//tooltiptext]: # "ToolTipRestart:Start a new experiment session"
-[//tooltiptext]: # "ToolTipSave:Save the answer to a file"
-[//comment]: # "----------"
 
 <center>
 
@@ -87,6 +69,25 @@ Here you can put the text which tells the subjects what they are supposed to do.
 
 
 ---------------------------
+
+[//comment]: # "These are internal parameters for the experiment and visible texts not in this Markdown"
+[//parameter]: # "ExperimentAcronym:name_without_spaces"
+[//parameter]: # "PracticeItems:4"
+[//parameter]: # "ShuffleStimuli:true"
+[//parameter]: # "RandomizeAB:false"
+[//buttontext]: # "NextText:Next"
+[//buttontext]: # "NextAlertText:Please, listen to the recordings and answer the questions"
+[//buttontext]: # "ReadyText:Ready"
+[//buttontext]: # "PlayText:Play"
+[//buttontext]: # "RestartPageText:Restart"
+[//buttontext]: # "SaveButtonText:Save Results"
+[//buttontext]: # "SaveText:Please, click XXSaveButtonTextXX and store the file"
+[//tooltiptext]: # "ToolTipPlay:Play sound"
+[//tooltiptext]: # "ToolTipNext:Go to next item"
+[//tooltiptext]: # "ToolTipReady:Ready, please save results"
+[//tooltiptext]: # "ToolTipRestart:Start a new experiment session"
+[//tooltiptext]: # "ToolTipSave:Save the answer to a file"
+[//comment]: # "----------"
 
 `
 }
@@ -197,7 +198,7 @@ Here you can put the text which tells the subjects what they are supposed to do.
 	var ToolTipRestart = "Start a new experiment session";
 	var ToolTipSave = "Save the answer to a file";
 
-	var stimulusTableJSON = '[["A","B","X"], ["A", "B", "X"]]';
+	var stimulusTableJSON = '[["A","B","X"], ["beep.wav", "beep.wav", "beep.wav"]]';
 	var requiredNames = [];
 	var audioNames = [];
 	var markdownStack = [];
@@ -221,12 +222,17 @@ Here you can put the text which tells the subjects what they are supposed to do.
 	};
 	
 	function flagButtons () {
-		document.getElementById('RenderButton').style.backgroundColor = "red";
+		document.getElementById('RenderButtonDisplay').style.backgroundColor = "red";
+		document.getElementById('RenderButtonText').style.backgroundColor = "red";
 		document.getElementById('ShowButton').style.backgroundColor = "red";
+		
+		// Markdown changed, warn to save
+		document.getElementById('SaveMDbutton').style.backgroundColor = "pink";
 	};
 	
 	function unflagButtons () {
-		document.getElementById('RenderButton').style.backgroundColor = "white";
+		document.getElementById('RenderButtonDisplay').style.backgroundColor = "white";
+		document.getElementById('RenderButtonText').style.backgroundColor = "white";
 		document.getElementById('ShowButton').style.backgroundColor = "white";
 	};
 	
@@ -245,7 +251,8 @@ Here you can put the text which tells the subjects what they are supposed to do.
 		currentMarkdown = document.getElementById('markdownText').value;
 		
 		// Change color of buttons
-		document.getElementById('RenderButton').style.backgroundColor = "red";
+		document.getElementById('RenderButtonDisplay').style.backgroundColor = "red";
+		document.getElementById('RenderButtonText').style.backgroundColor = "red";
 		document.getElementById('ShowButton').style.backgroundColor = "red";
 		
 		// Read the parameters
@@ -287,8 +294,8 @@ Here you can put the text which tells the subjects what they are supposed to do.
 	
 	function parameters2Markdown() {
 		currentMarkdown = document.getElementById('markdownText').value;
-		var newLines = [
-			[' '],
+		var newLines = [];
+		var parameterLines = [
 			['[//comment]: # "These are internal parameters for the experiment and visible texts not in this Markdown"'],
 			['[//parameter]: # "ExperimentAcronym:'+cleanString(ExperimentAcronym)+'"'],
 			['[//parameter]: # "PracticeItems:'+cleanString(PracticeItems)+'"'],
@@ -309,7 +316,7 @@ Here you can put the text which tells the subjects what they are supposed to do.
 			['[//comment]: # "----------"']
 		];
 		
-		 currentMarkdown = currentMarkdown.replace(/^\s*\n+/, "");
+		 currentMarkdown = currentMarkdown.replace(/\s*\n+$/, "");
 		var lines = currentMarkdown.split(/\r?\n|\r|\n/g);
 		for(var i=0; i < lines.length; ++i){
 			if(lines[i].match(/\[\/\/(parameter|buttontext|tooltiptext)\]: # "/) || 
@@ -320,12 +327,17 @@ Here you can put the text which tells the subjects what they are supposed to do.
 				newLines.push(lines[i]);
 			};
 		};
+		
+		for(var i=0;i < parameterLines.length;++i){
+			newLines.push(parameterLines[i]);
+		};
 
 		currentMarkdown = newLines.join("\n");
 		document.getElementById('markdownText').value = currentMarkdown;
 	
 		// Change color of buttons
-		document.getElementById('RenderButton').style.backgroundColor = "red";
+		document.getElementById('RenderButtonDisplay').style.backgroundColor = "red";
+		document.getElementById('RenderButtonText').style.backgroundColor = "red";
 		document.getElementById('ShowButton').style.backgroundColor = "red";
 	};
 	
@@ -437,20 +449,54 @@ Here you can put the text which tells the subjects what they are supposed to do.
 			return array.indexOf(value) === index;
 		}
 		
+	var winURL = '';
+	function HTML2URL (pageHTML) {
+		if(winURL.length > 0){
+			URL.revokeObjectURL(winURL);
+			winURL = '';
+		};
+		winURL = URL.createObjectURL(new Blob([pageHTML], { type: "text/html" }));
+		return winURL;
+	};
+	
 	function markdown2HTML () {
 		currentMarkdown = document.getElementById('markdownText').value ;
 		var processedMarkdown = preProcessMD (currentMarkdown);
 		document.getElementById('htmlText').value = window.markdownit({
 			  html: true
 		}).render(processedMarkdown);
-		document.getElementById('RenderButton').style.backgroundColor = "white";
-		document.getElementById('ShowButton').style.backgroundColor = "red";
 		HTMLchanged = false;
+
+		winURL = HTML2URL (document.getElementById('htmlText').value);
+		document.getElementById('htmlDisplay').src=winURL;
 		
 		// Set up the couter of for the unblock function
 		requiredNames = document.getElementById('htmlText').value.match(/name\s*\=\s*['"](Audio|Question)[^'"]*['"]/ig);
 		requiredNames = requiredNames.map(x => x.replace(/name\s*\=\s*['"]([^'"]*)['"]/, "$1"));
 		requiredNames = requiredNames.filter(onlyUnique);
+		
+		// Set buttons
+		document.getElementById('RenderButtonDisplay').style.backgroundColor = "white";
+		document.getElementById('RenderButtonText').style.backgroundColor = "white";
+		document.getElementById('ShowButton').style.backgroundColor = "red";
+		
+		return document.getElementById('htmlText').value ;
+	}
+	
+	function markdown2HTMLdisplay () {
+		markdown2HTML();
+		
+		// Display in iFrame
+		document.getElementById('htmlText').style.display = 'none';
+		document.getElementById('htmlDisplay').style.display = 'block';
+	}
+	
+	function markdown2HTMLtext () {
+		markdown2HTML();
+		
+		// Display in HTML text
+		document.getElementById('htmlText').style.display = 'block';
+		document.getElementById('htmlDisplay').style.display = 'none';
 	}
 	
 	var HTMLchanged = false;
@@ -462,7 +508,7 @@ Here you can put the text which tells the subjects what they are supposed to do.
 		var preambleProc = preProcessPreamble(preamble);
 		var postambleProc = preProcessPreamble(postamble);
 		const pageHTML = preambleProc + text + postambleProc;
-		const winUrl = URL.createObjectURL(new Blob([pageHTML], { type: "text/html" }));	
+		winUrl = HTML2URL (pageHTML);
 		const win = window.open(
 			winUrl,
 			"RenderedHTML"
@@ -487,6 +533,9 @@ Here you can put the text which tells the subjects what they are supposed to do.
 
 			 // This is required
 			 URL.revokeObjectURL(mdBlobUrl);
+			 
+			 // Unflag Save button
+			 document.getElementById('SaveMDbutton').style.backgroundColor = "white";
 		};
 	
 	function saveHTML() {
@@ -618,13 +667,13 @@ Here you can put the text which tells the subjects what they are supposed to do.
 		<table style="width:80%">
 			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 			<tr>
-				<td>Select an acronym for <br />the experiment (no spaces): </td><td><input type="text" id="ExperimentAcronym" name="ExperimentAcronym" value="name_without_spaces" onfocus="if(this.value=='name_without_spaces')this.value='';" onchange="this.value=this.value.replace(/\s+/g, '_'); ExperimentAcronym=this.value; parameters2Markdown();" > </td>
+				<td>Select an acronym for <br />the experiment (no spaces): </td><td><input type="text" id="ExperimentAcronym" name="ExperimentAcronym" value="name_without_spaces" title='This acronym will be used for the name of the experiment files' onfocus="if(this.value=='name_without_spaces')this.value='';" onchange="this.value=this.value.replace(/\s+/g, '_'); ExperimentAcronym=this.value; parameters2Markdown();" > </td>
 			</tr>
 			<tr>
 				<td>Randomize stimuli: </td><td>Yes  <input type="radio" id="ShuffleStimuliYes" name="ShuffleStimuli" value="Yes" onchange="ShuffleStimuli=true;parameters2Markdown();"> No <input type="radio" id="ShuffleStimuliNo" name="ShuffleStimuli" value="No" onchange="ShuffleStimuli=false;parameters2Markdown();"> </td>
 			</tr>
 			<tr>
-				<td>Number of practice items:  </td><td><input type="text" id="PracticeItems" name="PracticeItems" value="" onchange="PracticeItems=this.value;parameters2Markdown();"> </td>
+				<td>Number of practice items:  </td><td><input type="text" id="PracticeItems" name="PracticeItems" title='A positive value, n, copies the last n (randomized) stimuli of the list in reverse order to the front of the list. The list of stimuli will be n items longer. A negative, -n, value will use the first n values of the list in the unrandomized order given. The number of stimuli stays the same with a negative n.' value="" onchange="PracticeItems=this.value;parameters2Markdown();"> </td>
 				</tr>
 			<tr>
 				<td>Randomize AB stimulus pairs:  </td><td>Yes <input type="radio" id="RandomizeABYes" name="RandomizeAB" value="Yes" onchange="RandomizeAB=true;parameters2Markdown();"> No <input type="radio" id="RandomizeABNo" name="RandomizeAB" value="No" onchange="RandomizeAB=false;parameters2Markdown();"> </td>
@@ -632,7 +681,7 @@ Here you can put the text which tells the subjects what they are supposed to do.
 			<tr>
 			<td colspan=2> 
 					<form action="javascript:readTableFromFile ('StimulusFileUpload'); void(0);" accept="text/plain">
-					<label for="StimulusFileUpload">Load a Stimulus Table (.csv):</label>
+					<label for="StimulusFileUpload">Open a Stimulus Table (.csv):</label>
 					<input type="file" id="StimulusFileUpload" onchange="document.getElementById('csv-upload-button').style.backgroundColor='MediumAquaMarine'"> 
 					<button id="csv-upload-button" onclick="this.style.backgroundColor='white'"> Upload </button>
 					</form>	
@@ -648,13 +697,13 @@ Here you can put the text which tells the subjects what they are supposed to do.
 						  <option value="comma">comma</option>
 						</select> 
 					&emsp;&emsp;
-						<input type="button" id='SaveStimulusTable' value="Download stimuli" onclick="saveStimulusTableJSON()" style='background-color:gray;visibility:hidden'></td>
+						<input type="button" id='SaveStimulusTable' value="Download stimuli" title='Save stimulus file for automatic opening during experiments' onclick="saveStimulusTableJSON()" style='background-color:gray;visibility:hidden'></td>
 				</td>
 			</tr>
 			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 			<tr>
 			<td colspan=2><form action="javascript:readMDFromFile ('MarkdownFileUpload'); void(0);" accept="text/plain">
-					<label for="MarkdownFileUpload">Load a Markdown file (.md):</label> <input type="file" id="MarkdownFileUpload" onchange="document.getElementById('md-upload-button').style.backgroundColor='MediumAquaMarine'"> 
+					<label for="MarkdownFileUpload">Open a Markdown file (.md):</label> <input type="file" id="MarkdownFileUpload" onchange="document.getElementById('md-upload-button').style.backgroundColor='MediumAquaMarine'"> 
 					<button id="md-upload-button" onclick="this.style.backgroundColor='white'"> Upload </button>
 				</form></td>
 			</tr>
@@ -663,7 +712,7 @@ Here you can put the text which tells the subjects what they are supposed to do.
 	</div>
 	<div style="width: 50%; float: right;"> 
 		<table style="width:80%">
-		<tr  style='font-size:80%'><th>a</th><th>Button</td><th>Text</th><th>Tooltip</th></tr>
+		<tr  style='font-size:80%'><th></th><th>Button</td><th>Text</th><th>Tooltip</th></tr>
 		<tr>
 			<td  style='font-size:80%'>Play&nbsp;text: </td>
 			<td><input type="button" id="PlayTextButton" value=""  title="" style="background-color: MediumAquaMarine"></td>
@@ -718,25 +767,29 @@ Here you can put the text which tells the subjects what they are supposed to do.
 			<td><input type="button" value="Redo >" onclick="document.getElementById('markdownText').value = markdownRedo();"</td>
 			<td><input type="button" value="Clear" onclick="document.getElementById('markdownText').value = ' ';"</td>
 			<td  width="35%">&emsp;</td>
-			<td><input type="button" value="Download MD" onclick="saveMarkdown() "</td>
+			<td><input type="button" id='SaveMDbutton' value="Save MD..." onclick="saveMarkdown() "</td>
 			</tr>
 		</table>
 
-		<textarea id="markdownText" rows=50 cols=80 onfocusout="markdownPush();" onchange='flagButtons ();'>
+		<textarea id="markdownText" rows=50 cols=80 onfocusout="markdownPush();" onchange='markdown2HTML();flagButtons ();'>
 		</textarea>
 	</div>
 
 	<div style="width: 50%; float: right;"> 
 		<table>
 			<tr style="width:80%">
-			<td><input type="button" id='RenderButton' value="Render to HTML" onclick="markdown2HTML ()"></td>
-			<td><input type="button" id='ShowButton' value="Show" onclick="openAndWrite(preamble, document.getElementById('htmlText').value, postamble);"></td>
-			<td  width="55%">&emsp;</td>
-			<td><input type="button" value="Download HTML" onclick="saveHTML() "</td>
+			<td><input type="button" id='RenderButtonDisplay' value="Display HTML" onclick="markdown2HTMLdisplay ()"></td>
+			<td><input type="button" id='RenderButtonText' value="Display HTML" onclick="markdown2HTMLtext ()"></td>
+			<td><input type="button" id='ShowButton' value="Show Page" onclick="openAndWrite(preamble, document.getElementById('htmlText').value, postamble);"></td>
+			<td  width="35%">&emsp;</td>
+			<td><input type="button" value="Save HTML..." onclick="saveHTML() "</td>
 		</table>
 
-		<textarea id="htmlText" rows=50 cols=80' onchange="HTMLchanged = true; document.getElementById('ShowButton').style.backgroundColor = 'red';">
+		<textarea id="htmlText" rows=50 cols=80' onchange="HTMLchanged = true; document.getElementById('ShowButton').style.backgroundColor = 'red';" style='display:none;'>
 		</textarea>
+		<div style='zoom: 0.75' title='The HTML displayed here is non-functional. Click the "Show Page" button to open a functional page'>
+		<iframe src="" id='htmlDisplay' name='htmlDisplay'  scrolling="auto" width=127% height=1550 style='zoom: 0.75;-moz-transform: scale(0.75);  -moz-transform-origin: 0 0;  -o-transform: scale(0.75);  -o-transform-origin: 0 0;  -webkit-transform: scale(0.75);  -webkit-transform-origin: 0 0;'></iframe>
+		</div>
 	</div>
 </div>
 
