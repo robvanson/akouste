@@ -683,23 +683,23 @@ Tables are defined using the |-bar character together with the :--: separator. S
 			<tr>
 			<td colspan=2> 
 					<form action="javascript:readTableFromFile ('StimulusFileUpload'); void(0);" accept="text/plain">
-					<label for="StimulusFileUpload">Open a Stimulus Table (.csv):</label>
+					<label for="StimulusFileUpload" title='Create a stimulis file as a table with column headers in a spreadsheet and save it as a .csv file. Open it here to insert the stimuli into the experiment file. From here, you can download it as a JSON .js file to have a way to edit it later independently of the experiment HTML file.'>Open a Stimulus Table (.csv):</label>
 					<input type="file" id="StimulusFileUpload" onchange="document.getElementById('csv-upload-button').style.backgroundColor='MediumAquaMarine'"> 
-					<button id="csv-upload-button" onclick="this.style.backgroundColor='white'"> Upload </button>
+					<button id="csv-upload-button" onclick="this.style.backgroundColor='white'" title='Open the .csv stimulus table from the chosen file.'> Upload </button>
 					</form>	
 				</td>
 			</tr>
 			<tr>
 				<td>Separator for stimulus table: </td>
 				<td style='text-align:right;'>
-						<select id="Separator">
+						<select id="Separator" title='Select the separator used in the .csv stimulus table. This page cannot handle fancy use of ,-commas in a literal ,-comma separated values table.'>
 						  <option value="automatic">automatic</option>
 						  <option value="semicolon">semicolon</option>
 						  <option value="tab">tab</option>
 						  <option value="comma">comma</option>
 						</select> 
 					&emsp;&emsp;
-						<input type="button" id='SaveStimulusTable' value="Download stimuli" title='Save stimulus file for automatic opening during experiments' onclick="saveStimulusTableJSON()" style='background-color:gray;visibility:hidden'></td>
+						<input type="button" id='SaveStimulusTable' value="Download stimuli" title='Save a stimulus JSON .js file for automatic opening during experiments' onclick="saveStimulusTableJSON()" style='background-color:gray;visibility:hidden'></td>
 				</td>
 			</tr>
 			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
@@ -780,7 +780,7 @@ Tables are defined using the |-bar character together with the :--: separator. S
 	<div style="width: 50%; float: right;"> 
 		<table>
 			<tr style="width:80%">
-			<td><input type="button" id='RenderButtonDisplay' value="Display HTML" onclick="markdown2HTMLdisplay ()"></td>
+			<td><input type="button" id='RenderButtonDisplay' value="Display HTML" onclick="markdown2HTMLdisplay ()"  title='The HTML displayed here is non-functional. Click the "Show Page" button to open a functional page'></td>
 			<td><input type="button" id='RenderButtonText' value="HTML text" onclick="markdown2HTMLtext ()"></td>
 			<td><input type="button" id='ShowButton' value="Show Page" onclick="openAndWrite(preamble, document.getElementById('htmlText').value, postamble);"></td>
 			<td  width="35%">&emsp;</td>
