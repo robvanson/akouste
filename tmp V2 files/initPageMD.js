@@ -19,7 +19,9 @@ initialMarkdown = `
 </center>
 <center>
 
-Here you can put the text which tells the subjects what they are supposed to do. You can add or remove &lt;center&gt; &lt;/center&gt; pairs if you want to change the text alignment.
+Here you can put the text which tells the subjects what they are supposed to do. You can add or remove &lt;center&gt; &lt;/center&gt; pairs if you want to change the text alignment. The &lt;div&gt; tag gives many more layout options.
+
+Tables are defined using the |-bar character together with the :--: separator. See this [tutorial](https://htmlmarkdown.com/syntax/markdown-tables/). The full syntax of the markdown used is described [here](https://markdown-it.github.io/). You can freely mix in HTML and JavaScript.
 
 </center>
 
@@ -32,7 +34,7 @@ Here you can put the text which tells the subjects what they are supposed to do.
 |                 |        |        |        |        |        |                     |
 | ----------: | :---: | :---: | :---: | :---: | :---: | :------------- |
 | Not at all |  (()) | (()) | (())  | (())  | (()) |  Very Much  |
-|           1    |        |        |   5   |        |       |    10              |
+|           1    |        |        |   3   |        |       |    5               |
 
 ### More question can be added, with different numbers of options
 |                 |        |        |         |        |        |        |         |                     |
