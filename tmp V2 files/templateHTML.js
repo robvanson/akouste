@@ -54,7 +54,7 @@ preamble = `<!DOCTYPE html>
 	};
 </script>
 
-<script language="JavaScript" src="./XXEXPERIMENTNAMEXX_Stimuluslist.js"></script>
+<script language="JavaScript" src="./XXEXPERIMENTNAMEXX_stimuluslist.js"></script>
 <script language="JavaScript">
 // Insert stimulus table
 var stimulusTableJSON = XXstimulusTableJSONXX;

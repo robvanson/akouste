@@ -57,6 +57,7 @@ Tables are defined using the |-bar character together with the :--: separator. S
 ---------------------------
 
 [//comment]: # "These are internal parameters for the experiment and visible texts not in this Markdown"
+[//comment]: # "----------"
 [//parameter]: # "ExperimentAcronym:name_without_spaces"
 [//parameter]: # "PracticeItems:4"
 [//parameter]: # "ShuffleStimuli:true"
@@ -74,5 +75,11 @@ Tables are defined using the |-bar character together with the :--: separator. S
 [//tooltiptext]: # "ToolTipRestart:Start a new experiment session"
 [//tooltiptext]: # "ToolTipSave:Save the answer to a file"
 [//comment]: # "----------"
-
+[//comment]: # "These are stimuli for this experiment"
+[//comment]: # "----------"
+[//stimulus0]: # "A,B,X"]
+[//stimulus1]: # "beep.wav"]
+[//stimulus1]: # "beep.wav"]
+[//stimulus1]: # "beep.wav"]
+[//comment]: # "----------"
 `

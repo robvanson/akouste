@@ -72,3 +72,9 @@ Tables are defined using the |-bar character together with the :--: separator. S
 [//tooltiptext]: # "ToolTipRestart:Start a new experiment session"
 [//tooltiptext]: # "ToolTipSave:Save the answer to a file"
 [//comment]: # "----------"
+[//comment]: # "These are stimuli for this experiment"
+[//stimulus0]: # "A,B,X"]
+[//stimulus1]: # "beep.wav"]
+[//stimulus1]: # "beep.wav"]
+[//stimulus1]: # "beep.wav"]
+[//comment]: # "----------"

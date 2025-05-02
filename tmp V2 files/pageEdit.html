@@ -73,6 +73,7 @@ Tables are defined using the |-bar character together with the :--: separator. S
 ---------------------------
 
 [//comment]: # "These are internal parameters for the experiment and visible texts not in this Markdown"
+[//comment]: # "----------"
 [//parameter]: # "ExperimentAcronym:name_without_spaces"
 [//parameter]: # "PracticeItems:4"
 [//parameter]: # "ShuffleStimuli:true"
@@ -120,10 +121,15 @@ Tables are defined using the |-bar character together with the :--: separator. S
 			return mdFileText;
 		};
 		
+		var stimulusTable = [["A","B","X"], ["beep.wav", "beep.wav", "beep.wav"]];
 		function setStimulusTableValue (x) {
-			stimulusTableJSON = x.replace(/\],\[/g, "],\n[");
+			if(x == undefined || x.length <= 0)return false;
+			stimulusTable = x;
+			stimulusTableJSON = "\` \n" + JSON.stringify(stimulusTable) + "\n\`"
+			stimulusTableJSON = stimulusTableJSON.replace(/\],\[/g, "],\n[");
 			document.getElementById('SaveStimulusTable').style.visibility = 'visible';
 			document.getElementById('SaveStimulusTable').style.backgroundColor = 'MediumAquaMarine';
+			parameters2Markdown();
 		};
 		
 		function readTableFromFile (elementId) {
@@ -169,7 +175,10 @@ Tables are defined using the |-bar character together with the :--: separator. S
 					};
 
 			        // One single list
-					setStimulusTableValue("\` \n" + JSON.stringify([tableList[0],tableList.slice(1)]) + "\n\`");
+					var x = [];
+					x.push(tableList[0]);
+					x.push(tableList.slice(1));
+					setStimulusTableValue(x);
 				};
 			    reader.onerror = function (evt) {
 			        document.getElementById("fileContents").innerHTML = "error reading file";
@@ -299,6 +308,7 @@ Tables are defined using the |-bar character together with the :--: separator. S
 		var newLines = [];
 		var parameterLines = [
 			['[//comment]: # "These are internal parameters for the experiment and visible texts not in this Markdown"'],
+			['[//comment]: # "----------"'],
 			['[//parameter]: # "ExperimentAcronym:'+cleanString(ExperimentAcronym)+'"'],
 			['[//parameter]: # "PracticeItems:'+cleanString(PracticeItems)+'"'],
 			['[//parameter]: # "ShuffleStimuli:'+cleanString(ShuffleStimuli)+'"'],
@@ -318,11 +328,22 @@ Tables are defined using the |-bar character together with the :--: separator. S
 			['[//comment]: # "----------"']
 		];
 		
+		var stimulusTableLines = [];
+		stimulusTableLines.push(['[//comment]: # "These are stimuli for this experiment"']);
+		stimulusTableLines.push(['[//comment]: # "----------"']);
+
+		stimulusTableLines.push(['[//stimulus0]: # "' + stimulusTable[0] + '"]']);
+		for(var i=0;i < stimulusTable[1].length;++i){
+			stimulusTableLines.push(['[//stimulus1]: # "' + (stimulusTable[1][i]).join(",") + '"]']);
+		};
+		stimulusTableLines.push(['[//comment]: # "----------"']);
+		
 		 currentMarkdown = currentMarkdown.replace(/\s*\n+$/, "");
 		var lines = currentMarkdown.split(/\r?\n|\r|\n/g);
 		for(var i=0; i < lines.length; ++i){
-			if(lines[i].match(/\[\/\/(parameter|buttontext|tooltiptext)\]: # "/) || 
+			if(lines[i].match(/\[\/\/(parameter|buttontext|tooltiptext|stimulus[01])\]: # "/) || 
 				lines[i].match(/\[\/\/comment\]: # "These are internal parameters for the experiment and visible texts not in this Markdown"/) || 
+				lines[i].match(/\[\/\/comment\]: # "These are stimuli for this experiment"/) || 
 				lines[i].match(/\[\/\/comment\]: # "----------"/)){
 				// Do nothing
 			} else {
@@ -330,10 +351,16 @@ Tables are defined using the |-bar character together with the :--: separator. S
 			};
 		};
 		
+		// Add parameters to the end
 		for(var i=0;i < parameterLines.length;++i){
 			newLines.push(parameterLines[i]);
 		};
-
+		
+		// Add stimuli to the end
+		for(var i=0;i < stimulusTableLines.length;++i){
+			newLines.push(stimulusTableLines[i]);
+		};
+		
 		currentMarkdown = newLines.join("\n");
 		document.getElementById('markdownText').value = currentMarkdown;
 	
@@ -345,8 +372,21 @@ Tables are defined using the |-bar character together with the :--: separator. S
 	
 	function markdown2Parameters () {
 		currentMarkdown = document.getElementById('markdownText').value ;
+		var tmpStimulusTable0 = [];
+		var tmpStimulusTable1 = [];
 		var lines = currentMarkdown.split(/\r?\n|\r|\n/g);
 		for(var i=0; i < lines.length; ++i){
+			if(lines[i].match(/\[\/\/stimulus[01]\]: # "/)){
+				var valueString = lines[i].replace(/^\s*\[\/\/stimulus[01]\]: # "/, "")
+				valueString = valueString.replace(/"\s*\]\s*$/, "");
+				var valueList = valueString.split(/\s*,\s*/);
+				if(lines[i].match(/\[\/\/stimulus0\]: # "/)){
+					tmpStimulusTable0 = valueList;
+				} else {
+					tmpStimulusTable1.push(valueList);
+				};
+			};
+
 			if(lines[i].match(/\[\/\/(parameter|buttontext|tooltiptext)\]: # "/)){
 				parameterName = lines[i].replace(/^[^#]+# "([^":]+):([^":]+)".*$/, '$1');
 				parameterValue = lines[i].replace(/^[^#]+# "([^":]+):([^":]+)".*$/, '$2');
@@ -411,6 +451,12 @@ Tables are defined using the |-bar character together with the :--: separator. S
 					} 
 			};
 		};
+		
+		// Construct stimulusTable
+		if(tmpStimulusTable1.length > 0) stimulusTable = [tmpStimulusTable0, [tmpStimulusTable1]];
+		stimulusTableJSON = "\` \n" + JSON.stringify(stimulusTable) + "\n\`"
+		stimulusTableJSON = stimulusTableJSON.replace(/\],\[/g, "],\n[");
+			
 		document.getElementById('ExperimentAcronym').value = ExperimentAcronym;
 		document.getElementById('ShuffleStimuliYes').checked = ShuffleStimuli;
 		document.getElementById('ShuffleStimuliNo').checked = !ShuffleStimuli;
@@ -568,7 +614,7 @@ Tables are defined using the |-bar character together with the :--: separator. S
 			const anchor = document.createElement('a');
 			anchor.href = stimBlobUrl;
 			anchor.target = "_blank";
-			anchor.download = ExperimentAcronym+"_Stimuluslist.js";
+			anchor.download = ExperimentAcronym+"_stimuluslist.js";
 
 			 // Auto click on a element, trigger the file download
 			 anchor.click();
