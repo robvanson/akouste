@@ -577,7 +577,8 @@ Tables are defined using the |-bar character together with the :--: separator. S
 		winUrl = HTML2URL (pageHTML);
 		const win = window.open(
 			winUrl,
-			"RenderedHTML"
+			"RenderedHTML",
+			"popup"
 			);
 		if(HTMLchanged){
 			document.getElementById('ShowButton').style.backgroundColor = "pink";
