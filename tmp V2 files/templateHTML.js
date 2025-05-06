@@ -6,10 +6,6 @@ preamble = `<!DOCTYPE html>
 			width: 25px;
 			height: 25px;
 		}
-
-		.slidecontainer {
-		  width: 10cm; /* Width of the outside container */
-		}
 				
 		/* The slider itself */
 		.slider {
@@ -38,6 +34,10 @@ preamble = `<!DOCTYPE html>
 		}
 
 		/* Table layout */
+		table {
+		  width: 80%;
+		  table-layout: fixed;
+		}
 		td {
 		  background-color: #ffffff;
 		}
@@ -65,7 +65,7 @@ var PracticeItems = XXPracticeItemsXX;
 var ShuffleStimulusList = XXSHUFFLESTIMULUSLISTXX;
 var CurrentExperimentID = "XXEXPERIMENTNAMEXX";
 
-var audioBaseURL = './Stimuli/';
+var audioBaseURL = 'XXaudioBaseURLXX';
 var stimulusTable = [];
 var audioNames = [];
 var columnNames = [];
@@ -93,9 +93,6 @@ function loadList () {
 		if(localStorage.getItem(CurrentExperimentID+'answerlist')){
 			answerList = JSON.parse(localStorage.getItem(CurrentExperimentID+'answerlist'));
 			stimulusNbr = answerList.length;
-		};
-		if(localStorage.getItem(CurrentExperimentID+'lastDigest')){
-			lastDigest = localStorage.getItem(CurrentExperimentID+'lastDigest');
 		};
 	} else {
 		// Read and process the stimulus list
@@ -131,8 +128,17 @@ function loadList () {
 			columnNames.push("ABswitch");
 		};
 
+		// Locate the stimuli
+		audioPos = [];
+		for(i in audioNames){
+			audioPos.push(columnNames.indexOf(audioNames[i]));
+			if(audioPos[i] < 0)audioPos[i] = -1;
+		};
+
 		// Prepare the stimulus list
-		if(RandomizeAB)data = shuffleAB(data, audioPos[0], audioPos[1]);
+		if(RandomizeAB){
+			data = shuffleAB(data, audioPos[0], audioPos[1]);
+		};
 
 		if(ShuffleStimulusList){
 			if(PracticeItems < 0){
@@ -156,7 +162,7 @@ function loadList () {
 		};
 	};
 	
-	// Locate the stimuli
+	// Locate the stimuli (again?)
 	audioPos = [];
 	for(i in audioNames){
 		audioPos.push(columnNames.indexOf(audioNames[i]));
@@ -196,8 +202,12 @@ function setAudio(i, stimulusTable) {
 	if(finishedExperiment) return;
 	for(var i in  audioNames) {
 		if(stimulusTable[1][stimulusNbr][audioPos[i]] != undefined && stimulusTable[1][stimulusNbr][audioPos[i]].length > 0){
-			document.getElementById('Audio'+audioNames[i]).src = audioBaseURL + stimulusTable[1][stimulusNbr][audioPos[i]];
-			document.getElementById('Audio'+audioNames[i]).title = stimulusTable[1][stimulusNbr][audioPos[i]].replace(/^.*\\/([^\\/]+)\.wav$/, "$1");
+			var currentAudio = stimulusTable[1][stimulusNbr][audioPos[i]];
+			if(! currentAudio.match("http(s)?://")) {
+				currentAudio = audioBaseURL + currentAudio;
+			};
+			document.getElementById('Audio'+audioNames[i]).src = currentAudio;
+			document.getElementById('Audio'+audioNames[i]).title = currentAudio.replace(/^.*\\/([^\\/]+)\.wav$/, "$1");
 			document.getElementById('Audio'+audioNames[i]).style.backgroundColor = "#F0F0F0";
 			document.getElementById('Audio'+audioNames[i]).parentNode.parentNode.style.backgroundColor = "#F0F0F0";
 		} else {
@@ -347,23 +357,22 @@ function shuffle(array) {
   return array;
 }
 
-function shuffleAB(array, apos, bpos) {
+function shuffleAB(stimarray, posA, posB) {
   var temporaryValue, switchAB, currentSubarray;
-
   // While there remain elements to shuffle...
-  for (var i=0; i<array.length; i++) {
-	currentSubarray = array[i];
+  for (var i=0; i<stimarray.length; i++) {
+	currentSubarray = stimarray[i];
 	// Random uniform Integer [0, 2>
 	switchAB = Math.floor(Math.random() * 2) == 1;
 	if (switchAB){
-		temporaryValue = currentSubarray[apos];
-		currentSubarray[apos] = currentSubarray[bpos];
-		currentSubarray[bpos] = temporaryValue;
+		temporaryValue = currentSubarray[posA];
+		currentSubarray[posA] = currentSubarray[posB];
+		currentSubarray[posB] = temporaryValue;
 	};
 	currentSubarray.push(switchAB)
   }
 
-  return array;
+  return stimarray;
 }
 
 // Warning before leaving the page (back button, or outgoing link)
@@ -386,6 +395,8 @@ function setProgress(percentComplete) {
 function SetUp() {
 	// Check whether JavaScript is enabled
 	document.getElementById('JavaScriptWarningText').style.display = 'none';
+	// Set layout
+	//initTableClasses ();
 	// The following are set by the Init function
 	answerList = [];
 	answer = new Array(NumberOfScales).fill(-1);

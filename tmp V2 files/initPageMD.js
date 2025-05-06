@@ -6,10 +6,10 @@ initialMarkdown = `
 
 ### A table setup to position three audio play buttons representing columns A, B and X in the stimulus table.
 
-|            |   <div style="width:2cm"> </div>   |             |
-| :------- | :------: |  -------: |
-| [[[A]]]  |             | [[[B]]]  |
-|           |   [[[X]]]  |           |
+|    |            |             |              |     |
+| -: | -------:  | :------:  |  :-------  | :- |
+|    | [[[A]]]   |             | [[[B]]]    |      |
+|    |            |   [[[X]]]  |              |       |
 
 
 <h2>
@@ -77,9 +77,7 @@ Tables are defined using the |-bar character together with the :--: separator. S
 [//comment]: # "----------"
 [//comment]: # "These are stimuli for this experiment"
 [//comment]: # "----------"
-[//stimulus0]: # "A,B,X"]
-[//stimulus1]: # "beep.wav"]
-[//stimulus1]: # "beep.wav"]
-[//stimulus1]: # "beep.wav"]
+[//stimulus0]: # "A,B,X"
+[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg,https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg,https://upload.wikimedia.org/wikipedia/commons/d/db/En-uk-illustrate.ogg"
 [//comment]: # "----------"
 `

@@ -22,10 +22,10 @@
 
 ### A table setup to position three audio play buttons representing columns A, B and X in the stimulus table.
 
-|            |   <div style="width:2cm"> </div>   |             |
-| :------- | :------: |  -------: |
-| [[[A]]]  |             | [[[B]]]  |
-|           |   [[[X]]]  |           |
+|    |            |             |              |     |
+| -: | -------:  | :------:  |  :-------  | :- |
+|    | [[[A]]]   |             | [[[B]]]    |      |
+|    |            |   [[[X]]]  |              |       |
 
 
 <h2>
@@ -99,6 +99,10 @@ Tables are defined using the |-bar character together with the :--: separator. S
 
 <script type="text/javascript" src="./templateHTML.js"></script>
 <script type="text/javascript">
+	// Extract the styles from the preamble
+		var experimentStyles = preamble.replace(/^(.|\n|\r)*<style/i, "<style");
+		experimentStyles = experimentStyles.replace(/<\/style>(?!(.|\n|\r)*<\/style>)(.|\n|\r)*/ig, "</style>");
+	
 		function readMDFromFile (elementId) {
 			mdFileText = "";
 			var file = document.getElementById(elementId).files[0];
@@ -121,7 +125,7 @@ Tables are defined using the |-bar character together with the :--: separator. S
 			return mdFileText;
 		};
 		
-		var stimulusTable = [["A","B","X"], ["beep.wav", "beep.wav", "beep.wav"]];
+		var stimulusTable = [["A","B","X"], ["https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg", "https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg", "https://upload.wikimedia.org/wikipedia/commons/d/db/En-uk-illustrate.ogg"]];
 		function setStimulusTableValue (x) {
 			if(x == undefined || x.length <= 0)return false;
 			stimulusTable = x;
@@ -194,6 +198,7 @@ Tables are defined using the |-bar character together with the :--: separator. S
 	var ExperimentAcronym = "test";
 	var ShuffleStimuli = true;
 	var RandomizeAB = false;
+	var audioBaseURL = './Stimuli/';
 	var PracticeItems = 4;
 	var NumberOfScales = 0;
 	var NextText = "Next";
@@ -227,7 +232,7 @@ Tables are defined using the |-bar character together with the :--: separator. S
 		document.getElementById('RandomizeABYes').checked = RandomizeAB;
 		document.getElementById('RandomizeABNo').checked = !RandomizeAB;
 		document.getElementById('PracticeItems').value = PracticeItems;
-		
+
 		markdown2Parameters();
 		parameters2Markdown();
 	};
@@ -310,6 +315,7 @@ Tables are defined using the |-bar character together with the :--: separator. S
 			['[//comment]: # "These are internal parameters for the experiment and visible texts not in this Markdown"'],
 			['[//comment]: # "----------"'],
 			['[//parameter]: # "ExperimentAcronym:'+cleanString(ExperimentAcronym)+'"'],
+			['[//parameter]: # "audioBaseURL:'+ audioBaseURL.replace(/[<>'"]/, '') +'"'],
 			['[//parameter]: # "PracticeItems:'+cleanString(PracticeItems)+'"'],
 			['[//parameter]: # "ShuffleStimuli:'+cleanString(ShuffleStimuli)+'"'],
 			['[//parameter]: # "RandomizeAB:'+cleanString(RandomizeAB)+'"'],
@@ -332,12 +338,12 @@ Tables are defined using the |-bar character together with the :--: separator. S
 		stimulusTableLines.push(['[//comment]: # "These are stimuli for this experiment"']);
 		stimulusTableLines.push(['[//comment]: # "----------"']);
 
-		stimulusTableLines.push(['[//stimulus0]: # "' + stimulusTable[0] + '"]']);
+		stimulusTableLines.push(['[//stimulus0]: # "' + stimulusTable[0] + '"']);
 		for(var i=0;i < stimulusTable[1].length;++i){
-			stimulusTableLines.push(['[//stimulus1]: # "' + (stimulusTable[1][i]).join(",") + '"]']);
+			stimulusTableLines.push(['[//stimulus1]: # "' + (stimulusTable[1][i]).join(",") + '"']);
 		};
 		stimulusTableLines.push(['[//comment]: # "----------"']);
-		
+
 		 currentMarkdown = currentMarkdown.replace(/\s*\n+$/, "");
 		var lines = currentMarkdown.split(/\r?\n|\r|\n/g);
 		for(var i=0; i < lines.length; ++i){
@@ -374,16 +380,16 @@ Tables are defined using the |-bar character together with the :--: separator. S
 		currentMarkdown = document.getElementById('markdownText').value ;
 		var tmpStimulusTable0 = [];
 		var tmpStimulusTable1 = [];
-		var lines = currentMarkdown.split(/\r?\n|\r|\n/g);
+		var lines = currentMarkdown.split(/(\r|\n)/g);
 		for(var i=0; i < lines.length; ++i){
 			if(lines[i].match(/\[\/\/stimulus[01]\]: # "/)){
-				var valueString = lines[i].replace(/^\s*\[\/\/stimulus[01]\]: # "/, "")
-				valueString = valueString.replace(/"\s*\]\s*$/, "");
+				var valueString = lines[i].replace(/^\s*\[\/\/stimulus[01]\]: # ["']/, "")
+				valueString = valueString.replace(/['"]\s*$/, "");
 				var valueList = valueString.split(/\s*,\s*/);
 				if(lines[i].match(/\[\/\/stimulus0\]: # "/)){
 					tmpStimulusTable0 = valueList;
 				} else {
-					tmpStimulusTable1.push(valueList);
+						tmpStimulusTable1.push(valueList);
 				};
 			};
 
@@ -393,6 +399,9 @@ Tables are defined using the |-bar character together with the :--: separator. S
 				switch(parameterName) {
 						case "ExperimentAcronym":
 							ExperimentAcronym = parameterValue;
+							break;
+						case "audioBaseURL":
+							audioBaseURL = parameterValue;
 							break;
 						case "PracticeItems":
 							PracticeItems = parameterValue;
@@ -453,11 +462,13 @@ Tables are defined using the |-bar character together with the :--: separator. S
 		};
 		
 		// Construct stimulusTable
-		if(tmpStimulusTable1.length > 0) stimulusTable = [tmpStimulusTable0, [tmpStimulusTable1]];
+		if(tmpStimulusTable1.length > 0) stimulusTable = [tmpStimulusTable0, tmpStimulusTable1];
+
 		stimulusTableJSON = "\` \n" + JSON.stringify(stimulusTable) + "\n\`"
 		stimulusTableJSON = stimulusTableJSON.replace(/\],\[/g, "],\n[");
 			
 		document.getElementById('ExperimentAcronym').value = ExperimentAcronym;
+		document.getElementById('audioBaseURL').value = audioBaseURL;
 		document.getElementById('ShuffleStimuliYes').checked = ShuffleStimuli;
 		document.getElementById('ShuffleStimuliNo').checked = !ShuffleStimuli;
 		document.getElementById('RandomizeABYes').checked = RandomizeAB;
@@ -515,7 +526,7 @@ Tables are defined using the |-bar character together with the :--: separator. S
 		}).render(processedMarkdown);
 		HTMLchanged = false;
 
-		winURL = HTML2URL (document.getElementById('htmlText').value);
+		winURL = HTML2URL ('<!DOCTYPE html><head>\n'+experimentStyles+'\n<body>\n'+document.getElementById('htmlText').value+'\n</body>');
 		document.getElementById('htmlDisplay').src=winURL;
 		
 		// Set up the couter of for the unblock function
@@ -553,6 +564,13 @@ Tables are defined using the |-bar character together with the :--: separator. S
 			markdown2HTML();
 			text =  document.getElementById('htmlText').value;
 		};
+		
+		// Wipe localstorage
+		localStorage.removeItem(ExperimentAcronym+'stimuluslist');
+		localStorage.removeItem(ExperimentAcronym+'columnnames');
+		localStorage.removeItem(ExperimentAcronym+'answerlist');
+		
+		// Finish HTML and open page
 		var preambleProc = preProcessPreamble(preamble);
 		var postambleProc = preProcessPreamble(postamble);
 		const pageHTML = preambleProc + text + postambleProc;
@@ -636,7 +654,10 @@ Tables are defined using the |-bar character together with the :--: separator. S
 	};
 	
 	function replaceVASslider (text) {
-		return text.replace(/\>\>[-]{10,}\<\</g,	'<div class="slidecontainer"><input type="range" min="1" max="1000" value="500" class="slider" id="QuestionXXXX" name="QuestionXXXX" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value" style="width: 100%"></div>')
+		return text.replace(/\>\>[-]{10,}\<\</g,	'<input type="range" min="1" max="1000" value="500" class="slider" id="QuestionXXXX" name="QuestionXXXX" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value" style="width:100%;">')
+	};
+	function replaceVASsliderOLD (text) {
+		return text.replace(/\>\>[-]{10,}\<\</g,	'<div class="slidecontainer" style="text-align: center;"><input type="range" min="1" max="1000" value="500" class="slider" id="QuestionXXXX" name="QuestionXXXX" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value" style="width:100%;"></div>')
 	};
 	
 	function replaceAudio (text) {
@@ -683,6 +704,7 @@ Tables are defined using the |-bar character together with the :--: separator. S
 			processedPreamble = processedPreamble.replace(/XXEXPERIMENTNAMEXX/g, ExperimentAcronym);
 			processedPreamble = processedPreamble.replace(/XXRANDOMIZEABXX/g, RandomizeAB);
 			processedPreamble = processedPreamble.replace(/XXSHUFFLESTIMULUSLISTXX/g, ShuffleStimuli);
+			processedPreamble = processedPreamble.replace(/XXaudioBaseURLXX/g, audioBaseURL);
 			processedPreamble = processedPreamble.replace(/XXPracticeItemsXX/g, PracticeItems);
 			processedPreamble = processedPreamble.replace(/XXNextTextXX/g, NextText);
 			processedPreamble = processedPreamble.replace(/XXNextAlertTextXX/g, NextAlertText);
@@ -715,7 +737,7 @@ Tables are defined using the |-bar character together with the :--: separator. S
 		<table style="width:80%">
 			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 			<tr>
-				<td>Select an acronym for <br />the experiment (no spaces): </td><td><input type="text" id="ExperimentAcronym" name="ExperimentAcronym" value="name_without_spaces" title='This acronym will be used for the name of the experiment files' onfocus="if(this.value=='name_without_spaces')this.value='';" onchange="this.value=this.value.replace(/\s+/g, '_'); ExperimentAcronym=this.value; parameters2Markdown();" > </td>
+				<td>Select an acronym for <br/> the experiment (no spaces): </td><td><input type="text" id="ExperimentAcronym" name="ExperimentAcronym" value="name_without_spaces" title='This acronym will be used for the name of the experiment files' onfocus="if(this.value=='name_without_spaces')this.value='';" onchange="this.value=this.value.replace(/\s+/g, '_'); ExperimentAcronym=this.value; parameters2Markdown();" > </td>
 			</tr>
 			<tr>
 				<td>Randomize stimuli: </td><td>Yes  <input type="radio" id="ShuffleStimuliYes" name="ShuffleStimuli" value="Yes" onchange="ShuffleStimuli=true;parameters2Markdown();"> No <input type="radio" id="ShuffleStimuliNo" name="ShuffleStimuli" value="No" onchange="ShuffleStimuli=false;parameters2Markdown();"> </td>
@@ -725,6 +747,9 @@ Tables are defined using the |-bar character together with the :--: separator. S
 				</tr>
 			<tr>
 				<td>Randomize AB stimulus pairs:  </td><td>Yes <input type="radio" id="RandomizeABYes" name="RandomizeAB" value="Yes" onchange="RandomizeAB=true;parameters2Markdown();"> No <input type="radio" id="RandomizeABNo" name="RandomizeAB" value="No" onchange="RandomizeAB=false;parameters2Markdown();"> </td>
+			</tr>
+			<tr>
+				<td>URL/path to audio:  </td><td><input type="text" id="audioBaseURL" name="audioBaseURL" value="./Stimuli/" title='This can be a URL or local path to a folder with audio' onchange="this.value=this.value.replace(/[<>'"]/g, '');audioBaseURL=this.value; parameters2Markdown();" ></td>
 			</tr>
 			<tr>
 			<td colspan=2> 
@@ -765,13 +790,13 @@ Tables are defined using the |-bar character together with the :--: separator. S
 			<td  style='font-size:80%'>Play&nbsp;text: </td>
 			<td><input type="button" id="PlayTextButton" value=""  title="" style="background-color: MediumAquaMarine"></td>
 			<td><input type="text" id="PlayText" name="PlayText" value='' onfocus="if(this.value==PlayText)this.value='';" onchange="PlayText=this.value;document.getElementById('PlayTextButton').value=this.value;parameters2Markdown();" size=15></td>
-			<td><input type="text" id="ToolTipPlay" name="ToolTipPlay" value='' onfocus="if(this.value==ToolTipPlay)this.value='';" onchange="ToolTipPlay=this.value;document.getElementById('PlayTextButton').title=this.value;parameters2Markdown();" size=35></td>
+			<td><input type="text" id="ToolTipPlay" name="ToolTipPlay" value='' onchange="ToolTipPlay=this.value;document.getElementById('PlayTextButton').title=this.value;parameters2Markdown();" size=35></td>
 		</tr>
 		<tr>
 			<td  style='font-size:80%'>Next&nbsp;text: </td>
 			<td><input type="button" id="NextTextButton" value="" title="" style="background-color: MediumAquaMarine"> </td>
 			<td><input type="text" id="NextText" name="NextText" value='' onfocus="if(this.value==NextText)this.value='';" onchange="NextText=this.value;document.getElementById('NextTextButton').value=this.value;parameters2Markdown();" size=15></td>
-			<td><input type="text" id="ToolTipNext" name="ToolTipNext" value='' onfocus="if(this.value==ToolTipNext)this.value='';" onchange="ToolTipNext=this.value;document.getElementById('NextTextButton').title=this.value;parameters2Markdown();" size=35></td>
+			<td><input type="text" id="ToolTipNext" name="ToolTipNext" value='' onchange="ToolTipNext=this.value;document.getElementById('NextTextButton').title=this.value;parameters2Markdown();" size=35></td>
 		</tr>
 		<tr>
 			<td  style='font-size:80%'>Next&nbsp;page&nbsp;Alert: </td>
@@ -782,7 +807,7 @@ Tables are defined using the |-bar character together with the :--: separator. S
 			<td  style='font-size:80%'>Ready&nbsp;text: </td>
 			<td><input type="button" id="ReadyTextButton" value="" title="" style="background-color: MediumAquaMarine"> </td>
 			<td><input type="text" id="ReadyText" name="ReadyText" value='' onfocus="if(this.value==ReadyText)this.value='';" onchange="ReadyText=this.value;document.getElementById('ReadyTextButton').value=this.value;parameters2Markdown();" size=15></td>
-			<td><input type="text" id="ToolTipReady" name="ToolTipReady" value='' onfocus="if(this.value==ToolTipReady)this.value='';" onchange="ToolTipReady=this.value;document.getElementById('ReadyTextButton').title=this.value;parameters2Markdown();" size=35></td>
+			<td><input type="text" id="ToolTipReady" name="ToolTipReady" value='' onchange="ToolTipReady=this.value;document.getElementById('ReadyTextButton').title=this.value;parameters2Markdown();" size=35></td>
 		</tr>
 		<tr>
 			<td  style='font-size:80%'>Restart&nbsp;text: </td>
@@ -794,11 +819,11 @@ Tables are defined using the |-bar character together with the :--: separator. S
 			<td  style='font-size:80%'>Save&nbsp;button&nbsp;text: </td>
 			<td><input type="button" id="SaveButtonTextButton" value=""  title="" style="background-color: MediumAquaMarine"> </td>
 			<td><input type="text" id="SaveButtonText" name="SaveButtonText" value='' onfocus="if(this.value==SaveButtonText)this.value='';" onchange="SaveButtonText=this.value;document.getElementById('SaveButtonTextButton').value=this.value;parameters2Markdown();" size=15></td>
-			<td><input type="text" id="ToolTipSave" name="ToolTipSave" value='' onfocus="if(this.value==ToolTipSave)this.value='';" onchange="ToolTipSave=this.value;document.getElementById('NextTextButton').title=this.value;parameters2Markdown();" size=35></td>
+			<td><input type="text" id="ToolTipSave" name="ToolTipSave" value='' onchange="ToolTipSave=this.value;document.getElementById('NextTextButton').title=this.value;parameters2Markdown();" size=35></td>
 		</tr>
 		<tr>
 			<td  style='font-size:80%'>Save&nbsp;text: </td><td>&nbsp;</td>
-			<td colspan="2"><input type="textarea" rows=2 id="SaveText" name="SaveText" value='' onfocus="if(this.value==SaveText)this.value='';" onchange="SaveText=this.value;parameters2Markdown();" size=50></td>
+			<td colspan="2"><input type="textarea" rows=2 id="SaveText" name="SaveText" value='' onchange="SaveText=this.value;parameters2Markdown();" size=50></td>
 		</tr>
 		<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 		</table>
