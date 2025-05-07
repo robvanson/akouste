@@ -2,15 +2,11 @@
 
 The original akoúste v1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)
 
-<p style='text-align:center'>
-
 ![](akouste-ear.png)
 
 #  akoúste  
 
 [Try the demo](https://robvanson.github.io/akouste/akousteCreate.html)
-
-</p>
 
 ## Client-side listening experiments in the browser
 
