@@ -1,12 +1,10 @@
-# ![](akouste-ear.png)
-
-## 🏗️🛠️ We are renovating to release akoúste v2
+## 🏗️🛠️  We are renovating to release akoúste v2 🏗️🛠️
 
 The original akoúste v1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)
 
-# akoúste
+![](akouste-ear.png)
 
-[akoúste on Github](https://github.com/robvanson/akouste)
+#  akoúste  
 
 ## Client-side listening experiments in the browser
 
@@ -16,7 +14,7 @@ Akoúste experiments can as easily be run off thumbdrives, or local hard drives,
 
 ## Under the hood
 
-The akoúste experiments are constructed as a self-contained web page in plain HTML + CSS + Javascript. Experiments can be constructed in a [self contained Web page editor](akousteCreate.html). The basis is a markdown text file using [markdown-it](https://github.com/markdown-it/markdown-it) ([demo](https://markdown-it.github.io/))
+The akoúste experiments are constructed as a self-contained web page in plain HTML + CSS + Javascript. Experiments can be constructed in a [self contained Web page editor](https://robvanson.github.io/akouste/akousteCreate.html). The basis is a markdown text file using [markdown-it](https://github.com/markdown-it/markdown-it) ([demo](https://markdown-it.github.io/))
 
 Stimulus tables are incorporated into the experiment web page from CSV tables. Stimuli can be presented with fixed or dynamic practice items, in pseudo-randomized order, with pseudo-randomized pairs if two sounds are to be presented. The answers are added as seperate columns to the stimulus table Stimulus tables can contain more information than just the stimuli which makes the results tables directly usable for analysis.
 
