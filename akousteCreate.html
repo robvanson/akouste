@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<head>
+	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.2/markdown-it.min.js" referrerpolicy="no-referrer"></script>
+<script type="text/javascript" src="./akousteInitPageMD.js"></script>
+<script type="text/javascript" >
+	// Doesn't work due to blocking of Cross origin requests of local files
+	async function getMarkdown(file) {
+	  let response = await fetch(file);
+	  let data = await response.text();
+	  initialMarkdown = data;
+	  document.getElementById("markdownText").value = initialMarkdown;
+	  currentMarkdown = initialMarkdown;
+	  markdownStack.push(currentMarkdown);
+	};
+	if(typeof initialMarkdown != "string" || initialMarkdown == null){
+		initialMarkdown = ` 
+
+<center>
+
+# Title of this page
+
+### A table setup to position three audio play buttons representing columns A, B and X in the stimulus table.
+
+|    |            |             |              |     |
+| -: | -------:  | :------:  |  :-------  | :- |
+|    | [[[A]]]   |             | [[[B]]]    |      |
+|    |            |   [[[X]]]  |              |       |
+
+
+<h2>
+<div id="StimulusNumberText">0 answers to go</div>
+</h2>
+
+</center>
+<center>
+
+Here you can put the text which tells the subjects what they are supposed to do. You can add or remove &lt;center&gt; &lt;/center&gt; pairs if you want to change the text alignment. The &lt;div&gt; tag gives many more layout options.
+
+Tables are defined using the |-bar character together with the :--: separator. See this [tutorial](https://htmlmarkdown.com/syntax/markdown-tables/). The full syntax of the markdown used is described [here](https://markdown-it.github.io/). You can freely mix in HTML and JavaScript.
+
+</center>
+
+---------------------------
+
+<center>
+
+
+### Question text. The double ()-brackets are converted into radio buttons
+|                 |        |        |        |        |        |                     |
+| ----------: | :---: | :---: | :---: | :---: | :---: | :------------- |
+| Not at all |  (()) | (()) | (())  | (())  | (()) |  Very Much  |
+|           1    |        |        |   3   |        |       |     5              |
+
+### More question can be added, with different numbers of options
+|                 |        |        |         |        |        |        |         |                     |
+| ----------: | :---: | :---: | :---:  | :---: | :---: | :---: | :---: | :------------- |
+| Not at all |  (()) | (()) | (())   | (()) | (())  | (())  |  (())  |  Very Much |
+|                |        |        |         |   -   |        |        |           |                     |
+
+### Response types can be mixed. A VAS slider is indicated by &gt;&gt;----------&lt;&lt; (&gt;&gt;&lt;&lt; separated by 10 or more dashes)
+
+|                   |                                                 |                      |
+| ------------: | :----------------------------------: | :-------------- |
+| Not at all   |  >>---------------------------<<  |   Very Much  |
+|           0      |                         50                      |         100          |
+
+
+</center>
+
+
+
+---------------------------
+
+[//comment]: # "These are internal parameters for the experiment and visible texts not in this Markdown"
+[//comment]: # "----------"
+[//parameter]: # "ExperimentAcronym:name_without_spaces"
+[//parameter]: # "PracticeItems:4"
+[//parameter]: # "ShuffleStimuli:true"
+[//parameter]: # "RandomizeAB:false"
+[//buttontext]: # "NextText:Next"
+[//buttontext]: # "NextAlertText:Please, listen to the recordings and answer the questions"
+[//buttontext]: # "ReadyText:Ready"
+[//buttontext]: # "PlayText:Play"
+[//buttontext]: # "RestartPageText:Restart"
+[//buttontext]: # "SaveButtonText:Save Results"
+[//buttontext]: # "SaveText:Please, click XXSaveButtonTextXX and store the file"
+[//tooltiptext]: # "ToolTipPlay:Play sound"
+[//tooltiptext]: # "ToolTipNext:Go to next item"
+[//tooltiptext]: # "ToolTipReady:Ready, please save results"
+[//tooltiptext]: # "ToolTipRestart:Start a new experiment session"
+[//tooltiptext]: # "ToolTipSave:Save the answer to a file"
+[//comment]: # "----------"
+
+`
+}
+
+</script>
+
+<script type="text/javascript" src="./akousteHTMLtemplate.js"></script>
+<script type="text/javascript">
+	// Extract the styles from the preamble
+		var experimentStyles = preamble.replace(/^(.|\n|\r)*<style/i, "<style");
+		experimentStyles = experimentStyles.replace(/<\/style>(?!(.|\n|\r)*<\/style>)(.|\n|\r)*/ig, "</style>");
+	
+		function readMDFromFile (elementId) {
+			mdFileText = "";
+			var file = document.getElementById(elementId).files[0];
+			if (file) {
+			    var reader = new FileReader();
+			    reader.readAsText(file, "UTF-8");
+			    reader.onload = function (evt) {						
+					mdFileText = evt.target.result;
+					initialMarkdown = mdFileText;
+					document.getElementById('markdownText').value = initialMarkdown;
+					initializeMarkdown();
+			    };
+			    reader.onerror = function (evt) {
+			        alert("error reading file");
+			    };
+			} else {
+				alert("Select a file first");
+			};
+			
+			return mdFileText;
+		};
+		
+		var stimulusTable = [["A","B","X"], ["https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg", "https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg", "https://upload.wikimedia.org/wikipedia/commons/d/db/En-uk-illustrate.ogg"]];
+		function setStimulusTableValue (x) {
+			if(x == undefined || x.length <= 0)return false;
+			stimulusTable = x;
+			stimulusTableJSON = "\` \n" + JSON.stringify(stimulusTable) + "\n\`"
+			stimulusTableJSON = stimulusTableJSON.replace(/\],\[/g, "],\n[");
+			document.getElementById('SaveStimulusTable').style.visibility = 'visible';
+			document.getElementById('SaveStimulusTable').style.backgroundColor = 'MediumAquaMarine';
+			parameters2Markdown();
+		};
+		
+		function readTableFromFile (elementId) {
+			tableJSON = "";
+			var tableListJSON = new Array();
+			var file = document.getElementById(elementId).files[0];
+			if (file) {
+				var tableList = [];
+			    var reader = new FileReader();
+			    reader.readAsText(file, "UTF-8");
+			    reader.onload = function (evt) {						
+					var separator = document.getElementById('Separator').value;
+					if(separator == "tab"){
+						separator = /\t/;
+					} else if(separator == "semicolon") {
+						separator = /;/;
+					} else if(separator == "comma") {
+						separator = /,/;
+					} else if(evt.target.result.match(/\t/)){
+						separator = /\t/;
+					} else if (evt.target.result.match(/;/)){
+						separator = /;/;
+					} else if (evt.target.result.match(/,/)){
+						separator = /,/;
+					} else {
+						separator = /\t/;
+					};
+					var textRead = evt.target.result.split(/\n/);
+					if(textRead.length <= 1) {
+						alert("Not a valid CSV table: "+file);
+						return void(0);
+					};
+					for(var i in  textRead) {
+						// Silly Javascript hack to remove CR \r
+						row = textRead[i].replace(/\r/g,"");
+						if(row.search(/\w/) >= 0){
+							tableList.push(row.split(separator));
+						};
+					};
+					if(tableList.length <= 1) {
+						alert("Not a valid CSV table: "+file);
+						return void(0);
+					};
+
+			        // One single list
+					var x = [];
+					x.push(tableList[0]);
+					x.push(tableList.slice(1));
+					setStimulusTableValue(x);
+				};
+			    reader.onerror = function (evt) {
+			        document.getElementById("fileContents").innerHTML = "error reading file";
+			    }
+			} else {
+				alert("Select a file first");
+			};			
+		};
+
+</script>
+<script type="text/javascript">	 
+	// Global variables
+	var ExperimentAcronym = "test";
+	var ShuffleStimuli = true;
+	var RandomizeAB = false;
+	var audioBaseURL = './Stimuli/';
+	var PracticeItems = 4;
+	var NumberOfScales = 0;
+	var NextText = "Next";
+	var NextAlertText = "Please, listen to the recordings and answer the questions first";
+	var ReadyText = "Ready";
+	var PlayText = "Play";
+	var RestartPageText = "Restart";
+	var SaveButtonText = "Save Results";
+	var SaveText = "Please, click XXSaveButtonTextXX and store the file";
+	var ToolTipPlay = "Play sound";
+	var ToolTipNext = "Go to next item";
+	var ToolTipReady = "Ready, please save results";
+	var ToolTipRestart = "Start a new experiment session";
+	var ToolTipSave = "Save the answer to a file";
+
+	var stimulusTableJSON = '[["A","B","X"], ["beep.wav", "beep.wav", "beep.wav"]]';
+	var requiredNames = [];
+	var audioNames = [];
+	var markdownStack = [];
+	var currentMarkdown = "";
+	var editPosition = 1;
+	function initializeMarkdown() {
+		document.getElementById('markdownText').value = initialMarkdown;
+		currentMarkdown = initialMarkdown;
+		markdownStack = [];
+		markdownStack.push(currentMarkdown);
+		markdown2HTML()
+		
+		document.getElementById('ShuffleStimuliYes').checked = ShuffleStimuli;
+		document.getElementById('ShuffleStimuliNo').checked = !ShuffleStimuli;
+		document.getElementById('RandomizeABYes').checked = RandomizeAB;
+		document.getElementById('RandomizeABNo').checked = !RandomizeAB;
+		document.getElementById('PracticeItems').value = PracticeItems;
+
+		markdown2Parameters();
+		parameters2Markdown();
+	};
+	
+	function flagButtons () {
+		document.getElementById('RenderButtonDisplay').style.backgroundColor = "red";
+		document.getElementById('RenderButtonText').style.backgroundColor = "red";
+		document.getElementById('ShowButton').style.backgroundColor = "red";
+		
+		// Markdown changed, warn to save
+		document.getElementById('SaveMDbutton').style.backgroundColor = "pink";
+	};
+	
+	function unflagButtons () {
+		document.getElementById('RenderButtonDisplay').style.backgroundColor = "white";
+		document.getElementById('RenderButtonText').style.backgroundColor = "white";
+		document.getElementById('ShowButton').style.backgroundColor = "white";
+	};
+	
+	function markdownPush() {
+		// Do nothing if text is the same
+		if(document.getElementById('markdownText').value == markdownStack[markdownStack.length -1])return 1;
+		
+		// Remove the stack above the editPosition
+		if(editPosition > 1){
+			markdownStack.length = markdownStack.length - editPosition + 1;
+			editPosition = 1;
+		};
+		// Keep length of previous/next in check
+		if(markdownStack.length  > 20) markdownStack.shift();
+		markdownStack.push(document.getElementById('markdownText').value);
+		currentMarkdown = document.getElementById('markdownText').value;
+		
+		// Change color of buttons
+		document.getElementById('RenderButtonDisplay').style.backgroundColor = "red";
+		document.getElementById('RenderButtonText').style.backgroundColor = "red";
+		document.getElementById('ShowButton').style.backgroundColor = "red";
+		
+		// Read the parameters
+		markdown2Parameters ();
+	};
+	
+	function markdownUndo() {
+		if(editPosition < (markdownStack.length)) editPosition += 1;
+		current = markdownStack[markdownStack.length - editPosition];
+		currentMarkdown = current;
+		
+		flagButtons ();
+		
+		return current;
+	};
+	function markdownCurrent() {
+		editPosition = 1;
+		current = markdownStack[markdownStack.length - editPosition];
+		currentMarkdown = current;
+		
+		return current;
+	};
+	function markdownRedo() {
+		if(editPosition < 2)editPosition = 2;
+		editPosition -= 1;
+		current = markdownStack[markdownStack.length - editPosition];
+		currentMarkdown = current;
+		
+		flagButtons ();
+		
+		return current;
+	};
+	
+	function cleanString (dirtyString) {
+		if(typeof dirtyString != "string") return dirtyString;
+		cleanedString = dirtyString.replace(/[|&;$%@"'<>\\()+,]/g, "");
+		return cleanedString;
+	};
+	
+	function parameters2Markdown() {
+		currentMarkdown = document.getElementById('markdownText').value;
+		var newLines = [];
+		var parameterLines = [
+			['[//comment]: # "These are internal parameters for the experiment and visible texts not in this Markdown"'],
+			['[//comment]: # "----------"'],
+			['[//parameter]: # "ExperimentAcronym:'+cleanString(ExperimentAcronym)+'"'],
+			['[//parameter]: # "audioBaseURL:'+ audioBaseURL.replace(/[<>'"]/, '') +'"'],
+			['[//parameter]: # "PracticeItems:'+cleanString(PracticeItems)+'"'],
+			['[//parameter]: # "ShuffleStimuli:'+cleanString(ShuffleStimuli)+'"'],
+			['[//parameter]: # "RandomizeAB:'+cleanString(RandomizeAB)+'"'],
+			['[//buttontext]: # "NextText:'+cleanString(NextText)+'"'],
+			['[//buttontext]: # "NextAlertText:'+cleanString(NextAlertText)+'"'],
+			['[//buttontext]: # "ReadyText:'+cleanString(ReadyText)+'"'],
+			['[//buttontext]: # "PlayText:'+cleanString(PlayText)+'"'],
+			['[//buttontext]: # "RestartPageText:'+cleanString(RestartPageText)+'"'],
+			['[//buttontext]: # "SaveButtonText:'+cleanString(SaveButtonText)+'"'],
+			['[//buttontext]: # "SaveText:'+cleanString(SaveText)+'"'],
+			['[//tooltiptext]: # "ToolTipPlay:'+cleanString(ToolTipPlay)+'"'],
+			['[//tooltiptext]: # "ToolTipNext:'+cleanString(ToolTipNext)+'"'],
+			['[//tooltiptext]: # "ToolTipReady'+cleanString(ToolTipReady)+'"'],
+			['[//tooltiptext]: # "ToolTipRestart:'+cleanString(ToolTipRestart)+'"'],
+			['[//tooltiptext]: # "ToolTipSave:'+cleanString(ToolTipSave)+'"'],
+			['[//comment]: # "----------"']
+		];
+		
+		var stimulusTableLines = [];
+		stimulusTableLines.push(['[//comment]: # "These are stimuli for this experiment"']);
+		stimulusTableLines.push(['[//comment]: # "----------"']);
+
+		stimulusTableLines.push(['[//stimulus0]: # "' + stimulusTable[0] + '"']);
+		for(var i=0;i < stimulusTable[1].length;++i){
+			stimulusTableLines.push(['[//stimulus1]: # "' + (stimulusTable[1][i]).join(",") + '"']);
+		};
+		stimulusTableLines.push(['[//comment]: # "----------"']);
+
+		 currentMarkdown = currentMarkdown.replace(/\s*\n+$/, "");
+		var lines = currentMarkdown.split(/\r?\n|\r|\n/g);
+		for(var i=0; i < lines.length; ++i){
+			if(lines[i].match(/\[\/\/(parameter|buttontext|tooltiptext|stimulus[01])\]: # "/) || 
+				lines[i].match(/\[\/\/comment\]: # "These are internal parameters for the experiment and visible texts not in this Markdown"/) || 
+				lines[i].match(/\[\/\/comment\]: # "These are stimuli for this experiment"/) || 
+				lines[i].match(/\[\/\/comment\]: # "----------"/)){
+				// Do nothing
+			} else {
+				newLines.push(lines[i]);
+			};
+		};
+		
+		// Add parameters to the end
+		for(var i=0;i < parameterLines.length;++i){
+			newLines.push(parameterLines[i]);
+		};
+		
+		// Add stimuli to the end
+		for(var i=0;i < stimulusTableLines.length;++i){
+			newLines.push(stimulusTableLines[i]);
+		};
+		
+		currentMarkdown = newLines.join("\n");
+		document.getElementById('markdownText').value = currentMarkdown;
+	
+		// Change color of buttons
+		document.getElementById('RenderButtonDisplay').style.backgroundColor = "red";
+		document.getElementById('RenderButtonText').style.backgroundColor = "red";
+		document.getElementById('ShowButton').style.backgroundColor = "red";
+	};
+	
+	function markdown2Parameters () {
+		currentMarkdown = document.getElementById('markdownText').value ;
+		var tmpStimulusTable0 = [];
+		var tmpStimulusTable1 = [];
+		var lines = currentMarkdown.split(/(\r|\n)/g);
+		for(var i=0; i < lines.length; ++i){
+			if(lines[i].match(/\[\/\/stimulus[01]\]: # "/)){
+				var valueString = lines[i].replace(/^\s*\[\/\/stimulus[01]\]: # ["']/, "")
+				valueString = valueString.replace(/['"]\s*$/, "");
+				var valueList = valueString.split(/\s*,\s*/);
+				if(lines[i].match(/\[\/\/stimulus0\]: # "/)){
+					tmpStimulusTable0 = valueList;
+				} else {
+						tmpStimulusTable1.push(valueList);
+				};
+			};
+
+			if(lines[i].match(/\[\/\/(parameter|buttontext|tooltiptext)\]: # "/)){
+				parameterName = lines[i].replace(/^[^#]+# "([^":]+):([^":]+)".*$/, '$1');
+				parameterValue = lines[i].replace(/^[^#]+# "([^":]+):([^":]+)".*$/, '$2');
+				switch(parameterName) {
+						case "ExperimentAcronym":
+							ExperimentAcronym = parameterValue;
+							break;
+						case "audioBaseURL":
+							audioBaseURL = parameterValue;
+							break;
+						case "PracticeItems":
+							PracticeItems = parameterValue;
+							break;
+						case "ShuffleStimuli":
+								ShuffleStimuli = false;
+								if(parameterValue == "true"){
+									ShuffleStimuli = true;
+								};
+							break;
+						case "RandomizeAB":
+								RandomizeAB = false;
+								if(parameterValue == "true"){
+									RandomizeAB = true;
+								};
+								parameterValue = true;
+							break;
+						case "NextText":
+							NextText = parameterValue;
+							break;
+						case "NextAlertText":
+							NextAlertText = parameterValue;
+							break;
+						case "ReadyText":
+							ReadyText = parameterValue;
+							break;
+						case "PlayText":
+							PlayText = parameterValue;
+							break;
+						case "RestartPageText":
+							RestartPageText = parameterValue;
+							break;
+						case "SaveButtonText":
+							SaveButtonText = parameterValue;
+							break;
+						case "SaveText":
+							SaveText = parameterValue;
+							break;
+						case "ToolTipPlay":
+							ToolTipPlay = parameterValue;
+							break;
+						case "ToolTipNext":
+							ToolTipNext = parameterValue;
+							break;
+						case "ToolTipReady":
+							ToolTipReady = parameterValue;
+							break;
+						case "ToolTipRestart":
+							ToolTipRestart = parameterValue;
+							break;
+						case "ToolTipSave":
+							ToolTipSave = parameterValue;
+							break;
+						 default:
+							break;
+					} 
+			};
+		};
+		
+		// Construct stimulusTable
+		if(tmpStimulusTable1.length > 0) stimulusTable = [tmpStimulusTable0, tmpStimulusTable1];
+
+		stimulusTableJSON = "\` \n" + JSON.stringify(stimulusTable) + "\n\`"
+		stimulusTableJSON = stimulusTableJSON.replace(/\],\[/g, "],\n[");
+			
+		document.getElementById('ExperimentAcronym').value = ExperimentAcronym;
+		document.getElementById('audioBaseURL').value = audioBaseURL;
+		document.getElementById('ShuffleStimuliYes').checked = ShuffleStimuli;
+		document.getElementById('ShuffleStimuliNo').checked = !ShuffleStimuli;
+		document.getElementById('RandomizeABYes').checked = RandomizeAB;
+		document.getElementById('RandomizeABNo').checked = !RandomizeAB;
+		document.getElementById('PracticeItems').value = PracticeItems;
+		
+		document.getElementById('PlayTextButton').value = PlayText;
+		document.getElementById('PlayTextButton').title = ToolTipPlay;
+		document.getElementById('PlayText').value = PlayText;
+		document.getElementById('ToolTipPlay').value = ToolTipPlay;
+		
+		document.getElementById('NextTextButton').value = NextText;
+		document.getElementById('NextTextButton').title = ToolTipNext;
+		document.getElementById('NextText').value = NextText;
+		document.getElementById('ToolTipNext').value = ToolTipNext;
+		document.getElementById('NextAlertText').value = NextAlertText;
+		
+		document.getElementById('ReadyTextButton').value = ReadyText;
+		document.getElementById('ReadyTextButton').title = ToolTipReady;
+		document.getElementById('ReadyText').value = ReadyText;
+		document.getElementById('ToolTipReady').value = ToolTipReady;
+		
+		document.getElementById('RestartPageTextButton').value = RestartPageText;
+		document.getElementById('RestartPageTextButton').title = ToolTipRestart;
+		document.getElementById('RestartPageText').value = RestartPageText;
+		document.getElementById('ToolTipRestart').value = ToolTipRestart;
+		
+		document.getElementById('SaveButtonTextButton').value = SaveButtonText;
+		document.getElementById('SaveButtonTextButton').title = ToolTipSave;
+		document.getElementById('SaveButtonText').value = SaveButtonText;
+		document.getElementById('ToolTipSave').value = ToolTipSave;
+		
+		document.getElementById('SaveText').value = SaveText;
+	};
+	
+	function onlyUnique(value, index, array) {
+			return array.indexOf(value) === index;
+		}
+		
+	var winURL = '';
+	function HTML2URL (pageHTML) {
+		if(winURL.length > 0){
+			URL.revokeObjectURL(winURL);
+			winURL = '';
+		};
+		winURL = URL.createObjectURL(new Blob([pageHTML], { type: "text/html" }));
+		return winURL;
+	};
+	
+	function markdown2HTML () {
+		currentMarkdown = document.getElementById('markdownText').value ;
+		var processedMarkdown = preProcessMD (currentMarkdown);
+		document.getElementById('htmlText').value = window.markdownit({
+			  html: true
+		}).render(processedMarkdown);
+		HTMLchanged = false;
+
+		winURL = HTML2URL ('<!DOCTYPE html><head>\n'+experimentStyles+'\n<body>\n'+document.getElementById('htmlText').value+'\n</body>');
+		document.getElementById('htmlDisplay').src=winURL;
+		
+		// Set up the couter of for the unblock function
+		requiredNames = document.getElementById('htmlText').value.match(/name\s*\=\s*['"](Audio|Question)[^'"]*['"]/ig);
+		requiredNames = requiredNames.map(x => x.replace(/name\s*\=\s*['"]([^'"]*)['"]/, "$1"));
+		requiredNames = requiredNames.filter(onlyUnique);
+		
+		// Set buttons
+		document.getElementById('RenderButtonDisplay').style.backgroundColor = "white";
+		document.getElementById('RenderButtonText').style.backgroundColor = "white";
+		document.getElementById('ShowButton').style.backgroundColor = "red";
+		
+		return document.getElementById('htmlText').value ;
+	}
+	
+	function markdown2HTMLdisplay () {
+		markdown2HTML();
+		
+		// Display in iFrame
+		document.getElementById('htmlText').style.display = 'none';
+		document.getElementById('htmlDisplay').style.display = 'block';
+	}
+	
+	function markdown2HTMLtext () {
+		markdown2HTML();
+		
+		// Display in HTML text
+		document.getElementById('htmlText').style.display = 'block';
+		document.getElementById('htmlDisplay').style.display = 'none';
+	}
+	
+	var HTMLchanged = false;
+	function openAndWrite(preamble, text, postamble) {
+		if(!HTMLchanged){
+			markdown2HTML();
+			text =  document.getElementById('htmlText').value;
+		};
+		
+		// Wipe localstorage
+		localStorage.removeItem(ExperimentAcronym+'stimuluslist');
+		localStorage.removeItem(ExperimentAcronym+'columnnames');
+		localStorage.removeItem(ExperimentAcronym+'answerlist');
+		
+		// Finish HTML and open page
+		var preambleProc = preProcessPreamble(preamble);
+		var postambleProc = preProcessPreamble(postamble);
+		const pageHTML = preambleProc + text + postambleProc;
+		winUrl = HTML2URL (pageHTML);
+		const win = window.open(
+			winUrl,
+			"RenderedHTML",
+			"popup"
+			);
+		if(HTMLchanged){
+			document.getElementById('ShowButton').style.backgroundColor = "pink";
+		} else {
+			document.getElementById('ShowButton').style.backgroundColor = "white";
+		};
+	}
+	
+	function saveMarkdown() {
+			var mdBlob = new Blob([document.getElementById('markdownText').value], {type: 'text/plain'});
+			var mdBlobUrl = URL.createObjectURL(mdBlob);
+			const anchor = document.createElement('a');
+			anchor.href = mdBlobUrl;
+			anchor.target = "_blank";
+			anchor.download = ExperimentAcronym+"_experiment.md";
+
+			 // Auto click on a element, trigger the file download
+			 anchor.click();
+
+			 // This is required
+			 URL.revokeObjectURL(mdBlobUrl);
+			 
+			 // Unflag Save button
+			 document.getElementById('SaveMDbutton').style.backgroundColor = "white";
+		};
+	
+	function saveHTML() {
+			// Update HTML id HTML has not been edited
+			if(!HTMLchanged){
+				markdown2HTML();
+			};
+			var preambleProc = preProcessPreamble(preamble);
+			var postambleProc = preProcessPreamble(postamble);
+			const pageHTML = preambleProc + document.getElementById('htmlText').value + postambleProc;
+			var htmlBlob = new Blob([pageHTML], { type: "text/html" });
+			var htmlBlobUrl = URL.createObjectURL(htmlBlob);
+			const anchor = document.createElement('a');
+			anchor.href = htmlBlobUrl;
+			anchor.target = "_blank";
+			anchor.download = ExperimentAcronym+"_experiment.html";
+
+			 // Auto click on a element, trigger the file download
+			 anchor.click();
+
+			 // This is required
+			 URL.revokeObjectURL(htmlBlobUrl);
+		};
+	
+	function saveStimulusTableJSON() {
+			var stimBlob = new Blob(["var stimulusTableJSON = \`\n"+stimulusTableJSON+"\n\`;"], {type: 'text/plain'});
+			var stimBlobUrl = URL.createObjectURL(stimBlob);
+			const anchor = document.createElement('a');
+			anchor.href = stimBlobUrl;
+			anchor.target = "_blank";
+			anchor.download = ExperimentAcronym+"_stimuluslist.js";
+
+			 // Auto click on a element, trigger the file download
+			 anchor.click();
+
+			 // This is required
+			 URL.revokeObjectURL(stimBlobUrl);
+		};
+	
+	var buttonCounter = 0;
+	function brackets2radiobuttons (text, offset, string) {
+		buttonCounter += 1;
+		result = '<input type="radio" value="'+buttonCounter+'" name="QuestionXXXX" id="QuestionXXXX.'+ buttonCounter +'" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value">';
+		
+		return result;
+	};
+
+	function replaceRadioButons (text) {
+		return text.replace(/\(\(\)\)/g, brackets2radiobuttons)
+	};
+	
+	function replaceVASslider (text) {
+		return text.replace(/\>\>[-]{10,}\<\</g,	'<input type="range" min="1" max="1000" value="500" class="slider" id="QuestionXXXX" name="QuestionXXXX" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value" style="width:100%;">')
+	};
+	function replaceVASsliderOLD (text) {
+		return text.replace(/\>\>[-]{10,}\<\</g,	'<div class="slidecontainer" style="text-align: center;"><input type="range" min="1" max="1000" value="500" class="slider" id="QuestionXXXX" name="QuestionXXXX" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value" style="width:100%;"></div>')
+	};
+	
+	function replaceAudio (text) {
+		var audioNamesRaw = text.match(/\[\[\[([^\]]+)\]\]\]/g);
+		audioNames.push(audioNamesRaw.map(x => x.replace(/[\[\]]/g, '')));
+		audioNames = audioNames.flat();
+		
+		
+		return text.replace(/\[\[\[([^\]]*)\]\]\]/g, '<audio id="Audio$1" name="Audio$1" src="" preload="auto" title="" onplaying="unblockNext (\'Audio$1\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$1" data-toggle="tooltip" title="'+ToolTipPlay+'"><button onclick="document.getElementById(\'Audio$1\').play();" style="font-size:30px;background-color:white;"><strong><div id="PlayAudio$1Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
+		
+	};
+
+	function preProcessMD (text) {
+		var lines = text.split(/\r?\n|\r|\n/g);
+		var questionNum = 0;
+		audioNames = [];
+		for(var i=0; i < lines.length; ++i){
+			// Stimuli
+			if(lines[i].match(/\[\[\[[^\]]*\]\]\]/)){
+				lines[i] = replaceAudio(lines[i]);
+			};
+			
+			// Input
+			buttonCounter = 0;
+			if(lines[i].match(/\(\(\)\)/)){
+				++questionNum;
+				lines[i] = replaceRadioButons (lines[i]);
+				lines[i] = lines[i].replace(/XXXX/g, questionNum);
+			};
+			if(lines[i].match(/\>\>[-]{10,}\<\</)){
+				++questionNum;
+				lines[i] = replaceVASslider (lines[i]);
+				lines[i] = lines[i].replace(/XXXX/g, questionNum);
+			};
+		}; 
+		// Ready number of scales
+		NumberOfScales = questionNum;
+		var processedText = lines.join('\n');
+		return processedText;
+	};
+	
+	function preProcessPreamble (text) {
+			var processedPreamble = text.replace(/XXNUMBEROFSCALESXX/g, NumberOfScales);
+			processedPreamble = processedPreamble.replace(/XXEXPERIMENTNAMEXX/g, ExperimentAcronym);
+			processedPreamble = processedPreamble.replace(/XXRANDOMIZEABXX/g, RandomizeAB);
+			processedPreamble = processedPreamble.replace(/XXSHUFFLESTIMULUSLISTXX/g, ShuffleStimuli);
+			processedPreamble = processedPreamble.replace(/XXaudioBaseURLXX/g, audioBaseURL);
+			processedPreamble = processedPreamble.replace(/XXPracticeItemsXX/g, PracticeItems);
+			processedPreamble = processedPreamble.replace(/XXNextTextXX/g, NextText);
+			processedPreamble = processedPreamble.replace(/XXNextAlertTextXX/g, NextAlertText);
+			processedPreamble = processedPreamble.replace(/XXReadyTextXX/g, ReadyText);
+			processedPreamble = processedPreamble.replace(/XXPlayTextXX/g, PlayText);
+			processedPreamble = processedPreamble.replace(/XXRestartPageTextXX/g, RestartPageText);
+			processedPreamble = processedPreamble.replace(/XXSaveTextXX/g, SaveText);
+			processedPreamble = processedPreamble.replace(/XXSaveButtonTextXX/g, SaveButtonText);
+			processedPreamble = processedPreamble.replace(/XXToolTipNextXX/g, ToolTipNext);
+			processedPreamble = processedPreamble.replace(/XXToolTipReadyXX/g, ToolTipReady);
+			processedPreamble = processedPreamble.replace(/XXToolTipRestartXX/g, ToolTipRestart);
+			processedPreamble = processedPreamble.replace(/XXToolTipSaveXX/g, ToolTipSave);
+			processedPreamble = processedPreamble.replace(/XXstimulusTableJSONXX/g, stimulusTableJSON);
+			
+			processedPreamble = processedPreamble.replace(/var audioNames\s*\=\s*\[\];/, 'var audioNames = ["'+audioNames.join('", "')+'"];');
+			processedPreamble = processedPreamble.replace(/var requiredNames\s*\=\s*\[\];/, 'var requiredNames = ["'+requiredNames.join('", "')+'"];');
+			return processedPreamble;
+	};
+	
+</script>
+
+</head>
+<body onload="initializeMarkdown();">
+
+<h2>Create an experiment</h2>
+
+
+<div style="width: 100%; overflow: hidden;">
+	<div style="width: 50%; float: left;"> 
+		<table style="width:80%">
+			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+			<tr>
+				<td>Select an acronym for <br/> the experiment (no spaces): </td><td><input type="text" id="ExperimentAcronym" name="ExperimentAcronym" value="name_without_spaces" title='This acronym will be used for the name of the experiment files' onfocus="if(this.value=='name_without_spaces')this.value='';" onchange="this.value=this.value.replace(/\s+/g, '_'); ExperimentAcronym=this.value; parameters2Markdown();" > </td>
+			</tr>
+			<tr>
+				<td>Randomize stimuli: </td><td>Yes  <input type="radio" id="ShuffleStimuliYes" name="ShuffleStimuli" value="Yes" onchange="ShuffleStimuli=true;parameters2Markdown();"> No <input type="radio" id="ShuffleStimuliNo" name="ShuffleStimuli" value="No" onchange="ShuffleStimuli=false;parameters2Markdown();"> </td>
+			</tr>
+			<tr>
+				<td>Number of practice items:  </td><td><input type="text" id="PracticeItems" name="PracticeItems" title='A positive value, n, copies the last n (randomized) stimuli of the list in reverse order to the front of the list. The list of stimuli will be n items longer. A negative, -n, value will use the first n values of the list in the unrandomized order given. The number of stimuli stays the same with a negative n.' value="" onchange="PracticeItems=this.value;parameters2Markdown();"> </td>
+				</tr>
+			<tr>
+				<td>Randomize AB stimulus pairs:  </td><td>Yes <input type="radio" id="RandomizeABYes" name="RandomizeAB" value="Yes" onchange="RandomizeAB=true;parameters2Markdown();"> No <input type="radio" id="RandomizeABNo" name="RandomizeAB" value="No" onchange="RandomizeAB=false;parameters2Markdown();"> </td>
+			</tr>
+			<tr>
+				<td>URL/path to audio:  </td><td><input type="text" id="audioBaseURL" name="audioBaseURL" value="./Stimuli/" title='This can be a URL or local path to a folder with audio' onchange="this.value=this.value.replace(/[<>'"]/g, '');audioBaseURL=this.value; parameters2Markdown();" ></td>
+			</tr>
+			<tr>
+			<td colspan=2> 
+					<form action="javascript:readTableFromFile ('StimulusFileUpload'); void(0);" accept="text/plain">
+					<label for="StimulusFileUpload" title='Create a stimulis file as a table with column headers in a spreadsheet and save it as a .csv file. Open it here to insert the stimuli into the experiment file. From here, you can download it as a JSON .js file to have a way to edit it later independently of the experiment HTML file.'>Open a Stimulus Table (.csv):</label>
+					<input type="file" id="StimulusFileUpload" onchange="document.getElementById('csv-upload-button').style.backgroundColor='MediumAquaMarine'"> 
+					<button id="csv-upload-button" onclick="this.style.backgroundColor='white'" title='Open the .csv stimulus table from the chosen file.'> Upload </button>
+					</form>	
+				</td>
+			</tr>
+			<tr>
+				<td>Separator for stimulus table: </td>
+				<td style='text-align:right;'>
+						<select id="Separator" title='Select the separator used in the .csv stimulus table. This page cannot handle fancy use of ,-commas in a literal ,-comma separated values table.'>
+						  <option value="automatic">automatic</option>
+						  <option value="semicolon">semicolon</option>
+						  <option value="tab">tab</option>
+						  <option value="comma">comma</option>
+						</select> 
+					&emsp;&emsp;
+						<input type="button" id='SaveStimulusTable' value="Download stimuli" title='Save a stimulus JSON .js file for automatic opening during experiments' onclick="saveStimulusTableJSON()" style='background-color:gray;visibility:hidden'></td>
+				</td>
+			</tr>
+			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+			<tr>
+			<td colspan=2><form action="javascript:readMDFromFile ('MarkdownFileUpload'); void(0);" accept="text/plain">
+					<label for="MarkdownFileUpload">Open a Markdown file (.md):</label> <input type="file" id="MarkdownFileUpload" onchange="document.getElementById('md-upload-button').style.backgroundColor='MediumAquaMarine'"> 
+					<button id="md-upload-button" onclick="this.style.backgroundColor='white'"> Upload </button>
+				</form></td>
+			</tr>
+			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+		</table>
+	</div>
+	<div style="width: 50%; float: right;"> 
+		<table style="width:80%">
+		<tr  style='font-size:80%'><th>Fixed&nbsp;texts</th><th>Button</td><th>Text</th><th>Tooltip</th></tr>
+		<tr>
+			<td  style='font-size:80%'>Play&nbsp;text: </td>
+			<td><input type="button" id="PlayTextButton" value=""  title="" style="background-color: MediumAquaMarine"></td>
+			<td><input type="text" id="PlayText" name="PlayText" value='' onfocus="if(this.value==PlayText)this.value='';" onchange="PlayText=this.value;document.getElementById('PlayTextButton').value=this.value;parameters2Markdown();" size=15></td>
+			<td><input type="text" id="ToolTipPlay" name="ToolTipPlay" value='' onchange="ToolTipPlay=this.value;document.getElementById('PlayTextButton').title=this.value;parameters2Markdown();" size=35></td>
+		</tr>
+		<tr>
+			<td  style='font-size:80%'>Next&nbsp;text: </td>
+			<td><input type="button" id="NextTextButton" value="" title="" style="background-color: MediumAquaMarine"> </td>
+			<td><input type="text" id="NextText" name="NextText" value='' onfocus="if(this.value==NextText)this.value='';" onchange="NextText=this.value;document.getElementById('NextTextButton').value=this.value;parameters2Markdown();" size=15></td>
+			<td><input type="text" id="ToolTipNext" name="ToolTipNext" value='' onchange="ToolTipNext=this.value;document.getElementById('NextTextButton').title=this.value;parameters2Markdown();" size=35></td>
+		</tr>
+		<tr>
+			<td  style='font-size:80%'>Next&nbsp;page&nbsp;Alert: </td>
+			<td></td>
+			<td colspan="2"><input type="text" id="NextAlertText" name="NextText" value='' onfocus="if(this.value==NextText)this.value='';" onchange="NextAlertText=this.value;parameters2Markdown();" size=35></td>
+		</tr>
+		<tr>
+			<td  style='font-size:80%'>Ready&nbsp;text: </td>
+			<td><input type="button" id="ReadyTextButton" value="" title="" style="background-color: MediumAquaMarine"> </td>
+			<td><input type="text" id="ReadyText" name="ReadyText" value='' onfocus="if(this.value==ReadyText)this.value='';" onchange="ReadyText=this.value;document.getElementById('ReadyTextButton').value=this.value;parameters2Markdown();" size=15></td>
+			<td><input type="text" id="ToolTipReady" name="ToolTipReady" value='' onchange="ToolTipReady=this.value;document.getElementById('ReadyTextButton').title=this.value;parameters2Markdown();" size=35></td>
+		</tr>
+		<tr>
+			<td  style='font-size:80%'>Restart&nbsp;text: </td>
+			<td><input type="button" id="RestartPageTextButton" value=""  title="" style="background-color: MediumAquaMarine"></td>
+			<td><input type="text" id="RestartPageText" name="RestartPageText" value='' onfocus="if(this.value==RestartPageText)this.value='';" onchange="RestartPageText=this.value;document.getElementById('RestartPageTextButton').value=this.value;parameters2Markdown();" size=15> </td>
+			<td><input type="text" id="ToolTipRestart" name="ToolTipRestart" value='' onfocus="if(this.value==ToolTipRestart)this.value='';" onchange="ToolTipRestart=this.value;document.getElementById('NextTextButton').title=this.value;parameters2Markdown();" size=35></td>
+		</tr>
+		<tr>
+			<td  style='font-size:80%'>Save&nbsp;button&nbsp;text: </td>
+			<td><input type="button" id="SaveButtonTextButton" value=""  title="" style="background-color: MediumAquaMarine"> </td>
+			<td><input type="text" id="SaveButtonText" name="SaveButtonText" value='' onfocus="if(this.value==SaveButtonText)this.value='';" onchange="SaveButtonText=this.value;document.getElementById('SaveButtonTextButton').value=this.value;parameters2Markdown();" size=15></td>
+			<td><input type="text" id="ToolTipSave" name="ToolTipSave" value='' onchange="ToolTipSave=this.value;document.getElementById('NextTextButton').title=this.value;parameters2Markdown();" size=35></td>
+		</tr>
+		<tr>
+			<td  style='font-size:80%'>Save&nbsp;text: </td><td>&nbsp;</td>
+			<td colspan="2"><input type="textarea" rows=2 id="SaveText" name="SaveText" value='' onchange="SaveText=this.value;parameters2Markdown();" size=50></td>
+		</tr>
+		<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+		</table>
+	</div>
+</div>
+
+<div style="width: 100%; overflow: hidden;">
+	<div style="width: 50%; float: left;"> 
+		<table>
+			<tr style="width:80%">
+			<td><input type="button" value="Reset" onclick="document.getElementById('markdownText').value = initialMarkdown;"</td>
+			<td><input type="button" value="< Undo" onclick="document.getElementById('markdownText').value = markdownUndo();"</td>
+			<td><input type="button" value="Current" onclick="document.getElementById('markdownText').value = markdownCurrent();"</td>
+			<td><input type="button" value="Redo >" onclick="document.getElementById('markdownText').value = markdownRedo();"</td>
+			<td><input type="button" value="Clear" onclick="document.getElementById('markdownText').value = ' ';"</td>
+			<td  width="35%">&emsp;</td>
+			<td><input type="button" id='SaveMDbutton' value="Save MD..." onclick="saveMarkdown() "</td>
+			</tr>
+		</table>
+
+		<textarea id="markdownText" rows=50 cols=80 onfocusout="markdownPush();" onchange='markdown2HTML();flagButtons ();'>
+		</textarea>
+	</div>
+
+	<div style="width: 50%; float: right;"> 
+		<table>
+			<tr style="width:80%">
+			<td><input type="button" id='RenderButtonDisplay' value="Display HTML" onclick="markdown2HTMLdisplay ()"  title='The HTML displayed here is non-functional. Click the "Show Page" button to open a functional page'></td>
+			<td><input type="button" id='RenderButtonText' value="HTML text" onclick="markdown2HTMLtext ()"></td>
+			<td><input type="button" id='ShowButton' value="Show Page" onclick="openAndWrite(preamble, document.getElementById('htmlText').value, postamble);"></td>
+			<td  width="35%">&emsp;</td>
+			<td><input type="button" value="Save HTML..." onclick="saveHTML() "</td>
+		</table>
+
+		<textarea id="htmlText" rows=50 cols=80' onchange="HTMLchanged = true; document.getElementById('ShowButton').style.backgroundColor = 'red';" style='display:none;'>
+		</textarea>
+		<div style='zoom: 0.75' title='The HTML displayed here is non-functional. Click the "Show Page" button to open a functional page'>
+		<iframe src="" id='htmlDisplay' name='htmlDisplay'  scrolling="auto" width=127% height=1550 style='zoom: 0.75;-moz-transform: scale(0.75);  -moz-transform-origin: 0 0;  -o-transform: scale(0.75);  -o-transform-origin: 0 0;  -webkit-transform: scale(0.75);  -webkit-transform-origin: 0 0;'></iframe>
+		</div>
+	</div>
+</div>
+
+</body>
