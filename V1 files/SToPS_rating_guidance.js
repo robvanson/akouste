@@ -139,3 +139,41 @@ var SToPS_guidance_Q10 = `
 2. Moderate impaired fluency - 5 – 10 syllable phrasing per breath group 
 3. Severely impaired fluency - phrasing of 5 syllables or less. 
 `
+
+var SToPS_guidance_Q11 = `
+11. Impairment of Articulatory Precision
+
+0. “Average” precision of articulation as defined as a score of 1 or 2 out of 6 in the Vocal Profile Analysis. 
+1. Habitually lax articulation (score of 3 or 4 on the VPA). 
+2. Markedly habitual lax articulation (VPA 5 or 6) or mild dysarthria. A naïve listener would describe this as “mumbling” due to lack of precision or “slurring” due to mild dysarthria. 
+3. Moderate - severe dysarthria or a very severe premorbid articulation disorder; there would be marked intelligibility issues even if the subject were still a laryngeal speaker. 
+`
+
+var SToPS_guidance_Q12 = `
+12. Positive features of articulation
+
+Certain speakers have speech diction, intonation, and/or pause features that have an overall positive effect but are not part of the voice signal. These have the potential to positively affect the judgement of naive listerners.
+0. No specific positive features are judged to be present.
+1. Positive features that are above average in comparison to laryngectomy peers; prosody (intonation) judged as present.
+2. Excellent phrasing, diction, and intonation.
+3. Outstanding features such as noted in newsreaders, with ormal or almost normal intonation present.
+`
+
+var SToPS_guidance_Q13 = `
+13. Accent
+
+0. No discernible regional accent. 
+1. Mild accent. 
+2. Moderate accent. 
+3. Marked accent. 
+`
+
+var SToPS_guidance_Q14 = `
+14. Poor reader
+
+0. No problems with reading aloud. 
+1. Mild problem with reading aloud. 
+2. Moderate problem. 
+3. Severe problem. 
+`
+
