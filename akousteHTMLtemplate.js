@@ -68,8 +68,10 @@ var CurrentExperimentID = "XXEXPERIMENTNAMEXX";
 var audioBaseURL = 'XXaudioBaseURLXX';
 var stimulusTable = [];
 var audioNames = [];
+var textNames = [];
 var columnNames = [];
 var audioPos = [];
+var textPos = [];
 
 var answerList = [];
 var requiredNames = [];
@@ -81,6 +83,7 @@ var answer = new Array(NumberOfScales).fill(-1);
 var stimulusNbr = 0;
 function loadList () {
 	columnNames = audioNames;
+	columnNames.concat(textNames).flat();
 	// Check whether there is an ongoing experiment
 	if(typeof(Storage) !== "undefined" && localStorage.getItem(CurrentExperimentID+'stimuluslist')){
 		// Store
@@ -134,6 +137,11 @@ function loadList () {
 			audioPos.push(columnNames.indexOf(audioNames[i]));
 			if(audioPos[i] < 0)audioPos[i] = -1;
 		};
+		textPos = [];
+		for(i in textNames){
+			textPos.push(columnNames.indexOf(textNames[i]));
+			if(textPos[i] < 0)textPos[i] = -1;
+		};
 
 		// Prepare the stimulus list
 		if(RandomizeAB){
@@ -167,6 +175,11 @@ function loadList () {
 	for(i in audioNames){
 		audioPos.push(columnNames.indexOf(audioNames[i]));
 		if(audioPos[i] < 0)audioPos[i] = -1;
+	};
+	textPos = [];
+	for(i in textNames){
+		textPos.push(columnNames.indexOf(textNames[i]));
+		if(textPos[i] < 0)textPos[i] = -1;
 	};
 	
 	document.getElementById('StimulusNumberText').innerHTML = document.getElementById('StimulusNumberText').innerHTML.replace(/[0-9]+/g, (data.length - stimulusNbr)+"");
@@ -212,6 +225,12 @@ function setAudio(i, stimulusTable) {
 			document.getElementById('Audio'+audioNames[i]).parentNode.parentNode.style.backgroundColor = "#F0F0F0";
 		} else {
 			alert("No Audio " + audioNames[i]);
+		};
+	};
+	for(var i in  textNames) {
+		if(stimulusTable[1][stimulusNbr][textPos[i]] != undefined && stimulusTable[1][stimulusNbr][textPos[i]].length > 0){
+			var currentText = stimulusTable[1][stimulusNbr][textPos[i]];
+			document.getElementById('Text'+textNames[i]).innerText = currentText;
 		};
 	};
 
@@ -370,6 +389,25 @@ function shuffleAB(stimarray, posA, posB) {
 		currentSubarray[posB] = temporaryValue;
 	};
 	currentSubarray.push(switchAB)
+  }
+
+  return stimarray;
+}
+
+function switchAB(stimarray, posA, posB) {
+  var temporaryValue, switchAB, currentSubarray;
+  // While there remain elements to shuffle...
+  for (var i=0; i<stimarray.length; i++) {
+	currentSubarray = stimarray[i];
+	switchAB = currentSubarray[currentSubarray.length - 1];
+console.log(switchAB);
+	if (switchAB){
+		temporaryValue = currentSubarray[posA];
+		currentSubarray[posA] = currentSubarray[posB];
+		currentSubarray[posB] = temporaryValue;
+console.log(currentSubarray[posA]);
+console.log(currentSubarray[posB]);
+	};
   }
 
   return stimarray;

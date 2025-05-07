@@ -25,8 +25,8 @@
 |    |            |             |              |     |
 | -: | -------:  | :------:  |  :-------  | :- |
 |    | [[[A]]]   |             | [[[B]]]    |      |
-|    |            |   [[[X]]]  |              |       |
-|    |  {{{LangA}}}  | {{{LangX}}} | {{{LangB}}}  |       |
+|    | {{{LangA}}} |   [[[X]]]  |  {{{LangB}}}  |       |
+|    |               | {{{LangX}}} |                |       |
 
 [//comment]: // "Do not change the items between <>-brackets, unless you know what you are doing."
 [//comment]: // "You can change the '0 answers to go' text, but leave a 0 (or any number)"
@@ -677,7 +677,7 @@ Tables are defined using the |-bar character together with the :--: separator. S
 
 			textNames = textNames.flat();
 
-			text = text.replace(/\{\{\{([^\}\|]*)(\|([^\}]*)\})?\}\}\}/g, '<div id="$1" name="$1" style="$2"></div>');
+			text = text.replace(/\{\{\{([^\}\|]*)(\|([^\}]*)\})?\}\}\}/g, '<div id="Text$1" name="Text$1" style="$2"></div>');
 		};
 	
 		return text;	
@@ -707,6 +707,7 @@ Tables are defined using the |-bar character together with the :--: separator. S
 		var lines = text.split(/\r?\n|\r|\n/g);
 		var questionNum = 0;
 		audioNames = [];
+		textNames = [];
 		for(var i=0; i < lines.length; ++i){
 			// Stimuli
 			if(lines[i].match(/\[\[\[[^\]]*\]\]\]/)){
@@ -757,6 +758,8 @@ Tables are defined using the |-bar character together with the :--: separator. S
 			processedPreamble = processedPreamble.replace(/XXstimulusTableJSONXX/g, stimulusTableJSON);
 			
 			processedPreamble = processedPreamble.replace(/var audioNames\s*\=\s*\[\];/, 'var audioNames = ["'+audioNames.join('", "')+'"];');
+console.log(textNames)
+			processedPreamble = processedPreamble.replace(/var textNames\s*\=\s*\[\];/, 'var textNames = ["'+textNames.join('", "')+'"];');
 			processedPreamble = processedPreamble.replace(/var requiredNames\s*\=\s*\[\];/, 'var requiredNames = ["'+requiredNames.join('", "')+'"];');
 			return processedPreamble;
 	};

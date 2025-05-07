@@ -9,8 +9,8 @@ initialMarkdown = `
 |    |            |             |              |     |
 | -: | -------:  | :------:  |  :-------  | :- |
 |    | [[[A]]]   |             | [[[B]]]    |      |
-|    |            |   [[[X]]]  |              |       |
-|    |  {{{LangA}}}  | {{{LangX}}} | {{{LangB}}}  |       |
+|    | {{{LangA}}} |   [[[X]]]  |  {{{LangB}}}  |       |
+|    |               | {{{LangX}}} |                |       |
 
 [//comment]: // "Do not change the items between <>-brackets, unless you know what you are doing."
 [//comment]: // "You can change the '0 answers to go' text, but leave a 0 (or any number)"
