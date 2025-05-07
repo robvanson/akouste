@@ -6,6 +6,8 @@ The original akoúste v1 has moved to [Github akouste-v1](https://github.com/rob
 
 #  akoúste  
 
+[Try the demo](https://robvanson.github.io/akouste/akousteCreate.html)
+
 ## Client-side listening experiments in the browser
 
 The akoúste project aims to provide tools for simple, adaptable listening experiments aimed at situations where the use of a dynamic host server storing and serving the speech and collecting the responses over the internet is unpractical or unwanted, e.g., due to privacy concerns. Akoúste pages can be used both on desk/laptops and on mobile devices, with and without a network connection.
