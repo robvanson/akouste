@@ -26,7 +26,7 @@ It is possible to create *<name>\_stimuluslist.js* files to use different stimul
 
 <details>
 
-<summary>## User Interface<summary>
+<summary>## User Interface</summary>
 
 The editor is a web page with on top two blocks of experiment settings. Top-left are setting relevant to the stimulus presentation. Top-right the texts used for the buttons and information to steer the responses and experiment.
 
