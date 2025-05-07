@@ -9,6 +9,7 @@
 | -: | -------:  | :------:  |  :-------  | :- |
 |    | [[[A]]]   |             | [[[B]]]    |      |
 |    |            |   [[[X]]]  |              |       |
+|    |  {{{LangA}}}  | {{{LangX}}} | {{{LangB}}}  |       |
 
 [//comment]: // "Do not change the items between <>-brackets, unless you know what you are doing."
 [//comment]: // "You can change the '0 answers to go' text, but leave a 0 (or any number)"
@@ -78,6 +79,6 @@ Tables are defined using the |-bar character together with the :--: separator. S
 [//tooltiptext]: # "ToolTipSave:Save the answer to a file"
 [//comment]: # "----------"
 [//comment]: # "These are stimuli for this experiment"
-[//stimulus0]: # "A,B,X"
-[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg,https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg,https://upload.wikimedia.org/wikipedia/commons/d/db/En-uk-illustrate.ogg"
+[//stimulus0]: # "A,B,X,LangA,LangB,LangX"
+[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg,https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg,https://upload.wikimedia.org/wikipedia/commons/d/db/En-uk-illustrate.ogg,De,Fr,En"
 [//comment]: # "----------"

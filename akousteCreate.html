@@ -26,6 +26,7 @@
 | -: | -------:  | :------:  |  :-------  | :- |
 |    | [[[A]]]   |             | [[[B]]]    |      |
 |    |            |   [[[X]]]  |              |       |
+|    |  {{{LangA}}}  | {{{LangX}}} | {{{LangB}}}  |       |
 
 [//comment]: // "Do not change the items between <>-brackets, unless you know what you are doing."
 [//comment]: // "You can change the '0 answers to go' text, but leave a 0 (or any number)"
@@ -95,8 +96,8 @@ Tables are defined using the |-bar character together with the :--: separator. S
 [//tooltiptext]: # "ToolTipSave:Save the answer to a file"
 [//comment]: # "----------"
 [//comment]: # "These are stimuli for this experiment"
-[//stimulus0]: # "A,B,X"
-[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg,https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg,https://upload.wikimedia.org/wikipedia/commons/d/db/En-uk-illustrate.ogg"
+[//stimulus0]: # "A,B,X,LangA,LangB,LangX"
+[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg,https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg,https://upload.wikimedia.org/wikipedia/commons/d/db/En-uk-illustrate.ogg,De,Fr,En"
 [//comment]: # "----------"
 
 `
@@ -224,6 +225,7 @@ Tables are defined using the |-bar character together with the :--: separator. S
 	var stimulusTableJSON = '[["A","B","X"], ["beep.wav", "beep.wav", "beep.wav"]]';
 	var requiredNames = [];
 	var audioNames = [];
+	var textNames = [];
 	var markdownStack = [];
 	var currentMarkdown = "";
 	var editPosition = 1;
@@ -664,12 +666,27 @@ Tables are defined using the |-bar character together with the :--: separator. S
 	function replaceVASslider (text) {
 		return text.replace(/\>\>[-]{10,}\<\</g,	'<input type="range" min="1" max="1000" value="500" class="slider" id="QuestionXXXX" name="QuestionXXXX" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value" style="width:100%;">')
 	};
-	function replaceVASsliderOLD (text) {
-		return text.replace(/\>\>[-]{10,}\<\</g,	'<div class="slidecontainer" style="text-align: center;"><input type="range" min="1" max="1000" value="500" class="slider" id="QuestionXXXX" name="QuestionXXXX" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value" style="width:100%;"></div>')
+	
+	function replaceTextItems (text) {
+		var textNamesRaw = text.match(/\{\{\{([^\}]+)\}\}\}/g);
+
+		if(textNamesRaw.length > 0){
+			// Seperate text names from text
+			textNamesRaw = textNamesRaw.map(x => x.replace(/^\{+([^\|]*\|)?([^\}]*)\}+$/g, "$2"))
+			textNames.push(textNamesRaw);
+
+			textNames = textNames.flat();
+
+			text = text.replace(/\{\{\{([^\}\|]*)(\|([^\}]*)\})?\}\}\}/g, '<div id="$1" name="$1" style="$2"></div>');
+		};
+	
+		return text;	
 	};
 	
 	function replaceAudio (text) {
 		var audioNamesRaw = text.match(/\[\[\[([^\]]+)\]\]\]/g);
+		
+		
 		// Remove direct audio links
 		audioNamesRaw = audioNamesRaw.filter(function(x){return !x.match(/[\>\<]/)})
 		// Seperate audio names from text
@@ -694,6 +711,10 @@ Tables are defined using the |-bar character together with the :--: separator. S
 			// Stimuli
 			if(lines[i].match(/\[\[\[[^\]]*\]\]\]/)){
 				lines[i] = replaceAudio(lines[i]);
+			};
+
+			if(lines[i].match(/\{\{\{[^\}]*\}\}\}/)){
+				lines[i] = replaceTextItems(lines[i]);
 			};
 			
 			// Input
