@@ -695,7 +695,7 @@ Tables are defined using the |-bar character together with the :--: separator. S
 
 		audioNames = audioNames.flat();
 
-		text = text.replace(/\[\[\[([^\]\|]*)\|\<([^\]]*)\>(\{([^\}]+)\})?\]\]\]/g, '<audio id="Audio$1" name="Audio$1" src="$2" preload="auto" title="" ></audio><button onclick="document.getElementById(\'Audio$1\').play();" style="font-size:30px;background-color:white;$4;"><strong><div id="PlayAudio$1Text" style="background-color:white;">$1</div></strong></button>');
+		text = text.replace(/\[\[\[([^\]\|]*)\|\<([^\]]*)\>(\{([^\}]+)\})?\]\]\]/g, '<audio id="Fixed$1" name="Fixed$1" src="$2" preload="auto" title="" ></audio><button onclick="document.getElementById(\'Fixed$1\').play();" style="font-size:30px;background-color:white;$4;"><strong><div id="PlayFixed$1Text" style="background-color:white;">$1</div></strong></button>');
 				
 		text = text.replace(/\[\[\[([^\]\|]*)\|([^\]\{]*)(\{([^\}]+)\})?\]\]\]/g, '<audio id="Audio$2" name="Audio$2" src="" preload="auto" title="" onplaying="unblockNext (\'Audio$2\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$2" data-toggle="tooltip" title="'+ToolTipPlay+'"><button onclick="document.getElementById(\'Audio$2\').play();" style="font-size:30px;background-color:white;$4;"><strong><div id="PlayAudio$2Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
 		

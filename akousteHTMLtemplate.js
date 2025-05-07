@@ -146,6 +146,7 @@ function loadList () {
 		// Prepare the stimulus list
 		if(RandomizeAB){
 			data = shuffleAB(data, audioPos[0], audioPos[1]);
+			data = switchAB(data, textPos[0], textPos[1]);
 		};
 
 		if(ShuffleStimulusList){
@@ -400,13 +401,10 @@ function switchAB(stimarray, posA, posB) {
   for (var i=0; i<stimarray.length; i++) {
 	currentSubarray = stimarray[i];
 	switchAB = currentSubarray[currentSubarray.length - 1];
-console.log(switchAB);
 	if (switchAB){
 		temporaryValue = currentSubarray[posA];
 		currentSubarray[posA] = currentSubarray[posB];
 		currentSubarray[posB] = temporaryValue;
-console.log(currentSubarray[posA]);
-console.log(currentSubarray[posB]);
 	};
   }
 
