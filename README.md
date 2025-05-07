@@ -16,7 +16,7 @@ Akoúste experiments can as easily be run off thumbdrives, or local hard drives,
 
 ## Under the hood
 
-The akoúste experiments are constructed as a self-contained web page in plain HTML + CSS + Javascript. Experiments can be constructed in a [self contained Web page editor](https://robvanson.github.io/akouste/akousteCreate.html). The basis is a markdown text file using [markdown-it](https://github.com/markdown-it/markdown-it) ([demo](https://markdown-it.github.io/)). The markdown file will have experimental settings and the stimulus table appended in a comment section.
+The akoúste experiments are constructed as a self-contained web page in plain HTML + CSS + Javascript. Experiments can be constructed in a [self contained Web page editor](https://robvanson.github.io/akouste/akousteCreate.html). The basis is a markdown text file using [markdown-it](https://github.com/markdown-it/markdown-it) ([demo](https://markdown-it.github.io/)). The markdown file will have experimental settings and the stimulus table appended in a comment section at the end. This information can be edited directly in the markdown file, but care should be taken as the formatting requirements are rather strict.
 
 Stimulus tables are incorporated into the experiment web page from CSV tables. Stimuli can be presented with fixed or dynamic practice items, in pseudo-randomized order, with pseudo-randomized pairs if two sounds are to be presented. The answers are added as seperate columns to the stimulus table Stimulus tables can contain more information than just the stimuli which makes the results tables directly usable for analysis.
 
@@ -28,10 +28,12 @@ It is possible to create *<name>\_stimuluslist.js* files to use different stimul
 
 <summary><h2>User Interface</h2></summary>
 
-The editor is a web page with on top two blocks of experiment settings. Top-left are setting relevant to the stimulus presentation. Top-right the texts used for the buttons and information to steer the responses and experiment.
+The editor is a web page with on top two blocks of experiment settings. Top-left are settings relevant to the stimulus presentation. Top-right the texts used for the buttons and information to steer the responses and experiment.
 
-At the bottom are two windows. To the left is the Markdown edit window. The text and audio presented during the experiment can be edited and formated here. To the right is a Display/HTML window. It shows the rendered HTML created from the Markdown (*Display HTML*) or the HTML source text (*HTML text*). This is just the HTML created from the Markdown. This is not functional. The HTML source text can be edited directly. However, this will disappear easily, so any changes should be saved.
+At the bottom are two windows. To the left is the Markdown edit window. The text and audio presented during the experiment can be edited and formated here. To the right is a Display/HTML window. It shows the rendered HTML created from the Markdown (*Display HTML*) or the HTML source text (**HTML text**). This is just the HTML created from the Markdown. This is not functional. The HTML source text can be edited directly. However, this will disappear easily, so any changes should be saved.
 
-When the *Show Page* button is clicked, a popup with a functioning page will appear. This shows the experiment as it appears to the actual user. If the experiment is ready to be deployed, it can be saved using the *Save HTML...* button on top of the HTML window. If work has to be interrupted before it is finished, the Markdown window can be saved using the *Save MD...* button. The resulting Markdown file will contain all information to continue later. It can be opened again with the *Open a Markdown file* selection/upload button.
+When the *Show Page* button is clicked, a popup with a functioning page will appear. This shows the experiment as it appears to the actual user. This page is fully functional. However, if the page refers to stimuli on the local computer, almost all browsers will block the audio. It generally only works for audio files accessed through **HTTPS://** URLs.
+
+If the experiment is ready to be deployed, it can be saved using the **Save HTML...** button on top of the HTML window. If work has to be interrupted before it is finished, the Markdown window can be saved using the **Save MD...** button. The resulting Markdown file will contain all information to continue later. It can be opened again with the **Open a Markdown file** selection/upload button.
 
 </details>
