@@ -18,7 +18,7 @@
 
 ## 1. Overall Voice Rating <a href="javascript:void" onclick='alert(SToPS_guidance_Q1);'>?</a> 
 
-|       | <div style="width:2cm"> </div> | <div style="width:2cm"> </div> | <div style="width:2cm"> </div>  | <div style="width:2cm"> </div> |        |   
+|       |      |      |       |      |        |   
 | ---: | :----------: | :----: | :----------: | :----: | :--- | 
 |       |        (())    |   (())  |     (())       |  (())  |       |
 |       |          0     |     1    |       2        |    3   |        |  
@@ -27,9 +27,9 @@
 <br />
 
 ##  <a href="javascript:void" onclick='alert(alert2a);'>?</a> 2. Perceptual Voice Tonicity <a href="javascript:void" onclick='alert(alert2b);'>?</a>	
-|      | <div style="width:1cm"> </div> | <div style="width:1cm"> </div> | <div style="width:1cm"> </div> | <div style="width:1cm"> </div> | <div style="width:1cm"> </div> | <div style="width:1cm"> </div> | <div style="width:1cm"> </div> | <div style="width:1cm"> </div> | <div style="width:1cm"> </div> | <div style="width:1cm"> </div> | <div style="width:1cm"> </div> |     | 
+|      |      |      |      |      |      |      |      |      |      |      |      |     | 
 | ---: | :----------: | :----: | :-----: | :-----:| :----: | :-----: | :----: | :-----: | :----:| :-----: | :----:| :--- | 
-|  <button onclick='alert()'>Hypo</button>  |        (())    |   (())  |   (())   |  (()) |  (())   |   (())   |   (())  |  (())   |  (()) |  (())   |  (()) | <button onclick='alert()'>Hyper</button>  |
+|  [[[Hypo|<https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg>{font-size:20px}]]]  |        (())    |   (())  |   (())   |  (()) |  (())   |   (())   |   (())  |  (())   |  (()) |  (())   |  (()) |  [[[Hyper|<https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg>{font-size:20px}]]]  |
 |       |          5     |     4    |    3     |    2   |    1    |    0     |     1    |   2    |    3   |   4    |    5    |       |  
 |       |     Hypo   |           |           |         |          | Tonic  |           |         |         |        | Hyper |        |  
  
@@ -38,7 +38,7 @@
 
 ## 3. Strain (Audible Effort for Voicing) <a href="javascript:void" onclick='alert(SToPS_guidance_Q3);'>?</a> 
 
-|       | <div style="width:2cm"> </div> | <div style="width:2cm"> </div> | <div style="width:2cm"> </div>  | <div style="width:2cm"> </div> |        |   
+|       |      |      |       |      |        |   
 | ---: | :----------: | :----: | :----------: | :----: | :--- | 
 |       |        (())    |   (())  |     (())       |  (())  |       |
 |       |          0     |     1    |       2        |    3   |        |  
@@ -48,7 +48,7 @@
 
 ## 4. Wetness (gurgliness) of Voice Quality <a href="javascript:void" onclick='alert(SToPS_guidance_Q4);'>?</a> 
 
-|       | <div style="width:2cm"> </div> | <div style="width:2cm"> </div> | <div style="width:2cm"> </div>  | <div style="width:2cm"> </div> |        |   
+|       |      |      |       |      |        |   
 | ---: | :----------: | :----: | :----------: | :----: | :--- | 
 |       |        (())    |   (())  |     (())       |  (())  |       |
 |       |          0     |     1    |       2        |    3   |        |  
@@ -59,7 +59,7 @@
 
 ## 5. Impairment of volume <a href="javascript:void" onclick='alert(SToPS_guidance_Q5);'>?</a> 
 
-|       | <div style="width:2cm"> </div> | <div style="width:2cm"> </div> | <div style="width:2cm"> </div>  | <div style="width:2cm"> </div> |        |   
+|       |      |      |       |      |        |   
 | ---: | :----------: | :----: | :----------: | :----: | :--- | 
 |       |        (())    |   (())  |     (())       |  (())  |       |
 |       |          0     |     1    |       2        |    3   |        |  
@@ -70,7 +70,7 @@
 
 ## 6. Impairment of Social Acceptability of Voice <a href="javascript:void" onclick='alert(SToPS_guidance_Q6);'>?</a> 
 
-|       | <div style="width:2cm"> </div> | <div style="width:2cm"> </div> | <div style="width:2cm"> </div>  | <div style="width:2cm"> </div> |        |   
+|       |      |      |       |      |        |   
 | ---: | :----------: | :----: | :----------: | :----: | :--- | 
 |       |        (())    |   (())  |     (())       |  (())  |       |
 |       |          0     |     1    |       2        |    3   |        |  
@@ -81,7 +81,7 @@
 
 ## 7. Whisper <a href="javascript:void" onclick='alert(SToPS_guidance_Q7);'>?</a> 
 
-|       | <div style="width:2cm"> </div> | <div style="width:2cm"> </div> | <div style="width:2cm"> </div>  | <div style="width:2cm"> </div> |        |   
+|       |      |      |       |      |        |   
 | ---: | :----------: | :----: | :----------: | :----: | :--- | 
 |       |        (())    |   (())  |     (())       |  (())  |       |
 |       |          0     |     1    |       2        |    3   |        |  
@@ -93,7 +93,7 @@
 
 ## 8. Impairment of Intelligibility <a href="javascript:void" onclick='alert(SToPS_guidance_Q8);'>?</a> 
 
-|       | <div style="width:2cm"> </div> | <div style="width:2cm"> </div> | <div style="width:2cm"> </div>  | <div style="width:2cm"> </div> |        |   
+|       |      |      |       |      |        |   
 | ---: | :----------: | :----: | :----------: | :----: | :--- | 
 |       |        (())    |   (())  |     (())       |  (())  |       |
 |       |          0     |     1    |       2        |    3   |        |  
@@ -103,7 +103,7 @@
 
 ## 9. Stoma blast <a href="javascript:void" onclick='alert(SToPS_guidance_Q9);'>?</a> 
 
-|       | <div style="width:2cm"> </div> | <div style="width:2cm"> </div> | <div style="width:2cm"> </div>  | <div style="width:2cm"> </div> |        |   
+|       |      |      |       |      |        |   
 | ---: | :----------: | :----: | :----------: | :----: | :--- | 
 |       |        (())    |   (())  |     (())       |  (())  |       |
 |       |          0     |     1    |       2        |    3   |        |  
@@ -113,7 +113,7 @@
 
 ## 10. Impairment of Fluency <a href="javascript:void" onclick='alert(SToPS_guidance_Q10);'>?</a> 
 
-|       | <div style="width:2cm"> </div> | <div style="width:2cm"> </div> | <div style="width:2cm"> </div>  | <div style="width:2cm"> </div> |        |   
+|       |      |      |       |      |        |   
 | ---: | :----------: | :----: | :----------: | :----: | :--- | 
 |       |        (())    |   (())  |     (())       |  (())  |       |
 |       |          0     |     1    |       2        |    3   |        |  
@@ -286,7 +286,8 @@ var SToPS_guidance_Q10 = `
 [//tooltiptext]: # "ToolTipSave:Save the answer to a file"
 [//comment]: # "----------"
 [//comment]: # "These are stimuli for this experiment"
-[//comment]: # "----------"
-[//stimulus0]: # "A,B,X"]
-[//stimulus1]: # "beep.wav,beep.wav,beep.wav"]
+[//stimulus0]: # "A,Lang"
+[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg,De"
+[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg,Fr"
+[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/d/db/En-uk-illustrate.ogg,En"
 [//comment]: # "----------"
