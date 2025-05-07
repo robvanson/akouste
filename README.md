@@ -1,8 +1,8 @@
-## 🏗️🛠️  We are renovating to release akoúste v2 🏗️🛠️
+## 🏗️  We are renovating to release akoúste v2 🛠️
 
 The original akoúste v1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)
 
-<div style='text-align:center'>
+<p style='text-align:center'>
 
 ![](akouste-ear.png)
 
@@ -10,7 +10,7 @@ The original akoúste v1 has moved to [Github akouste-v1](https://github.com/rob
 
 [Try the demo](https://robvanson.github.io/akouste/akousteCreate.html)
 
-</div>
+</p>
 
 ## Client-side listening experiments in the browser
 
