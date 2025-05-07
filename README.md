@@ -22,7 +22,7 @@ Stimulus tables are incorporated into the experiment web page from CSV tables. S
 
 The tasks can be any number of stimulus sounds, A, AB, ABX testing and responses can be any number of Likert scales with any number of choices as well as any number of computerized Visual Analogue Scales (VAS), or mixed.
 
-It is possible to create *<name>\_stimuluslist.js* files to use different stimulus tables for the same experiment page.
+It is possible to create *\<name\>\_stimuluslist.js* files to use different stimulus tables for the same experiment page.
 
 ## User Interface
 
