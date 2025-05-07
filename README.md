@@ -1,16 +1,12 @@
-## 🏗️  We are renovating to release akoúste v2 🛠️
+## 🛠️🏗️  We are renovating to release version 2 🏗️🛠️
 
 The original akoúste v1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)
-
-<center>
 
 ![](akouste-ear.png)
 
 #  akoúste  
 
 [Try the demo](https://robvanson.github.io/akouste/akousteCreate.html)
-
-</center>
 
 ## Client-side listening experiments in the browser
 
