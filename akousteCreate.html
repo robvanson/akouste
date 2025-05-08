@@ -799,7 +799,7 @@ Here you can put the text which tells the subjects what they are supposed to do.
 		if(window.location.search.match(/ExperimentAcronym\=/)){
 				fileName = window.location.search.replace(/^.*ExperimentAcronym\=([^&]+)[&]?.*$/g, "$1");
 				if(fileName.length > 0){
-					loadMarkdown(fileName+'.js');
+					loadMarkdown('./'+fileName+'_markdown.js');
 				};
 		};
 		initializeMarkdown();

@@ -26,7 +26,7 @@ initialMarkdown = `
 
 <br />
 
-##  <a href="javascript:void" onclick='alert(alert2a);'>?</a> 2. Perceptual Voice Tonicity <a href="javascript:void" onclick='alert(alert2b);'>?</a>	
+##  <a href="javascript:void" onclick='alert(SToPS_guidance_Q2A);'>?</a> 2. Perceptual Voice Tonicity <a href="javascript:void" onclick='alert(SToPS_guidance_Q2B);'>?</a>	
 |      |      |      |      |      |      |      |      |      |      |      |      |     | 
 | ---: | :----------: | :----: | :-----: | :-----:| :----: | :-----: | :----: | :-----: | :----:| :-----: | :----:| :--- | 
 |  [[[Hypo|<https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg>{font-size:20px}]]]  |        (())    |   (())  |   (())   |  (()) |  (())   |   (())   |   (())  |  (())   |  (()) |  (())   |  (()) |  [[[Hyper|<https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg>{font-size:20px}]]]  |
