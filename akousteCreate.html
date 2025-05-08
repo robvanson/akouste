@@ -146,7 +146,7 @@ Here you can put the text which tells the subjects what they are supposed to do.
 		function readMDFromFile (elementId) {
 			mdFileText = "";
 			var file = document.getElementById(elementId).files[0];
-			if (file) {
+			if (file && file.name.match(/\.(md|markdown)$/i)) {
 			    var reader = new FileReader();
 			    reader.readAsText(file, "UTF-8");
 			    reader.onload = function (evt) {						
@@ -154,10 +154,13 @@ Here you can put the text which tells the subjects what they are supposed to do.
 					initialMarkdown = mdFileText;
 					document.getElementById('markdownText').value = initialMarkdown;
 					initializeMarkdown();
+					document.getElementById('MarkdownFileUpload').value = "";
 			    };
 			    reader.onerror = function (evt) {
 			        alert("error reading file");
 			    };
+			} else if(file) {
+				alert("Wrong file type: "+file.name);
 			} else {
 				alert("Select a file first");
 			};
@@ -180,7 +183,8 @@ Here you can put the text which tells the subjects what they are supposed to do.
 			tableJSON = "";
 			var tableListJSON = new Array();
 			var file = document.getElementById(elementId).files[0];
-			if (file) {
+			console.log(file);
+			if (file && file.name.match(/\.(csv|tsv|txt|text)$/)) {
 				var tableList = [];
 			    var reader = new FileReader();
 			    reader.readAsText(file, "UTF-8");
@@ -214,7 +218,7 @@ Here you can put the text which tells the subjects what they are supposed to do.
 						};
 					};
 					if(tableList.length <= 1) {
-						alert("Not a valid CSV table: "+file);
+						alert("Not a valid CSV table: "+file.name);
 						return void(0);
 					};
 
@@ -223,10 +227,15 @@ Here you can put the text which tells the subjects what they are supposed to do.
 					x.push(tableList[0]);
 					x.push(tableList.slice(1));
 					setStimulusTableValue(x);
+					
+					// Ready, clear file name
+					document.getElementById('StimulusFileUpload').value = "";
 				};
 			    reader.onerror = function (evt) {
 			        document.getElementById("fileContents").innerHTML = "error reading file";
 			    }
+			} else if (file) {
+				alert("Wrong file type: "+file.name);
 			} else {
 				alert("Select a file first");
 			};			
