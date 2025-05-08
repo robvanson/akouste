@@ -267,7 +267,7 @@ var SToPS_guidance_Q10 = `
 
 [//comment]: # "These are internal parameters for the experiment and visible texts not in this Markdown"
 [//comment]: # "----------"
-[//parameter]: # "ExperimentAcronym:name_without_spaces"
+[//parameter]: # "ExperimentAcronym:SToPS"
 [//parameter]: # "PracticeItems:4"
 [//parameter]: # "ShuffleStimuli:true"
 [//parameter]: # "RandomizeAB:false"
