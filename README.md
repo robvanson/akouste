@@ -26,7 +26,7 @@ It is possible to create *\<name\>\_stimuluslist.js* files to use different stim
 
 Examples:
 - [SToPS (Sunderland
-Tracheoesophageal Perceptual Scale)](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=SToPS (PDF)) [^1]
+Tracheoesophageal Perceptual Scale)](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=SToPS) [^1]
 
 ## User Interface
 
@@ -39,4 +39,4 @@ When the *Show Page* button is clicked, a popup with a functioning page will app
 If the experiment is ready to be deployed, it can be saved using the **Save HTML...** button on top of the HTML window. If work has to be interrupted before it is finished, the Markdown window can be saved using the **Save MD...** button. The resulting Markdown file will contain all information to continue later. It can be opened again with the **Open a Markdown file** selection/upload button.
 
 
-[^1]: [Guidance for SToPS](https://eprints.leedsbeckett.ac.uk/id/eprint/4126/3/Guidance%20notes%20for%20SToPS.pdf)
+[^1]: [Guidance for SToPS (PDF)](https://eprints.leedsbeckett.ac.uk/id/eprint/4126/3/Guidance%20notes%20for%20SToPS.pdf)
