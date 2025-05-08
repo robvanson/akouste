@@ -3,8 +3,6 @@ initialMarkdown = `
 
 # Which speaker sounds better
 
-## The speech has been manipulated. Which speaker sounds better?
-
 [//comment]: // "Do not change the items between <>-brackets, unless you know what you are doing."
 [//comment]: // "You can change the '0 answers to go' text, but leave a 0 (or any number)"
 <h2>
