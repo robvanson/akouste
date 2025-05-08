@@ -24,6 +24,10 @@ The tasks can be any number of stimulus sounds, A, AB, ABX testing and responses
 
 It is possible to create *\<name\>\_stimuluslist.js* files to use different stimulus tables for the same experiment page.
 
+Examples:
+- [SToPS (Sunderland
+Tracheoesophageal Perceptual Scale)](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=SToPS (PDF)) [^1]
+
 ## User Interface
 
 The editor is a web page with on top two blocks of experiment settings. Top-left are settings relevant to the stimulus presentation. Top-right the texts used for the buttons and information to steer the responses and experiment.
@@ -33,3 +37,6 @@ At the bottom are two windows. To the left is the Markdown edit window. The text
 When the *Show Page* button is clicked, a popup with a functioning page will appear. This shows the experiment as it appears to the actual user. This page is fully functional. However, if the page refers to stimuli on the local computer, almost all browsers will block the audio. It generally only works for audio files accessed through **HTTPS://** URLs.
 
 If the experiment is ready to be deployed, it can be saved using the **Save HTML...** button on top of the HTML window. If work has to be interrupted before it is finished, the Markdown window can be saved using the **Save MD...** button. The resulting Markdown file will contain all information to continue later. It can be opened again with the **Open a Markdown file** selection/upload button.
+
+
+[^1]: [Guidance for SToPS](https://eprints.leedsbeckett.ac.uk/id/eprint/4126/3/Guidance%20notes%20for%20SToPS.pdf)
