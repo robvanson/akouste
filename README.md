@@ -25,6 +25,7 @@ The tasks can be any number of stimulus sounds, A, AB, ABX testing and responses
 It is possible to create *\<name\>\_stimuluslist.js* files to use different stimulus tables for the same experiment page.
 
 Examples:
+- [AB comparison](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=ABexample)
 - [SToPS (Sunderland
 Tracheoesophageal Perceptual Scale)](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=SToPS) [^1]
 
