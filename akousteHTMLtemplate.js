@@ -1,5 +1,6 @@
 preamble = `<!DOCTYPE html>
 <head>
+<meta charset="UTF-8">
 <style>
 		/* Increase radio button's size */
 		input[type='radio']{
