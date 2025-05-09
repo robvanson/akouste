@@ -14,7 +14,6 @@ function loadMarkdown(fileName) {
 		initializeMarkdown();
       };
     script.src = fileName;
- console.log(fileName)
     d.getElementsByTagName('head')[0].appendChild(script);
   }(document));
 
@@ -101,6 +100,10 @@ Here you can put the text which tells the subjects what they are supposed to do.
 |     |         (())      |         (())        |        (())         |     |
 |     | {{{LangA}}} |  {{{LangB}}}  |  {{{LangX}}}  |    |
 
+### And you can also request text input from the user with a &lt;&lt;| text {style} |&gt;&gt; construct
+
+What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:center} |>>
+
 
 </center>
 
@@ -183,7 +186,6 @@ Here you can put the text which tells the subjects what they are supposed to do.
 			tableJSON = "";
 			var tableListJSON = new Array();
 			var file = document.getElementById(elementId).files[0];
-			console.log(file);
 			if (file && file.name.match(/\.(csv|tsv|txt|text)$/)) {
 				var tableList = [];
 			    var reader = new FileReader();
@@ -265,6 +267,7 @@ Here you can put the text which tells the subjects what they are supposed to do.
 
 	var stimulusTableJSON = '[["A","B","X"], ["beep.wav", "beep.wav", "beep.wav"]]';
 	var requiredNames = [];
+	var questionDefaults='"Default"';
 	var audioNames = [];
 	var textNames = [];
 	var markdownStack = [];
@@ -708,6 +711,10 @@ Here you can put the text which tells the subjects what they are supposed to do.
 		return text.replace(/\>\>[-]{10,}\<\</g,	'<input type="range" min="1" max="1000" value="500" class="slider" id="QuestionXXXX" name="QuestionXXXX" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value" style="width:100%;">')
 	};
 	
+	function replaceTextInput (text) {
+		return text.replace(/\<\<\|\s*([^\|\{]*)(\s*\{([^\}]*)\})?\s*\|\>\>/g,	'<input type="text" value="$1" id="QuestionXXXX" name="QuestionXXXX" onfocus="if(`$1`==this.value)this.value=``" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value" style="$3">')
+	};
+	
 	function replaceTextItems (text) {
 		var textNamesRaw = text.match(/\{\{\{([^\}]+)\}\}\}/g);
 
@@ -736,11 +743,11 @@ Here you can put the text which tells the subjects what they are supposed to do.
 
 		audioNames = audioNames.flat();
 
-		text = text.replace(/\[\[\[([^\]\|]*)\|\<([^\]]*)\>(\{([^\}]+)\})?\]\]\]/g, '<audio id="Fixed$1" name="Fixed$1" src="$2" preload="auto" title="" ></audio><button onclick="document.getElementById(\'Fixed$1\').play();" style="font-size:30px;background-color:white;$4;"><strong><div id="PlayFixed$1Text" style="background-color:white;">$1</div></strong></button>');
+		text = text.replace(/\[\[\[([^\]\|]*)\|\<([^\]]*)\>(\{([^\}]+)\})?\]\]\]/g, '<audio id="Fixed$2" name="Fixed$2" src="$2" preload="auto" title="" ></audio><button onclick="stopAllAudio ();document.getElementById(\'Fixed$2\').play();" style="font-size:30px;background-color:white;$4;"><strong><div id="PlayFixed$2Text" style="background-color:white;">$1</div></strong></button>');
 				
-		text = text.replace(/\[\[\[([^\]\|]*)\|([^\]\{]*)(\{([^\}]+)\})?\]\]\]/g, '<audio id="Audio$2" name="Audio$2" src="" preload="auto" title="" onplaying="unblockNext (\'Audio$2\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$2" data-toggle="tooltip" title="'+ToolTipPlay+'"><button onclick="document.getElementById(\'Audio$2\').play();" style="font-size:30px;background-color:white;$4;"><strong><div id="PlayAudio$2Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
+		text = text.replace(/\[\[\[([^\]\|]*)\|([^\]\{]*)(\{([^\}]+)\})?\]\]\]/g, '<audio id="Audio$2" name="Audio$2" src="" preload="auto" title="" onplaying="unblockNext (\'Audio$2\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$2" data-toggle="tooltip" title="'+ToolTipPlay+'"><button onclick="stopAllAudio ();document.getElementById(\'Audio$2\').play();" style="font-size:30px;background-color:white;$4;"><strong><div id="PlayAudio$2Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
 		
-		return text.replace(/\[\[\[([^\]\{]*)(\{([^\}]+)\})?\]\]\]/g, '<audio id="Audio$1" name="Audio$1" src="" preload="auto" title="" onplaying="unblockNext (\'Audio$1\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$1" data-toggle="tooltip" title="'+ToolTipPlay+'"><button onclick="document.getElementById(\'Audio$1\').play();" style="font-size:30px;background-color:white;$3;"><strong><div id="PlayAudio$1Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
+		return text.replace(/\[\[\[([^\]\{]*)(\{([^\}]+)\})?\]\]\]/g, '<audio id="Audio$1" name="Audio$1" src="" preload="auto" title="" onplaying="unblockNext (\'Audio$1\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$1" data-toggle="tooltip" title="'+ToolTipPlay+'"><button onclick="stopAllAudio ();document.getElementById(\'Audio$1\').play();" style="font-size:30px;background-color:white;$3;"><strong><div id="PlayAudio$1Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
 		
 	};
 
@@ -749,6 +756,7 @@ Here you can put the text which tells the subjects what they are supposed to do.
 		var questionNum = 0;
 		audioNames = [];
 		textNames = [];
+		questionDefaults = '"Default"';
 		for(var i=0; i < lines.length; ++i){
 			// Stimuli
 			if(lines[i].match(/\[\[\[[^\]]*\]\]\]/)){
@@ -765,12 +773,22 @@ Here you can put the text which tells the subjects what they are supposed to do.
 				++questionNum;
 				lines[i] = replaceRadioButons (lines[i]);
 				lines[i] = lines[i].replace(/XXXX/g, questionNum);
+				questionDefaults += ",false";
 			};
 			if(lines[i].match(/\>\>[-]{10,}\<\</)){
 				++questionNum;
 				lines[i] = replaceVASslider (lines[i]);
 				lines[i] = lines[i].replace(/XXXX/g, questionNum);
+				questionDefaults += ",500";
 			};
+			if(lines[i].match(/\<\<\||\|\>\>/)){
+				++questionNum;
+				lines[i] = replaceTextInput (lines[i]);
+				lines[i] = lines[i].replace(/XXXX/g, questionNum);
+				currentDefault = lines[i].replace(/^.*value\="([^"]*)".*$/, "$1");
+				questionDefaults += ',"'+currentDefault+'"';
+			};
+			
 		}; 
 		// Ready number of scales
 		NumberOfScales = questionNum;
@@ -780,6 +798,7 @@ Here you can put the text which tells the subjects what they are supposed to do.
 	
 	function preProcessPreamble (text) {
 			var processedPreamble = text.replace(/XXNUMBEROFSCALESXX/g, NumberOfScales);
+			processedPreamble = processedPreamble.replace(/XXquestionDefaultsXX/g, questionDefaults);
 			processedPreamble = processedPreamble.replace(/XXEXPERIMENTNAMEXX/g, ExperimentAcronym);
 			processedPreamble = processedPreamble.replace(/XXRANDOMIZEABXX/g, RandomizeAB);
 			processedPreamble = processedPreamble.replace(/XXSHUFFLESTIMULUSLISTXX/g, ShuffleStimuli);

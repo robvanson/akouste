@@ -67,6 +67,9 @@ Here you can put the text which tells the subjects what they are supposed to do.
 |     |         (())      |         (())        |        (())         |     |
 |     | {{{LangA}}} |  {{{LangB}}}  |  {{{LangX}}}  |    |
 
+### And you can also request text input from the user with a &lt;&lt;| text {style} |&gt;&gt; construct
+
+What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:center} |>>
 
 </center>
 

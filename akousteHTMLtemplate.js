@@ -76,6 +76,7 @@ var textPos = [];
 
 var answerList = [];
 var requiredNames = [];
+questionDefaults = [XXquestionDefaultsXX]
 var requiredAnswers = new Array(requiredNames.length).fill(false);
 var playedSamples = false;
 var finishedExperiment = false;
@@ -212,6 +213,15 @@ function unblockNext (x) {
 	};
 };
 
+function stopAllAudio () {
+	var audioPlayers = document.getElementsByTagName('Audio');
+	for(i in audioPlayers){
+		if(typeof audioPlayers[i] == 'object'){
+			audioPlayers[i].pause();
+			audioPlayers[i].currentTime = 0;
+		};
+	};
+};
 
 function setAudio(i, stimulusTable) {
 	if(finishedExperiment) return;
@@ -288,6 +298,9 @@ function nextStimulus () {
 					object.checked = false;
 				} else if (object.type == "range") {
 					object.value = 500;
+				} else if (object.type == "text" && object.name.match(/^Question/)) {
+					questionNum = Number(object.name.replace(/^Question/g, ""))
+					object.value = questionDefaults[questionNum];
 				};
 			};
 		}
@@ -348,6 +361,9 @@ function resetPage () {
 				object.checked = false;
 			} else if (object.type == "range") {
 				object.value = 500;
+			} else if (object.type == "text" && object.name.match(/^Question/)) {
+				questionNum = Number(object.name.replace(/^Question/g, ""))
+				object.value = questionDefaults[questionNum];
 			};
 		};
 	};
