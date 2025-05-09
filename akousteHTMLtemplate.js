@@ -34,13 +34,20 @@ preamble = `<!DOCTYPE html>
 		  cursor: pointer; /* Cursor on hover */
 		}
 
+		/* center tag *
+		center {
+			background: none;
+		}
+	
 		/* Table layout */
 		table {
 		  width: 80%;
 		  table-layout: fixed;
+		  background: none;
 		}
-		td {
-		  background-color: #ffffff;
+		
+		table, tr, td {
+		  background: none;
 		}
 </style>
 
@@ -446,6 +453,11 @@ function setProgress(percentComplete) {
 
 <script type="text/javascript">
 function SetUp() {
+	// Check whether local storage is enabled!
+	if(typeof(Storage) !== "undefined"){
+		document.getElementById('LocalStoragePresent').style.background = '#90EE90';
+	};
+
 	// Check whether JavaScript is enabled
 	document.getElementById('JavaScriptWarningText').style.display = 'none';
 	// Set layout
@@ -461,7 +473,7 @@ function SetUp() {
 
 </script>
 </head>
-<body onload="SetUp();">
+<body onload="SetUp();" style="">
 	
 	<h1 style="text-align:center" id="JavaScriptWarningText">Please enable JavaScript in your browser</h1>
 

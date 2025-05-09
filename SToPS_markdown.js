@@ -271,6 +271,7 @@ ${"`"}
 [//parameter]: # "PracticeItems:4"
 [//parameter]: # "ShuffleStimuli:true"
 [//parameter]: # "RandomizeAB:false"
+[//parameter]: # "body.style:font-family: Arial, Helvetica, sans-serif;background-color:GhostWhite;"
 [//buttontext]: # "NextText:Next"
 [//buttontext]: # "NextAlertText:Please listen to the recordings and answer the questions first"
 [//buttontext]: # "ReadyText:Ready"
