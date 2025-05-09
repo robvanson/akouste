@@ -741,7 +741,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 
 			textNames = textNames.flat();
 
-			text = text.replace(/\{\{\{([^\}\|]*)(\|([^\}]*)\})?\}\}\}/g, '<div id="Text$1" name="Text$1" style="$2"></div>');
+			text = text.replace(/\{\{\{([^\}\|]*)(\|([^\}]*)\})?\}\}\}/g, '<span id="Text$1" name="Text$1" style="$2"></span>');
 		};
 	
 		return text;	
