@@ -14,6 +14,21 @@ The akoúste project aims to provide tools for simple, adaptable listening exper
 
 Akoúste experiments can as easily be run off thumbdrives, or local hard drives, with all data kept locally, as they can be run from a web server. Submission of results is under the control of the subject doing the experiment. The whole experiment is run inside the browser and intermediate results are stored in the browser\'s local storage. After completing the experiment, the subject can download the results in text format which can be submitted to the experimenter.
 
+## What is needed
+
+List of materials
+- Stimuli
+- A table listing which stimuli should be presented at each turn
+- A web page that presents the stimuli to the listeners and collects their responses
+
+To create a listening experiment stimulus audio files are required, preferably in a folder. The stimulus files can be accessed locally, or over https. Any audio format that can be played by the web browsers of choice can be used.
+
+akoúste will read .csv tables (comma-separated-values) as can be derived from most spreadsheet, database, or statistics applications. Columns in these tables should have names in a header row. The table should contain columns that contain the names of the stimulus files. The tables can store any other information that is convenient in other columns. It is OK if there is only a single column with stimulus file names. The path or URL to the folder that contains the stimulus files can be supplied seperately, so it is not necessary to write ou the path to each individual stimulus.
+
+The visual layout and text of the web page that presents the experiment is written in an easy to use Markdown format in an edit frame in akoústeCreate.html. The web version is visible in another frame on the same page. The page can be tested in a functional popup window (**Show Page**). As most, if not all, browsers block access to local files on the user's computer from a self-generated web page, it is not possible to test the audio and full functionality in the popup window. 
+
+In our demonstrations, we use web URLs to demonstrate the full functionality. But when designing and testing an experiment using local audio files, the experiment page should be saved to the local drive (**Save HTML...**) and opened from there.
+
 ## Under the hood
 
 The akoúste experiments are constructed as a self-contained web page in plain HTML + CSS + Javascript. Experiments can be constructed in a [self contained Web page editor](https://robvanson.github.io/akouste/akousteCreate.html). The basis is a markdown text file using [markdown-it](https://github.com/markdown-it/markdown-it) ([demo](https://markdown-it.github.io/)). The markdown file will have experimental settings and the stimulus table appended in a comment section at the end. This information can be edited directly in the markdown file, but care should be taken as the formatting requirements are rather strict.
@@ -24,8 +39,9 @@ The tasks can be any number of stimulus sounds, A, AB, ABX testing and responses
 
 It is possible to create *\<name\>\_stimuluslist.js* files to use different stimulus tables for the same experiment page.
 
-Examples:
+Examples (random audio examples courtesy of [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page)):
 - [AB comparison](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=ABexample)
+- [ABX comparison](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=ABXexample)
 - [SToPS (Sunderland
 Tracheoesophageal Perceptual Scale)](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=SToPS) [^1]
 
