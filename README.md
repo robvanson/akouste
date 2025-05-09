@@ -2,8 +2,7 @@
 ![](akouste-ear.png)
 
 #  akoúste
-Version 2
-version 1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)
+Version 2 [^1]
 
 [Try the demo](https://robvanson.github.io/akouste/akousteCreate.html)
 
@@ -33,7 +32,7 @@ Examples (random audio examples courtesy of [Wikimedia Commons](https://commons.
 - [ABX comparison](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=ABXexample)
 - [Transcription](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=Transcribe)
 - [SToPS (Sunderland
-Tracheoesophageal Perceptual Scale)](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=SToPS) [^1]
+Tracheoesophageal Perceptual Scale)](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=SToPS) [^2]
 
 ## What you get
 
@@ -64,4 +63,5 @@ When the **Show Page** button is clicked, a popup with a functioning page will a
 When the experiment is ready to be deployed, it can be saved using the **Save HTML...** button on top of the HTML window. If work has to be interrupted before it is finished, the Markdown window can be saved using the **Save MD...** button. The resulting Markdown file will contain all information needed to continue later. It can be opened again with the **Open a Markdown file** selection/upload button.
 
 
-[^1]: [Guidance for SToPS (PDF)](https://eprints.leedsbeckett.ac.uk/id/eprint/4126/3/Guidance%20notes%20for%20SToPS.pdf)
+[^1]: Version 1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)
+[^2]: [Guidance for SToPS (PDF)](https://eprints.leedsbeckett.ac.uk/id/eprint/4126/3/Guidance%20notes%20for%20SToPS.pdf)
