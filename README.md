@@ -1,10 +1,8 @@
-## 🛠️🏗️  We are renovating to release version 2 🏗️🛠️
-
-The original akoúste v1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)
 
 ![](akouste-ear.png)
 
 #  akoúste  
+akoúste v1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)
 
 [Try the demo](https://robvanson.github.io/akouste/akousteCreate.html)
 
