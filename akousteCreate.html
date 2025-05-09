@@ -754,17 +754,18 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		// Remove direct audio links
 		audioNamesRaw = audioNamesRaw.filter(function(x){return !x.match(/[\>\<]/)})
 		// Seperate audio names from text
-		audioNamesRaw = audioNamesRaw.map(x => x.replace(/^\[+([^\|]*\|)?([^\]]*)\]+$/g, "$2"))
+		audioNamesRaw = audioNamesRaw.map(x => x.replace(/^\[+([^\|\{]*\|)?\s*([^\]\{\s]*)\s*(\{.*)?\]+$/g, "$2"))
+console.log(audioNamesRaw)
 		audioNames.push(audioNamesRaw);
 
 		audioNames = audioNames.flat();
 
-		text = text.replace(/\[\[\[([^\]\|]*)\|\<([^\]]*)\>(\{([^\}]+)\})?\]\]\]/g, '<audio id="Fixed$2" name="Fixed$2" src="$2" preload="auto" title="" ></audio><button onclick="stopAllAudio ();document.getElementById(\'Fixed$2\').play();" style="font-size:30px;background-color:white;$4;"><strong><div id="PlayFixed$2Text" style="background-color:white;">$1</div></strong></button>');
+		text = text.replace(/\[\[\[([^\]\|]*)[|]\<([^\]]*)\>(\{([^\}]+)\})?\]\]\]/g, '<audio id="Fixed$2" name="Fixed$2" src="$2" preload="auto" title="" ></audio><button onclick="stopAllAudio ();document.getElementById(\'Fixed$2\').play();" style="font-size:30px;background-color:white;$4;"><strong><div id="PlayFixed$2Text" style="background-color:white;">$1</div></strong></button>');
 				
-		text = text.replace(/\[\[\[([^\]\|]*)\|([^\]\{]*)(\{([^\}]+)\})?\]\]\]/g, '<audio id="Audio$2" name="Audio$2" src="" preload="auto" title="" onplaying="unblockNext (\'Audio$2\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$2" data-toggle="tooltip" title="'+ToolTipPlay+'"><button onclick="stopAllAudio ();document.getElementById(\'Audio$2\').play();" style="font-size:30px;background-color:white;$4;"><strong><div id="PlayAudio$2Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
+		text = text.replace(/\[\[\[([^\]\|]*)[|]([^\]\{]*)(\{([^\}]+)\})?\]\]\]/g, '<audio id="Audio$2" name="Audio$2" src="" preload="auto" title="" onplaying="unblockNext (\'Audio$2\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$2" data-toggle="tooltip" title="'+ToolTipPlay+'"><button onclick="stopAllAudio ();document.getElementById(\'Audio$2\').play();" style="font-size:30px;background-color:white;$4;"><strong><div id="PlayAudio$2Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
 		
-		return text.replace(/\[\[\[([^\]\{]*)(\{([^\}]+)\})?\]\]\]/g, '<audio id="Audio$1" name="Audio$1" src="" preload="auto" title="" onplaying="unblockNext (\'Audio$1\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$1" data-toggle="tooltip" title="'+ToolTipPlay+'"><button onclick="stopAllAudio ();document.getElementById(\'Audio$1\').play();" style="font-size:30px;background-color:white;$3;"><strong><div id="PlayAudio$1Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
-		
+		return text.replace(/\[\[\[([^\]\{\s]*)\s*(\{([^\}]+)\})?\s*\]\]\]/g, '<audio id="Audio$1" name="Audio$1" src="" preload="auto" title="" onplaying="unblockNext (\'Audio$1\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$1" data-toggle="tooltip" title="'+ToolTipPlay+'"><button onclick="stopAllAudio ();document.getElementById(\'Audio$1\').play();" style="font-size:30px;background-color:white;$3;"><strong><div id="PlayAudio$1Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
+console.log(text.match(/<audio id="[^"]*"/))		
 	};
 
 	function preProcessMD (text) {

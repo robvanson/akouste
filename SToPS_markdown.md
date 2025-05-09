@@ -5,7 +5,7 @@
 
 ### Please listen to the speech below and rate it based on the 10 below criteria.
 
- [[[A]]] 
+ [[[A {position:fixed;bottom:80%;right:5%}]]] 
 
 <h2>
 <div id="StimulusNumberText">0 answers to go</div>
@@ -50,7 +50,7 @@
 
 |       |      |      |       |      |        |   
 | ---: | :----------: | :----: | :----------: | :----: | :--- | 
-|       |        (())    |   (())  |     (())       |  (())  |       |
+|       |        (())    |   (())  |     (())       |  (())  |  [[[Wet|<https://upload.wikimedia.org/wikipedia/commons/8/8e/Or-ଅନୁଶୀଳନ.oga>{font-size:20px}]]]  |
 |       |          0     |     1    |       2        |    3   |        |  
 |       |    None    |  Mild | Moderate | Severe |       |
   	  	 
@@ -105,7 +105,7 @@
 
 |       |      |      |       |      |        |   
 | ---: | :----------: | :----: | :----------: | :----: | :--- | 
-|       |        (())    |   (())  |     (())       |  (())  |       |
+|       |        (())    |   (())  |     (())       |  (())  | [[[Stoma|<https://upload.wikimedia.org/wikipedia/commons/d/da/L1188694-F1.oga>{font-size:20px}]]]  |
 |       |          0     |     1    |       2        |    3   |        |  
 |       |   Absent   |  Mild | Moderate | Severe |       |
   	
