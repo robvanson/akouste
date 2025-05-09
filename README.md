@@ -8,9 +8,9 @@ Version 2 [^1]
 
 ## Client-side listening experiments in the browser
 
-The akoúste project aims to provide tools for simple, adaptable listening experiments aimed at situations where the use of a dynamic host server storing and serving the speech and collecting the responses over the internet is unpractical or unwanted, e.g., due to privacy concerns. Akoúste pages can be used both on desk/laptops and on mobile devices, with and without a network connection.
+The akoúste project aims to provide tools for simple, adaptable listening experiments aimed at situations where the use of a dynamic host server storing and serving the speech and collecting the responses over the internet is unpractical or unwanted, e.g., due to privacy concerns. akoúste pages can be used both on desk/laptops and on mobile devices, with and without a network connection.
 
-Akoúste experiments can as easily be run off thumbdrives, or local hard drives, with all data kept locally, as they can be run from a web server. Submission of results is under the control of the subject doing the experiment. The whole experiment is run inside the browser and intermediate results are stored in the browser\'s local storage. After completing the experiment, the subject can download the results in text format which can be submitted to the experimenter.
+akoúste experiments can as easily be run off thumbdrives, or local hard drives, with all data kept locally, as they can be run from a web server. Submission of results is under the control of the subject doing the experiment. The whole experiment is run inside the browser and intermediate results are stored in the browser\'s local storage. After completing the experiment, the subject can download the results in text format which can be submitted to the experimenter.
 
 ## What is needed
 
