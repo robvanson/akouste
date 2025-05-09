@@ -29,6 +29,20 @@ The visual layout and text of the web page that presents the experiment is writt
 
 In our demonstrations, we use web URLs to demonstrate the full functionality. But when designing and testing an experiment using local audio files, the experiment page should be saved to the local drive (**Save HTML...**) and opened from there.
 
+Examples (random audio examples courtesy of [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page)):
+- [AB comparison](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=ABexample)
+- [ABX comparison](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=ABXexample)
+- [SToPS (Sunderland
+Tracheoesophageal Perceptual Scale)](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=SToPS) [^1]
+
+## What you get
+
+A self contained web page that can run the experiment and can be distributed together with the stimuli, if the stimuli are local. Contrary to what the name suggests, the experiment web page works completely off-line. Internet is only used when stimuli are not available locally.
+
+## What you do *not* get 
+
+Although akoúste stores progress of the experiment in the local browser, absolutely ***no*** information is send out. Even the results of the experiment will be stored locally in a text file, and only if the user saves them. The results only leave the computer when the user conveys them by email of  DM to the addressee.
+
 ## Under the hood
 
 The akoúste experiments are constructed as a self-contained web page in plain HTML + CSS + Javascript. Experiments can be constructed in a [self contained Web page editor](https://robvanson.github.io/akouste/akousteCreate.html). The basis is a markdown text file using [markdown-it](https://github.com/markdown-it/markdown-it) ([demo](https://markdown-it.github.io/)). The markdown file will have experimental settings and the stimulus table appended in a comment section at the end. This information can be edited directly in the markdown file, but care should be taken as the formatting requirements are rather strict.
@@ -38,12 +52,6 @@ Stimulus tables are incorporated into the experiment web page from CSV tables. S
 The tasks can be any number of stimulus sounds, A, AB, ABX testing and responses can be any number of Likert scales with any number of choices as well as any number of computerized Visual Analogue Scales (VAS), or mixed.
 
 It is possible to create *\<name\>\_stimuluslist.js* files to use different stimulus tables for the same experiment page.
-
-Examples (random audio examples courtesy of [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page)):
-- [AB comparison](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=ABexample)
-- [ABX comparison](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=ABXexample)
-- [SToPS (Sunderland
-Tracheoesophageal Perceptual Scale)](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=SToPS) [^1]
 
 ## User Interface
 
