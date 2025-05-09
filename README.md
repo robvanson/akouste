@@ -2,7 +2,7 @@
 ![](akouste-ear.png)
 
 #  akoúste  
-akoúste v1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)
+version 1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)
 
 [Try the demo](https://robvanson.github.io/akouste/akousteCreate.html)
 
