@@ -728,7 +728,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	};
 	
 	function replaceTextInput (text) {
-		return text.replace(/\<\<\|\s*([^\|\{]*)(\s*\{([^\}]*)\})?\s*\|\>\>/g,	'<input type="text" value="$1" id="QuestionXXXX" name="QuestionXXXX" onfocus="if(`$1`==this.value)this.value=``" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value" style="$3">')
+		return text.replace(/\<\<\|\s*([^\|\{]*)(\s*\{([^\}]*)\})?\s*\|\>\>/g,	'<input type="text" value="$1" title="$1" id="QuestionXXXX" name="QuestionXXXX" onfocus="if(`$1`==this.value)this.value=``" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value" style="$3">')
 	};
 	
 	function replaceTextItems (text) {
@@ -773,7 +773,6 @@ console.log(text.match(/<audio id="[^"]*"/))
 		var questionNum = 0;
 		audioNames = [];
 		textNames = [];
-		questionDefaults = '"Default"';
 		for(var i=0; i < lines.length; ++i){
 			// Stimuli
 			if(lines[i].match(/\[\[\[[^\]]*\]\]\]/)){
@@ -790,20 +789,16 @@ console.log(text.match(/<audio id="[^"]*"/))
 				++questionNum;
 				lines[i] = replaceRadioButons (lines[i]);
 				lines[i] = lines[i].replace(/XXXX/g, questionNum);
-				questionDefaults += ",false";
 			};
 			if(lines[i].match(/\>\>[-]{10,}\<\</)){
 				++questionNum;
 				lines[i] = replaceVASslider (lines[i]);
 				lines[i] = lines[i].replace(/XXXX/g, questionNum);
-				questionDefaults += ",500";
 			};
 			if(lines[i].match(/\<\<\||\|\>\>/)){
 				++questionNum;
 				lines[i] = replaceTextInput (lines[i]);
 				lines[i] = lines[i].replace(/XXXX/g, questionNum);
-				currentDefault = lines[i].replace(/^.*value\="([^"]*)".*$/, "$1");
-				questionDefaults += ',"'+currentDefault+'"';
 			};
 			
 		}; 
@@ -815,7 +810,6 @@ console.log(text.match(/<audio id="[^"]*"/))
 	
 	function preProcessPreamble (text) {
 			var processedPreamble = text.replace(/XXNUMBEROFSCALESXX/g, NumberOfScales);
-			processedPreamble = processedPreamble.replace(/XXquestionDefaultsXX/g, questionDefaults);
 			processedPreamble = processedPreamble.replace(/XXEXPERIMENTNAMEXX/g, ExperimentAcronym);
 			processedPreamble = processedPreamble.replace(/XXRANDOMIZEABXX/g, RandomizeAB);
 			processedPreamble = processedPreamble.replace(/XXSHUFFLESTIMULUSLISTXX/g, ShuffleStimuli);

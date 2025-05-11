@@ -83,7 +83,6 @@ var textPos = [];
 
 var answerList = [];
 var requiredNames = [];
-questionDefaults = [XXquestionDefaultsXX]
 var requiredAnswers = new Array(requiredNames.length).fill(false);
 var playedSamples = false;
 var finishedExperiment = false;
@@ -307,7 +306,7 @@ function nextStimulus () {
 					object.value = 500;
 				} else if (object.type == "text" && object.name.match(/^Question/)) {
 					questionNum = Number(object.name.replace(/^Question/g, ""))
-					object.value = questionDefaults[questionNum];
+					object.value = object.title;
 				};
 			};
 		}
@@ -370,7 +369,7 @@ function resetPage () {
 				object.value = 500;
 			} else if (object.type == "text" && object.name.match(/^Question/)) {
 				questionNum = Number(object.name.replace(/^Question/g, ""))
-				object.value = questionDefaults[questionNum];
+				object.value = object.title;
 			};
 		};
 	};
