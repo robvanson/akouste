@@ -7,13 +7,7 @@
 [[[Word|A]]] 
 
 
-[//comment]: // "Do not change the items between <>-brackets, unless you know what you are doing."
-[//comment]: // "You can change the '0 answers to go' text, but leave a 0 (or any number)"
-<h2>
-<div id="StimulusNumberText">0 answers to go</div>
-</h2>
-
-[//comment]: // "End of No Change"
+## {{{!answerstogo!|font-weight:bold}}} answers to go
 
 </center>
 

@@ -80,6 +80,7 @@ var textNames = [];
 var columnNames = [];
 var audioPos = [];
 var textPos = [];
+var answerstogo = 0;
 
 var answerList = [];
 var requiredNames = [];
@@ -191,8 +192,6 @@ function loadList () {
 		if(textPos[i] < 0)textPos[i] = -1;
 	};
 	
-	document.getElementById('StimulusNumberText').innerHTML = document.getElementById('StimulusNumberText').innerHTML.replace(/[0-9]+/g, (data.length - stimulusNbr)+"");
-
 	stimulusTable = [columnNames, data];
 	
 	// The experiment has been finished, but not reset
@@ -245,14 +244,22 @@ function setAudio(i, stimulusTable) {
 			alert("No Audio " + audioNames[i]);
 		};
 	};
+	// Text from stimuli
 	for(var i in  textNames) {
 		if(stimulusTable[1][stimulusNbr][textPos[i]] != undefined && stimulusTable[1][stimulusNbr][textPos[i]].length > 0){
 			var currentText = stimulusTable[1][stimulusNbr][textPos[i]];
 			document.getElementById('Text'+textNames[i]).innerText = currentText;
 		};
 	};
-
-	document.getElementById('StimulusNumberText').innerHTML = document.getElementById('StimulusNumberText').innerHTML.replace(/[0-9]+/, (stimulusTable[1].length - stimulusNbr)+"");
+	
+	// Text from parameters
+	answerstogo = (stimulusTable[1].length - stimulusNbr);
+	parameterTextList = document.getElementsByName('parameterText');
+	for(o in parameterTextList) {
+		if(typeof parameterTextList[o] == 'object'){
+			parameterTextList[o].innerHTML = window[parameterTextList[o].id];
+		};
+	};
 	
 	setProgress(100*stimulusNbr/data.length);
 };
@@ -343,7 +350,7 @@ function FinishExperimentRun () {
 	document.getElementById('SaveText').innerHTML =  "XXSaveTextXX";
 	finishedExperiment = true;
 	setProgress(100);
-	document.getElementById('StimulusNumberText').innerHTML = StimulusNumberText.innerHTML.replace("[0-9]+", "0");
+
 };
 
 function onSave () {

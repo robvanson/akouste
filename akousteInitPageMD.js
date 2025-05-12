@@ -10,13 +10,7 @@ initialMarkdown = `
 |     | [[[A]]]    |             | [[[B]]]   |     |
 |     |               | [[[X]]]  |              |     |
 
-[//comment]: // "Do not change the items between <>-brackets, unless you know what you are doing."
-[//comment]: // "You can change the '0 answers to go' text, but leave a 0 (or any number)"
-<h2>
-<div id="StimulusNumberText">0 answers to go</div>
-</h2>
-
-[//comment]: // "End of No Change"
+## {{{!answerstogo!|font-weight:bold}}} answers to go
 
 </center>
 
@@ -99,7 +93,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 [//comment]: # "These are stimuli for this experiment"
 [//comment]: # "----------"
 [//stimulus0]: # "A,B,X,LangA,LangB,LangX"
-[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg,https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg,https://upload.wikimedia.org/wikipedia/commons/d/db/En-uk-illustrate.ogg,De,Fr,En"
-[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/2/2d/Nl-aardhommel.ogg,https://upload.wikimedia.org/wikipedia/commons/8/8e/Or-ଅନୁଶୀଳନ.oga,https://upload.wikimedia.org/wikipedia/commons/d/da/L1188694-F1.oga,Nl,Or,Ar"
+[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg,https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg,https://upload.wikimedia.org/wikipedia/commons/d/db/En-uk-illustrate.ogg,Geman (DE),French (FR),English (EN)"
+[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/2/2d/Nl-aardhommel.ogg,https://upload.wikimedia.org/wikipedia/commons/8/8e/Or-ଅନୁଶୀଳନ.oga,https://upload.wikimedia.org/wikipedia/commons/d/da/L1188694-F1.oga,Dutch (NL),Oriya (OR),Arabic (AR)"
 [//comment]: # "----------"
 `

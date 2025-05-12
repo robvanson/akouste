@@ -42,13 +42,7 @@ function loadMarkdown(fileName) {
 |     | [[[A]]]    |             | [[[B]]]   |     |
 |     |               | [[[X]]]  |              |     |
 
-[//comment]: // "Do not change the items between <>-brackets, unless you know what you are doing."
-[//comment]: // "You can change the '0 answers to go' text, but leave a 0 (or any number)"
-<h2>
-<div id="StimulusNumberText">0 answers to go</div>
-</h2>
-
-[//comment]: // "End of No Change"
+## {{{!answerstogo!|font-weight:bold}}} answers to go
 
 </center>
 
@@ -732,16 +726,21 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	};
 	
 	function replaceTextItems (text) {
-		var textNamesRaw = text.match(/\{\{\{([^\}]+)\}\}\}/g);
+		// First, remove the fixed, iFrame cases
+		text = text.replace(/\{\{\{\<([^\>\|]*)\>(\|([^\}]*))?\}\}\}/g, '<iframe id="FixedText$1" src="$1"   scrolling="auto" name="FixedText" style="$3"></iframe>');;
 
-		if(textNamesRaw.length > 0){
+		// Second, handle parameter cases
+		text = text.replace(/\{\{\{!([^\|!]*)!(\|([^\}]*))?\}\}\}/g, '<span id="$1" name="parameterText" style="$3"></span>');
+
+		// Handle StimulusTable references
+		var textNamesRaw = text.match(/\{\{\{([^\}]+)\}\}\}/g);
+		if(textNamesRaw != null && textNamesRaw.length > 0) {
 			// Seperate text names from text
-			textNamesRaw = textNamesRaw.map(x => x.replace(/^\{+([^\|]*\|)?([^\}]*)\}+$/g, "$2"))
+			textNamesRaw = textNamesRaw.map(x => x.replace(/^\{+\s*([^\}\|]*)(\s*\|([^\}]*))?\s*\}+$/g, "$1"))
 			textNames.push(textNamesRaw);
 
 			textNames = textNames.flat();
-
-			text = text.replace(/\{\{\{([^\}\|]*)(\|([^\}]*)\})?\}\}\}/g, '<span id="Text$1" name="Text$1" style="$2"></span>');
+			text = text.replace(/\{\{\{\s*([^\}\|]*)(\s*\|([^\}]*))?\s*\}\}\}/g, '<span id="Text$1" name="Text$1" style="$3"></span>');
 		};
 	
 		return text;	
@@ -755,7 +754,6 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		audioNamesRaw = audioNamesRaw.filter(function(x){return !x.match(/[\>\<]/)})
 		// Seperate audio names from text
 		audioNamesRaw = audioNamesRaw.map(x => x.replace(/^\[+([^\|\{]*\|)?\s*([^\]\{\s]*)\s*(\{.*)?\]+$/g, "$2"))
-console.log(audioNamesRaw)
 		audioNames.push(audioNamesRaw);
 
 		audioNames = audioNames.flat();
@@ -765,7 +763,6 @@ console.log(audioNamesRaw)
 		text = text.replace(/\[\[\[([^\]\|]*)[|]([^\]\{]*)(\{([^\}]+)\})?\]\]\]/g, '<audio id="Audio$2" name="Audio$2" src="" preload="auto" title="" onplaying="unblockNext (\'Audio$2\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$2" data-toggle="tooltip" title="'+ToolTipPlay+'"><button onclick="stopAllAudio ();document.getElementById(\'Audio$2\').play();" style="font-size:30px;background-color:white;$4;"><strong><div id="PlayAudio$2Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
 		
 		return text.replace(/\[\[\[([^\]\{\s]*)\s*(\{([^\}]+)\})?\s*\]\]\]/g, '<audio id="Audio$1" name="Audio$1" src="" preload="auto" title="" onplaying="unblockNext (\'Audio$1\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$1" data-toggle="tooltip" title="'+ToolTipPlay+'"><button onclick="stopAllAudio ();document.getElementById(\'Audio$1\').play();" style="font-size:30px;background-color:white;$3;"><strong><div id="PlayAudio$1Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
-console.log(text.match(/<audio id="[^"]*"/))		
 	};
 
 	function preProcessMD (text) {

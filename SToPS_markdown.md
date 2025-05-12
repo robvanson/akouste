@@ -6,9 +6,7 @@
 
  [[[A {position:fixed;bottom:80%;right:5%}]]] 
 
-<h2>
-<div id="StimulusNumberText">0 answers to go</div>
-</h2>
+## {{{!answerstogo!|font-weight:bold}}} answers to go
 
 </center>
 <center>
