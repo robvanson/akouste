@@ -67,10 +67,24 @@ When the experiment is ready to be deployed, it can be saved using the **Save HT
 
 The user facing part of the experiment is a web-page. The text and layout of this page are designed using an adapted Markdown language, [markdown-it](https://markdown-it.github.io/). Several constructs have been added to easy the placement of active elements for the experiments.
 
-- \[\[\[text\|name\{style\}\]\]\] audio button showing *text* in *style*, playing the audio of column *name*. <br \>For instance, \[\[\[Speaker A\|A\{font-style: italic;\}\]\]\] would show a button with the text *Speaker A* in italic and play the current stimulus in the column labeled *A* of the stimulus table.
+### Stimulus related constructs
 
-- \{\{\{name|style\}\}\} text showing the text in column *name* in *style*. <br \>For instance, \{\{\{LangA|font-style: italic;\}\}\} would show the text in *italic* of the current stimulus in the column labeled *LangA* of the stimulus table.
+Two constructs are defined to present stimulus sounds and texts to subjects:
 
+- \[\[\[text\|name\{style\}\]\]\] audio button showing *text* in *style*, playing the audio of column *name*.   
+For instance, \[\[\[Speaker A\|A\{font-style: italic;\}\]\]\] would show a button with the text *Speaker A* in italic and play the current stimulus in the column labeled *A* of the stimulus table.
+- \{\{\{name|style\}\}\} text showing the text in column *name* in *style*.   
+For instance, \{\{\{LangA|font-style: italic;\}\}\} would show the text in *italic* of the current stimulus in the column labeled *LangA* of the stimulus table.
+
+All sounds have to be played before the subject can proceed to the next stimulus.
+
+Three constructs are defined to collect subject evaluations based on answers to questionaire questions:
+
+- A row of \(\(\)\) is translated to a row of radio buttons. All radio buttons on a line will be combined in a single radio-button row. It is best to put the individual buttons and their labels into a table.
+- \>\>----------\<\< (10 -dashes or more) will be transformed into a visual analogue slider.
+- \<\<| text |\>\> becomes a text input field with the *text* as default value.
+
+All questions have to be answered (changed) before the subject can move to the next stimulus.
 
 [^1]: Version 1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)
 [^2]: [Guidance for SToPS (PDF)](https://eprints.leedsbeckett.ac.uk/id/eprint/4126/3/Guidance%20notes%20for%20SToPS.pdf)
