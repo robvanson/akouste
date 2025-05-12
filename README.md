@@ -84,7 +84,7 @@ Three constructs are defined to collect subject evaluations based on answers to 
 - \>\>----------\<\< (10 -dashes or more) will be transformed into a visual analogue slider.
 - \<\<| text |\>\> becomes a text input field with the *text* as default value.
 
-All questions have to be answered (changed) before the subject can move to the next stimulus.
+All questions have to be answered (changed) before the subject can move to the next stimulus. Answers will be added to the Stimulus table with each question getting their own column, tagged Answer1, Answer2..., numbered in order of the questions on the page.
 
 [^1]: Version 1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)
 [^2]: [Guidance for SToPS (PDF)](https://eprints.leedsbeckett.ac.uk/id/eprint/4126/3/Guidance%20notes%20for%20SToPS.pdf)
