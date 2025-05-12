@@ -63,6 +63,14 @@ When the **Show Page** button is clicked, a popup with a functioning page will a
 
 When the experiment is ready to be deployed, it can be saved using the **Save HTML...** button on top of the HTML window. If work has to be interrupted before it is finished, the Markdown window can be saved using the **Save MD...** button. The resulting Markdown file will contain all information needed to continue later. It can be opened again with the **Open a Markdown file** selection/upload button.
 
+## Markdown
+
+The user facing part of the experiment is a web-page. The text and layout of this page are designed using an adapted Markdown language, [markdown-it](https://markdown-it.github.io/). Several constructs have been added to easy the placement of active elements for the experiments.
+
+- [[[text|name{style}]]] audio button showing *text* in *style*, playing the audio of column *name*. <br \>For instance, [[[Speaker A|A{font-style: italic;}]]] would show a button with the text *Speaker A* in italic and play the current stimulus in the column labeled *A* of the stimulus table.
+
+- {{{name|style}}} text showing the text in column *name* in *style*. <br \>For instance, {{{LangA|font-style: italic;}}} would show the text in *italic* of the current stimulus in the column labeled *LangA* of the stimulus table.
+
 
 [^1]: Version 1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)
 [^2]: [Guidance for SToPS (PDF)](https://eprints.leedsbeckett.ac.uk/id/eprint/4126/3/Guidance%20notes%20for%20SToPS.pdf)
