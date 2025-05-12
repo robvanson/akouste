@@ -78,7 +78,7 @@ For instance, \{\{\{LangA\|font-style: italic;\}\}\} would show the text in *ita
 
 All sounds have to be played before the subject can proceed to the next stimulus.
 
-Three constructs are defined to collect subject evaluations based on answers to questionaire questions:
+Three constructs are defined to collect subject evaluations based on answers in the questionnaire:
 
 - A row of \(\(\)\) is translated to a row of radio buttons. All radio buttons on a line will be combined in a single radio-button row. It is best to put the individual buttons and their labels into a table.
 - \>\>----------\<\< (10 -dashes or more) will be transformed into a visual analogue slider.
