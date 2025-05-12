@@ -67,9 +67,9 @@ When the experiment is ready to be deployed, it can be saved using the **Save HT
 
 The user facing part of the experiment is a web-page. The text and layout of this page are designed using an adapted Markdown language, [markdown-it](https://markdown-it.github.io/). Several constructs have been added to easy the placement of active elements for the experiments.
 
-- [[[text|name{style}]]] audio button showing *text* in *style*, playing the audio of column *name*. <br \>For instance, [[[Speaker A|A{font-style: italic;}]]] would show a button with the text *Speaker A* in italic and play the current stimulus in the column labeled *A* of the stimulus table.
+- \[\[\[text\|name\{style\}\]\]\] audio button showing *text* in *style*, playing the audio of column *name*. <br \>For instance, \[\[\[Speaker A\|A\{font-style: italic;\}\]\]\] would show a button with the text *Speaker A* in italic and play the current stimulus in the column labeled *A* of the stimulus table.
 
-- {{{name|style}}} text showing the text in column *name* in *style*. <br \>For instance, {{{LangA|font-style: italic;}}} would show the text in *italic* of the current stimulus in the column labeled *LangA* of the stimulus table.
+- \{\{\{name|style\}\}\} text showing the text in column *name* in *style*. <br \>For instance, \{\{\{LangA|font-style: italic;\}\}\} would show the text in *italic* of the current stimulus in the column labeled *LangA* of the stimulus table.
 
 
 [^1]: Version 1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)
