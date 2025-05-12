@@ -82,7 +82,7 @@ Three constructs are defined to collect subject evaluations based on answers to 
 
 - A row of \(\(\)\) is translated to a row of radio buttons. All radio buttons on a line will be combined in a single radio-button row. It is best to put the individual buttons and their labels into a table.
 - \>\>----------\<\< (10 -dashes or more) will be transformed into a visual analogue slider.
-- \<\<| text |\>\> becomes a text input field with the *text* as default value.
+- \<\<\| text \|\>\> becomes a text input field with the *text* as default value.
 
 All questions have to be answered (changed) before the subject can move to the next stimulus. Answers will be added to the Stimulus table with each question getting their own column, tagged Answer1, Answer2..., numbered in order of the questions on the page.
 
