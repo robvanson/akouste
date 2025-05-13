@@ -86,5 +86,12 @@ Three constructs are defined to collect subject evaluations based on answers in 
 
 All questions have to be answered (changed) before the subject can move to the next stimulus. Answers will be added to the Stimulus table with each question getting their own column, tagged Answer1, Answer2..., numbered in order of the questions on the page.
 
+### Extensions
+
+Extensions of the \[\[\[text\|name\{style\}\]\]\] audio button and \{\{\{name\|style\}\}\} text constructs have been added to simplify some tasks. In these constructs **URL** means *http(s)://* style links as well as local files *./path/file.ext*. Using stored local files is preferable as it is robust to network downtime and [link-rot](https://en.wikipedia.org/wiki/Link_rot).
+- \[\[\[\<URL\>\|name\{style\}\]\]\] inserts an audio button that will play the sound at the **URL**.
+- \{\{\{\<URL\>\|style\}\}\} insert an *iframe* with the page at the **URL**.
+- \{\{\{!parameter!\|style\}\}\} insert text value of the internal variable **parameter**.
+
 [^1]: Version 1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)
 [^2]: [Guidance for SToPS (PDF)](https://eprints.leedsbeckett.ac.uk/id/eprint/4126/3/Guidance%20notes%20for%20SToPS.pdf)
