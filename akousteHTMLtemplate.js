@@ -473,16 +473,20 @@ function SetUp() {
 	// Check whether JavaScript is enabled
 	document.getElementById('JavaScriptWarningText').style.display = 'none';
 	
-	// Defer setup on cover page
-	if(document.getElementById('coverpage') && document.getElementById('coverpage').style.display != 'none'){
+	// Check whether local storage is enabled!
+	if(typeof(Storage) !== "undefined"){
+		document.getElementById('LocalStoragePresent').style.background = '#90EE90';
+	};
+
+	// Defer setup on cover page if there is no stored stimulus list
+	if(document.getElementById('coverpage') && document.getElementById('coverpage').style.display != 'none' && !localStorage.getItem(CurrentExperimentID+'stimuluslist')){
 		document.getElementById('NextText').style.backgroundColor = "white";
 		document.getElementById('NextButton').style.backgroundColor = "white";
 
 		return false;
-	};
-	// Check whether local storage is enabled!
-	if(typeof(Storage) !== "undefined"){
-		document.getElementById('LocalStoragePresent').style.background = '#90EE90';
+	} else if(document.getElementById('coverpage')) {
+		document.getElementById('coverpage').style.display = 'none';
+		document.getElementById('experimentpage').style.display = 'block';
 	};
 
 	// Set layout

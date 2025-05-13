@@ -653,6 +653,14 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			} ;
 	};
 	
+	function unswitchedPageHTMLtext (text) {
+		if(text.match(/<div id="coverpage" style="[^"]*display:\s*none[^"]*">/i)){
+					text = text.replace(/<div id="coverpage" style="([^"]*display:\s*)none([^"]*)">/ig, "<div id=\"coverpage\" style=\"$1block$2\">");
+					text = text.replace(/<div id="experimentpage" style="([^"]*display:\s*)block([^"]*)">/ig, "<div id=\"experimentpage\" style=\"$1none$2\">");
+		};
+		return text;
+	};
+	
 	function markdown2HTMLtext () {
 		markdown2HTML();
 		
@@ -667,6 +675,9 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			markdown2HTML();
 			text =  document.getElementById('htmlText').value;
 		};
+		
+		// Make sure the real page start on the cover page
+		text =   unswitchedPageHTMLtext(text);
 		
 		// Wipe localstorage
 		localStorage.removeItem(ExperimentAcronym+'stimuluslist');
