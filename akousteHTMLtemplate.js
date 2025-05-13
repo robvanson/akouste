@@ -292,7 +292,18 @@ function displayArray (x) {
 }
 
 function nextStimulus () {
+	// if on cover page, unblock button
+	if(document.getElementById('coverpage') && document.getElementById('coverpage').style.display != 'none'){
+		document.getElementById('coverpage').style.display = 'none';
+		document.getElementById('experimentpage').style.display = 'block';
+		SetUp ();
+		return false;
+	};
+	
+	// Ready, no next
 	if(finishedExperiment)return false;
+	
+	// Genuine Next stimulus
 	if(playedSamples) {
 		// Reset played
 		playedSamples = false
@@ -459,13 +470,21 @@ function setProgress(percentComplete) {
 
 <script type="text/javascript">
 function SetUp() {
+	// Check whether JavaScript is enabled
+	document.getElementById('JavaScriptWarningText').style.display = 'none';
+	
+	// Defer setup on cover page
+	if(document.getElementById('coverpage') && document.getElementById('coverpage').style.display != 'none'){
+		document.getElementById('NextText').style.backgroundColor = "white";
+		document.getElementById('NextButton').style.backgroundColor = "white";
+
+		return false;
+	};
 	// Check whether local storage is enabled!
 	if(typeof(Storage) !== "undefined"){
 		document.getElementById('LocalStoragePresent').style.background = '#90EE90';
 	};
 
-	// Check whether JavaScript is enabled
-	document.getElementById('JavaScriptWarningText').style.display = 'none';
 	// Set layout
 	//initTableClasses ();
 	// The following are set by the Init function

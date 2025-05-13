@@ -31,6 +31,21 @@ function loadMarkdown(fileName) {
 	};
 	if(typeof initialMarkdown != "string" || initialMarkdown == null){
 		initialMarkdown = ` 
+[//comment]: # "Use the 'Start of coverpage' - 'End of coverpage' comments to insert a coverpage"
+[//coverpage]: # "Start of coverpage"
+
+<center>
+
+# The Cover Page
+
+</center>
+
+A cover page is optional, but often useful. A cover page is generally used to explain the aim and procedure of the experiment, and how to save and convey the results after completion of the experiment.
+
+It is adviseable to include a [[[ sound sample|<https://upload.wikimedia.org/wikipedia/commons/2/2d/Nl-aardhommel.ogg>{font-size:1em}]]] to check the sound quality and level. 
+
+[//coverpage]: # "End of coverpage"
+
 <center>
 
 # Title of this page
@@ -591,6 +606,11 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			};
 		` + '\n\</script\>' +'\n<body style="' + bodyStyleText + '">\n'+document.getElementById('htmlText').value+'\n</body>');
 		document.getElementById('htmlDisplay').src=winURL;
+		// Preserve page view
+		if(SwitchedPage){
+			switchPageHTMLdisplay ();
+			SwitchedPage = true;
+		};
 		
 		// Set up the couter of for the unblock function
 		requiredNames = document.getElementById('htmlText').value.match(/name\s*\=\s*['"](Audio|Question)[^'"]*['"]/ig);
@@ -612,6 +632,26 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		document.getElementById('htmlText').style.display = 'none';
 		document.getElementById('htmlDisplay').style.display = 'block';
 	}
+	
+	var SwitchedPage = false;
+	function switchPageHTMLdisplay () {
+			var currentHTML = document.getElementById('htmlText').value;
+			if(currentHTML.match(/<div id="coverpage" style="[^"]*">/i)){
+				if(currentHTML.match(/<div id="coverpage" style="[^"]*display:\s*block[^"]*">/i)) {
+						currentHTML = currentHTML.replace(/<div id="coverpage" style="([^"]*display:\s*)block([^"]*)">/ig, "<div id=\"coverpage\" style=\"$1none$2\">");
+						currentHTML = currentHTML.replace(/<div id="experimentpage" style="([^"]*display:\s*)none([^"]*)">/ig, "<div id=\"experimentpage\" style=\"$1block$2\">");
+				} else {
+						currentHTML = currentHTML.replace(/<div id="coverpage" style="([^"]*display:\s*)none([^"]*)">/ig, "<div id=\"coverpage\" style=\"$1block$2\">");
+						currentHTML = currentHTML.replace(/<div id="experimentpage" style="([^"]*display:\s*)block([^"]*)">/ig, "<div id=\"experimentpage\" style=\"$1none$2\">");
+				};
+				
+				document.getElementById('htmlText').value = currentHTML;
+				winURL = HTML2URL (currentHTML);
+				document.getElementById('htmlDisplay').src=winURL;
+				
+				SwitchedPage = !SwitchedPage;
+			} ;
+	};
 	
 	function markdown2HTMLtext () {
 		markdown2HTML();
@@ -712,6 +752,16 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		
 		return result;
 	};
+	
+	function replaceCoverPage (text) {
+		if(text.match(/(^|\n)\s*\[\/\/\s*coverpage\s*\]\:\s+\#\s+\"[^\"]+\"/i)) {
+			text = text.replace(/(^|\n)\s*\[\/\/\s*coverpage\s*\]\:\s+\#\s+\"\s*Start of coverpage\s*\"/ig, '\n<div id="coverpage" style="display: block">');
+			text = text.replace(/\n[ \t]*\[\/\/\s*coverpage\s*\]\:\s+\#\s+\"\s*End of coverpage\s*\"/ig, '\n</div>\n<div id="experimentpage" style="display: none">\n');
+			text += '\n</div>\n';
+			
+		};
+		return text;
+	};
 
 	function replaceRadioButons (text) {
 		return text.replace(/\(\(\)\)/g, brackets2radiobuttons)
@@ -802,6 +852,10 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		// Ready number of scales
 		NumberOfScales = questionNum;
 		var processedText = lines.join('\n');
+		
+		// insert Cover page
+		processedText = replaceCoverPage(processedText);
+		
 		return processedText;
 	};
 	
@@ -971,6 +1025,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		<table>
 			<tr style="width:80%">
 			<td><input type="button" id='RenderButtonDisplay' value="Display HTML" onclick="markdown2HTMLdisplay ()"  title='The HTML displayed here is non-functional. Click the "Show Page" button to open a functional page'></td>
+			<td><input type="button" id='SwitchPageDisplay' value="Switch Page" onclick="switchPageHTMLdisplay ()"  title='Switch between Cover Page and Experiment Page'></td>
 			<td><input type="button" id='RenderButtonText' value="HTML text" onclick="markdown2HTMLtext ()"></td>
 			<td><input type="button" id='ShowButton' value="Show Page" onclick="openAndWrite(preamble, document.getElementById('htmlText').value, postamble);"></td>
 			<td  width="35%">&emsp;</td>

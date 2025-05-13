@@ -1,3 +1,18 @@
+[//comment]: # "Use the 'Start of coverpage' - 'End of coverpage' comments to insert a coverpage"
+[//coverpage]: # "Start of coverpage"
+
+<center>
+
+# The Cover Page
+
+</center>
+
+A cover page is optional, but often useful. A cover page is generally used to explain the aim and procedure of the experiment, and how to save and convey the results after completion of the experiment.
+
+It is adviseable to include a [[[ sound sample|<https://upload.wikimedia.org/wikipedia/commons/2/2d/Nl-aardhommel.ogg>{font-size:1em}]]] to check the sound quality and level. 
+
+[//coverpage]: # "End of coverpage"
+
 <center>
 
 # Title of this page
@@ -8,6 +23,12 @@
 | -: | -------: | :------: | :------- | :- |
 |     | [[[A]]]    |             | [[[B]]]   |     |
 |     |               | [[[X]]]  |              |     |
+
+</center>
+
+The tripple {**name|style**}-bracket pairs insert text. A simple **name** is interpreted as the name of a Stimulus table column and is replaced with the current content of that stimulus value. If **name** has the form**&lt;URL&gt;**, the page behind that URL is loaded. If **name** has the form of **!parameter!** (parameter enclosed between two !-characters), the value of that variable is subtituted, as is done below.
+
+<center>
 
 ## {{{!answerstogo!|font-weight:bold}}} answers to go
 
