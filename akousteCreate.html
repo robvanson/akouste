@@ -586,15 +586,8 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		return winURL;
 	};
 	
-	function markdown2HTML () {
-		currentMarkdown = document.getElementById('markdownText').value ;
-		var processedMarkdown = preProcessMD (currentMarkdown);
-		document.getElementById('htmlText').value = window.markdownit({
-			  html: true
-		}).render(processedMarkdown);
-		HTMLchanged = false;
-
-		winURL = HTML2URL ('<!DOCTYPE html><head>\n'+experimentStyles + '\n\<script  type="text/javascript"\>\n' + `
+	function createDisplayHTMLpage (text) {
+		var fullPage = '<!DOCTYPE html><head>\n'+experimentStyles + '\n\<script  type="text/javascript"\>\n' + `
 			function stopAllAudio () {
 				var audioPlayers = document.getElementsByTagName('Audio');
 				for(i in audioPlayers){
@@ -604,7 +597,22 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 					};
 				};
 			};
-		` + '\n\</script\>' +'\n<body style="' + bodyStyleText + '">\n'+document.getElementById('htmlText').value+'\n</body>');
+		` + '\n\</script\>' +'\n<body style="' + bodyStyleText + '">\n'+text+'\n</body>';
+		
+		return fullPage;
+	};
+	
+	function markdown2HTML () {
+		currentMarkdown = document.getElementById('markdownText').value ;
+		var processedMarkdown = preProcessMD (currentMarkdown);
+		var htmlText = window.markdownit({
+			  html: true
+		}).render(processedMarkdown);
+		HTMLchanged = false;
+
+		var newPage = createDisplayHTMLpage (htmlText);
+		document.getElementById('htmlText').value = newPage;
+		winURL = HTML2URL (newPage);
 		document.getElementById('htmlDisplay').src=winURL;
 		// Preserve page view
 		if(SwitchedPage){
