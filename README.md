@@ -1,7 +1,7 @@
-
 ![](akouste-ear.png)
 
-#  akoúste
+# akoúste
+
 Version 2 [^1]
 
 [Try the demo](https://robvanson.github.io/akouste/akousteCreate.html)
@@ -10,11 +10,12 @@ Version 2 [^1]
 
 The akoúste project aims to provide tools for simple, adaptable listening experiments aimed at situations where the use of a dynamic host server storing and serving the speech and collecting the responses over the internet is unpractical or unwanted, e.g., due to privacy concerns. akoúste pages can be used both on desk/laptops and on mobile devices, with and without a network connection.
 
-akoúste experiments can as easily be run off thumbdrives, or local hard drives, with all data kept locally, as they can be run from a web server. Submission of results is under the control of the subject doing the experiment. The whole experiment is run inside the browser and intermediate results are stored in the browser\'s local storage. After completing the experiment, the subject can download the results in text format which can be submitted to the experimenter.
+akoúste experiments can as easily be run off thumbdrives, or local hard drives, with all data kept locally, as they can be run from a web server. Submission of results is under the control of the subject doing the experiment. The whole experiment is run inside the browser and intermediate results are stored in the browser's local storage. After completing the experiment, the subject can download the results in text format which can be submitted to the experimenter.
 
 ## What is needed
 
 List of materials
+
 - Stimuli
 - A table listing which stimuli should be presented at each turn
 - A web page that presents the stimuli to the listeners and collects their responses
@@ -28,11 +29,12 @@ The visual layout and text of the web page that presents the experiment is writt
 In our demonstrations, we use web URLs to demonstrate the full functionality. But when designing and testing an experiment using local audio files, the experiment page should be saved to the local drive (**Save HTML...**) and opened from there.
 
 Examples (random audio examples courtesy of [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page)):
+
 - [AB comparison](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=ABexample)
 - [ABX comparison](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=ABXexample)
 - [Transcription](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=Transcribe)
 - [SToPS (Sunderland
-Tracheoesophageal Perceptual Scale)](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=SToPS) [^2]   
+  Tracheoesophageal Perceptual Scale)](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=SToPS) [^2]   
   with fancy formatting
 - Minimalistic [Audiotest experiment](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=Audiotest)
 
@@ -40,7 +42,9 @@ Tracheoesophageal Perceptual Scale)](https://robvanson.github.io/akouste/akouste
 
 A self contained web page that can run the experiment and can be distributed together with the stimuli, if the stimuli are local. Contrary to what the name suggests, the experiment web page works completely off-line. Internet is only used when stimuli are not available locally.
 
-## What you do *not* get 
+The web page optionally starts with a cover page which can contain all the information and instructions for the subjects. The stimulus list will be contained in the web page, but a suitable file with stimuli can be supplied that will read a new stimulus list. The subject can pace through the experiment and pause as they see fit. All information needed to pick up the experiment at a later time is stored inside the browser. After the last answer is given, the subject is offered the option to save the results in a text file. After that, the data in the browser can be deleted by clicking a **Restart** button.
+
+## What you do *not* get
 
 Although akoúste stores progress of the experiment in the local browser, absolutely ***no*** information is send out. Even the results of the experiment will be stored locally in a text file, and only if the user saves them. The results only leave the computer when the user conveys them by email of  DM to the addressee.
 
@@ -73,9 +77,9 @@ The user facing part of the experiment is a web-page. The text and layout of thi
 Two constructs are defined to present stimulus sounds and texts to subjects:
 
 - \[\[\[text\|name\{style\}\]\]\] audio button showing *text* in *style*, playing the audio of column *name*.   
-For instance, \[\[\[Speaker A\|A\{font-style: italic;\}\]\]\] would show a button with the text *Speaker A* in italic and play the current stimulus in the column labeled *A* of the stimulus table.
--  \{\{\{name\|style\}\}\} text showing the string in column *name* in *style*.   
-For instance, \{\{\{LangA\|font-style: italic;\}\}\} would show the text in *italic* of the current stimulus in the column labeled *LangA* of the stimulus table.
+  For instance, \[\[\[Speaker A\|A\{font-style: italic;\}\]\]\] would show a button with the text *Speaker A* in italic and play the current stimulus in the column labeled *A* of the stimulus table.
+- \{\{\{name\|style\}\}\} text showing the string in column *name* in *style*.   
+  For instance, \{\{\{LangA\|font-style: italic;\}\}\} would show the text in *italic* of the current stimulus in the column labeled *LangA* of the stimulus table.
 
 All sounds have to be played before the subject can proceed to the next stimulus.
 
@@ -90,6 +94,7 @@ All questions have to be answered (changed) before the subject can move to the n
 ### Extensions
 
 Extensions of the \[\[\[text\|name\{style\}\]\]\] audio button and \{\{\{name\|style\}\}\} text constructs have been added to simplify some tasks. In these constructs **URL** means *http(s)://* style links as well as local files *./path/file.ext*. Using stored local files is preferable as it is robust to network downtime and [link-rot](https://en.wikipedia.org/wiki/Link_rot).
+
 - \[\[\[\<URL\>\|name\{style\}\]\]\] inserts an audio button that will play the sound at the **URL**.
 - \{\{\{\<URL\>\|style\}\}\} insert an *iframe* with the page at the **URL**.
 - \{\{\{!parameter!\|style\}\}\} insert text value of the internal variable **parameter**.
