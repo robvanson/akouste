@@ -398,6 +398,12 @@ function resetPage () {
 	answerList = [];
 	answer = new Array(NumberOfScales).fill(-1);
 	stimulusNbr = 0;
+	
+	// Reset cover page, if there is one
+	if(document.getElementById('coverpage')) {
+		document.getElementById('coverpage').style.display = 'block';
+		document.getElementById('experimentpage').style.display = 'none';
+	};
 };
 
 
