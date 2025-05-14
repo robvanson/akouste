@@ -1,4 +1,4 @@
-preamble = `<!DOCTYPE html>
+<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <style>
@@ -62,30 +62,34 @@ preamble = `<!DOCTYPE html>
 	};
 </script>
 
-<script language="JavaScript" src="./XXEXPERIMENTNAMEXX_stimuluslist.js"></script>
+<script language="JavaScript" src="./Audiotest_stimuluslist.js"></script>
 <script language="JavaScript">
 // Insert stimulus table
 if(typeof stimulusTableJSON == 'undefined' || stimulusTableJSON == null || stimulusTableJSON.length == 0) {
-	stimulusTableJSON = XXstimulusTableJSONXX;
+	stimulusTableJSON = ` 
+[["A"],
+[["https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg"],
+["https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg"]]]
+`;
 };
 
-var NumberOfScales = XXNUMBEROFSCALESXX;
-var RandomizeAB = XXRANDOMIZEABXX;
-var PracticeItems = XXPracticeItemsXX;
-var ShuffleStimulusList = XXSHUFFLESTIMULUSLISTXX;
-var CurrentExperimentID = "XXEXPERIMENTNAMEXX";
+var NumberOfScales = 1;
+var RandomizeAB = false;
+var PracticeItems = 0;
+var ShuffleStimulusList = true;
+var CurrentExperimentID = "Audiotest";
 
-var audioBaseURL = 'XXaudioBaseURLXX';
+var audioBaseURL = './Stimuli/';
 var stimulusTable = [];
-var audioNames = [];
-var textNames = [];
+var audioNames = ["A"];
+var textNames = [""];
 var columnNames = [];
 var audioPos = [];
 var textPos = [];
 var answerstogo = 0;
 
 var answerList = [];
-var requiredNames = [];
+var requiredNames = ["AudioA", "Question1"];
 var requiredAnswers = new Array(requiredNames.length).fill(false);
 var playedSamples = false;
 var finishedExperiment = false;
@@ -126,16 +130,16 @@ function loadList () {
 		// No JSON data, use CSV			
 		} else if (typeof csv != 'undefined' && csv != null) {
 			// Split the input into lines
-			lines = csv.split('\\n');
+			lines = csv.split('\n');
 		
 			// Extract column names from the first line
 			columnNamesLine = lines[0];
-			columnNames = columnNamesLine.split(/[;\t]/g).filter(e => e);
+			columnNames = columnNamesLine.split(/[;	]/g).filter(e => e);
 		
 			// Extract data from subsequent lines
 			dataLines = lines.slice(1);
 			while(dataLines[dataLines.length-1] == [])dataLines.pop();
-			data = dataLines.map(function(x){return x.split(/[;\t]/g).filter(e => e)});
+			data = dataLines.map(function(x){return x.split(/[;	]/g).filter(e => e)});
 		};	
 
 		if(RandomizeAB) {
@@ -239,7 +243,7 @@ function setAudio(i, stimulusTable) {
 				currentAudio = audioBaseURL + currentAudio;
 			};
 			document.getElementById('Audio'+audioNames[i]).src = currentAudio;
-			document.getElementById('Audio'+audioNames[i]).title = currentAudio.replace(/^.*\\/([^\\/]+)\.wav$/, "$1");
+			document.getElementById('Audio'+audioNames[i]).title = currentAudio.replace(/^.*\/([^\/]+).wav$/, "$1");
 			document.getElementById('Audio'+audioNames[i]).style.backgroundColor = "#F0F0F0";
 			document.getElementById('Audio'+audioNames[i]).parentNode.parentNode.style.backgroundColor = "#F0F0F0";
 		} else {
@@ -279,18 +283,18 @@ function displayArray (x) {
 	var answerNums = Array.from(Array(NumberOfScales+1).keys());
 	var answerTexts = Array(NumberOfScales).fill("Answer");
 	answerTexts = answerTexts.map(function(el, idx){return el+answerNums[idx+1]});
-	var output = "Num;"+answerTexts.join(";")+";"+(stimulusTable[0]).join(";")+"\\n";
+	var output = "Num;"+answerTexts.join(";")+";"+(stimulusTable[0]).join(";")+"\n";
 	for (var i=0; i<x.length; i++) {
 		line = "";
-		output += x[i] + '\\n';
+		output += x[i] + '\n';
 	}
 	var blob = new Blob([output], {type: "text/plain"});
 	var blobURL = URL.createObjectURL(blob);
-	document.getElementById('SaveButtonText').innerHTML = "XXSaveButtonTextXX";
+	document.getElementById('SaveButtonText').innerHTML = "Save Results";
 	document.getElementById('SaveButton').style.visibility = 'visible';
 	document.getElementById('ToolTipSave').style.visibility = 'visible';
 	document.getElementById('SaveLink').href = blobURL;
-	document.getElementById('SaveLink').download = CurrentExperimentID+"LK5buttons_Results_"+((new Date()).toISOString()).replace(/\.[0-9Z]+/, "").replace(/\:/g,".") + ".txt";
+	document.getElementById('SaveLink').download = CurrentExperimentID+"LK5buttons_Results_"+((new Date()).toISOString()).replace(/.[0-9Z]+/, "").replace(/:/g,".") + ".txt";
 }
 
 function nextStimulus () {
@@ -349,7 +353,7 @@ function nextStimulus () {
 		setAudio(stimulusNbr, stimulusTable);
 		return true;
 	} else {
-		alert('XXNextAlertTextXX');
+		alert('Please listen to the recordings and answer the questions first');
 		return false;
 	};
 	
@@ -357,10 +361,10 @@ function nextStimulus () {
 
 function FinishExperimentRun () {
 	displayArray(answerList);
-	document.getElementById('NextText').innerHTML = "XXReadyTextXX";
-	document.getElementById('NextText').title = "XXToolTipReadyXX";
+	document.getElementById('NextText').innerHTML = "Ready";
+	document.getElementById('NextText').title = "Ready, please save results";
 	document.getElementById('NextText').style.backgroundColor = "gray";
-	document.getElementById('SaveText').innerHTML =  "XXSaveTextXX";
+	document.getElementById('SaveText').innerHTML =  "Please click Save Results and store the file";
 	finishedExperiment = true;
 	setProgress(100);
 
@@ -369,7 +373,7 @@ function FinishExperimentRun () {
 function onSave () {
 	document.getElementById('RestartPage').style.visibility = 'visible'
 	document.getElementById('ToolTipRestart').style.visibility = 'visible'
-	document.getElementById('SaveText').innerHTML =  'XXSaveTextXX';
+	document.getElementById('SaveText').innerHTML =  'Please click Save Results and store the file';
 };
 
 function resetPage () {
@@ -512,14 +516,112 @@ function SetUp() {
 	  <div id="progressBar" style="background-color:#cce6ff;height:8px;width:0%"></div>
 	</div> 
 
-`
+<!DOCTYPE html><head>
+<style>
+		/* Increase radio button's size */
+		input[type='radio']{
+			width: 25px;
+			height: 25px;
+		}
+				
+		/* The slider itself */
+		.slider {
+		  -webkit-appearance: none;  /* Override default CSS styles */
+		  appearance: none;
+		  width: 100%; /* Full-width */
+		  height: 5px; /* Specified height */
+		  border-radius: 5px;  
+		  background: #d3d3d3; /* Grey background */
+		  outline: none; /* Remove outline */
+		  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+		  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+		  transition: opacity .2s;
+		}
+		
+		/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+		.slider::-webkit-slider-thumb {
+		  -webkit-appearance: none; /* Override default look */
+		  appearance: none;
+		  width: 15px; /* Set a specific slider handle width */
+		  height: 15px; /* Slider handle height */
+		  border-radius: 50%; 
+		  /* background: #4CAF50;*/ /* Green background */
+		  background: #6495ED; /* Green background */
+		  cursor: pointer; /* Cursor on hover */
+		}
 
-postamble = `
+		/* center tag *
+		center {
+			background: none;
+		}
+	
+		/* Table layout */
+		table {
+		  width: 80%;
+		  table-layout: fixed;
+		  background: none;
+		}
+		
+		table, tr, td {
+		  background: none;
+		}
+</style>
+<script  type="text/javascript">
+
+			function stopAllAudio () {
+				var audioPlayers = document.getElementsByTagName('Audio');
+				for(i in audioPlayers){
+					if(typeof audioPlayers[i] == 'object'){
+						audioPlayers[i].pause();
+						audioPlayers[i].currentTime = 0;
+					};
+				};
+			};
+		
+</script>
+<body style="">
+<center>
+<h1>akoúste test for local audio</h1>
+<p><audio id="AudioA" name="AudioA" src="" preload="auto" title="" onplaying="unblockNext ('AudioA');"></audio><a href="javascript:void(0)" id="ToolTipAudioA" data-toggle="tooltip" title="Play sound"><button onclick="stopAllAudio ();document.getElementById('AudioA').play();" style="font-size:30px;background-color:white;;"><strong><div id="PlayAudioAText" style="background-color:white;">Play A</div></strong></button></a></p>
+<h2><span id="answerstogo" name="parameterText" style="font-weight:bold"></span> answers to go</h2>
+<p>Minimal test of audio. Uses two sounds from ./Stimuli as listed in Audiotest_stimuluslist.js (in the same folder as the wep page) or web audio when this stimuluslist is not available.</p>
+<p>For it to work, JavaScript should be allowed, <em>Third-party cookies</em> should be allowed (Chrome and derived browsers),  or <em>cross-site tracking</em> should be allowed (ie, <em>not</em> prevented, Safari). Firefox and derived browsers seem to work in most settings.</p>
+</center>
+<hr>
+<center>
+<h3>Does this sound start with <em>ah</em></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:right"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right"></td>
+<td style="text-align:center"><input type="radio" value="1" name="Question1" id="Question1.1" onchange="unblockNext('Question1')" oninput="answer[1 - 1]=this.value"></td>
+<td style="text-align:center"><input type="radio" value="2" name="Question1" id="Question1.2" onchange="unblockNext('Question1')" oninput="answer[1 - 1]=this.value"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:right"></td>
+<td style="text-align:center">No</td>
+<td style="text-align:center">Yes</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<hr>
+
+</body>
 	  <p>
 	  <table style="text-align:center;width:50%;margin-left:auto;margin-right:auto;">
 	  <tr style="font-size:30px">
 	    <td>&nbsp;</td>
-	    <td><a href="javascript:void(0)" id="ToolTipNext" data-toggle="tooltip" title="XXToolTipNextXX"><button id="NextButton" onclick="nextStimulus ();" style="font-size:30px;background-color:gray"><strong><div id="NextText" style="font-size:30px;background-color:gray">XXNextTextXX</div></strong></button></a></td>
+	    <td><a href="javascript:void(0)" id="ToolTipNext" data-toggle="tooltip" title="Go to next item"><button id="NextButton" onclick="nextStimulus ();" style="font-size:30px;background-color:gray"><strong><div id="NextText" style="font-size:30px;background-color:gray">Next</div></strong></button></a></td>
 	    <td>&nbsp;</td>
 	  </tr>
 	  <tr style="font-size:30px">
@@ -528,9 +630,9 @@ postamble = `
 	    <td>&nbsp;</td>
 	  </tr>
 	  <tr style="font-size:30px">
-	    <td><a href="javascript:void(0)" id="ToolTipRestart" data-toggle="tooltip" title="XXToolTipRestartXX" style="visibility:hidden"><button id="RestartPage" onclick="resetPage(); location.reload();" style="font-size:30px;visibility:hidden;"><strong><div id="RestartPageText">XXRestartPageTextXX</div></strong></button></a></td>
+	    <td><a href="javascript:void(0)" id="ToolTipRestart" data-toggle="tooltip" title="Start a new experiment session" style="visibility:hidden"><button id="RestartPage" onclick="resetPage(); location.reload();" style="font-size:30px;visibility:hidden;"><strong><div id="RestartPageText">Restart</div></strong></button></a></td>
 	    <td>&nbsp;</td>
-	    <td><a href="javascript:void(0)" id="ToolTipSave" data-toggle="tooltip" title="XXToolTipSaveXX" style="visibility:hidden"><button onclick="document.getElementById('SaveLink').click();" style="font-size:30px;visibility:hidden;" id="SaveButton"><strong><div id="SaveButtonText"style="color:blue;">XXSaveButtonTextXX</div></strong></button></a></td>
+	    <td><a href="javascript:void(0)" id="ToolTipSave" data-toggle="tooltip" title="Save the answer to a file" style="visibility:hidden"><button onclick="document.getElementById('SaveLink').click();" style="font-size:30px;visibility:hidden;" id="SaveButton"><strong><div id="SaveButtonText"style="color:blue;">Save Results</div></strong></button></a></td>
 	  </tr>
 	  </table>
 	  <br />
@@ -548,4 +650,3 @@ postamble = `
 	</table>
 	
 </body>	
-`

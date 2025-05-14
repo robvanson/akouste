@@ -750,7 +750,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		};
 	
 	function saveStimulusTableJSON() {
-			var stimBlob = new Blob(["var stimulusTableJSON = \`\n"+stimulusTableJSON+"\n\`;"], {type: 'text/plain'});
+			var stimBlob = new Blob(["var stimulusTableJSON = "+stimulusTableJSON+";"], {type: 'text/plain'});
 			var stimBlobUrl = URL.createObjectURL(stimBlob);
 			const anchor = document.createElement('a');
 			anchor.href = stimBlobUrl;
