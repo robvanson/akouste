@@ -8,7 +8,7 @@ initialMarkdown = `
 
 ## {{{!answerstogo!|font-weight:bold}}} answers to go
 
-Minimal test of audio. Uses two sounds from ./Stimuli as listed in Audiotest_stimuluslist.js (in the same folder as the wep page) or web audio when this stimuluslist is not available.
+Minimal test of audio. Uses two sounds<sup>1</sup> from ./Stimuli as listed in Audiotest_stimuluslist.js (in the same folder as the wep page) or web audio when this stimuluslist is not available.
 
 For it to work, JavaScript should be allowed, *Third-party cookies* should be allowed (Chrome and derived browsers),  or *cross-site tracking* should be allowed (ie, *not* prevented, Safari). Firefox and derived browsers seem to work in most settings.
 
@@ -24,8 +24,12 @@ For it to work, JavaScript should be allowed, *Third-party cookies* should be al
  | -: | :--: | :--: | :- |
  |     | (()) | (()) |    | 
  |     |  No    |  Yes  |    | 
+ 
+</center>
 
 ---------------------------
+
+<sup>1</sup> Wikimedia Commons [Nl-Be.ogg](https://commons.wikimedia.org/wiki/File:Nl-Be.ogg) and [Open_front_unrounded_vowel.mp3](https://commons.wikimedia.org/wiki/File:Open_front_unrounded_vowel.ogg)
 
 [//comment]: # "These are internal parameters for the experiment and visible texts not in this Markdown"
 [//comment]: # "----------"

@@ -65,7 +65,7 @@ preamble = `<!DOCTYPE html>
 <script language="JavaScript" src="./XXEXPERIMENTNAMEXX_stimuluslist.js"></script>
 <script language="JavaScript">
 // Insert stimulus table
-if(typeof stimulusTableJSON == 'undefined' || stimulusTableJSON == null || stimulusTableJSON.length == 0) {
+if(typeof stimulusTableJSON == 'undefined' || stimulusTableJSON == null || stimulusTableJSON.length == 0){
 	stimulusTableJSON = XXstimulusTableJSONXX;
 };
 
