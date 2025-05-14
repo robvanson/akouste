@@ -105,11 +105,11 @@ A general experiment starts with an explanation of the aims, what is expected fr
 
 A cover page is defined by starting the markdown with a line that says:
 
-> [//coverpage]: # "Start of coverpage"
+> \[//coverpage\]: \# "Start of coverpage"
 
 After editing the page, using the same constructs as when editing the experiment, the cover page is closed with a single line:
 
-> [//coverpage]: # "End of coverpage"
+> \[//coverpage\]: \# "End of coverpage"
 
 This will translate in an HTML file that contains two \<div\>'s, one for each page. Only one of these \<div\>'s will be visible at any time. When the experiment file is loaded, only the cover page will be visible. The experiment only starts when the subject clicks on the **Next** button.
 
