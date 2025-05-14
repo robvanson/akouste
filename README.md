@@ -143,13 +143,17 @@ Then follows a line with the header of the table. For example:
 
 > [//stimulus0]: # "A,B,X,LangA,LangB,LangX"
 
-This says that the table has columns named *A*, *B*, *X*, *LangA*, *LangB*, and *LangX*
+This line says that the table has columns named *A*, *B*, *X*, *LangA*, *LangB*, and *LangX*
 
 Then follow the rows of the table. Each row has the form:
 
 > [//stimulus1]: # "De-Aluminium.ogg,Fr-bordure.ogg,En-uk-illustrate.ogg,Geman (DE),French (FR),English (EN)"
 
-This line gives the names of three *.ogg* audio files and the names of the respective languages. Note that the rows of the stimulus table all have the label \[//stimulus1\]. They are *not* numbered.
+This line gives the names of three *.ogg* audio files and the names of the respective languages as an example. Note that the rows of the stimulus table all have the label \[//stimulus1\]. They are *not* numbered.
+
+The stimulus table ends with:
+
+> [//comment]: # "----------"
 
 ---------
 
