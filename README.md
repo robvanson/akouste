@@ -117,7 +117,7 @@ This will translate in an HTML file that contains two \<div\>'s, one for each pa
 
 The markdown file is designed to be a self-contained complete representation of the experiment. For that reason, internal data of the experiment and the stimulus table are automatically appended to the markdown. These data are formatted in ways that make them "invisible" to the markdown. The data are in text form and can be edited directly in the markdown. However, the format is rather strict so editing could led to unexpected behavior.
 
-akoúste has over a dozen of settings to manage the experiment. They can be set in the akousteCreate page. They are stored at the bottom of the markdown file. These start after the line:
+akoúste has over a dozen of settings to manage each experiment. They can be set in the akousteCreate page. They are stored at the bottom of the markdown file. The settings start after the line:
 
 > \[//comment\]: \# "These are internal parameters for the experiment and visible texts not in this Markdown"   
 > \[//comment\]: \# "----------"
