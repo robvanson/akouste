@@ -119,41 +119,41 @@ The markdown file is designed to be a self-contained complete representation of 
 
 akoúste has over a dozen of settings to manage the experiment. They can be set in the akousteCreate page. They are stored at the bottom of the markdown file. These start after the line:
 
-> [//comment]: # "These are internal parameters for the experiment and visible texts not in this Markdown"
-> [//comment]: # "----------"
+> \[//comment\]: \# "These are internal parameters for the experiment and visible texts not in this Markdown"   
+> \[//comment\]: \# "----------"
 
 Each setting has the form:
 
-> [//label]: "key:value"
+> \[//label\]: \# "key:value"
 
 Where the label indicates what kind of setting it is. 
 
 The settings end with:
 
-> [//comment]: # "----------"
+> \[//comment\]: \# "----------"
 
 ### The stimulus table
 
 The stimulus table is stored below the settings area in the markdown file. It starts with:
 
-> [//comment]: # "These are stimuli for this experiment"
-> [//comment]: # "----------"
+> \[//comment\]: \# "These are stimuli for this experiment"   
+> \[//comment\]: \# "----------"
 
 Then follows a line with the header of the table. For example:
 
-> [//stimulus0]: # "A,B,X,LangA,LangB,LangX"
+> \[//stimulus0\]: \# "A,B,X,LangA,LangB,LangX"
 
 This line says that the table has columns named *A*, *B*, *X*, *LangA*, *LangB*, and *LangX*
 
 Then follow the rows of the table. Each row has the form:
 
-> [//stimulus1]: # "De-Aluminium.ogg,Fr-bordure.ogg,En-uk-illustrate.ogg,Geman (DE),French (FR),English (EN)"
+> \[//stimulus1\]: \# "De-Aluminium.ogg,Fr-bordure.ogg,En-uk-illustrate.ogg,Geman (DE),French (FR),English (EN)"
 
 This line gives the names of three *.ogg* audio files and the names of the respective languages as an example. Note that the rows of the stimulus table all have the label \[//stimulus1\]. They are *not* numbered.
 
 The stimulus table ends with:
 
-> [//comment]: # "----------"
+> \[//comment\]: \# "----------"
 
 ---------
 
