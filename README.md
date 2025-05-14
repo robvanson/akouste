@@ -99,5 +99,59 @@ Extensions of the \[\[\[text\|name\{style\}\]\]\] audio button and \{\{\{name\|s
 - \{\{\{\<URL\>\|style\}\}\} insert an *iframe* with the page at the **URL**.
 - \{\{\{!parameter!\|style\}\}\} insert text value of the internal variable **parameter**.
 
+### The cover page
+
+A general experiment starts with an explanation of the aims, what is expected from the subject, and instructions on how to complete the task of the experiment. To this end, a *cover page* can be demarked in the markdown. 
+
+A cover page is defined by starting the markdown with a line that says:
+
+> [//coverpage]: # "Start of coverpage"
+
+After editing the page, using the same constructs as when editing the experiment, the cover page is closed with a single line:
+
+> [//coverpage]: # "End of coverpage"
+
+This will translate in an HTML file that contains two \<div\>'s, one for each page. Only one of these \<div\>'s will be visible at any time. When the experiment file is loaded, only the cover page will be visible. The experiment only starts when the subject clicks on the **Next** button.
+
+### The settings
+
+The markdown file is designed to be a self-contained complete representation of the experiment. For that reason, internal data of the experiment and the stimulus table are added to the markdown. The are formatted in ways that make them "invisible" to the markdown.
+
+akoúste has over a dozen of settings to manage the experiment. They can be set in the akousteCreate page. They are stored at the bottom of the markdown file. These start after a line:
+
+> [//comment]: # "These are internal parameters for the experiment and visible texts not in this Markdown"
+> [//comment]: # "----------"
+
+Each setting has the form:
+
+> [//label]: "key:value"
+
+Where the label indicates what kind of setting it is. 
+
+The settings end with:
+
+> [//comment]: # "----------"
+
+### The stimulus table
+
+The stimulus table is stored below the settings area in the markdown file. It starts with:
+
+> [//comment]: # "These are stimuli for this experiment"
+> [//comment]: # "----------"
+
+Then follows a line with the header of the table. For example:
+
+> [//stimulus0]: # "A,B,X,LangA,LangB,LangX"
+
+This says that the table has columns named *A*, *B*, *X*, *LangA*, *LangB*, and *LangX*
+
+Then follow the rows of the table. Each row has the form:
+
+> [//stimulus1]: # "De-Aluminium.ogg,Fr-bordure.ogg,En-uk-illustrate.ogg,Geman (DE),French (FR),English (EN)"
+
+This line gives the names of three *.ogg* audio files and the names of the respective languages. Note that the rows of the stimulus table all have the label \[//stimulus1\]. They are *not* numbered.
+
+---------
+
 [^1]: Version 1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)
 [^2]: [Guidance for SToPS (PDF)](https://eprints.leedsbeckett.ac.uk/id/eprint/4126/3/Guidance%20notes%20for%20SToPS.pdf)
