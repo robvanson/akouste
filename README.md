@@ -115,7 +115,7 @@ This will translate in an HTML file that contains two \<div\>'s, one for each pa
 
 ### The settings
 
-The markdown file is designed to be a self-contained complete representation of the experiment. For that reason, internal data of the experiment and the stimulus table are automatically appended to the markdown. These data are formatted in ways that make them "invisible" to the markdown. The data are in text form and can be edited directly in the markdown. However, the format is rather strict so editing could led to unexpected behavior.
+The markdown file is designed to be a self-contained complete representation of the experiment. For that reason, internal data of the experiment and the stimulus table are automatically appended to the markdown. These data are formatted in ways that make them "invisible" to the markdown. The data are in text form and can be edited directly in the markdown. However, the format is rather strict so editing could led to unexpected behavior. In normal use, there would not be a need to ever edit the settings directly. It suffices to save the markdown with the **Save MD...** button.
 
 akoúste has over a dozen of settings to manage each experiment. They can be set in the akousteCreate page. They are stored at the bottom of the markdown file. The settings start after the line:
 
@@ -134,7 +134,9 @@ The settings end with:
 
 ### The stimulus table
 
-The stimulus table is stored below the settings area in the markdown file. It starts with:
+The stimulus table is stored below the settings area in the markdown file. This area can be edited directly, but that should rarely be necessary. When a *.csv* file is uploaded, the contents automatically replace the existing data in the markdown file. It suffices to save the markdown with the **Save MD...** button.
+
+The definition of the stimulus table starts with:
 
 > \[//comment\]: \# "These are stimuli for this experiment"   
 > \[//comment\]: \# "----------"
