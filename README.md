@@ -20,7 +20,7 @@ List of materials
 - A table listing which stimuli should be presented at each turn
 - A web page that presents the stimuli to the listeners and collects their responses
 
-To create a listening experiment access to akousteCreate.html is needed. This access doe not have to be local, the [akoúste github pages](https://robvanson.github.io/akouste/akousteCreate.html) will do. For a real experiment, stimulus audio files are required, preferably in a local folder. The stimulus files can be accessed locally, or remotely over https. Any audio format that can be played by the web browsers of choice can be used.
+To create a listening experiment, access to [akousteCreate.html](https://robvanson.github.io/akouste/akousteCreate.html) is needed. This access doe not have to be local, the [akoúste github pages](https://robvanson.github.io/akouste/) will do. For a real experiment, stimulus audio files are required, preferably in a local folder. The stimulus files can be accessed locally, or remotely over https. Any audio format that can be played by the web browsers of choice can be used.
 
 akoústeCreate will read .csv tables (comma-separated-values) as can be derived from most spreadsheet, database, or statistics applications. Columns in these tables should have names in a header row. The table should contain columns that contain the names of the stimulus files. The tables can store any other information that is convenient in other columns. It is OK if there is only a single column with stimulus file names. The path or URL to the folder that contains the stimulus files can be supplied seperately, so it is not necessary to write out the path to each individual stimulus.
 
