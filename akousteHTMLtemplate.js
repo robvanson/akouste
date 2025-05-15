@@ -283,14 +283,19 @@ function displayArray (x) {
 	for (var i=0; i<x.length; i++) {
 		line = "";
 		output += x[i] + '\\n';
-	}
+	};
+	
+	var currentDateTime = new Date().toISOString();
+	currentDateTime = currentDateTime.replace(/\.[0-9Z]+$/, "").replace(/\:/g,".");
+	var resultFileName = CurrentExperimentID + currentDateTime + ".txt";
+	
 	var blob = new Blob([output], {type: "text/plain"});
 	var blobURL = URL.createObjectURL(blob);
 	document.getElementById('SaveButtonText').innerHTML = "XXSaveButtonTextXX";
 	document.getElementById('SaveButton').style.visibility = 'visible';
 	document.getElementById('ToolTipSave').style.visibility = 'visible';
 	document.getElementById('SaveLink').href = blobURL;
-	document.getElementById('SaveLink').download = CurrentExperimentID+"LK5buttons_Results_"+((new Date()).toISOString()).replace(/\.[0-9Z]+/, "").replace(/\:/g,".") + ".txt";
+	document.getElementById('SaveLink').download = resultFileName;
 }
 
 function nextStimulus () {
