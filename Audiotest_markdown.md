@@ -1,16 +1,14 @@
-
 <center>
 
 # akoúste test for local audio
 
 [[[A]]]
 
-
 ## {{{!answerstogo!|font-weight:bold}}} answers to go
 
 Minimal test of audio. Uses two sounds<sup>1</sup> from ./Stimuli as listed in Audiotest_stimuluslist.js (in the same folder as the web page) or web audio when this stimuluslist is not available.
 
-For it to work, JavaScript should be allowed, *Third-party cookies* should be allowed (Chrome and derived browsers),  or *cross-site tracking* should be allowed (ie, *not* prevented, Safari). Firefox and derived browsers seem to work in most settings.
+For it to work, JavaScript should be allowed, *Third-party cookies* should be allowed (Chrome, Edge and derived browsers),  or *cross-site tracking* should be allowed (ie, *not* prevented, Safari). Firefox and derived browsers seem to work in most settings. Internet Explorer (IE) does not work.
 
 </center>
 
@@ -18,12 +16,12 @@ For it to work, JavaScript should be allowed, *Third-party cookies* should be al
 
 <center>
 
-
 ### Does this sound start with *ah*?
- |     |        |       |    | 
- | -: | :--: | :--: | :- |
- |     | (()) | (()) |    | 
- |     |  No    |  Yes  |    | 
+
+|     |      |      |     |
+| ---:|:----:|:----:|:--- |
+|     | (()) | (()) |     |
+|     | No   | Yes  |     |
 
 </center>
 
