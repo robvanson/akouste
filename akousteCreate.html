@@ -19,7 +19,8 @@
 <meta name="msapplication-TileColor" content="#FFFFFF" />
 <meta name="msapplication-TileImage" content="favicon/favicon-512x512.png" />
 
-<script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js" referrerpolicy="no-referrer" onerror="alert('No HTML! Cannot load '+this.src);"></script>
+<script src="./markdown-it.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js" referrerpolicy="no-referrer" onerror="if(typeof window.markdownit == 'undefined')alert('No HTML! Cannot load '+this.src);"></script>
 <script id='mardownRead' type="text/javascript" src="./akousteInitPageMD.js"></script>
 <script type="text/javascript" >
 function loadMarkdown(fileName) {
