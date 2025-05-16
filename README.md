@@ -111,7 +111,7 @@ A cover page is defined by starting the markdown with a line that says:
 
 > \[//coverpage\]: \# "Start of coverpage"
 
-After editing the page, using the same constructs as when editing the experiment, the cover page is closed with a single line:
+After editing the page, the cover page is closed with a single line:
 
 > \[//coverpage\]: \# "End of coverpage"
 
