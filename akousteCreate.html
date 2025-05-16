@@ -2,7 +2,7 @@
 <head>
 <meta charset="UTF-8">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.2/markdown-it.min.js" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js" referrerpolicy="no-referrer" onerror="alert('No HTML! Cannot load '+this.src);"></script>
 <script id='mardownRead' type="text/javascript" src="./akousteInitPageMD.js"></script>
 <script type="text/javascript" >
 function loadMarkdown(fileName) {
@@ -603,6 +603,18 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	};
 	
 	function markdown2HTML () {
+		// Warn if markdown-it has not been loaded
+		if(typeof window.markdownit == 'undefined') {
+			document.getElementById('htmlText').value = `
+			HTML not available
+			"markdown-it.min.js" not found
+			`
+			// Display in HTML text
+			document.getElementById('htmlText').style.display = 'block';
+			document.getElementById('htmlDisplay').style.display = 'none';
+			return null;
+		};
+		
 		currentMarkdown = document.getElementById('markdownText').value ;
 		var processedMarkdown = preProcessMD (currentMarkdown);
 		var htmlText = window.markdownit({
@@ -1032,7 +1044,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			<td><input type="button" value="Redo >" onclick="document.getElementById('markdownText').value = markdownRedo();"</td>
 			<td><input type="button" value="Clear" onclick="document.getElementById('markdownText').value = ' ';"</td>
 			<td  width="35%">&emsp;</td>
-			<td><input type="button" id='SaveMDbutton' value="Save MD..." onclick="saveMarkdown() "</td>
+			<td><input type="button" id='SaveMDbutton' value="Save MD..." onclick="saveMarkdown() " title='Save current Markdown and settings as .md file. '</td>
 			</tr>
 		</table>
 
@@ -1047,8 +1059,8 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			<td><input type="button" id='SwitchPageDisplay' value="Switch Page" onclick="switchPageHTMLdisplay ()"  title='Switch between Cover Page and Experiment Page'></td>
 			<td><input type="button" id='RenderButtonText' value="HTML text" onclick="markdown2HTMLtext ()"></td>
 			<td><input type="button" id='ShowButton' value="Show Page" onclick="openAndWrite(preamble, document.getElementById('htmlText').value, postamble);"></td>
-			<td  width="35%">&emsp;</td>
-			<td><input type="button" value="Save HTML..." onclick="saveHTML() "</td>
+			<td  width="25%">&emsp;</td>
+			<td><input type="button" value="Save Experiment..." onclick="saveHTML()" title='Save current experiment as an HTML web page'</td>
 		</table>
 
 		<textarea id="htmlText" rows=50 cols=80' onchange="HTMLchanged = true; document.getElementById('ShowButton').style.backgroundColor = 'red';" style='display:none;'>
