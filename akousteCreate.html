@@ -423,6 +423,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 
 		stimulusTableLines.push(['[//stimulus0]: # "' + stimulusTable[0] + '"']);
 		for(var i=0;i < stimulusTable[1].length;++i){
+// Convert comma , to &#44;
 			stimulusTableLines.push(['[//stimulus1]: # "' + (stimulusTable[1][i]).join(",") + '"']);
 		};
 		stimulusTableLines.push(['[//comment]: # "----------"']);
