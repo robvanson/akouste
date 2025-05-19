@@ -161,6 +161,8 @@ The stimulus table ends with:
 
 > \[//comment\]: \# "----------"
 
+The stimulus table can be edited directly in the markdown file. The format is rather strict with comma-separated values. All comma's and quotes are replaced and stored by their \&\#\<ASCII\>; values, ie, \&\#44;, \&\#34;, and \&\#39;. These are converted automatically back and forth from the internal stimulus table.
+
 ---------
 
 [^1]: Version 1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)
