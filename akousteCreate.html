@@ -423,8 +423,11 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 
 		stimulusTableLines.push(['[//stimulus0]: # "' + stimulusTable[0] + '"']);
 		for(var i=0;i < stimulusTable[1].length;++i){
-// Convert comma , to &#44;
-			stimulusTableLines.push(['[//stimulus1]: # "' + (stimulusTable[1][i]).join(",") + '"']);
+			// Convert comma , to &#44;
+			var currentRow = stimulusTable[1][i];
+			currentRow = currentRow.map(x => x.replace(/,/g, "&#44"));
+			// Convert to CSV text string
+			stimulusTableLines.push(['[//stimulus1]: # "' + currentRow.join(",") + '"']);
 		};
 		stimulusTableLines.push(['[//comment]: # "----------"']);
 
@@ -470,6 +473,8 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 				var valueString = lines[i].replace(/^\s*\[\/\/stimulus[01]\]: # ["']/, "")
 				valueString = valueString.replace(/['"]\s*$/, "");
 				var valueList = valueString.split(/\s*,\s*/);
+				// Restore &#44; to comma's
+				valueList = valueList.map(x => x.replace(/\&\#44\;/g, ","));
 				if(lines[i].match(/\[\/\/stimulus0\]: # "/)){
 					tmpStimulusTable0 = valueList;
 				} else {
