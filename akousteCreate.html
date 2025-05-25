@@ -706,6 +706,9 @@ document.getElementById('SwitchPageDisplay').style.backgroundColor ='MediumAquaM
 		if(text.match(/<div id="coverpage" style="[^"]*display:\s*none[^"]*">/i)){
 					text = text.replace(/<div id="coverpage" style="([^"]*display:\s*)none([^"]*)">/ig, "<div id=\"coverpage\" style=\"$1block$2\">");
 					text = text.replace(/<div id="experimentpage" style="([^"]*display:\s*)block([^"]*)">/ig, "<div id=\"experimentpage\" style=\"$1none$2\">");
+		} else if(text.match(/<div id="coverpage" style="[^"]*display:\s*block[^"]*">/i)) {
+
+document.getElementById('SwitchPageDisplay').style.backgroundColor ='CornflowerBlue';
 		};
 		return text;
 	};
