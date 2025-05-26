@@ -703,12 +703,12 @@ document.getElementById('SwitchPageDisplay').style.backgroundColor ='MediumAquaM
 	};
 	
 	function unswitchedPageHTMLtext (text) {
+		if(text.match(/<div id="coverpage"/i)) {
+		   document.getElementById('SwitchPageDisplay').style.backgroundColor ='MediumAquaMarine';
 		if(text.match(/<div id="coverpage" style="[^"]*display:\s*none[^"]*">/i)){
-					text = text.replace(/<div id="coverpage" style="([^"]*display:\s*)none([^"]*)">/ig, "<div id=\"coverpage\" style=\"$1block$2\">");
-					text = text.replace(/<div id="experimentpage" style="([^"]*display:\s*)block([^"]*)">/ig, "<div id=\"experimentpage\" style=\"$1none$2\">");
-		} else if(text.match(/<div id="coverpage" style="[^"]*display:\s*block[^"]*">/i)) {
-
-document.getElementById('SwitchPageDisplay').style.backgroundColor ='CornflowerBlue';
+					    text = text.replace(/<div id="coverpage" style="([^"]*display:\s*)none([^"]*)">/ig, "<div id=\"coverpage\" style=\"$1block$2\">");
+					    text = text.replace(/<div id="experimentpage" style="([^"]*display:\s*)block([^"]*)">/ig, "<div id=\"experimentpage\" style=\"$1none$2\">");
+					};
 		};
 		return text;
 	};
