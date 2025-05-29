@@ -317,6 +317,9 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 
 		markdown2Parameters();
 		parameters2Markdown();
+		
+		unflagButtons ();
+		document.getElementById('ShowButton').style.backgroundColor = "red";
 	};
 	
 	function flagButtons () {
@@ -348,11 +351,6 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		markdownStack.push(document.getElementById('markdownText').value);
 		currentMarkdown = document.getElementById('markdownText').value;
 		
-		// Change color of buttons
-		document.getElementById('RenderButtonDisplay').style.backgroundColor = "red";
-		document.getElementById('RenderButtonText').style.backgroundColor = "red";
-		document.getElementById('ShowButton').style.backgroundColor = "red";
-		
 		// Read the parameters
 		markdown2Parameters ();
 	};
@@ -370,6 +368,8 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		editPosition = 1;
 		current = markdownStack[markdownStack.length - editPosition];
 		currentMarkdown = current;
+		
+		unflagButtons ();
 		
 		return current;
 	};
@@ -456,11 +456,6 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		
 		currentMarkdown = newLines.join("\n");
 		document.getElementById('markdownText').value = currentMarkdown;
-	
-		// Change color of buttons
-		document.getElementById('RenderButtonDisplay').style.backgroundColor = "red";
-		document.getElementById('RenderButtonText').style.backgroundColor = "red";
-		document.getElementById('ShowButton').style.backgroundColor = "red";
 	};
 	
 	function markdown2Parameters () {
@@ -650,14 +645,16 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		HTMLchanged = false;
 
 		var newPage = createDisplayHTMLpage (htmlText);
+		if(SwitchedPage){
+			newPage = setExperimentPageHTMLtext (newPage);
+			document.getElementById('SwitchPageDisplay').style.backgroundColor ='CornflowerBlue';
+		} else {
+			document.getElementById('SwitchPageDisplay').style.backgroundColor ='MediumAquaMarine';
+		};
+
 		document.getElementById('htmlText').value = newPage;
 		winURL = HTML2URL (newPage);
 		document.getElementById('htmlDisplay').src=winURL;
-		// Preserve page view
-		if(SwitchedPage){
-			switchPageHTMLdisplay ();
-			SwitchedPage = true;
-		};
 		
 		// Set up the couter of for the unblock function
 		requiredNames = document.getElementById('htmlText').value.match(/name\s*\=\s*['"](Audio|Question)[^'"]*['"]/ig);
@@ -685,13 +682,11 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			var currentHTML = document.getElementById('htmlText').value;
 			if(currentHTML.match(/<div id="coverpage" style="[^"]*">/i)){
 				if(currentHTML.match(/<div id="coverpage" style="[^"]*display:\s*block[^"]*">/i)) {
-						currentHTML = currentHTML.replace(/<div id="coverpage" style="([^"]*display:\s*)block([^"]*)">/ig, "<div id=\"coverpage\" style=\"$1none$2\">");
-						currentHTML = currentHTML.replace(/<div id="experimentpage" style="([^"]*display:\s*)none([^"]*)">/ig, "<div id=\"experimentpage\" style=\"$1block$2\">");
-document.getElementById('SwitchPageDisplay').style.backgroundColor ='CornflowerBlue';
+						currentHTML = setExperimentPageHTMLtext (currentHTML);
+						document.getElementById('SwitchPageDisplay').style.backgroundColor ='CornflowerBlue';
 				} else {
-						currentHTML = currentHTML.replace(/<div id="coverpage" style="([^"]*display:\s*)none([^"]*)">/ig, "<div id=\"coverpage\" style=\"$1block$2\">");
-						currentHTML = currentHTML.replace(/<div id="experimentpage" style="([^"]*display:\s*)block([^"]*)">/ig, "<div id=\"experimentpage\" style=\"$1none$2\">");
-document.getElementById('SwitchPageDisplay').style.backgroundColor ='MediumAquaMarine';
+						currentHTML = setCoverPageHTMLtext (currentHTML);
+						document.getElementById('SwitchPageDisplay').style.backgroundColor ='MediumAquaMarine';
 				};
 				
 				document.getElementById('htmlText').value = currentHTML;
@@ -702,13 +697,31 @@ document.getElementById('SwitchPageDisplay').style.backgroundColor ='MediumAquaM
 			} ;
 	};
 	
+	// If there is a cover page, set the HTML to display it
+	function setCoverPageHTMLtext (text) {
+		// coverpage = block
+		 text = text.replace(/<div id="coverpage" style="([^"]*display:\s*)none([^"]*)">/ig, "<div id=\"coverpage\" style=\"$1block$2\">");
+		 // experimentpage = none
+		 text = text.replace(/<div id="experimentpage" style="([^"]*display:\s*)block([^"]*)">/ig, "<div id=\"experimentpage\" style=\"$1none$2\">");
+		 
+		 return text;
+	};
+	
+	// If there is an experiment  page, set the HTML to display it
+	function setExperimentPageHTMLtext (text) {
+		// coverpage = none
+		 text = text.replace(/<div id="coverpage" style="([^"]*display:\s*)block([^"]*)">/ig, "<div id=\"coverpage\" style=\"$1none$2\">");
+		 // experimentpage = block
+		 text = text.replace(/<div id="experimentpage" style="([^"]*display:\s*)none([^"]*)">/ig, "<div id=\"experimentpage\" style=\"$1block$2\">");
+		 
+		 return text;
+	};
+	
 	function unswitchedPageHTMLtext (text) {
 		if(text.match(/<div id="coverpage"/i)) {
 		   document.getElementById('SwitchPageDisplay').style.backgroundColor ='MediumAquaMarine';
-		if(text.match(/<div id="coverpage" style="[^"]*display:\s*none[^"]*">/i)){
-					    text = text.replace(/<div id="coverpage" style="([^"]*display:\s*)none([^"]*)">/ig, "<div id=\"coverpage\" style=\"$1block$2\">");
-					    text = text.replace(/<div id="experimentpage" style="([^"]*display:\s*)block([^"]*)">/ig, "<div id=\"experimentpage\" style=\"$1none$2\">");
-					};
+		   text = setCoverPageHTMLtext (text);
+		   SwitchedPage = false;
 		};
 		return text;
 	};
@@ -751,6 +764,8 @@ document.getElementById('SwitchPageDisplay').style.backgroundColor ='MediumAquaM
 		} else {
 			document.getElementById('ShowButton').style.backgroundColor = "white";
 		};
+
+		document.getElementById('saveHTMLbutton').style.backgroundColor = "red";
 	}
 	
 	function saveMarkdown() {
@@ -791,6 +806,9 @@ document.getElementById('SwitchPageDisplay').style.backgroundColor ='MediumAquaM
 
 			 // This is required
 			 URL.revokeObjectURL(htmlBlobUrl);
+			 
+			 document.getElementById('saveHTMLbutton').style.backgroundColor = "white";
+			 document.getElementById('ShowButton').style.backgroundColor = "white";
 		};
 	
 	function saveStimulusTableJSON() {
@@ -1080,7 +1098,7 @@ document.getElementById('SwitchPageDisplay').style.backgroundColor ='MediumAquaM
 			</tr>
 		</table>
 
-		<textarea id="markdownText" rows=50 cols=80 onfocusout="markdownPush();" onchange='markdown2HTML();flagButtons ();'>
+		<textarea id="markdownText" rows=50 cols=80 onfocusout="markdownPush();" onchange='markdown2HTML();'>
 		</textarea>
 	</div>
 
@@ -1092,7 +1110,7 @@ document.getElementById('SwitchPageDisplay').style.backgroundColor ='MediumAquaM
 			<td><input type="button" id='RenderButtonText' value="HTML text" onclick="markdown2HTMLtext ()"></td>
 			<td><input type="button" id='ShowButton' value="Show Page" onclick="openAndWrite(preamble, document.getElementById('htmlText').value, postamble);"></td>
 			<td  width="25%">&emsp;</td>
-			<td><input type="button" value="Save Experiment..." onclick="saveHTML()" title='Save current experiment as an HTML web page'</td>
+			<td><input type="button" id='saveHTMLbutton' value="Save Experiment..." onclick="saveHTML()" title='Save current experiment as an HTML web page'</td>
 		</table>
 
 		<textarea id="htmlText" rows=50 cols=80' onchange="HTMLchanged = true; document.getElementById('ShowButton').style.backgroundColor = 'red';" style='display:none;'>
