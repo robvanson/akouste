@@ -645,12 +645,10 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		HTMLchanged = false;
 
 		var newPage = createDisplayHTMLpage (htmlText);
-		if(SwitchedPage){
+		if(SwitchedPage > 0){
 			newPage = setExperimentPageHTMLtext (newPage);
-			document.getElementById('SwitchPageDisplay').style.backgroundColor ='CornflowerBlue';
-		} else {
-			document.getElementById('SwitchPageDisplay').style.backgroundColor ='MediumAquaMarine';
 		};
+		setSwitchPageButtonColor (newPage)
 
 		document.getElementById('htmlText').value = newPage;
 		winURL = HTML2URL (newPage);
@@ -677,23 +675,33 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		document.getElementById('htmlDisplay').style.display = 'block';
 	}
 	
-	var SwitchedPage = false;
+	var SwitchedPage = 0;
+	function setSwitchPageButtonColor (text) {
+		var currentSwitchColor = 'gray';
+		if(text.match(/<div id="coverpage" style="[^"]*display:\s*block[^"]*">/i)) {
+			currentSwitchColor = 'MediumAquaMarine';
+			SwitchedPage = -1;
+		} else if (text.match(/<div id="coverpage" style="[^"]*display:\s*none[^"]*">/i)) {
+			currentSwitchColor = 'CornflowerBlue';
+			SwitchedPage = 1;
+		};
+		document.getElementById('SwitchPageDisplay').style.backgroundColor = currentSwitchColor;
+	};
+	
 	function switchPageHTMLdisplay () {
 			var currentHTML = document.getElementById('htmlText').value;
 			if(currentHTML.match(/<div id="coverpage" style="[^"]*">/i)){
 				if(currentHTML.match(/<div id="coverpage" style="[^"]*display:\s*block[^"]*">/i)) {
 						currentHTML = setExperimentPageHTMLtext (currentHTML);
-						document.getElementById('SwitchPageDisplay').style.backgroundColor ='CornflowerBlue';
 				} else {
 						currentHTML = setCoverPageHTMLtext (currentHTML);
-						document.getElementById('SwitchPageDisplay').style.backgroundColor ='MediumAquaMarine';
 				};
+				
+				setSwitchPageButtonColor (currentHTML);
 				
 				document.getElementById('htmlText').value = currentHTML;
 				winURL = HTML2URL (currentHTML);
 				document.getElementById('htmlDisplay').src=winURL;
-				
-				SwitchedPage = !SwitchedPage;
 			} ;
 	};
 	
@@ -719,10 +727,10 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	
 	function unswitchedPageHTMLtext (text) {
 		if(text.match(/<div id="coverpage"/i)) {
-		   document.getElementById('SwitchPageDisplay').style.backgroundColor ='MediumAquaMarine';
 		   text = setCoverPageHTMLtext (text);
-		   SwitchedPage = false;
 		};
+		setSwitchPageButtonColor (text);
+		
 		return text;
 	};
 	
@@ -1106,7 +1114,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		<table>
 			<tr style="width:80%">
 			<td><input type="button" id='RenderButtonDisplay' value="Display HTML" onclick="markdown2HTMLdisplay ()"  title='The HTML displayed here is non-functional. Click the "Show Page" button to open a functional page'></td>
-			<td><input type="button" id='SwitchPageDisplay' value="Switch Page" onclick="switchPageHTMLdisplay ()"  title='Switch between Cover Page and Experiment Page'></td>
+			<td><input type="button" id='SwitchPageDisplay' value="Switch Page" onclick="switchPageHTMLdisplay ()"  title='Switch between Cover Page and Experiment Page' style='background-color: gray;'></td>
 			<td><input type="button" id='RenderButtonText' value="HTML text" onclick="markdown2HTMLtext ()"></td>
 			<td><input type="button" id='ShowButton' value="Show Page" onclick="openAndWrite(preamble, document.getElementById('htmlText').value, postamble);"></td>
 			<td  width="25%">&emsp;</td>
