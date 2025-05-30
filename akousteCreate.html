@@ -317,8 +317,8 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 
 		markdown2Parameters();
 		parameters2Markdown();
-		
-		unflagButtons ();
+
+		setHTMLdisplayButtonColor ();
 		document.getElementById('ShowButton').style.backgroundColor = "red";
 	};
 	
@@ -332,8 +332,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	};
 	
 	function unflagButtons () {
-		document.getElementById('RenderButtonDisplay').style.backgroundColor = "white";
-		document.getElementById('RenderButtonText').style.backgroundColor = "white";
+		setHTMLdisplayButtonColor ();
 		document.getElementById('ShowButton').style.backgroundColor = "white";
 	};
 	
@@ -660,8 +659,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		requiredNames = requiredNames.filter(onlyUnique);
 		
 		// Set buttons
-		document.getElementById('RenderButtonDisplay').style.backgroundColor = "white";
-		document.getElementById('RenderButtonText').style.backgroundColor = "white";
+		setHTMLdisplayButtonColor ();
 		document.getElementById('ShowButton').style.backgroundColor = "red";
 		
 		return document.getElementById('htmlText').value ;
@@ -673,8 +671,36 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		// Display in iFrame
 		document.getElementById('htmlText').style.display = 'none';
 		document.getElementById('htmlDisplay').style.display = 'block';
+		
+		setHTMLdisplayButtonColor ();
 	}
 	
+	function markdown2HTMLtext () {
+		markdown2HTML();
+		
+		// Display in HTML text
+		document.getElementById('htmlText').style.display = 'block';
+		document.getElementById('htmlDisplay').style.display = 'none';
+		
+		setHTMLdisplayButtonColor ();
+	}
+
+	// Switch HTML Display/Text
+	function setHTMLdisplayButtonColor () {
+		var currentSwitchColor = 'white';
+		if(HTMLchanged) {
+			document.getElementById('RenderButtonDisplay').style.backgroundColor = 'red';
+			document.getElementById('RenderButtonText').style.backgroundColor = 'red';			
+		} else if(document.getElementById('htmlText').style.display == 'block') {
+			document.getElementById('RenderButtonDisplay').style.backgroundColor = 'white';
+			document.getElementById('RenderButtonText').style.backgroundColor = 'gray';
+		} else if (document.getElementById('htmlDisplay').style.display == 'block') {
+			document.getElementById('RenderButtonDisplay').style.backgroundColor = 'gray';
+			document.getElementById('RenderButtonText').style.backgroundColor = 'white';
+		};
+	};
+	
+	// Switch Cover/Experiment Page button
 	var SwitchedPage = 0;
 	function setSwitchPageButtonColor (text) {
 		var currentSwitchColor = 'gray';
@@ -734,14 +760,6 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		return text;
 	};
 	
-	function markdown2HTMLtext () {
-		markdown2HTML();
-		
-		// Display in HTML text
-		document.getElementById('htmlText').style.display = 'block';
-		document.getElementById('htmlDisplay').style.display = 'none';
-	}
-	
 	var HTMLchanged = false;
 	function openAndWrite(preamble, text, postamble) {
 		if(!HTMLchanged){
@@ -772,6 +790,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		} else {
 			document.getElementById('ShowButton').style.backgroundColor = "white";
 		};
+		setHTMLdisplayButtonColor ();
 
 		document.getElementById('saveHTMLbutton').style.backgroundColor = "red";
 	}
@@ -1124,7 +1143,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		<textarea id="htmlText" rows=50 cols=80' onchange="HTMLchanged = true; document.getElementById('ShowButton').style.backgroundColor = 'red';" style='display:none;'>
 		</textarea>
 		<div style='zoom: 0.75' title='The HTML displayed here is non-functional. Click the "Show Page" button to open a functional page'>
-		<iframe src="" id='htmlDisplay' name='htmlDisplay'  scrolling="auto" width=127% height=1550 style='zoom: 0.75;-moz-transform: scale(0.75);  -moz-transform-origin: 0 0;  -o-transform: scale(0.75);  -o-transform-origin: 0 0;  -webkit-transform: scale(0.75);  -webkit-transform-origin: 0 0;'></iframe>
+		<iframe src="" id='htmlDisplay' name='htmlDisplay'  scrolling="auto" width=127% height=1550 style='zoom: 0.75;-moz-transform: scale(0.75);  -moz-transform-origin: 0 0;  -o-transform: scale(0.75);  -o-transform-origin: 0 0;  -webkit-transform: scale(0.75);  -webkit-transform-origin: 0 0;display:block'></iframe>
 		</div>
 	</div>
 </div>
