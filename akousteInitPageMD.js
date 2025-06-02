@@ -18,12 +18,12 @@ It is adviseable to include a [[[ sound sample|<https://upload.wikimedia.org/wik
 
 # Title of this page
 
-### A table setup to position three *audio play buttons* representing columns *A*, *B* and *X* in the stimulus table. 
+### A table setup to position three *audio play buttons* representing columns *A*, *B* and *X* in the stimulus table.
 
-|     |               |              |              |     |
-| -: | -------: | :------: | :------- | :- |
-|     | [[[A]]]    |             | [[[B]]]   |     |
-|     |               | [[[X]]]  |              |     |
+|     |         |         |         |     |
+| ---:| -------:|:-------:|:------- |:--- |
+|     | [[[A]]] |         | [[[B]]] |     |
+|     |         | [[[X]]] |         |     |
 
 </center>
 
@@ -32,6 +32,8 @@ The tripple {**name|style**}-bracket pairs insert text. A simple **name** is int
 <center>
 
 ## {{{!answerstogo!|font-weight:bold}}} answers to go
+
+[//comment]: // "End of No Change"
 
 </center>
 
@@ -43,45 +45,44 @@ with the displayed **text**, a "**|**", the **name** of a stimulus (column) and 
 
 Here you can put the text which tells the subjects what they are supposed to do. You can add or remove &lt;center&gt; &lt;/center&gt; pairs if you want to change the text alignment. The [&lt;div&gt; tag](https://elementor.com/blog/what-is-div-in-html/) gives many more layout options.
 
-
 ---------------------------
 
 <center>
 
-
 ### Question text. Which sound is most like the X sound? The double ()-brackets are converted into radio buttons
- |     |        |       |    | 
- | -: | :--: | :--: | :- |
- |     | (()) | (()) |    | 
- |     |  A    |  B  |    | 
 
+|     |      |      |     |
+| ---:|:----:|:----:|:--- |
+|     | (()) | (()) |     |
+|     | A    | B    |     |
 
 ### Question text. How well does Sound X resemble the chosen A or B sound?
-|                 |        |        |        |        |        |                     |
-| ----------: | :---: | :---: | :---: | :---: | :---: | :------------- |
-| Not at all |  (()) | (()) | (())  | (())  | (()) |  Very Much  |
-|           1    |        |        |   3   |        |       |     5              |
+
+|            |      |      |      |      |      |           |
+| ----------:|:----:|:----:|:----:|:----:|:----:|:--------- |
+| Not at all | (()) | (()) | (()) | (()) | (()) | Very Much |
+| 1          |      |      | 3    |      |      | 5         |
 
 ### More question can be added, with different numbers of options. Also, audio buttons can be added pointing to fixed URLs/files
-|                 |        |        |         |        |        |        |         |                     |
-| ----------: | :---: | :---: | :---:  | :---: | :---: | :---: | :---: | :------------- |
-| Not at all |  (()) | (()) | (())   | (()) | (())  | (())  |  (())  |  Very Much |
-| [[[example|<https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg>{font-size:15px}]]]   |        |        |         |   [[[equal|<https://upload.wikimedia.org/wikipedia/commons/d/db/En-uk-illustrate.ogg>{font-size:15px}]]]  |        |        |           |   [[[example|<https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg>{font-size:15px}]]]   |
+
+|                                                                                                       |      |      |      |                                                                                                           |      |      |      |                                                                                                        |
+| -----------------------------------------------------------------------------------------------------:|:----:|:----:|:----:|:---------------------------------------------------------------------------------------------------------:|:----:|:----:|:----:|:------------------------------------------------------------------------------------------------------ |
+| Not at all                                                                                            | (()) | (()) | (()) | (())                                                                                                      | (()) | (()) | (()) | Very Much                                                                                              |
+| [[[example \\| <https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg>{font-size:15px}]]] |      |      |      | [[[equal \\| <https://upload.wikimedia.org/wikipedia/commons/d/db/En-uk-illustrate.ogg>{font-size:15px}]]] |      |      |      | [[[example\\| <https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg>{font-size:15px}]]] |
 
 ### Other response options can be added. A VAS slider is indicated by &gt;&gt;----------&lt;&lt; (&gt;&gt;&lt;&lt; separated by 10 or more dashes)
 
-|                   |                                                 |                      |
-| ------------: | :----------------------------------: | :-------------- |
-| Not at all   |  >>---------------------------<<  |   Very Much  |
-|           0      |                         50                      |         100          |
-
+|            |                                 |           |
+| ----------:|:-------------------------------:|:--------- |
+| Not at all | >>---------------------------<< | Very Much |
+| 0          | 50                              | 100       |
 
 ### Stimulus text labels can be added with triple {**name|style**}-brackets. Which language are you most familiar with?
 
-|     |                     |                      |                      |      |
-| -: | :----------: | :-----------: | :-----------: | :- |
-|     |         (())      |         (())        |        (())         |     |
-|     | {{{LangA}}} |  {{{LangB}}}  |  {{{LangX}}}  |    |
+|     |             |             |             |     |
+| ---:|:-----------:|:-----------:|:-----------:|:--- |
+|     | (())        | (())        | (())        |     |
+|     | {{{LangA}}} | {{{LangB}}} | {{{LangX}}} |     |
 
 ### And you can also request text input from the user with a &lt;&lt;| text {style} |&gt;&gt; construct
 

@@ -110,7 +110,7 @@ Here you can put the text which tells the subjects what they are supposed to do.
 |                 |        |        |         |        |        |        |         |                     |
 | ----------: | :---: | :---: | :---:  | :---: | :---: | :---: | :---: | :------------- |
 | Not at all |  (()) | (()) | (())   | (()) | (())  | (())  |  (())  |  Very Much |
-| [[[example|<https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg>{font-size:15px}]]]   |        |        |         |   [[[equal|<https://upload.wikimedia.org/wikipedia/commons/d/db/En-uk-illustrate.ogg>{font-size:15px}]]]  |        |        |           |   [[[example|<https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg>{font-size:15px}]]]   |
+| [[[example\\|<https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg>{font-size:15px}]]]   |        |        |         |   [[[equal\\|<https://upload.wikimedia.org/wikipedia/commons/d/db/En-uk-illustrate.ogg>{font-size:15px}]]]  |        |        |           |   [[[example\\|<https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg>{font-size:15px}]]]   |
 
 ### Other response options can be added. A VAS slider is indicated by &gt;&gt;----------&lt;&lt; (&gt;&gt;&lt;&lt; separated by 10 or more dashes)
 
@@ -880,25 +880,25 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	};
 	
 	function replaceTextInput (text) {
-		return text.replace(/\<\<\|\s*([^\|\{]*)(\s*\{([^\}]*)\})?\s*\|\>\>/g,	'<input type="text" value="$1" title="$1" id="QuestionXXXX" name="QuestionXXXX" onfocus="if(`$1`==this.value)this.value=``" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value" style="$3">')
+		return text.replace(/\<\<\\?\|\s*([^\|\{\\]*)(\s*\{([^\}\\]*)\})?\s*\\?\|\>\>/g,	'<input type="text" value="$1" title="$1" id="QuestionXXXX" name="QuestionXXXX" onfocus="if(`$1`==this.value)this.value=``" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value" style="$3">')
 	};
 	
 	function replaceTextItems (text) {
 		// First, remove the fixed, iFrame cases
-		text = text.replace(/\{\{\{\<([^\>\|]*)\>(\|([^\}]*))?\}\}\}/g, '<iframe id="FixedText$1" src="$1"   scrolling="auto" name="FixedText" style="$3"></iframe>');;
+		text = text.replace(/\{\{\{\<([^\>\|\\]*)\>(\\?\|([^\}]*))?\}\}\}/g, '<iframe id="FixedText$1" src="$1"   scrolling="auto" name="FixedText" style="$3"></iframe>');;
 
 		// Second, handle parameter cases
-		text = text.replace(/\{\{\{!([^\|!]*)!(\|([^\}]*))?\}\}\}/g, '<span id="$1" name="parameterText" style="$3"></span>');
+		text = text.replace(/\{\{\{!([^\|!]*)!(\\?\|([^\}]*))?\}\}\}/g, '<span id="$1" name="parameterText" style="$3"></span>');
 
 		// Handle StimulusTable references
 		var textNamesRaw = text.match(/\{\{\{([^\}]+)\}\}\}/g);
 		if(textNamesRaw != null && textNamesRaw.length > 0) {
 			// Seperate text names from text
-			textNamesRaw = textNamesRaw.map(x => x.replace(/^\{+\s*([^\}\|]*)(\s*\|([^\}]*))?\s*\}+$/g, "$1"))
+			textNamesRaw = textNamesRaw.map(x => x.replace(/^\{+\s*([^\}\|\\]*)(\s*\\?\|([^\}]*))?\s*\}+$/g, "$1"))
 			textNames.push(textNamesRaw);
 
 			textNames = textNames.flat();
-			text = text.replace(/\{\{\{\s*([^\}\|]*)(\s*\|([^\}]*))?\s*\}\}\}/g, '<span id="Text$1" name="Text$1" style="$3"></span>');
+			text = text.replace(/\{\{\{\s*([^\}\|\\]*)(\s*\\?\|\s*([^\}]*))?\s*\}\}\}/g, '<span id="Text$1" name="Text$1" style="$3"></span>');
 		};
 	
 		return text;	
@@ -916,9 +916,9 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 
 		audioNames = audioNames.flat();
 
-		text = text.replace(/\[\[\[([^\]\|]*)[|]\<([^\]]*)\>(\{([^\}]+)\})?\]\]\]/g, '<audio id="Fixed$2" name="Fixed$2" src="$2" preload="auto" title="" ></audio><button onclick="stopAllAudio ();document.getElementById(\'Fixed$2\').play();" style="font-size:30px;background-color:white;$4;"><strong><div id="PlayFixed$2Text" style="background-color:white;">$1</div></strong></button>');
+		text = text.replace(/\[\[\[([^\]\|\\]*)\\?[|]\s*\<([^\>]*)\>(\{([^\}]+)\})?\]\]\]/g, '<audio id="Fixed$2" name="Fixed$2" src="$2" preload="auto" title="" ></audio><button onclick="stopAllAudio ();document.getElementById(\'Fixed$2\').play();" style="font-size:30px;background-color:white;$4;"><strong><div id="PlayFixed$2Text" style="background-color:white;">$1</div></strong></button>');
 				
-		text = text.replace(/\[\[\[([^\]\|]*)[|]([^\]\{]*)(\{([^\}]+)\})?\]\]\]/g, '<audio id="Audio$2" name="Audio$2" src="" preload="auto" title="" onplaying="unblockNext (\'Audio$2\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$2" data-toggle="tooltip" title="'+ToolTipPlay+'"><button onclick="stopAllAudio ();document.getElementById(\'Audio$2\').play();" style="font-size:30px;background-color:white;$4;"><strong><div id="PlayAudio$2Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
+		text = text.replace(/\[\[\[([^\]\|\\]*)\\?[|]\s*([^\]\{]*)(\{([^\}]+)\})?\]\]\]/g, '<audio id="Audio$2" name="Audio$2" src="" preload="auto" title="" onplaying="unblockNext (\'Audio$2\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$2" data-toggle="tooltip" title="'+ToolTipPlay+'"><button onclick="stopAllAudio ();document.getElementById(\'Audio$2\').play();" style="font-size:30px;background-color:white;$4;"><strong><div id="PlayAudio$2Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
 		
 		return text.replace(/\[\[\[([^\]\{\s]*)\s*(\{([^\}]+)\})?\s*\]\]\]/g, '<audio id="Audio$1" name="Audio$1" src="" preload="auto" title="" onplaying="unblockNext (\'Audio$1\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$1" data-toggle="tooltip" title="'+ToolTipPlay+'"><button onclick="stopAllAudio ();document.getElementById(\'Audio$1\').play();" style="font-size:30px;background-color:white;$3;"><strong><div id="PlayAudio$1Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
 	};
