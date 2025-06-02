@@ -74,7 +74,7 @@ When the experiment is ready to be deployed, it can be saved using the **Save Ex
 
 The user facing part of the experiment is a web-page. The text and layout of this page are designed using an adapted Markdown language, [markdown-it](https://markdown-it.github.io/). The markdown library is obtained from [https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/](https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/), *markdown-it.min.js*. This file can also be downloaded and stored locally in the same folder as *akousteCreate.html* when convenient. It will then be loaded automatically if the link is not available.
 
-Several constructs have been added to the [markdown-it](https://markdown-it.github.io/) format to ease the placement of active elements for the experiments.
+Several constructs have been added to the [markdown-it](https://markdown-it.github.io/) format to ease the placement of active elements for the experiments. Some of these constructs use the pipe symbol, **|**. This symbol can cause problems when editing markdown files in WYSIWYG markdown editors as they also replesent column boundaries in tables. Such problems can be prevented by prepending a backslash character before the pipe symbol, ie, \\\|. You cannot use backslash-\ itself nor backslash "escape" sequences before any other symbol inside the special akoúste constructs.
 
 ### Stimulus related constructs
 
@@ -84,6 +84,8 @@ Two constructs are defined to present stimulus sounds and texts to subjects:
   For instance, \[\[\[Speaker A\|A\{font-style: italic;\}\]\]\] would show a button with the text *Speaker A* in italic and play the current stimulus in the column labeled *A* of the stimulus table.
 - \{\{\{name\|style\}\}\} text showing the string in column *name* in *style*.   
   For instance, \{\{\{LangA\|font-style: italic;\}\}\} would show the text in *italic* of the current stimulus in the column labeled *LangA* of the stimulus table.
+
+*Note: Stimulus related constructs are not functional in the editor preview window of akousteCreate.html. The text stimulus {{{name|style}}} constructs might, therefore, be invisible in the preview window.*
 
 All sounds have to be played before the subject can proceed to the next stimulus.
 
