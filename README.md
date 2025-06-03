@@ -140,6 +140,14 @@ The settings end with:
 
 > \[//comment\]: \# "----------"
 
+
+
+There is a hidden parameter that has no associated text input field: **body.style**. It is used to change the full page style. For instance:
+
+> \[//parameter\]: \# "body.style: font-family: Arial, Helvetica, sans-serif;background-color:GhostWhite;"
+
+Changes the font to *sans-serif*, preverably *Arial*, or *Helvetica*. It also changes the background color of the page.
+
 ### The stimulus table
 
 The stimulus table is stored below the settings area in the markdown file. This area can be edited directly, but that should rarely be necessary. When a *.csv* file is uploaded, the contents automatically replace the existing data in the markdown file. It suffices to save the markdown with the **Save MD...** button.
