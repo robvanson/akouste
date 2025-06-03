@@ -404,11 +404,11 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			['[//comment]: # "These are internal parameters for the experiment and visible texts not in this Markdown"'],
 			['[//comment]: # "----------"'],
 			['[//parameter]: # "ExperimentAcronym:'+cleanString(ExperimentAcronym)+'"'],
-			['[//parameter]: # "audioBaseURL:'+ audioBaseURL.replace(/[<>'"]/, '') +'"'],
+			['[//parameter]: # "audioBaseURL:'+ audioBaseURL.replace(/[<>'"`]/g, '') +'"'],
 			['[//parameter]: # "PracticeItems:'+cleanString(PracticeItems)+'"'],
 			['[//parameter]: # "ShuffleStimuli:'+cleanString(ShuffleStimuli)+'"'],
 			['[//parameter]: # "RandomizeAB:'+cleanString(RandomizeAB)+'"'],
-			['[//parameter]: # "body.style:'+bodyStyleText.replace(/"/g, "")+'"'],
+			['[//parameter]: # "body.style:'+bodyStyleText.replace(/"`/g, "")+'"'],
 			['[//buttontext]: # "NextText:'+cleanString(NextText)+'"'],
 			['[//buttontext]: # "NextAlertText:'+cleanString(NextAlertText)+'"'],
 			['[//buttontext]: # "ReadyText:'+cleanString(ReadyText)+'"'],
@@ -1038,7 +1038,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 				<td>Randomize AB stimulus pairs:  </td><td>Yes <input type="radio" id="RandomizeABYes" name="RandomizeAB" value="Yes" onchange="RandomizeAB=true;parameters2Markdown();"> No <input type="radio" id="RandomizeABNo" name="RandomizeAB" value="No" onchange="RandomizeAB=false;parameters2Markdown();"> </td>
 			</tr>
 			<tr>
-				<td>URL/path to audio:  </td><td><input type="text" id="audioBaseURL" name="audioBaseURL" value="./Stimuli/" title='This can be a URL or local path to a folder with audio' onchange="this.value=this.value.replace(/[<>'"]/g, '');audioBaseURL=this.value; parameters2Markdown();" ></td>
+				<td>URL/path to audio:  </td><td><input type="text" id="audioBaseURL" name="audioBaseURL" value="./Stimuli/" title='This can be a URL or local path to a folder with audio' onchange="audioBaseURL=this.value; parameters2Markdown();" ></td>
 			</tr>
 			<tr>
 			<td colspan=2> 
