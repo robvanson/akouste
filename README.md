@@ -43,7 +43,7 @@ For the experiments to work with local audio, *JavaScript* and *Third-party cook
 
 ## What you get
 
-*akousteCreate* creates a self contained web page that can run the experiment and can be distributed together with the stimuli, if the stimuli are local. Contrary to what the name suggests, the experiment web page works completely off-line. Internet is only used when stimuli are not available locally.
+*akousteCreate* creates a self contained web page that can run the experiment and can be distributed together with the stimuli, if the stimuli are local. Contrary to what the name *web page* suggests, the experiment web page works completely off-line. Internet is only used when stimuli are not available locally and for the markdown converter. [^3]
 
 The web page optionally starts with a cover page which can contain all the information and instructions for the subjects. The stimulus list will be contained in the web page, but a suitable *.js* file with stimuli can be supplied that will read a new stimulus list. The subject can pace through the experiment and pause as they see fit. All information needed to pick up the experiment at a later time is stored inside the browser. After the last answer is given, the subject is offered the option to save the results in a text file (*.csv*). After that, the data in the browser can be deleted by clicking a **Restart** button.
 
@@ -176,5 +176,6 @@ The stimulus table can be edited directly in the markdown file. The format is ra
 
 ---------
 
-[^1]: Version 1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)
-[^2]: [Guidance for SToPS (PDF)](https://eprints.leedsbeckett.ac.uk/id/eprint/4126/3/Guidance%20notes%20for%20SToPS.pdf)
+[^1]: Version 1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)  
+[^2]: [Guidance for SToPS (PDF)](https://eprints.leedsbeckett.ac.uk/id/eprint/4126/3/Guidance%20notes%20for%20SToPS.pdf)  
+[^3]: The converter [*markdown-it.min.js*](https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/) can be stored locally if desired.
