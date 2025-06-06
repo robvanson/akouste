@@ -204,6 +204,9 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 				alert("Select a file first");
 			};
 			
+			// Clear body.style
+			bodyStyleText = "";
+			
 			return mdFileText;
 		};
 		
@@ -408,6 +411,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			['[//parameter]: # "PracticeItems:'+cleanString(PracticeItems)+'"'],
 			['[//parameter]: # "ShuffleStimuli:'+cleanString(ShuffleStimuli)+'"'],
 			['[//parameter]: # "RandomizeAB:'+cleanString(RandomizeAB)+'"'],
+			['[//comment]: # "CSS style for HTML body of page"'],
 			['[//parameter]: # "body.style:'+bodyStyleText.replace(/"`/g, "")+'"'],
 			['[//buttontext]: # "NextText:'+cleanString(NextText)+'"'],
 			['[//buttontext]: # "NextAlertText:'+cleanString(NextAlertText)+'"'],
@@ -1008,6 +1012,9 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 				fileName = window.location.search.replace(/^.*ExperimentAcronym\=([^&]+)[&]?.*$/g, "$1");
 				if(fileName.length > 0){
 					loadMarkdown('./'+fileName+'_markdown.js');
+										
+					// Clear body.style
+					bodyStyleText = "";
 				};
 		};
 		initializeMarkdown();
