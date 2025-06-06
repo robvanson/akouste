@@ -61,6 +61,29 @@ preamble = `<!DOCTYPE html>
 		alert("This experiment does not work with Internet Explorer. Please, use Chrome, Firefox, Safari or related browsers");
 	};
 </script>
+<script language="Javascript" src="./sha.js"></script>
+<script language="Javascript" src="https://cdn.jsdelivr.net/npm/jssha@3.3.1/dist/sha.js"></script>
+<script language="JavaScript">
+	// Hash Function definitions
+	function hex_sha1 (plaintext) {
+		var shaObj = new jsSHA("SHA-1", "TEXT");
+		shaObj.update(plaintext);
+		return shaObj.getHash("HEX");
+	};
+	function hex_sha256 (plaintext) {
+		var shaObj = new jsSHA("SHA-256", "TEXT");
+		shaObj.update(plaintext);
+		return shaObj.getHash("HEX");
+	};
+	function hex_sha512 (plaintext) {
+		var shaObj = new jsSHA("SHA-512", "TEXT");
+		shaObj.update(plaintext);
+		return shaObj.getHash("HEX");
+	};
+	function chained_sha (plaintext) {
+		return hex_sha256( hex_sha256( hex_sha512(plaintext) ) );
+	};
+</script>
 
 <script language="JavaScript" src="./XXEXPERIMENTNAMEXX_stimuluslist.js"></script>
 <script language="JavaScript">
@@ -274,6 +297,27 @@ function collectAnswer () {
 		localStorage.setItem(CurrentExperimentID+'answerlist', JSON.stringify(answerList));
 	};
 };
+
+var lastDigest = hex_sha256 (" ".repeat(256));
+function collectAnswerDigest () {
+	if(typeof(Storage) !== "undefined" && localStorage.getItem(CurrentExperimentID+'lastDigest') != null){
+		lastDigest = localStorage.getItem(CurrentExperimentID+'lastDigest');
+	};
+			
+	var newLine = (stimulusNbr+1)+";"+answer.join(";")+";"+(stimulusTable[1][stimulusNbr]).join(";");
+	answerList.push(newLine);
+	
+	var newDigest = hex_sha256(lastDigest + newLine);
+	lastDigest = newDigest;
+	answerList.push(newLine + ";" + newDigest.substr(0,6));
+
+	if (typeof(Storage) !== "undefined") {
+		// Store
+		localStorage.setItem(CurrentExperimentID+'answerlist', JSON.stringify(answerList));
+		localStorage.setItem(CurrentExperimentID+'lastDigest', lastDigest);
+	};
+};
+
 
 function displayArray (x) {
 	var answerNums = Array.from(Array(NumberOfScales+1).keys());
