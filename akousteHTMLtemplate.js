@@ -298,7 +298,7 @@ function collectAnswerOLD () {
 	};
 };
 
-var addDigest = true;
+var addDigest = false;
 var lastDigest = hex_sha256 (" ".repeat(256));
 function collectAnswer () {
 	var newLine = (stimulusNbr+1)+";"+answer.join(";")+";"+(stimulusTable[1][stimulusNbr]).join(";");
