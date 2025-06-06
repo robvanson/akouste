@@ -289,41 +289,49 @@ function setAudio(i, stimulusTable) {
 	setProgress(100*stimulusNbr/data.length);
 };
 
+function collectAnswerOLD () {
+	var newLine = (stimulusNbr+1)+";"+answer.join(";")+";"+(stimulusTable[1][stimulusNbr]).join(";");
+	answerList.push(newLine);
+	if (typeof(Storage) !== "undefined") {
+		// Store
+		localStorage.setItem(CurrentExperimentID+'answerlist', JSON.stringify(answerList));
+	};
+};
+
+var addDigest = true;
+var lastDigest = hex_sha256 (" ".repeat(256));
 function collectAnswer () {
 	var newLine = (stimulusNbr+1)+";"+answer.join(";")+";"+(stimulusTable[1][stimulusNbr]).join(";");
-	answerList.push(newLine);
-	if (typeof(Storage) !== "undefined") {
-		// Store
-		localStorage.setItem(CurrentExperimentID+'answerlist', JSON.stringify(answerList));
-	};
-};
-
-var lastDigest = hex_sha256 (" ".repeat(256));
-function collectAnswerDigest () {
-	if(typeof(Storage) !== "undefined" && localStorage.getItem(CurrentExperimentID+'lastDigest') != null){
-		lastDigest = localStorage.getItem(CurrentExperimentID+'lastDigest');
-	};
-			
-	var newLine = (stimulusNbr+1)+";"+answer.join(";")+";"+(stimulusTable[1][stimulusNbr]).join(";");
-	answerList.push(newLine);
 	
-	var newDigest = hex_sha256(lastDigest + newLine);
-	lastDigest = newDigest;
-	answerList.push(newLine + ";" + newDigest.substr(0,6));
-
-	if (typeof(Storage) !== "undefined") {
-		// Store
-		localStorage.setItem(CurrentExperimentID+'answerlist', JSON.stringify(answerList));
-		localStorage.setItem(CurrentExperimentID+'lastDigest', lastDigest);
+	if(addDigest) {
+		if(typeof(Storage) !== "undefined" && localStorage.getItem(CurrentExperimentID+'lastDigest') != null){
+			lastDigest = localStorage.getItem(CurrentExperimentID+'lastDigest');
+		} else {
+			lastDigest = hex_sha256 (" ".repeat(256));
+		};
+		var newDigest = hex_sha256(lastDigest + newLine);
+		lastDigest = newDigest;
+		answerList.push(newLine + ";" + newDigest.substr(0,6));
+		if (typeof(Storage) !== "undefined") {
+			localStorage.setItem(CurrentExperimentID+'lastDigest', lastDigest);
+		};
+		 digestText = ';Digest';
+	} else {
+		answerList.push(newLine);
 	};
+	
+	// Store
+	if (typeof(Storage) !== "undefined") {
+		localStorage.setItem(CurrentExperimentID+'answerlist', JSON.stringify(answerList));
+	};
+
 };
-
-
+var digestText = '';
 function displayArray (x) {
 	var answerNums = Array.from(Array(NumberOfScales+1).keys());
 	var answerTexts = Array(NumberOfScales).fill("Answer");
 	answerTexts = answerTexts.map(function(el, idx){return el+answerNums[idx+1]});
-	var output = "Num;"+answerTexts.join(";")+";"+(stimulusTable[0]).join(";")+"\\n";
+	var output = "Num;"+answerTexts.join(";")+";"+(stimulusTable[0]).join(";")+digestText+"\\n";
 	for (var i=0; i<x.length; i++) {
 		line = "";
 		output += x[i] + '\\n';
