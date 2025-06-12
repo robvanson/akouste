@@ -141,11 +141,19 @@ The settings end with:
 
 > \[//comment\]: \# "----------"
 
-There is a hidden parameter that has no associated text input field: **body.style**. It is used to change the full page style. For instance:
+There are two hidden parameters that have no associated text input field: **body.style** and **addDigest**. 
+
+**body.style** is used to change the full page style. For instance:
 
 > \[//parameter\]: \# "body.style: font-family: Arial, Helvetica, sans-serif;background-color:GhostWhite;"
 
 Changes the font to *sans-serif*, preverably *Arial*, or *Helvetica*. It also changes the background color of the page.
+
+**addDigest**, value **true** or **false**, is used to add a digest to the answers, a chained SHA256 digest per row in hexadecimal. 
+
+> \[//parameter\]: # "addDigest:true"
+
+As the answers can be communicated to the experimenter using any communication channel, it can be prudent to check whether the answer files might have been corrupted during transmission. The answers of each line can be checked against the digest numbers at the end of each table row using the **ProcessResponse.html** web application.
 
 ### The stimulus table
 
