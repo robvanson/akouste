@@ -37,6 +37,8 @@ For it to work, JavaScript should be allowed, *Third-party cookies* should be al
 [//parameter]: # "ShuffleStimuli:true"
 [//parameter]: # "RandomizeAB:false"
 [//parameter]: # "body.style:"
+[//comment]: # "Add error checking digest to results"
+[//parameter]: # "addDigest:true"
 [//buttontext]: # "NextText:Next"
 [//buttontext]: # "NextAlertText:Please listen to the recordings and answer the questions first"
 [//buttontext]: # "ReadyText:Ready"

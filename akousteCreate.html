@@ -305,6 +305,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	var ToolTipRestart = "Start a new experiment session";
 	var ToolTipSave = "Save the answer to a file";
 	var bodyStyleText = "";
+	var addDigestText = "false";
 
 	var stimulusTableJSON = '[["A","B","X"], ["beep.wav", "beep.wav", "beep.wav"]]';
 	var requiredNames = [];
@@ -414,6 +415,8 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			['[//parameter]: # "RandomizeAB:'+cleanString(RandomizeAB)+'"'],
 			['[//comment]: # "CSS style for HTML body of page"'],
 			['[//parameter]: # "body.style:'+bodyStyleText.replace(/"`/g, "")+'"'],
+			['[//comment]: # "Add error checking digest to results"'],
+			['[//parameter]: # "addDigest:'+addDigestText.replace(/"`/g, "")+'"'],
 			['[//buttontext]: # "NextText:'+cleanString(NextText)+'"'],
 			['[//buttontext]: # "NextAlertText:'+cleanString(NextAlertText)+'"'],
 			['[//buttontext]: # "ReadyText:'+cleanString(ReadyText)+'"'],
@@ -517,6 +520,8 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 							break;
 						case "body.style":
 								bodyStyleText = parameterValue;
+						case "addDigest":
+								addDigestText = parameterValue;
 							break;
 						case "NextText":
 							NextText = parameterValue;
@@ -1003,6 +1008,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			processedPreamble = processedPreamble.replace(/var audioNames\s*\=\s*\[\];/, 'var audioNames = ["'+audioNames.join('", "')+'"];');
 			processedPreamble = processedPreamble.replace(/var textNames\s*\=\s*\[\];/, 'var textNames = ["'+textNames.join('", "')+'"];');
 			processedPreamble = processedPreamble.replace(/var requiredNames\s*\=\s*\[\];/, 'var requiredNames = ["'+requiredNames.join('", "')+'"];');
+			processedPreamble = processedPreamble.replace(/var addDigest\s*=\s*false;/, 'var addDigest = '+addDigestText.replace(/["']/g, "") +';');
 			processedPreamble = processedPreamble.replace(/<body onload="SetUp\(\);" style="">/, '<body onload="SetUp();" style="' + bodyStyleText.replace(/["]/g, "") + '">');
 			
 			return processedPreamble;
