@@ -37,7 +37,6 @@
 		var sumcorrect = 0;
 		var numvalues = 0;
 		var sumanswers = 0;
-		var IDchars = 4;
 		var startChars = 0;
 		var valuesList = [];
 		var tableList = [];
@@ -58,22 +57,13 @@
 			sumcorrect = 0;
 			numvalues = 0;
 			sumanswers = 0;
-			IDchars = 4;
 			startChars = 0;
 			valuesList = [];
 					
-			filename = file.name.replace(/^.+_Results_/, "").replace(/\.txt/, "");
-			subjectname = filename.replace(/_.*$/, "");
-			timestamp = filename.replace(/[^_]*_/, "");
+			filename = file.name.replace(/\.txt/, "");
+			timestamp = filename.replace(/^.*([\d\-\.]{8,}T.*)$/ig, "$1");
 			if(document.getElementById('Subject').value != "--" && document.getElementById('Subject').value != ""){
 				subjectname = document.getElementById('Subject').value;
-			};
-			if(document.getElementById('IDchars').value.match(/[ ;,]/)){
-				bounds = (document.getElementById('IDchars').value).split(/[ ;,]+/);
-				startChars = bounds[0];
-				IDchars = bounds[1];
-			} else {
-				IDchars = document.getElementById('IDchars').value;
 			};
 			if (file) {
 				var lastDigest = hex_sha256 (" ".repeat(256));
@@ -221,6 +211,12 @@
 			};
 		};
 		
+		function setOutputName(filePath) {
+				var experimentName = filePath.match(/[^\\/]+$/ig)[0];
+				experimentName = experimentName.replace(/[\d\-\.]{8,}T.*\.txt$/ig, "");
+				document.getElementById("Targetfile").value = experimentName;
+		};
+		
 		function createFileData (tableCSV) {
 			var output = "";
 			output += tableCSV;
@@ -255,7 +251,7 @@
     <p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">
 	<form id="fileForUpload" style="font-size:20px;" style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"  action="javascript:readTableFromFile ('CSVtable'); void(0);" method="POST" enctype="multipart/form-data">
 		<p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">
-		<input type="file" id="CSVtable" name="CSVtable" accept="text/csv, text/plain" style="font-size:20px;" >
+		<input type="file" id="CSVtable" name="CSVtable" accept="text/csv, text/plain" style="font-size:20px;" onchange="setOutputName(this.value)">
 		</p>
 		<p style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">
 			<table style="text-align:left;width:60%;margin-left:auto;margin-right:auto;">
@@ -271,8 +267,6 @@
 					Subject <input id="Subject" type="text" value="--" onclick="var field=document.getElementById('Subject'); if(field.value=='--'){field.value=''};" size="5">
 					&nbsp;
 					Practice <input id="Practice" type="text" value="0" size="2">
-					&nbsp;
-					Spk ID <input id="IDchars" type="text" value="0" size="2">
 					&nbsp;
 					Exp 
 					<input type='text' id="Targetfile" value='--Experiment name--'>
@@ -297,9 +291,7 @@
 			Subject, or listener, identifier</dd>
 			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em>Practice</em>:
 			Number of practice items. These will be removed</dd>
-			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em>Spkr ID</em>:
-			Characters in audio filenames that identify the speaker, as &lt;start position&gt;, &lt;length&gt;. Default "0, 4". With only a single number, this is the number of characters from 0. (Only relevant when <em>Exp</em> is <em>ABX</em>. If this number is 0, and there are columns named <em>SpeakerA</em>, <em>SpeakerB</em>, and <em>SpeakerX</em>, the values in these columns are used to detemine whether the answer is correct.</dd>
-			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em>Exp</em>: Experiment type, one of ABX, VAS or Likert5. The choice of experiment affects the processing. With <em>ABX</em>, the correct choices are marked. With <em>VAS</em> and <em>Likert5</em>, a normalized Z-score is calculated.</dd>
+			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em>Exp</em>: Experiment name used to construct the output filename.</dd>
 			<dd style="text-align:left;width:60%;margin-left:auto;margin-right:auto;"><em style="color:green">Check</em> column: The integrity of the rows in a response files from <em>ako&uacute;ste</em> are checked. Rows with (red) <em style="color:red">false</em> entries have been corrupted. After a <em>false</em> row, all rows below will fail the test too.</dd>
 			</dl>
 		</div>
