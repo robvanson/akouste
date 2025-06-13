@@ -18,7 +18,7 @@
 
 |                            |                                                                                                     |    |
 | -------------------: | :-------------------------------------------------------------------------: | :- | 
-| Enter your word: | <<|  transcribe {width:5cm;color:gray;text-align:center} |>>  |     |
+| Enter your word: | <<\|  transcribe {width:5cm;color:gray;text-align:center} \|>>  |     |
 |                            |                                                                                                     |    |
 
 
