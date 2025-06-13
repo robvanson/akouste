@@ -124,7 +124,7 @@ This will translate to an HTML file that contains two \<div\>'s, one for each pa
 
 ### The settings
 
-The markdown file is designed to be a self-contained complete representation of the experiment. For that reason, internal data of the experiment and the stimulus table are automatically appended to the markdown. These data are formatted in ways that make them "invisible" to the markdown. The data are in text form and can be edited directly in the markdown. However, the format is rather strict so editing could led to unexpected behavior. In normal use, there would not be a need to ever edit the settings directly. It suffices to save the markdown with the **Save MD...** button.
+The markdown file is designed to be a self-contained complete representation of the experiment. For that reason, internal data of the experiment and the stimulus table are automatically appended to the markdown. These data are formatted in ways that make them "invisible" to the markdown. The data are in text form and can be edited directly in the markdown. However, the format is rather strict so editing could lead to unexpected behavior. In normal use, there would be no need to edit the settings directly. It suffices to save the markdown with the **Save MD...** button. 
 
 *akoúste* has over a dozen of settings to manage each experiment. They can be set in the akousteCreate page. They are stored at the bottom of the markdown file. The settings start after the line:
 
@@ -141,7 +141,7 @@ The settings end with:
 
 > \[//comment\]: \# "----------"
 
-There are two hidden parameters that have no associated text input field: **body.style** and **addDigest**. 
+There are two hidden parameters that have no associated input fields: **body.style** and **addDigest**. 
 
 **body.style** is used to change the full page style. For instance:
 
@@ -149,11 +149,11 @@ There are two hidden parameters that have no associated text input field: **body
 
 Changes the font to *sans-serif*, preverably *Arial*, or *Helvetica*. It also changes the background color of the page.
 
-**addDigest**, value **true** or **false**, is used to add a digest to the answers, a chained SHA256 digest per row in hexadecimal. 
+**addDigest**, value **true** or **false**, is used to add a digest to the answers for error detection, a chained SHA256 digest per row in hexadecimal. 
 
 > \[//parameter\]: # "addDigest:true"
 
-As the answers can be communicated to the experimenter using any communication channel, it can be prudent to check whether the answer files might have been corrupted during transmission. The answers of each line can be checked against the digest numbers at the end of each table row using the **ProcessResponse.html** web application.
+As the answers can be communicated to the experimenter using any communication channel, it can be prudent to check whether the answer files might have been corrupted during transmission. The answers of each line can be checked against the digest numbers at the end of each table row using the **ProcessResponse.html** web application of *akoúste*.
 
 ### The stimulus table
 
@@ -172,7 +172,7 @@ This line says that the table has columns named *A*, *B*, *X*, *LangA*, *LangB*,
 
 Then follow the rows of the table. Each row has the form:
 
-> \[//stimulus1\]: \# "De-Aluminium.ogg,Fr-bordure.ogg,En-uk-illustrate.ogg,Geman (DE),French (FR),English (EN)"
+> \[//stimulus1\]: \# "De-Aluminium.ogg,Fr-bordure.ogg,En-uk-illustrate.ogg,German (DE),French (FR),English (EN)"
 
 This line gives the names of three *.ogg* audio files and the names of the respective languages as an example. Note that the rows of the stimulus table all have the label \[//stimulus1\]. They are *not* numbered.
 
