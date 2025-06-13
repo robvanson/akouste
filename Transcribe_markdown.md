@@ -6,7 +6,6 @@
 
 [[[Word|A]]] 
 
-
 ## {{{!answerstogo!|font-weight:bold}}} answers to go
 
 </center>
@@ -15,19 +14,17 @@
 
 <center>
 
-
-|                            |                                                                                                     |    |
-| -------------------: | :-------------------------------------------------------------------------: | :- | 
-| Enter your word: | <<\|  transcribe {width:5cm;color:gray;text-align:center} \|>>  |     |
-|                            |                                                                                                     |    |
-
+|                  |                                                                |     |
+| ----------------:|:--------------------------------------------------------------:|:--- |
+| Enter your word: | <<\|  transcribe {width:5cm;color:gray;text-align:center} \|>> |     |
+|                  |                                                                |     |
 
 ### Are you familiar with this language, {{{LangA}}} ?
 
-|    |     |              |          |     |     |
-| -: | -: | :--------: | :----: | :- | -: |
-|    |     |     (())    |   (())  |    |    |
-|    |     |     No    |   Yes  |    |    |
+|     |     |      |      |     |     |
+| ---:| ---:|:----:|:----:|:--- | ---:|
+|     |     | (()) | (()) |     |     |
+|     |     | No   | Yes  |     |     |
 
 </center>
 

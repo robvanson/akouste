@@ -4,13 +4,13 @@
 
 ## The voices of the speakers A and B have been changed. Which one do you think is the unknown speaker X?
 
-## {{{!answerstogo!|font-weight:bold}}} answers to go
+## {{{!answerstogo!\|font-weight:bold}}} answers to go
 
-|     |                     |   |                      |   |                     |    |
-| -: | --------------: | - | :-------------: | - | :------------- | :- |
-|     | [[[A ►|A]]] |   | [[[X ►|X]]] |   | [[[B ►|B]]] |    |
-|     |                      |   |                     |   |                     |    | 
- 
+|     |              |     |              |     |              |     |
+| ---:| ------------:| --- |:------------:| --- |:------------ |:--- |
+|     | [[[A ►\|A]]] |     | [[[X ►\|X]]] |     | [[[B ►\|B]]] |     |
+|     |              |     |              |     |              |     |
+
 </center>
 
 ------------------------------------------------------
@@ -18,11 +18,11 @@
 <center>
 
 ### Which spreaker, A or B is the unknown speaker X
-|    |    |              |                         |                |    |   |
-| - | -: | :-------: | :----------------: | :---------: | :- | - |
-|    |   |     (())    |  Your Choice   |      (())      |   |   |
-|    |   |  **A**  |                         |   **B**   |    |   |
 
+|     |     |       |             |       |     |     |
+| --- | ---:|:-----:|:-----------:|:-----:|:--- | --- |
+|     |     | (())  | Your Choice | (())  |     |     |
+|     |     | **A** |             | **B** |     |     |
 
 </center>
 
