@@ -112,15 +112,15 @@ These extensions present fixed content and are intended to present examples or e
 
 A general experiment starts with an explanation of the aims of the experiment, what is expected from the subject, and instructions on how to complete the task of the experiment. To this end, a *cover page* can be demarcated in the markdown. 
 
-A cover page is defined by starting the markdown with a line that says:
+A cover page is started by a single line that says:
 
 > \[//coverpage\]: \# "Start of coverpage"
 
-After editing the page, the cover page is closed with a single line:
+After entering the page, the cover page is closed with a single line:
 
 > \[//coverpage\]: \# "End of coverpage"
 
-This will translate to an HTML file that contains two \<div\>'s, one for each page. Only one of these \<div\>'s will be visible at any time. When the experiment file is loaded, only the cover page will be visible. The experiment only starts when the subject clicks on the **Next** button.
+This will translate to an HTML file that contains two \<div\>'s, one for each page, the cover page and the experiment page. Only one of these \<div\>'s will be visible at any time. When the experiment file is loaded, only the cover page will be visible. The experiment only starts when the subject clicks on the **Next** button.
 
 ### The settings
 
