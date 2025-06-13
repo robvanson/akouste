@@ -13,109 +13,105 @@
 
 <br />
 
-## 1. Overall Voice Rating <a href="javascript:void" onclick='alert(SToPS_guidance_Q1);'>?</a> 
+## 1. Overall Voice Rating <a href="javascript:void" onclick='alert(SToPS_guidance_Q1);'>?</a>
 
-|       |      |      |       |      |        |   
-| ---: | :----------: | :----: | :----------: | :----: | :--- | 
-|       |        (())    |   (())  |     (())       |  (())  |       |
-|       |          0     |     1    |       2        |    3   |        |  
-|       | Excellent | Good | Adequate | Poor |       |
+|     |           |      |          |      |     |
+| ---:|:---------:|:----:|:--------:|:----:|:--- |
+|     | (())      | (()) | (())     | (()) |     |
+|     | 0         | 1    | 2        | 3    |     |
+|     | Excellent | Good | Adequate | Poor |     |
 
 <br />
 
-##  <a href="javascript:void" onclick='alert(SToPS_guidance_Q2A);'>?</a> 2. Perceptual Voice Tonicity <a href="javascript:void" onclick='alert(SToPS_guidance_Q2B);'>?</a>	
-|      |      |      |      |      |      |      |      |      |      |      |      |     | 
-| ---: | :----------: | :----: | :-----: | :-----:| :----: | :-----: | :----: | :-----: | :----:| :-----: | :----:| :--- | 
-|  [[[Hypo|<https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg>{font-size:20px}]]]  |        (())    |   (())  |   (())   |  (()) |  (())   |   (())   |   (())  |  (())   |  (()) |  (())   |  (()) |  [[[Hyper|<https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg>{font-size:20px}]]]  |
-|       |          5     |     4    |    3     |    2   |    1    |    0     |     1    |   2    |    3   |   4    |    5    |       |  
-|       |     Hypo   |           |           |         |          | Tonic  |           |         |         |        | Hyper |        |  
- 
-  	
+## <a href="javascript:void" onclick='alert(SToPS_guidance_Q2A);'>?</a> 2. Perceptual Voice Tonicity <a href="javascript:void" onclick='alert(SToPS_guidance_Q2B);'>?</a>
+
+|                                                                                                    |      |      |      |      |      |       |      |      |      |      |       |                                                                                                   |
+| --------------------------------------------------------------------------------------------------:|:----:|:----:|:----:|:----:|:----:|:-----:|:----:|:----:|:----:|:----:|:-----:|:------------------------------------------------------------------------------------------------- |
+| [[[Hypo\|<https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg>{font-size:20px}]]] | (()) | (()) | (()) | (()) | (()) | (())  | (()) | (()) | (()) | (()) | (())  | [[[Hyper\|<https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg>{font-size:20px}]]] |
+|                                                                                                    | 5    | 4    | 3    | 2    | 1    | 0     | 1    | 2    | 3    | 4    | 5     |                                                                                                   |
+|                                                                                                    | Hypo |      |      |      |      | Tonic |      |      |      |      | Hyper |                                                                                                   |
+|                                                                                                    |      |      |      |      |      |       |      |      |      |      |       |                                                                                                   |
+
 <br />
 
-## 3. Strain (Audible Effort for Voicing) <a href="javascript:void" onclick='alert(SToPS_guidance_Q3);'>?</a> 
+## 3. Strain (Audible Effort for Voicing) <a href="javascript:void" onclick='alert(SToPS_guidance_Q3);'>?</a>
 
-|       |      |      |       |      |        |   
-| ---: | :----------: | :----: | :----------: | :----: | :--- | 
-|       |        (())    |   (())  |     (())       |  (())  |       |
-|       |          0     |     1    |       2        |    3   |        |  
-|       |    None    |  Mild | Moderate | Severe |       |
-  	
+|     |      |      |          |        |     |
+| ---:|:----:|:----:|:--------:|:------:|:--- |
+|     | (()) | (()) | (())     | (())   |     |
+|     | 0    | 1    | 2        | 3      |     |
+|     | None | Mild | Moderate | Severe |     |
+
 <br />
 
-## 4. Wetness (gurgliness) of Voice Quality <a href="javascript:void" onclick='alert(SToPS_guidance_Q4);'>?</a> 
+## 4. Wetness (gurgliness) of Voice Quality <a href="javascript:void" onclick='alert(SToPS_guidance_Q4);'>?</a>
 
-|       |      |      |       |      |        |   
-| ---: | :----------: | :----: | :----------: | :----: | :--- | 
-|       |        (())    |   (())  |     (())       |  (())  |  [[[Wet|<https://upload.wikimedia.org/wikipedia/commons/8/8e/Or-ଅନୁଶୀଳନ.oga>{font-size:20px}]]]  |
-|       |          0     |     1    |       2        |    3   |        |  
-|       |    None    |  Mild | Moderate | Severe |       |
-  	  	 
-  	
+|     |      |      |          |        |                                                                                                 |
+| ---:|:----:|:----:|:--------:|:------:|:----------------------------------------------------------------------------------------------- |
+|     | (()) | (()) | (())     | (())   | [[[Wet\|<https://upload.wikimedia.org/wikipedia/commons/8/8e/Or-ଅନୁଶୀଳନ.oga>{font-size:20px}]]] |
+|     | 0    | 1    | 2        | 3      |                                                                                                 |
+|     | None | Mild | Moderate | Severe |                                                                                                 |
+
 <br />
 
-## 5. Impairment of volume <a href="javascript:void" onclick='alert(SToPS_guidance_Q5);'>?</a> 
+## 5. Impairment of volume <a href="javascript:void" onclick='alert(SToPS_guidance_Q5);'>?</a>
 
-|       |      |      |       |      |        |   
-| ---: | :----------: | :----: | :----------: | :----: | :--- | 
-|       |        (())    |   (())  |     (())       |  (())  |       |
-|       |          0     |     1    |       2        |    3   |        |  
-|       |   Normal   |  Mild | Moderate | Severe |       |
-  	  	 
-  	
+|     |        |      |          |        |     |
+| ---:|:------:|:----:|:--------:|:------:|:--- |
+|     | (())   | (()) | (())     | (())   |     |
+|     | 0      | 1    | 2        | 3      |     |
+|     | Normal | Mild | Moderate | Severe |     |
+
 <br />
 
-## 6. Impairment of Social Acceptability of Voice <a href="javascript:void" onclick='alert(SToPS_guidance_Q6);'>?</a> 
+## 6. Impairment of Social Acceptability of Voice <a href="javascript:void" onclick='alert(SToPS_guidance_Q6);'>?</a>
 
-|       |      |      |       |      |        |   
-| ---: | :----------: | :----: | :----------: | :----: | :--- | 
-|       |        (())    |   (())  |     (())       |  (())  |       |
-|       |          0     |     1    |       2        |    3   |        |  
-|       |  Optimal   |  Mild | Moderate | Severe |       |
-  	  	 
-  	
+|     |         |      |          |        |     |
+| ---:|:-------:|:----:|:--------:|:------:|:--- |
+|     | (())    | (()) | (())     | (())   |     |
+|     | 0       | 1    | 2        | 3      |     |
+|     | Optimal | Mild | Moderate | Severe |     |
+
 <br />
 
-## 7. Whisper <a href="javascript:void" onclick='alert(SToPS_guidance_Q7);'>?</a> 
+## 7. Whisper <a href="javascript:void" onclick='alert(SToPS_guidance_Q7);'>?</a>
 
-|       |      |      |       |      |        |   
-| ---: | :----------: | :----: | :----------: | :----: | :--- | 
-|       |        (())    |   (())  |     (())       |  (())  |       |
-|       |          0     |     1    |       2        |    3   |        |  
-|       |    None    |  Mild | Moderate | Severe |       |
- 
-  	  	 
-  	
+|     |      |      |          |        |     |
+| ---:|:----:|:----:|:--------:|:------:|:--- |
+|     | (()) | (()) | (())     | (())   |     |
+|     | 0    | 1    | 2        | 3      |     |
+|     | None | Mild | Moderate | Severe |     |
+
 <br />
 
-## 8. Impairment of Intelligibility <a href="javascript:void" onclick='alert(SToPS_guidance_Q8);'>?</a> 
+## 8. Impairment of Intelligibility <a href="javascript:void" onclick='alert(SToPS_guidance_Q8);'>?</a>
 
-|       |      |      |       |      |        |   
-| ---: | :----------: | :----: | :----------: | :----: | :--- | 
-|       |        (())    |   (())  |     (())       |  (())  |       |
-|       |          0     |     1    |       2        |    3   |        |  
-|       |  Normal   |  Mild | Moderate | Severe |       |
-  	
+|     |        |      |          |        |     |
+| ---:|:------:|:----:|:--------:|:------:|:--- |
+|     | (())   | (()) | (())     | (())   |     |
+|     | 0      | 1    | 2        | 3      |     |
+|     | Normal | Mild | Moderate | Severe |     |
+
 <br />
 
-## 9. Stoma blast <a href="javascript:void" onclick='alert(SToPS_guidance_Q9);'>?</a> 
+## 9. Stoma blast <a href="javascript:void" onclick='alert(SToPS_guidance_Q9);'>?</a>
 
-|       |      |      |       |      |        |   
-| ---: | :----------: | :----: | :----------: | :----: | :--- | 
-|       |        (())    |   (())  |     (())       |  (())  | [[[Stoma|<https://upload.wikimedia.org/wikipedia/commons/d/da/L1188694-F1.oga>{font-size:20px}]]]  |
-|       |          0     |     1    |       2        |    3   |        |  
-|       |   Absent   |  Mild | Moderate | Severe |       |
-  	
+|     |        |      |          |        |                                                                                                    |
+| ---:|:------:|:----:|:--------:|:------:|:-------------------------------------------------------------------------------------------------- |
+|     | (())   | (()) | (())     | (())   | [[[Stoma\|<https://upload.wikimedia.org/wikipedia/commons/d/da/L1188694-F1.oga>{font-size:20px}]]] |
+|     | 0      | 1    | 2        | 3      |                                                                                                    |
+|     | Absent | Mild | Moderate | Severe |                                                                                                    |
+
 <br />
 
-## 10. Impairment of Fluency <a href="javascript:void" onclick='alert(SToPS_guidance_Q10);'>?</a> 
+## 10. Impairment of Fluency <a href="javascript:void" onclick='alert(SToPS_guidance_Q10);'>?</a>
 
-|       |      |      |       |      |        |   
-| ---: | :----------: | :----: | :----------: | :----: | :--- | 
-|       |        (())    |   (())  |     (())       |  (())  |       |
-|       |          0     |     1    |       2        |    3   |        |  
-|       |   Normal  |  Mild | Moderate | Severe |       |
- 
+|     |        |      |          |        |     |
+| ---:|:------:|:----:|:--------:|:------:|:--- |
+|     | (())   | (()) | (())     | (())   |     |
+|     | 0      | 1    | 2        | 3      |     |
+|     | Normal | Mild | Moderate | Severe |     |
+
 ---------------------
 
 <script language="JavaScript" >
