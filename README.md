@@ -43,7 +43,7 @@ For the experiments to work with local audio in a web browser, *JavaScript* and 
 
 ## What you get
 
-*akousteCreate* creates a self contained web page that can run the experiment and can be distributed together with the stimuli, if the stimuli are local. Contrary to what the name *web page* suggests, the experiment web page works completely off-line. Internet is only used when stimuli are not available locally and for the markdown converter. [^3]
+*akousteCreate* creates a self contained web page that can run the experiment and can be distributed together with the stimuli, if the stimuli are local. Contrary to what the name *web page* suggests, the experiment web page works completely off-line. Internet is only used when stimuli are not available locally and for the SHA digest checks, if needed, and this can be stored locally when desired. [*akousteCreate.html*](https://robvanson.github.io/akouste/akousteCreate.html) accesses a markdown converter online. [^3]
 
 The web page optionally starts with a cover page which can contain all the information and instructions for the subjects. The stimulus list will be contained in the web page, but a suitable *.js* file with stimuli can be supplied that will read a new stimulus list. The subject can pace through the experiment and pause as they see fit. All information needed to pick up the experiment at a later time is stored inside the browser. After the last answer is given, the subject is offered the option to save the results in a text file (*.txt*). After that, the data in the browser can be deleted by clicking a **Restart** button.
 
