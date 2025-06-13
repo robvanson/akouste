@@ -81,36 +81,36 @@ Several constructs have been added to the [markdown-it](https://markdown-it.gith
 
 Two constructs are defined to present stimulus sounds and texts to subjects:
 
-- \[\[\[text\|name\{style\}\]\]\] audio button showing *text* in *style*, playing the audio files mentioned in column *name*.   
+- \[\[\[text\|name\{style\}\]\]\] creates an audio button showing *text* in *style*, playing the audio files mentioned in column *name*.   
   For instance, \[\[\[Speaker A\|A\{font-style: italic;\}\]\]\] would show a button with the text *Speaker A* in italic and play the current stimulus in the column labeled *A* of the stimulus table.
-- \{\{\{name\|style\}\}\} text showing the string in column *name* in *style*.   
+- \{\{\{name\|style\}\}\} creates a text field showing the string in column *name* in *style*.   
   For instance, \{\{\{LangA\|font-style: italic;\}\}\} would show the text in *italic* of the current stimulus in the column labeled *LangA* of the stimulus table.
 
 *Note: Stimulus related constructs are not functional in the editor preview window of akousteCreate.html. The text stimulus {{{name|style}}} constructs might, therefore, be invisible in the preview window.*
 
-All sounds have to be played before the subject can proceed to the next stimulus.
+*All* sounds have to be played before the subject can proceed to the next stimulus.
 
 Three constructs are defined to collect subject evaluations based on answers in the questionnaire:
 
-- A row of \(\(\)\) is translated to a row of radio buttons. All radio buttons on a line will be combined in a single radio-button row. It is best to put the individual buttons and their labels into a table for consistent placement (see examples).
+- A row of \(\(\)\) is translated to a row of radio buttons. All radio buttons on a line will be combined in a single radio-button row. It is best to put the individual buttons and their labels into a table for consistent placement (see example markdown files).
 - \>\>----------\<\< (10 -dashes or more) will be transformed into a visual analogue slider.
 - \<\<\| text \|\>\> becomes a text input field with the *text* as default value.
 
-All questions have to be answered (changed) before the subject can move to the next stimulus. Answers will be added to the Stimulus table with each question getting their own column, tagged Answer1, Answer2..., numbered in order of the questions on the page.
+*All* questions have to be answered (changed) before the subject can move to the next stimulus. Answers will be added to the Stimulus table with each question getting their own column, tagged Answer1, Answer2..., numbered in order of the questions on the page.
 
 ### Extensions
 
-Extensions of the \[\[\[text\|name\{style\}\]\]\] audio button and \{\{\{name\|style\}\}\} text constructs have been added to simplify some tasks. In these constructs **URL** means *http(s)://* style links as well as local files *./path/file.ext*. Using stored local files is preferable as it is robust to network downtime and [link-rot](https://en.wikipedia.org/wiki/Link_rot).
+Extensions of the \[\[\[text\|name\{style\}\]\]\] audio button and \{\{\{name\|style\}\}\} text constructs have been added to simplify some tasks. In these constructs, **URL** means *http(s)://* style links as well as local files *./path/file.ext*. Using stored local files is preferable as it is robust to network downtime and [link-rot](https://en.wikipedia.org/wiki/Link_rot).
 
-These extensions present fixed content and are intended to present examples of explanations. Subjects do not have to interact with them to proceed to the next stimulus.
+These extensions present fixed content and are intended to present examples or explanations. Subjects do not have to interact with them to proceed to the next stimulus.
 
-- \[\[\[\<URL\>\|name\{style\}\]\]\] inserts an audio button that will play the sound at the **URL**. 
+- \[\[\[\<URL\>\|name\{style\}\]\]\] inserts an audio button that will play the sound at the **URL** (\< \> are obligatory). 
 - \{\{\{\<URL\>\|style\}\}\} insert an *iframe* with the page at the **URL**.
-- \{\{\{!parameter!\|style\}\}\} insert text value of the internal variable **parameter**. This is used to display the remaining number of stimuli in the examples.
+- \{\{\{!parameter!\|style\}\}\} insert the text value of the internal variable **parameter**. This is used, e.g., to display the remaining number of stimuli in the examples.
 
 ### The cover page
 
-A general experiment starts with an explanation of the aims, what is expected from the subject, and instructions on how to complete the task of the experiment. To this end, a *cover page* can be demarked in the markdown. 
+A general experiment starts with an explanation of the aims of the experiment, what is expected from the subject, and instructions on how to complete the task of the experiment. To this end, a *cover page* can be demarcated in the markdown. 
 
 A cover page is defined by starting the markdown with a line that says:
 
