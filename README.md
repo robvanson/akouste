@@ -69,7 +69,7 @@ At the bottom are two frames. To the left is the Markdown edit window. The text 
 
 ![*User Interface of akoústeCreate.html*](./akousteCreateScreenshot.jpg)
 
-*User Interface of akoústeCreate.html*
+*User Interface of akousteCreate.html*
 
 When the **Show Page** button is clicked, a popup with a functioning page will appear. This shows the experiment as it appears to the actual user. This page is fully functional. However, if the page refers to stimuli on the local computer, almost all browsers will block the audio. It generally only works for audio files accessed through *HTTPS://* URLs.
 
