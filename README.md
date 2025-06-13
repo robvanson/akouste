@@ -18,7 +18,7 @@ Bill of Materials
 
 - Stimuli
 - A table listing which stimuli should be presented at each turn
-- A web page that presents the stimuli to the listeners and collects their responses, the experiment web page
+- An experiment web page that presents the stimuli to the listeners and collects their responses
 
 To create a listening experiment, access to [*akousteCreate.html*](https://robvanson.github.io/akouste/akousteCreate.html) is needed. This access does not have to be local, the [*akoúste* github pages](https://robvanson.github.io/akouste/) will do. For a real experiment, stimulus audio files are required, preferably in a local folder. The stimulus files can be accessed locally, or remotely over https. Any audio format that can be played by the web browsers of choice can be used.
 
