@@ -1,4 +1,4 @@
-<IMG SRC='akouste-ear.png' style='text-align:center's alt='akoúste logo' />
+<img src='akouste-ear.png' style='text-align:center's alt='akoúste logo' ></img>
 
 # akoúste
 
