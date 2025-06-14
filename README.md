@@ -1,4 +1,6 @@
-<img src='akouste-ear.png' style='text-align:center's alt='akoúste logo' ></img>
+<p style='text-align:center'>
+<img src='./akouste-ear.png' alt='akoúste logo' ></img>
+</p>
 
 # akoúste
 
