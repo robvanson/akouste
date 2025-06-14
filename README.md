@@ -2,7 +2,7 @@
 <img src='./akouste-ear.png' alt='akoúste logo' />
 </p>
 
-# akoúste
+<H1 style='text-align: center'> akoúste</H1>
 
 Version 2 [^1]
 
