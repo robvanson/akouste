@@ -1,5 +1,5 @@
 <p style='text-align:center'>
-<img src='./akouste-ear.png' alt='akoúste logo' ></img>
+<img src='./akouste-ear.png' alt='akoúste logo' />
 </p>
 
 # akoúste
