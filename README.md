@@ -1,4 +1,4 @@
-![](akouste-ear.png)
+<IMG SRC='akouste-ear.png' style='text-align:center's alt='akoúste logo' />
 
 # akoúste
 
