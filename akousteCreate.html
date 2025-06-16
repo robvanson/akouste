@@ -897,18 +897,21 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		return text.replace(/\>\>[-]{10,}\<\</g,	'<input type="range" min="1" max="1000" value="500" class="slider" id="QuestionXXXX" name="QuestionXXXX" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value" style="width:100%;">')
 	};
 	
+	// Input text field <<| default text { css style }|>>
 	function replaceTextInput (text) {
 		return text.replace(/\<\<\\?[\|\¦]\s*([^\|\¦\{\\]*[^\|\¦\{\s\\])\s*(\{\s*([^\}\\]*[^\}\\\s])\s*\})?\s*\\?[\|\¦]\>\>/g,	'<input type="text" value="$1" title="$1" id="QuestionXXXX" name="QuestionXXXX" onfocus="if(`$1`==this.value)this.value=``" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value" style="$3">')
 	};
 	
+	// Text insertions
 	function replaceTextItems (text) {
+		// Fixed text field (iframe) {{{< url >|  css style }}}
 		// First, remove the fixed, iFrame cases
 		text = text.replace(/\{\{\{\<([^\>\|\¦\\]*[^\>\|\¦\\\s])\s*\>(\s*\\?[\|\¦]([^\}]*))?\}\}\}/g, '<iframe id="FixedText$1" src="$1"   scrolling="auto" name="FixedText" style="$3"></iframe>');;
 
-		// Second, handle parameter cases
+		// Parameter fields {{{! parameter ! | css style }}}
 		text = text.replace(/\{\{\{!\s*([^\|!\¦]*[^\|!\¦\s])\s*!(\s*\\?[\|\¦]([^\}]*))?\}\}\}/g, '<span id="$1" name="parameterText" style="$3"></span>');
 
-		// Handle StimulusTable references
+		// StimulusTable references {{{ stimulus | css style }}}
 		var textNamesRaw = text.match(/\{\{\{([^\}]+)\}\}\}/g);
 		if(textNamesRaw != null && textNamesRaw.length > 0) {
 			// Seperate text names from text
@@ -922,6 +925,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		return text;	
 	};
 	
+	// Audio buttons [[[ label | stimulus {css style} ]]]
 	function replaceAudio (text) {
 		var audioNamesRaw = text.match(/\[\[\[([^\]]+)\]\]\]/g);
 		
@@ -933,10 +937,13 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 
 		audioNames = audioNames.flat();
 
+		// Fixed links [[[ label | <url> {css style}]]]
 		text = text.replace(/\[\[\[\s*([^\]\|\¦\\]*[^\]\|\¦\\\s])\s*\\?[\|\¦]\s*\<([^\>]*)\>\s*(\{\s*([^\}]+)\s*\})?\]\]\]/g, '<audio id="Fixed$2" name="Fixed$2" src="$2" preload="auto" title="" ></audio><button onclick="stopAllAudio ();document.getElementById(\'Fixed$2\').play();" style="font-size:30px;background-color:white;$4;"><strong><div id="PlayFixed$2Text" style="background-color:white;">$1</div></strong></button>');
 				
+		// Stimulus links with label [[[ label | stimulus {css style}]]]
 		text = text.replace(/\[\[\[\s*([^\]\|\¦\\]*[^\]\|\¦\\\s])\s*\\?[\|\¦]\s*([^\]\{]*[^\]\{\s])\s*(\{\s*([^\}]*[^\}\s])\s*\})?\s*\]\]\]/g, '<audio id="Audio$2" name="Audio$2" src="" preload="auto" title="" onplaying="unblockNext (\'Audio$2\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$2" data-toggle="tooltip" title="'+ToolTipPlay+'"><button onclick="stopAllAudio ();document.getElementById(\'Audio$2\').play();" style="font-size:30px;background-color:white;$4;"><strong><div id="PlayAudio$2Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
 		
+		// Stimulus links without label [[[ stimulus {css style}]]]
 		return text.replace(/\[\[\[\s*([^\]\{]*[^\]\{\s])\s*(\{\s*([^\}]*[^\}\s])\s*\})?\s*\]\]\]/g, '<audio id="Audio$1" name="Audio$1" src="" preload="auto" title="" onplaying="unblockNext (\'Audio$1\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$1" data-toggle="tooltip" title="'+ToolTipPlay+'"><button onclick="stopAllAudio ();document.getElementById(\'Audio$1\').play();" style="font-size:30px;background-color:white;$3;"><strong><div id="PlayAudio$1Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
 	};
 
