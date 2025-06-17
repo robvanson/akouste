@@ -41,6 +41,8 @@ Examples (random audio examples courtesy of [Wikimedia Commons](https://commons.
 - Minimalistic [Audiotest experiment](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=Audiotest)    
   test full chain from local stimulus files to audible audio
 
+### Browser settings
+
 For the experiments to work with local audio in a web browser, *JavaScript* and *Third-party cookies* should be allowed (Chrome, Edge and derived browsers), or *cross-site tracking* should be allowed (ie, *not* prevented, Safari). Firefox and derived browsers seem to work in most settings. Using *akoúste* with Internet Explorer (IE) does not work.
 
 ## What you get
@@ -90,7 +92,7 @@ The stimulus tables can be constructed in a simple spreadsheet table and saved a
 
 *A simple stimulus table from the ABX example. Note the audio files need a common base URL: `https://upload.wikimedia.org/wikipedia/commons/`.*
 
-Stimulus tables are uploaded by **Open a Stimulus Table (.csv):**. *akoúste* is designed to work with local stimulus files. However, modern web browsers prohibit mixing the access of web URLs and local files. Therefor, it is not possible to access local audio files from *akousteCreate.html*. The examples given all use web URLs to access sound files. They are practical to debug the experiment. When the experiment is completed and ready for execution, the stimulus table can be uploaded and the experiment saved with **Save Experiment...**. If the file paths are entered correctly, the experiment file can be opened in a browser and the experiment will run with the local files (see above for browser settings). There is a trick to save an experiment with URL stimuli and then save a *.js* file with the local file stimulus list next to it, the *Audiotest* example uses this trick. When started, the experiment will load the stimuli in the *.js* file. The button to downoad this *.js* stimulus table, **Download stimuli** will appear after uploading the *.csv* table.
+Stimulus tables are uploaded by **Open a Stimulus Table (.csv):**. *akoúste* is designed to work with local stimulus files. However, modern web browsers prohibit mixing the access of web URLs and local files. Therefor, it is not possible to access local audio files from *akousteCreate.html*. The examples given all use web URLs to access sound files. They are practical to debug the experiment. When the experiment is completed and ready for execution, the stimulus table can be uploaded and the experiment saved with **Save Experiment...**. If the file paths are entered correctly, the experiment file can be opened in a browser and the experiment will run with the local files (see [Browser settings](#Browser-settings)). There is a trick to save an experiment with URL stimuli and then save a *.js* file with the local file stimulus list next to it, the *Audiotest* example uses this trick. When started, the experiment will load the stimuli in the *.js* file. The button to downoad this *.js* stimulus table, **Download stimuli** will appear after uploading the *.csv* table.
 
 Stimulus files can be entered as full or relative paths or full URLs. When a comon base folder path or URL path is given in the **URL/path to audio:** parameter, eg, *./Stimuli/*, only the varying part of the path or URL has to be placed in the stimulus table.
 
