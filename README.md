@@ -69,7 +69,7 @@ The editor is a web page with on top two blocks of experiment settings. Top-left
 
 At the bottom are two frames. To the left is the Markdown edit window. The text and audio presented during the experiment can be edited and formated here. To the right is a Display/HTML frame. It shows the rendered HTML created from the Markdown (**Display HTML**) or the HTML source text (**HTML text**). This is just the HTML created from the Markdown. This is not functional. The HTML source text can be edited directly. However, this will disappear easily, so any changes not transfered to the markdown should be saved using the **Save Experiment...** button.
 
-![*User Interface of akoústeCreate.html*](./akousteCreateScreenshot.jpg)
+<img src="./akousteCreateScreenshot.jpg" title="" alt="*User Interface of akoústeCreate.html*" data-align="center">
 
 *User Interface of akousteCreate.html*
 
@@ -104,9 +104,9 @@ As the resul files have to be communicated by the subjects themselves and might 
 
 The user facing part of the experiment is a web-page. The text and layout of this page are designed using an adapted Markdown language, [markdown-it](https://markdown-it.github.io/). The markdown library is obtained from [https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/](https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/), *markdown-it.min.js*. This file can also be downloaded and stored locally in the same folder as *akousteCreate.html* when convenient. It will then be loaded automatically if the link is not available.
 
-A new experiment requires a lot of text writing. The editor of *akouseCreate.html* is not equiped for serious word processing. It is best to create the initial markdown document with a fully featured markdown editor and later upload it to *akouseCreate.html*. There are a large number of fully featured markdown editors available, eg, [Typora](https://typora.io/), [Mark Text](https://www.marktext.cc/), [Visual Studio Code](https://code.visualstudio.com/) with Markdown Extensions, as well as browser plugins, eg, [Markdown Editor](https://chromewebstore.google.com/detail/ekdcaddpmiodcipjfmffhhefijpdckaf) for Chrome.
+A new experiment requires a lot of text writing. The editor of *akouseCreate.html* is not equiped for serious word processing. It is best to create the initial markdown document with a fully featured markdown editor and later upload it to *akouseCreate.html*. There are a large number of fully featured markdown editors available, eg, [PanWriter](https://panwriter.com/), [Mark Text](https://www.marktext.cc/), or [Visual Studio Code]([Markdown and Visual Studio Code](https://code.visualstudio.com/docs/languages/markdown)/) with [Markdown Extensions](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)[^4], as well as browser plugins, eg, [Markdown Editor](https://chromewebstore.google.com/detail/ekdcaddpmiodcipjfmffhhefijpdckaf) for Chrome.
 
-Several constructs have been added to the [markdown-it](https://markdown-it.github.io/) format to ease the placement of active elements for the experiments. Some of these constructs use the pipe symbol, **\|**. This symbol can cause problems when editing markdown files in WYSIWYG markdown editors as they also represent column boundaries in tables. Such problems can often be prevented by prepending a backslash character before the pipe symbol, ie, \\\|. You cannot use backslash-\ itself nor backslash "escape" sequences before any other symbol inside the special akoúste constructs. If even the use of \\| doesn't help, a different broken pipe symbol, ¦ &#166;, can be used instead. This symbol generally has no keyboard equivalent so it should be used as a last resort.
+Several constructs have been added to the [markdown-it](https://markdown-it.github.io/) format to ease the placement of active elements for the experiments. Some of these constructs use the pipe symbol, **\|**. This symbol can cause problems when editing markdown files in WYSIWYG markdown editors as they also represent column boundaries in tables. Such problems can often be prevented by prepending a backslash character before the pipe symbol, ie, \\\|. You cannot use backslash-\ itself nor backslash "escape" sequences before any other symbol inside the special akoúste constructs. If even the use of \\| doesn't help, a different broken pipe symbol, ¦ \&#166\;, can be used instead. This symbol generally has no keyboard equivalent so it should be used as a last resort.
 
 ### Stimulus related constructs
 
@@ -135,7 +135,7 @@ Extensions of the \[\[\[text\|name\{style\}\]\]\] audio button and \{\{\{name\|s
 
 These extensions present fixed content and are intended to present examples or explanations. Subjects do not have to interact with them to proceed to the next stimulus.
 
-- \[\[\[\<URL\>\|name\{style\}\]\]\] inserts an audio button that will play the sound at the **URL** (\< \> are obligatory). 
+- \[\[\[ text |\<URL\>\\{style\}\]\]\] inserts an audio button that will play the sound at the **URL** (\< \> are obligatory). 
 - \{\{\{\<URL\>\|style\}\}\} insert an *iframe* with the page at the **URL**.
 - \{\{\{!parameter!\|style\}\}\} insert the text value of the internal variable **parameter**. This is used, e.g., to display the remaining number of stimuli in the examples.
 
@@ -203,7 +203,7 @@ This line says that the table has columns named *A*, *B*, *X*, *LangA*, *LangB*,
 
 Then follow the rows of the table. Each row has the form:
 
-> \[//stimulus1\]: \# "De-Aluminium.ogg,Fr-bordure.ogg,En-uk-illustrate.ogg,German (DE),French (FR),English (EN)"
+> \[//stimulus1\]: \# "6/62/De-Aluminium.ogg,e/e7/Fr-bordure.ogg,d/db/En-uk-illustrate.ogg,German (DE),French (FR),English (EN)"
 
 This line gives the names of three *.ogg* audio files and the names of the respective languages as an example. Note that the rows of the stimulus table all have the label \[//stimulus1\]. They are *not* numbered.
 
@@ -211,10 +211,11 @@ The stimulus table ends with:
 
 > \[//comment\]: \# "----------"
 
-The stimulus table can be edited directly in the markdown file. The format is rather strict with comma-separated values. All comma's and quotes are replaced and stored as their \&\#\<ASCII\>; values, ie, \&\#44;, \&\#34;, and \&\#39;. Conversions are automatically back and forth between the internal stimulus table and the markdown file.
+The stimulus table can be edited directly in the markdown file. The format is rather strict with comma-separated values. All comma's and " '-quotes are replaced and stored as their \&\#\<ASCII\>; values, ie, \&\#44;, \&\#34;, and \&\#39;. Conversions are automatically back and forth between the internal stimulus table and the markdown file.
 
 ---------
 
 [^1]: Version 1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)  
 [^2]: [Guidance for SToPS (PDF)](https://eprints.leedsbeckett.ac.uk/id/eprint/4126/3/Guidance%20notes%20for%20SToPS.pdf)  
 [^3]: The converter [*markdown-it.min.js*](https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/) can be stored locally if desired.
+[^4]: I have no personal experience with Visual Studio Code, so YMMV.
