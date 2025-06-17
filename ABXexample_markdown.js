@@ -5,13 +5,13 @@ initialMarkdown = `
 
 ## The voices of the speakers A and B have been changed. Which one do you think is the unknown speaker X?
 
-## {{{!answerstogo!|font-weight:bold}}} answers to go
+## {{{!answerstogo!\|font-weight:bold}}} answers to go
 
-|     |                     |   |                      |   |                     |    |
-| -: | --------------: | - | :-------------: | - | :------------- | :- |
-|     | [[[A ►|A]]] |   | [[[X ►|X]]] |   | [[[B ►|B]]] |    |
-|     |                      |   |                     |   |                     |    | 
- 
+|     |              |     |              |     |              |     |
+| ---:| ------------:| --- |:------------:| --- |:------------ |:--- |
+|     | [[[A ►\|A]]] |     | [[[X ►\|X]]] |     | [[[B ►\|B]]] |     |
+|     |              |     |              |     |              |     |
+
 </center>
 
 ------------------------------------------------------
@@ -19,18 +19,18 @@ initialMarkdown = `
 <center>
 
 ### Which spreaker, A or B is the unknown speaker X
-|    |    |              |                         |                |    |   |
-| - | -: | :-------: | :----------------: | :---------: | :- | - |
-|    |   |     (())    |  Your Choice   |      (())      |   |   |
-|    |   |  **A**  |                         |   **B**   |    |   |
 
+|     |     |       |             |       |     |     |
+| --- | ---:|:-----:|:-----------:|:-----:|:--- | --- |
+|     |     | (())  | Your Choice | (())  |     |     |
+|     |     | **A** |             | **B** |     |     |
 
 </center>
 
 [//comment]: # "These are internal parameters for the experiment and visible texts not in this Markdown"
 [//comment]: # "----------"
 [//parameter]: # "ExperimentAcronym:ABXexample"
-[//parameter]: # "audioBaseURL:./Stimuli/"
+[//parameter]: # "audioBaseURL:https://upload.wikimedia.org/wikipedia/commons/"
 [//parameter]: # "PracticeItems:4"
 [//parameter]: # "ShuffleStimuli:true"
 [//parameter]: # "RandomizeAB:false"
@@ -50,7 +50,7 @@ initialMarkdown = `
 [//comment]: # "These are stimuli for this experiment"
 [//comment]: # "----------"
 [//stimulus0]: # "A,B,X,LangA,LangB,LangX"
-[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg,https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg,https://upload.wikimedia.org/wikipedia/commons/d/db/En-uk-illustrate.ogg,De,Fr,En"
-[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/2/2d/Nl-aardhommel.ogg,https://upload.wikimedia.org/wikipedia/commons/8/8e/Or-ଅନୁଶୀଳନ.oga,https://upload.wikimedia.org/wikipedia/commons/d/da/L1188694-F1.oga,Nl,Or,Ar"
+[//stimulus1]: # "6/62/De-Aluminium.ogg,e/e7/Fr-bordure.ogg,d/db/En-uk-illustrate.ogg,German (De),French (Fr),English (En)"
+[//stimulus1]: # "2/2d/Nl-aardhommel.ogg,8/8e/Or-ଅନୁଶୀଳନ.oga,d/da/L1188694-F1.oga,Dutch (Nl),Oriya (Or),Arabic (Ar)"
 [//comment]: # "----------"
 `

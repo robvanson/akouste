@@ -81,7 +81,14 @@ When the experiment is ready to be deployed, it can be saved using the **Save Ex
 
 Stimuli are organized as tables with named columns and each row containing the information of a single presentation. Necessary information contained in each row are the stimulus files (audio) or values (text fields) to be presented, and, for the analysis, the experimental conditions they represent. 
 
-The stimulus tables can be constructed in a simple spreadsheet table and saved as a CSV (comma separated values) file. For practical reasons, it is advisable to use the ; as a separation symbol (semicolon separated values) as *akoúste* cannot handle comma-separated values that contain comma's. 
+The stimulus tables can be constructed in a simple spreadsheet table and saved as a CSV (comma separated values) file. For practical reasons, it is advisable to use the ; as a separation symbol (semicolon separated values) as *akoúste* cannot handle comma-separated values that themselves contain comma's. 
+
+| A                      | B                   | X                         | LangA       | LangB       | LangX        |
+| ---------------------- | ------------------- | ------------------------- | ----------- | ----------- | ------------ |
+| 6/62/De-Aluminium.ogg  | e/e7/Fr-bordure.ogg | d/db/En-uk-illustrate.ogg | German (De) | French (Fr) | English (En) |
+| 2/2d/Nl-aardhommel.ogg | 8/8e/Or-ଅନୁଶୀଳନ.oga | d/da/L1188694-F1.oga      | Dutch (Nl)  | Oriya (Or)  | Arabic (Ar)  |
+
+*A simple stimulus table from the ABX example. Note the audio files need a common base URL: `https://upload.wikimedia.org/wikipedia/commons/`.*
 
 Stimulus tables are uploaded by **Open a Stimulus Table (.csv):**. *akoúste* is designed to work with local stimulus files. However, modern web browsers prohibit mixing the access of web URLs and local files. Therefor, it is not possible to access local audio files from *akousteCreate.html*. The examples given all use web URLs to access sound files. They are practical to debug the experiment. When the experiment is completed and ready for execution, the stimulus table can be uploaded and the experiment saved with **Save Experiment...**. If the file paths are entered correctly, the experiment file can be opened in a browser and the experiment will run with the local files (see above for browser settings). There is a trick to save an experiment with URL stimuli and then save a *.js* file with the local file stimulus list next to it, the *Audiotest* example uses this trick. When started, the experiment will load the stimuli in the *.js* file. The button to downoad this *.js* stimulus table, **Download stimuli** will appear after uploading the *.csv* table.
 
