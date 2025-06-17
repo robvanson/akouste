@@ -96,9 +96,9 @@ Stimulus files can be entered as full or relative paths or full URLs. When a com
 
 *akoúste* Ignores all columns in the stimulus table that are not mentioned in the experiment. The output of the experiment is the original stimulus table, with columns added for answers, number of the stimulus during presentation, and AB switch if applicable. Note that the output table has the rows in the order of presentation with practice rows pre-pended if present.
 
-This approach was chosen to simplify analysis as all data needed for the analysis can be placed in the stimulus table and will remain associated with the correct stimuli even after randomization. Note that the name or code of the subject is *not* known to *akoúste* and not stored in the answers. There is a sperate script that can add this to the answers, *ProcessResults.html*.
+This approach was chosen to simplify analysis as all data needed for the analysis can be placed in the stimulus table and will remain associated with the correct stimuli even after randomization. Note that the name or code of the subject is *not* known to *akoúste* and not stored in the answers. There is a separate script that can add this to the answers, *ProcessResults.html*.
 
-As the resul files have to be communicated by the subjects themselves and might become corrupted during transport, there is an option to add a error check after each answer row. This can be checked by *ProcessResults.html* too.
+As the resul files have to be communicated by the subjects themselves and might become corrupted during transport, there is an option to add a error check after each answer row (see [The settings](#The settings). This can be checked by *ProcessResults.html* too.
 
 ## Markdown
 
