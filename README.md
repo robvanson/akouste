@@ -100,7 +100,7 @@ Stimulus files can be entered as full or relative paths or full URLs. When a com
 
 This approach was chosen to simplify analysis as all data needed for the analysis can be placed in the stimulus table and will remain associated with the correct stimuli even after randomization. Note that the name or code of the subject is *not* known to *akoúste* and not stored in the answers. There is a separate script that can add this to the answers, *ProcessResults.html*.
 
-As the resul files have to be communicated by the subjects themselves and might become corrupted during transport, there is an option to add a error check after each answer row (see [The settings](#The-settings). This can be checked by *ProcessResults.html* too.
+As the resul files have to be communicated by the subjects themselves and might become corrupted during transport, there is an option to add a error check after each answer row (see [The settings](#The-settings)). This can be checked by *ProcessResults.html* too.
 
 ## Markdown
 
