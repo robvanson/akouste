@@ -448,10 +448,10 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		 currentMarkdown = currentMarkdown.replace(/\s*\n+$/, "");
 		var lines = currentMarkdown.split(/\r?\n|\r|\n/g);
 		for(var i=0; i < lines.length; ++i){
-			if(lines[i].match(/\[\/\/(parameter|buttontext|tooltiptext|stimulus[01])\]: # "/) || 
-				lines[i].match(/\[\/\/comment\]: # "These are internal parameters for the experiment and visible texts not in this Markdown"/) || 
-				lines[i].match(/\[\/\/comment\]: # "These are stimuli for this experiment"/) || 
-				lines[i].match(/\[\/\/comment\]: # "----------"/)){
+			if(lines[i].match(/\[\/\/(parameter|buttontext|tooltiptext|stimulus[01])\]: # ["']/) || 
+				lines[i].match(/\[\/\/comment\]: # ["']These are internal parameters for the experiment and visible texts not in this Markdown["']/) || 
+				lines[i].match(/\[\/\/comment\]: # ["']These are stimuli for this experiment["']/) || 
+				lines[i].match(/\[\/\/comment\]: # ["']----------["']/)){
 				// Do nothing
 			} else {
 				newLines.push(lines[i]);
@@ -478,22 +478,22 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		var tmpStimulusTable1 = [];
 		var lines = currentMarkdown.split(/(\r|\n)/g);
 		for(var i=0; i < lines.length; ++i){
-			if(lines[i].match(/\[\/\/stimulus[01]\]: # "/)){
+			if(lines[i].match(/\[\/\/stimulus[01]\]: # ["']/)){
 				var valueString = lines[i].replace(/^\s*\[\/\/stimulus[01]\]: # ["']/, "")
 				valueString = valueString.replace(/['"]\s*$/, "");
 				var valueList = valueString.split(/\s*,\s*/);
 				// Restore &#44; to comma's, &#34; to ", &#39; to '
 				valueList = valueList.map(x => x.replace(/\&\#44\;/g, ",").replace(/\&\#34\;/g, '"').replace(/\&\#39\;/g, "'"));
-				if(lines[i].match(/\[\/\/stimulus0\]: # "/)){
+				if(lines[i].match(/\[\/\/stimulus0\]: # ["']/)){
 					tmpStimulusTable0 = valueList;
 				} else {
 						tmpStimulusTable1.push(valueList);
 				};
 			};
 
-			if(lines[i].match(/\[\/\/(parameter|buttontext|tooltiptext)\]: # "/)){
-				parameterName = lines[i].replace(/^[^#]+# "([^":]+)\s*:\s*([^"]+)".*$/, '$1');
-				parameterValue = lines[i].replace(/^[^#]+# "([^":]+)\s*:\s*([^"]+)".*$/, '$2');
+			if(lines[i].match(/\[\/\/(parameter|buttontext|tooltiptext)\]: # ["']/)){
+				parameterName = lines[i].replace(/^[^#]+# ["']([^"':]+)\s*:\s*([^"']+)["'].*$/, '$1');
+				parameterValue = lines[i].replace(/^[^#]+# ["']([^"':]+)\s*:\s*([^"']+)["'].*$/, '$2');
 				switch(parameterName) {
 						case "ExperimentAcronym":
 							ExperimentAcronym = parameterValue;
