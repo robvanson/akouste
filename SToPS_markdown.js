@@ -27,7 +27,7 @@ initialMarkdown = `
 ##  <a href="javascript:void" onclick='alert(SToPS_guidance_Q2A);'>?</a> 2. Perceptual Voice Tonicity <a href="javascript:void" onclick='alert(SToPS_guidance_Q2B);'>?</a>	
 |      |      |      |      |      |      |      |      |      |      |      |      |     | 
 | ---: | :----------: | :----: | :-----: | :-----:| :----: | :-----: | :----: | :-----: | :----:| :-----: | :----:| :--- | 
-|  [[[Hypo|<6/62/De-Aluminium.ogg>{font-size:20px}]]]  |        (())    |   (())  |   (())   |  (()) |  (())   |   (())   |   (())  |  (())   |  (()) |  (())   |  (()) |  [[[Hyper|<e/e7/Fr-bordure.ogg>{font-size:20px}]]]  |
+|  [[[Hypo|<https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg>{font-size:20px}]]]  |        (())    |   (())  |   (())   |  (()) |  (())   |   (())   |   (())  |  (())   |  (()) |  (())   |  (()) |  [[[Hyper|<https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg>{font-size:20px}]]]  |
 |       |          5     |     4    |    3     |    2   |    1    |    0     |     1    |   2    |    3   |   4    |    5    |       |  
 |       |     Hypo   |           |           |         |          | Tonic  |           |         |         |        | Hyper |        |  
  
@@ -48,7 +48,7 @@ initialMarkdown = `
 
 |       |      |      |       |      |        |   
 | ---: | :----------: | :----: | :----------: | :----: | :--- | 
-|       |        (())    |   (())  |     (())       |  (())  |  [[[Wet|<8/8e/Or-ଅନୁଶୀଳନ.oga>{font-size:20px}]]]  |
+|       |        (())    |   (())  |     (())       |  (())  |  [[[Wet|<https://upload.wikimedia.org/wikipedia/commons/8/8e/Or-ଅନୁଶୀଳନ.oga>{font-size:20px}]]]  |
 |       |          0     |     1    |       2        |    3   |        |  
 |       |    None    |  Mild | Moderate | Severe |       |
   	  	 
@@ -103,7 +103,7 @@ initialMarkdown = `
 
 |       |      |      |       |      |        |   
 | ---: | :----------: | :----: | :----------: | :----: | :--- | 
-|       |        (())    |   (())  |     (())       |  (())  | [[[Stoma|<d/da/L1188694-F1.oga>{font-size:20px}]]]  |
+|       |        (())    |   (())  |     (())       |  (())  | [[[Stoma|<https://upload.wikimedia.org/wikipedia/commons/d/da/L1188694-F1.oga>{font-size:20px}]]]  |
 |       |          0     |     1    |       2        |    3   |        |  
 |       |   Absent   |  Mild | Moderate | Severe |       |
   	

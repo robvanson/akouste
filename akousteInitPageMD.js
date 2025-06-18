@@ -10,7 +10,7 @@ initialMarkdown = `
 
 A cover page is optional, but often useful. A cover page is generally used to explain the aim and procedure of the experiment, and how to save and convey the results after completion of the experiment.
 
-It is adviseable to include a [[[ sound sample|<2/2d/Nl-aardhommel.ogg>{font-size:1em}]]] to check the sound quality and level. 
+It is adviseable to include a [[[ sound sample|<https://upload.wikimedia.org/wikipedia/commons/2/2d/Nl-aardhommel.ogg>{font-size:1em}]]] to check the sound quality and level. 
 
 [//coverpage]: # "End of coverpage"
 
