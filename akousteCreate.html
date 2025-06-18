@@ -161,7 +161,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 [//buttontext]: # "SaveText:Please click XXSaveButtonTextXX and store the file"
 [//tooltiptext]: # "ToolTipPlay:Play sound"
 [//tooltiptext]: # "ToolTipNext:Go to next item"
-[//tooltiptext]: # "ToolTipReadyReady please save results"
+[//tooltiptext]: # "ToolTipReady:Ready, please save results"
 [//tooltiptext]: # "ToolTipRestart:Start a new experiment session"
 [//tooltiptext]: # "ToolTipSave:Save the answer to a file"
 [//comment]: # "----------"
@@ -396,10 +396,25 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		return current;
 	};
 	
+	function encodeDirtyChar(dirty) {
+		return '&#'+dirty.charCodeAt(0)+';';
+	};
+	
+	function recodeDirtyChar(asciiNum) {
+		return String.fromCharCode(asciiNum.replace(/\&\#(\d+)\;/, "$1"));
+	};
+	
 	function cleanString (dirtyString) {
 		if(typeof dirtyString != "string") return dirtyString;
-		cleanedString = dirtyString.replace(/[|&;$%@"'<>\\()+,]/g, "");
+		cleanedString = dirtyString.replace(/[|$%@"'<>\\()+`]/g, "");
+		cleanedString = cleanedString.replace(/[,&;]/g, encodeDirtyChar);
 		return cleanedString;
+	};
+
+	function restoreString (cleanString) {
+		if(typeof cleanString != "string") return cleanString;
+		restoredString = cleanString.replace(/\&\#(44|38|59)\;/g, recodeDirtyChar);
+		return restoredString;
 	};
 	
 	function parameters2Markdown() {
@@ -426,7 +441,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			['[//buttontext]: # "SaveText:'+cleanString(SaveText)+'"'],
 			['[//tooltiptext]: # "ToolTipPlay:'+cleanString(ToolTipPlay)+'"'],
 			['[//tooltiptext]: # "ToolTipNext:'+cleanString(ToolTipNext)+'"'],
-			['[//tooltiptext]: # "ToolTipReady'+cleanString(ToolTipReady)+'"'],
+			['[//tooltiptext]: # "ToolTipReady:'+cleanString(ToolTipReady)+'"'],
 			['[//tooltiptext]: # "ToolTipRestart:'+cleanString(ToolTipRestart)+'"'],
 			['[//tooltiptext]: # "ToolTipSave:'+cleanString(ToolTipSave)+'"'],
 			['[//comment]: # "----------"']
@@ -494,6 +509,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			if(lines[i].match(/\[\/\/(parameter|buttontext|tooltiptext)\]: # ["']/)){
 				parameterName = lines[i].replace(/^[^#]+# ["']([^"':]+)\s*:\s*([^"']+)["'].*$/, '$1');
 				parameterValue = lines[i].replace(/^[^#]+# ["']([^"':]+)\s*:\s*([^"']+)["'].*$/, '$2');
+				parameterValue = restoreString(parameterValue);
 				switch(parameterName) {
 						case "ExperimentAcronym":
 							ExperimentAcronym = parameterValue;

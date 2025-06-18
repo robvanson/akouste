@@ -48,7 +48,7 @@ initialMarkdown = `
 [//buttontext]: # "SaveText:Please click XXSaveButtonTextXX and store the file"
 [//tooltiptext]: # "ToolTipPlay:Play sound"
 [//tooltiptext]: # "ToolTipNext:Go to next item"
-[//tooltiptext]: # "ToolTipReadyReady please save results"
+[//tooltiptext]: # "ToolTipReady:Ready, please save results"
 [//tooltiptext]: # "ToolTipRestart:Start a new experiment session"
 [//tooltiptext]: # "ToolTipSave:Save the answer to a file"
 [//comment]: # "----------"
