@@ -27,7 +27,7 @@ initialMarkdown = `
 ##  <a href="javascript:void" onclick='alert(SToPS_guidance_Q2A);'>?</a> 2. Perceptual Voice Tonicity <a href="javascript:void" onclick='alert(SToPS_guidance_Q2B);'>?</a>	
 |      |      |      |      |      |      |      |      |      |      |      |      |     | 
 | ---: | :----------: | :----: | :-----: | :-----:| :----: | :-----: | :----: | :-----: | :----:| :-----: | :----:| :--- | 
-|  [[[Hypo|<https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg>{font-size:20px}]]]  |        (())    |   (())  |   (())   |  (()) |  (())   |   (())   |   (())  |  (())   |  (()) |  (())   |  (()) |  [[[Hyper|<https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg>{font-size:20px}]]]  |
+|  [[[Hypo|<6/62/De-Aluminium.ogg>{font-size:20px}]]]  |        (())    |   (())  |   (())   |  (()) |  (())   |   (())   |   (())  |  (())   |  (()) |  (())   |  (()) |  [[[Hyper|<e/e7/Fr-bordure.ogg>{font-size:20px}]]]  |
 |       |          5     |     4    |    3     |    2   |    1    |    0     |     1    |   2    |    3   |   4    |    5    |       |  
 |       |     Hypo   |           |           |         |          | Tonic  |           |         |         |        | Hyper |        |  
  
@@ -48,7 +48,7 @@ initialMarkdown = `
 
 |       |      |      |       |      |        |   
 | ---: | :----------: | :----: | :----------: | :----: | :--- | 
-|       |        (())    |   (())  |     (())       |  (())  |  [[[Wet|<https://upload.wikimedia.org/wikipedia/commons/8/8e/Or-ଅନୁଶୀଳନ.oga>{font-size:20px}]]]  |
+|       |        (())    |   (())  |     (())       |  (())  |  [[[Wet|<8/8e/Or-ଅନୁଶୀଳନ.oga>{font-size:20px}]]]  |
 |       |          0     |     1    |       2        |    3   |        |  
 |       |    None    |  Mild | Moderate | Severe |       |
   	  	 
@@ -103,7 +103,7 @@ initialMarkdown = `
 
 |       |      |      |       |      |        |   
 | ---: | :----------: | :----: | :----------: | :----: | :--- | 
-|       |        (())    |   (())  |     (())       |  (())  | [[[Stoma|<https://upload.wikimedia.org/wikipedia/commons/d/da/L1188694-F1.oga>{font-size:20px}]]]  |
+|       |        (())    |   (())  |     (())       |  (())  | [[[Stoma|<d/da/L1188694-F1.oga>{font-size:20px}]]]  |
 |       |          0     |     1    |       2        |    3   |        |  
 |       |   Absent   |  Mild | Moderate | Severe |       |
   	
@@ -266,6 +266,7 @@ ${"`"}
 [//comment]: # "These are internal parameters for the experiment and visible texts not in this Markdown"
 [//comment]: # "----------"
 [//parameter]: # "ExperimentAcronym:SToPS"
+[//parameter]: # "audioBaseURL:https://upload.wikimedia.org/wikipedia/commons/"
 [//parameter]: # "PracticeItems:4"
 [//parameter]: # "ShuffleStimuli:true"
 [//parameter]: # "RandomizeAB:false"
@@ -286,12 +287,12 @@ ${"`"}
 [//comment]: # "----------"
 [//comment]: # "These are stimuli for this experiment"
 [//stimulus0]: # "A,Lang"
-[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg,De"
-[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg,Fr"
-[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/d/db/En-uk-illustrate.ogg,En"
-[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/2/2d/Nl-aardhommel.ogg,Nl"
-[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/8/8e/Or-ଅନୁଶୀଳନ.oga,Or"
-[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/d/da/L1188694-F1.oga,Ar"
-[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/2/2b/Ჟრუნი.oga,Ka"
+[//stimulus1]: # "6/62/De-Aluminium.ogg,De"
+[//stimulus1]: # "e/e7/Fr-bordure.ogg,Fr"
+[//stimulus1]: # "d/db/En-uk-illustrate.ogg,En"
+[//stimulus1]: # "2/2d/Nl-aardhommel.ogg,Nl"
+[//stimulus1]: # "8/8e/Or-ଅନୁଶୀଳନ.oga,Or"
+[//stimulus1]: # "d/da/L1188694-F1.oga,Ar"
+[//stimulus1]: # "2/2b/Ჟრუნი.oga,Ka"
 [//comment]: # "----------"
 `

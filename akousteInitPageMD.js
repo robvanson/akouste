@@ -10,7 +10,7 @@ initialMarkdown = `
 
 A cover page is optional, but often useful. A cover page is generally used to explain the aim and procedure of the experiment, and how to save and convey the results after completion of the experiment.
 
-It is adviseable to include a [[[ sound sample|<https://upload.wikimedia.org/wikipedia/commons/2/2d/Nl-aardhommel.ogg>{font-size:1em}]]] to check the sound quality and level. 
+It is adviseable to include a [[[ sound sample|<2/2d/Nl-aardhommel.ogg>{font-size:1em}]]] to check the sound quality and level. 
 
 [//coverpage]: # "End of coverpage"
 
@@ -70,7 +70,7 @@ Here you can put the text which tells the subjects what they are supposed to do.
 |                                                                                                       |      |      |      |                                                                                                           |      |      |      |                                                                                                        |
 | -----------------------------------------------------------------------------------------------------:|:----:|:----:|:----:|:---------------------------------------------------------------------------------------------------------:|:----:|:----:|:----:|:------------------------------------------------------------------------------------------------------ |
 | Not at all                                                                                            | (()) | (()) | (()) | (())                                                                                                      | (()) | (()) | (()) | Very Much                                                                                              |
-| [[[example \\| <https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg>{font-size:15px}]]] |      |      |      | [[[equal \\| <https://upload.wikimedia.org/wikipedia/commons/d/db/En-uk-illustrate.ogg>{font-size:15px}]]] |      |      |      | [[[example\\| <https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg>{font-size:15px}]]] |
+| [[[example \\| <e/e7/Fr-bordure.ogg>{font-size:15px}]]] |      |      |      | [[[equal \\| <d/db/En-uk-illustrate.ogg>{font-size:15px}]]] |      |      |      | [[[example\\| <6/62/De-Aluminium.ogg>{font-size:15px}]]] |
 
 ### Other response options can be added. A VAS slider is indicated by &gt;&gt;----------&lt;&lt; (&gt;&gt;&lt;&lt; separated by 10 or more dashes)
 
@@ -97,7 +97,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 [//comment]: # "These are internal parameters for the experiment and visible texts not in this Markdown"
 [//comment]: # "----------"
 [//parameter]: # "ExperimentAcronym:name_without_spaces"
-[//parameter]: # "audioBaseURL:./Stimuli/"
+[//parameter]: # "audioBaseURL:https://upload.wikimedia.org/wikipedia/commons/"
 [//parameter]: # "PracticeItems:4"
 [//parameter]: # "ShuffleStimuli:true"
 [//parameter]: # "RandomizeAB:false"
@@ -117,7 +117,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 [//comment]: # "These are stimuli for this experiment"
 [//comment]: # "----------"
 [//stimulus0]: # "A,B,X,LangA,LangB,LangX"
-[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg,https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg,https://upload.wikimedia.org/wikipedia/commons/d/db/En-uk-illustrate.ogg,German (DE),French (FR),English (EN)"
-[//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/2/2d/Nl-aardhommel.ogg,https://upload.wikimedia.org/wikipedia/commons/8/8e/Or-ଅନୁଶୀଳନ.oga,https://upload.wikimedia.org/wikipedia/commons/d/da/L1188694-F1.oga,Dutch (NL),Oriya (OR),Arabic (AR)"
+[//stimulus1]: # "6/62/De-Aluminium.ogg,e/e7/Fr-bordure.ogg,d/db/En-uk-illustrate.ogg,German (DE),French (FR),English (EN)"
+[//stimulus1]: # "2/2d/Nl-aardhommel.ogg,8/8e/Or-ଅନୁଶୀଳନ.oga,d/da/L1188694-F1.oga,Dutch (NL),Oriya (OR),Arabic (AR)"
 [//comment]: # "----------"
 `
