@@ -174,6 +174,8 @@ The settings end with:
 
 > \[//comment\]: \# "----------"
 
+A number of characters could interfere with the rendering of the HTML web page or execution of the experiment. The characters \| $ % @ " ' \` \< \> \\ ( \) + will be removed from settings parameters, labels, and tooltips. If they should be displayed, use the relevant HTML encodings (preferably using named entities, eg, \&quot\; for ").
+
 There are two hidden parameters that have no associated input fields: **body.style** and **addDigest**. 
 
 **body.style** is used to change the full page style. For instance:
