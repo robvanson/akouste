@@ -63,7 +63,7 @@ initialMarkdown = `
 [//stimulus1]: # "2/2d/Nl-aardhommel.ogg,8/8e/Or-ଅନୁଶୀଳନ.oga"
 [//stimulus1]: # "e/e7/Fr-bordure.ogg,d/db/En-uk-illustrate.ogg"
 [//stimulus1]: # "8/8e/Or-ଅନୁଶୀଳନ.oga,d/da/L1188694-F1.oga"
-[//stimulus1]: # "e/e7/Fr-bordure.ogg,8/8e/Or-ଅନୁଶୀଳନ.og"
+[//stimulus1]: # "e/e7/Fr-bordure.ogg,8/8e/Or-ଅନୁଶୀଳନ.oga"
 [//stimulus1]: # "6/62/De-Aluminium.ogg,d/da/L1188694-F1.oga"
 [//comment]: # "----------"
 `
