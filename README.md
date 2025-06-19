@@ -45,7 +45,7 @@ Examples (random audio examples courtesy of [Wikimedia Commons](https://commons.
 - Minimalistic [Audiotest experiment](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=Audiotest)    
   test full chain from local stimulus files to audible audio
   
-  For browser specific information, see [Browser settings](#Browser-setting-and-compatibility) below.
+  For browser specific information, see [Browser settings](#Browser-settings-and-compatibility) below.
 
 ## What you get
 
