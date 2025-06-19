@@ -41,9 +41,7 @@ Examples (random audio examples courtesy of [Wikimedia Commons](https://commons.
 - Minimalistic [Audiotest experiment](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=Audiotest)    
   test full chain from local stimulus files to audible audio
 
-### Browser settings
-
-For the experiments to work with local audio in a web browser, *JavaScript* and *Third-party cookies* should be allowed (Chrome, Edge and derived browsers), or *cross-site tracking* should be allowed (ie, *not* prevented, Safari). Firefox and derived browsers seem to work in most settings. Using *akoúste* with Internet Explorer (IE) does not work.
+ For browser specific information, see [Browser settings](#Browser-setting-and-compatibility) below.
 
 ## What you get
 
@@ -217,7 +215,9 @@ The stimulus table ends with:
 
 The stimulus table can be edited directly in the markdown file. The format is rather strict with comma-separated values. All comma's and " '-quotes are replaced and stored as their \&\#\<ASCII\>; values, ie, \&\#44;, \&\#34;, and \&\#39;. Conversions are automatically back and forth between the internal stimulus table and the markdown file. If a quote should simply be displayed in the HTML page, use \&quot\; for " and \&apos\; for '.
 
-## Browser compatibility
+## Browser settings and compatibility
+
+For the experiments to work with local audio in a web browser, *JavaScript* and *Third-party cookies* should be allowed (Chrome, Edge and derived browsers), or *cross-site tracking* should be allowed (ie, *not* prevented, Safari). Firefox and derived browsers seem to work in most settings. Using *akoúste* with Internet Explorer (IE) does not work.
 
 Browser compatibility was tested with all interfering protections off. Add blockers and blocking third-party cookies interfered with the experiments in most browsers. The browsers were tested using the [GitHub pages](http://robvanson.github.io/akouste) examples of the experiments as well as by loading the local *Audiotest_experiment.html* webpage in the downloaded akoúste package.
 
