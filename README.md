@@ -217,6 +217,20 @@ The stimulus table ends with:
 
 The stimulus table can be edited directly in the markdown file. The format is rather strict with comma-separated values. All comma's and " '-quotes are replaced and stored as their \&\#\<ASCII\>; values, ie, \&\#44;, \&\#34;, and \&\#39;. Conversions are automatically back and forth between the internal stimulus table and the markdown file. If a quote should simply be displayed in the HTML page, use \&quot\; for " and \&apos\; for '.
 
+## Browser compatibility
+
+Browser compatibility was tested with all interfering protections off. Add blockers and blocking third-party cookies interfered with the experiments in most browsers. The browsers were tested using the [GitHub pages](http://robvanson.github.io/akouste) examples of the experiment as well as by loading the local *Audiotest_experiment.html* webpage in the downloaded akoúste package.
+
+|         | Windows   |       | Mac       |       | Linux     |       |
+| -------:|:---------:|:-----:|:---------:|:-----:| --------- | ----- |
+|         | GitHub.io | Local | GitHub.io | Local | Github.io | Local |
+| Firefox | +         | +     | +         | +     |           |       |
+| Safari  |           |       | +         | +     |           |       |
+| Chrome  |           |       | +         | +     |           |       |
+| Edge    | +         | +     | +         | +     |           |       |
+| Vivaldi | +         | +     | +         | +     |           |       |
+| Opera   | +         | +     | +         | +     |           |       |
+
 ---------
 
 [^1]: Version 1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)  
