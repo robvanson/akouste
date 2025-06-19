@@ -217,9 +217,13 @@ The stimulus table can be edited directly in the markdown file. The format is ra
 
 ## Browser settings and compatibility
 
-For the experiments to work with local audio in a web browser, *JavaScript* and *Third-party cookies* should be allowed (Chrome, Edge and derived browsers), or *cross-site tracking* should be allowed (ie, *not* prevented, Safari). Firefox and derived browsers seem to work in most settings. Using *akoúste* with Internet Explorer (IE) does not work.
+Browsers implement security measures to prevent web sites from acccessing each other's data or the clients's local data, both for reading and writing. These [Same-origin policies](https://en.wikipedia.org/wiki/Same-origin_policy) affect how *akoúste* can implement experiments. It means that the demonstration page (**Show Page**) in the *akousteCreate.html* environment cannot use locally stored audio, only audio accessed through web links.
 
-Browser compatibility was tested with all interfering protections off. Add blockers and blocking third-party cookies interfered with the experiments in most browsers. The browsers were tested using the [GitHub pages](http://robvanson.github.io/akouste) examples of the experiments as well as by loading the local *Audiotest_experiment.html* webpage in the downloaded akoúste package.
+For the final experiments to work with local audio in a web browser, *JavaScript* and *Third-party cookies* should be allowed (Chrome, Edge and derived browsers), or *cross-site tracking* should be allowed (ie, *not* prevented, Safari). Firefox and derived browsers seem to work in most settings. Using *akoúste* with Internet Explorer (IE) does not work. 
+
+A test experiment has been implemented, *Audiotest_experiment.html*, with associated stimulus files in the *Stimulus* subfolder of *akoúste* to check local audio access. When loaded from a web link (URL), *Audiotest_experiment.html* will use the default web based audio. When loaded from a local file, it will read a stimulus list from *Audiotest_stimuluslist.js*, which uses local audio files.
+
+Browser compatibility was tested with all interfering browser protections off. Ad-blockers, anti-tracking settings, and blocking third-party cookies interfered with the experiments in most browsers. The browsers were tested using the [GitHub pages](http://robvanson.github.io/akouste) examples of the experiments as well as by loading the local *Audiotest_experiment.html* webpage in the downloaded akoúste package.
 
 |         | Windows   |       | Mac       |       | Linux     |       |
 | -------:|:---------:|:-----:|:---------:|:-----:| --------- | ----- |
