@@ -219,7 +219,7 @@ The stimulus table can be edited directly in the markdown file. The format is ra
 
 ## Browser compatibility
 
-Browser compatibility was tested with all interfering protections off. Add blockers and blocking third-party cookies interfered with the experiments in most browsers. The browsers were tested using the [GitHub pages](http://robvanson.github.io/akouste) examples of the experiment as well as by loading the local *Audiotest_experiment.html* webpage in the downloaded akoúste package.
+Browser compatibility was tested with all interfering protections off. Add blockers and blocking third-party cookies interfered with the experiments in most browsers. The browsers were tested using the [GitHub pages](http://robvanson.github.io/akouste) examples of the experiments as well as by loading the local *Audiotest_experiment.html* webpage in the downloaded akoúste package.
 
 |         | Windows   |       | Mac       |       | Linux     |       |
 | -------:|:---------:|:-----:|:---------:|:-----:| --------- | ----- |
