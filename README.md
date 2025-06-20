@@ -233,7 +233,7 @@ Browser compatibility was tested with all interfering browser protections switch
 
 |         | Windows | Mac | Linux | Android      |
 | -------:|:-------:|:---:|:-----:|:------------:|
-| Firefox | +       | +   | +     | -[^&dagger;] |
+| Firefox | :heavy_check_mark: | +   | +     | -[^&dagger;] |
 | Safari  |         | +   |       |              |
 | Chrome  |         | +   | +     | +            |
 | Edge    | +       | +   |       | +            |
