@@ -229,37 +229,22 @@ To check local audio access, *Audiotest_experiment.html* has been added with ass
 
 Browser compatibility was tested with all interfering browser protections switched off. Ad-blockers, anti-tracking settings, and blocking third-party cookies interfered with the experiments in most browsers. The browsers were tested using the [GitHub pages](http://robvanson.github.io/akouste) examples of the experiments as well as by loading the local *Audiotest_experiment.html* webpage in the downloaded *akoúste* package.
 
-*Table: Browsers that run local akoúste experiment file with local audio.*
+*Table 1: Browsers that run local akoúste experiment file with local audio.*
 
-|         | Windows | Mac | Linux | Android      |
-| -------:|:-------:|:---:|:-----:|:------------:|
-| Firefox | :heavy_check_mark: | +   | +     | -[^&dagger;] |
-| Safari  |         | +   |       |              |
-| Chrome  |         | +   | +     | +            |
-| Edge    | +       | +   |       | +            |
-| Vivaldi | +       | +   | +     | +            |
-| Opera   | +       | +   | +     | +            |
+|         | Windows | Mac | Linux | Android |
+| -------:|:-------:|:---:|:-----:|:-------:|
+| Firefox | +       | +   | +     | -[^†]   |
+| Safari  |         | +   |       |         |
+| Chrome  |         | +   | +     | +       |
+| Edge    | +       | +   |       | +       |
+| Vivaldi | +       | +   | +     | +       |
+| Opera   | +       | +   | +     | +       |
 
-[^&dagger;] Cannot load local file
-
-&nbsp;
-
-*Table: Browsers that run local akousteCreate.html file with **Show Page** and web audio.*
-
-|         | Windows | Mac | Linux | Android[^&Dagger;] |
-| -------:|:-------:|:---:|:-----:|:------------------:|
-| Firefox | +       | +   | +     | -                  |
-| Safari  |         | +   |       |                    |
-| Chrome  |         | +   | +     | -                  |
-| Edge    | +       | +   |       | -                  |
-| Vivaldi | +       | +   | +     | -                  |
-| Opera   | +       | +   | +     | -                  |
-
-[^&Dagger;] ***Show Page*** *and* ***Save Experiment...*** *do not work*
+[^†] Cannot load local file
 
 &nbsp;
 
-*Table: Browsers that run GitHub Pages akousteCreate.html with **Show Page**.*
+*Table 2: Browsers that run GitHub stored akoúste experiment with GitHub stored audio.*
 
 |         | Windows | Mac | Linux | Android |
 | -------:|:-------:|:---:|:-----:|:-------:|
@@ -268,7 +253,35 @@ Browser compatibility was tested with all interfering browser protections switch
 | Chrome  |         | +   | +     | +       |
 | Edge    | +       | +   |       | +       |
 | Vivaldi | +       | +   | +     | +       |
-| Opera   | &check;   | &check; | &check; | &check; |
+| Opera   | +       | +   | +     | +       |
+
+&nbsp;
+
+*Table 3: Browsers that run local akousteCreate.html file with **Show Page** and web audio.*
+
+|         | Windows | Mac | Linux | Android[^‡] |
+| -------:|:-------:|:---:|:-----:|:-----------:|
+| Firefox | +       | +   | +     | -           |
+| Safari  |         | +   |       |             |
+| Chrome  |         | +   | +     | -           |
+| Edge    | +       | +   |       | -           |
+| Vivaldi | +       | +   | +     | -           |
+| Opera   | +       | +   | +     | -           |
+
+[^‡] ***Show Page*** *and* ***Save Experiment...*** *do not work on Android*
+
+&nbsp;
+
+*Table 4: Browsers that run GitHub Pages akousteCreate.html with **Show Page**.*
+
+|         | Windows | Mac | Linux | Android |
+| -------:|:-------:|:---:|:-----:|:-------:|
+| Firefox | +       | +   | +     | +       |
+| Safari  |         | +   |       |         |
+| Chrome  |         | +   | +     | +       |
+| Edge    | +       | +   |       | +       |
+| Vivaldi | +       | +   | +     | +       |
+| Opera   | +       | +   | +     | +       |
 
 ---------
 
