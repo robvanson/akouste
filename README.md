@@ -233,14 +233,14 @@ Browser compatibility was tested with all interfering browser protections switch
 
 |         | Windows | Mac | Linux | Android |
 | -------:|:-------:|:---:|:-----:|:-------:|
-| Firefox | +       | +   | +     | -[^4]   |
+| Firefox | +       | +   | +     | -$^†$   |
 | Safari  |         | +   |       |         |
 | Chrome  |         | +   | +     | +       |
 | Edge    | +       | +   |       | +       |
 | Vivaldi | +       | +   | +     | +       |
 | Opera   | +       | +   | +     | +       |
 
-[^4] Cannot load local file
+$^†$ Cannot load local file
 
 &nbsp;
 
@@ -259,16 +259,16 @@ Browser compatibility was tested with all interfering browser protections switch
 
 *Table 3: Browsers that run local akousteCreate.html file with **Show Page** and web audio.*
 
-|         | Windows | Mac | Linux | Android[^5] |
-| -------:|:-------:|:---:|:-----:|:-----------:|
-| Firefox | +       | +   | +     | -           |
-| Safari  |         | +   |       |             |
-| Chrome  |         | +   | +     | -           |
-| Edge    | +       | +   |       | -           |
-| Vivaldi | +       | +   | +     | -           |
-| Opera   | +       | +   | +     | -           |
+|         | Windows | Mac | Linux | Android $^‡$ |
+| -------:|:-------:|:---:|:-----:|:------------:|
+| Firefox | +       | +   | +     | -            |
+| Safari  |         | +   |       |              |
+| Chrome  |         | +   | +     | -            |
+| Edge    | +       | +   |       | -            |
+| Vivaldi | +       | +   | +     | -            |
+| Opera   | +       | +   | +     | -            |
 
-[^5] ***Show Page*** *and* ***Save Experiment...*** *do not work on Android*
+$^‡$ ***Show Page*** *and* ***Save Experiment...*** *do not work on Android*
 
 &nbsp;
 
