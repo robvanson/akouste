@@ -268,7 +268,7 @@ Browser compatibility was tested with all interfering browser protections switch
 | Chrome  |         | +   | +     | +       |
 | Edge    | +       | +   |       | +       |
 | Vivaldi | +       | +   | +     | +       |
-| Opera   |   :heavy_check_mark:   | :heavy_check_mark:  |   :heavy_check_mark:  | :heavy_check_mark: |
+| Opera   | &check;   | :heavy_check_mark:  |   :heavy_check_mark:  | :heavy_check_mark: |
 
 ---------
 
