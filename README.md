@@ -42,8 +42,9 @@ Examples (random audio examples courtesy of [Wikimedia Commons](https://commons.
   Tracheoesophageal Perceptual Scale)](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=SToPS) [^2]   
   with fancy formatting
 
-- Minimalistic [Audiotest experiment](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=Audiotest)    
-  test full chain from local stimulus files to audible audio
+- Minimalistic [Audiotest experiment](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=Audiotest). Test full chain from local stimulus files to audible audio  
+
+- Direct to *online* [Audiotest experiment](https://robvanson.github.io/akouste/Audiotest_experiment.html)
   
   For browser specific information, see [Browser settings](#Browser-settings-and-compatibility) below.
 
