@@ -240,7 +240,7 @@ Browser compatibility was tested with all interfering browser protections switch
 | Vivaldi | +       | +   | +     | +              |
 | Opera   | +       | +   | +     | +              |
 
-$^*$ Cannot load local file
+<sup>*</sup> Cannot load local file
 
 &nbsp;
 
@@ -268,7 +268,7 @@ $^*$ Cannot load local file
 | Vivaldi | +       | +   | +     | -                    |
 | Opera   | +       | +   | +     | -                    |
 
-$^§$ ***Show Page*** *and* ***Save Experiment...*** *do not work on Android*
+<sup>§</sup> ***Show Page*** *and* ***Save Experiment...*** *do not work on Android*
 
 &nbsp;
 
