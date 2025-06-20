@@ -231,14 +231,14 @@ Browser compatibility was tested with all interfering browser protections switch
 
 *Table 1: Browsers that run local akoúste experiment file with local audio.*
 
-|         | Windows | Mac | Linux | Android |
-| -------:|:-------:|:---:|:-----:|:-------:|
-| Firefox | +       | +   | +     | - $^*$  |
-| Safari  |         | +   |       |         |
-| Chrome  |         | +   | +     | +       |
-| Edge    | +       | +   |       | +       |
-| Vivaldi | +       | +   | +     | +       |
-| Opera   | +       | +   | +     | +       |
+|         | Windows | Mac | Linux | Android        |
+| -------:|:-------:|:---:|:-----:|:--------------:|
+| Firefox | +       | +   | +     | - <sup>*</sup> |
+| Safari  |         | +   |       |                |
+| Chrome  |         | +   | +     | +              |
+| Edge    | +       | +   |       | +              |
+| Vivaldi | +       | +   | +     | +              |
+| Opera   | +       | +   | +     | +              |
 
 $^*$ Cannot load local file
 
