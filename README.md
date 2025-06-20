@@ -259,14 +259,14 @@ $^*$ Cannot load local file
 
 *Table 3: Browsers that run local akousteCreate.html file with **Show Page** and web audio.*
 
-|         | Windows | Mac | Linux | Android $^§$ |
-| -------:|:-------:|:---:|:-----:|:------------:|
-| Firefox | +       | +   | +     | -            |
-| Safari  |         | +   |       |              |
-| Chrome  |         | +   | +     | -            |
-| Edge    | +       | +   |       | -            |
-| Vivaldi | +       | +   | +     | -            |
-| Opera   | +       | +   | +     | -            |
+|         | Windows | Mac | Linux | Android <sup>§</sup> |
+| -------:|:-------:|:---:|:-----:|:--------------------:|
+| Firefox | +       | +   | +     | -                    |
+| Safari  |         | +   |       |                      |
+| Chrome  |         | +   | +     | -                    |
+| Edge    | +       | +   |       | -                    |
+| Vivaldi | +       | +   | +     | -                    |
+| Opera   | +       | +   | +     | -                    |
 
 $^§$ ***Show Page*** *and* ***Save Experiment...*** *do not work on Android*
 
