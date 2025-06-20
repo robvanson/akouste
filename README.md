@@ -46,7 +46,7 @@ Examples (random audio examples courtesy of [Wikimedia Commons](https://commons.
 
 - Direct to **online** [Audiotest experiment](https://robvanson.github.io/akouste/Audiotest_experiment.html)
   
-  For browser specific information, see [Browser settings](#Browser-settings-and-compatibility) below.
+For browser specific information, see [Browser settings](#Browser-settings-and-compatibility) below.
 
 ## What you get
 
