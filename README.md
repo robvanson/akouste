@@ -234,14 +234,14 @@ Browser compatibility was tested with all interfering browser protections switch
 
 *Table 1: Browsers that run local akoúste experiment file with local audio.*
 
-|         | Windows | Mac | Linux | Android        |
-| -------:|:-------:|:---:|:-----:|:--------------:|
-| Firefox | +       | +   | +     | - <sup>*</sup> |
-| Safari  |         | +   |       |                |
-| Chrome  |         | +   | +     | +              |
-| Edge    | +       | +   | +     | +              |
-| Vivaldi | +       | +   | +     | +              |
-| Opera   | +       | +   | +     | +              |
+|         | Windows                              | Mac                                  | Linux                                | Android                                         |
+| -------:|:------------------------------------:|:------------------------------------:|:------------------------------------:|:-----------------------------------------------:|
+| Firefox | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: red;'>x</span> <sup>*</sup> |
+| Safari  |                                      | <span style='color: green;'>+</span> |                                      |                                                 |
+| Chrome  |                                      | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span>            |
+| Edge    | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span>            |
+| Vivaldi | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span>            |
+| Opera   | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span>            |
 
 <sup>*</sup> Cannot load local file
 
@@ -249,29 +249,29 @@ Browser compatibility was tested with all interfering browser protections switch
 
 *Table 2: Browsers that run GitHub stored akoúste experiment with GitHub stored audio.*
 
-|         | Windows | Mac | Linux | Android |
-| -------:|:-------:|:---:|:-----:|:-------:|
-| Firefox | +       | +   | +     | +       |
-| Safari  |         | +   |       |         |
-| Chrome  |         | +   | +     | +       |
-| Edge    | +       | +   | +     | +       |
-| Vivaldi | +       | +   | +     | +       |
-| Opera   | +       | +   | +     | +       |
+|         | Windows                              | Mac                                  | Linux                                | Android                              |
+| -------:|:------------------------------------:|:------------------------------------:|:------------------------------------:|:------------------------------------:|
+| Firefox | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
+| Safari  |                                      | <span style='color: green;'>+</span> |                                      |                                      |
+| Chrome  |                                      | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
+| Edge    | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
+| Vivaldi | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
+| Opera   | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
 
 ### Creating and editing experiments
 
 *Table 3: Browsers that run local akousteCreate.html file with **Show Page** and web audio.*
 
-|         | Windows | Mac | Linux | Android <sup>§</sup> |
-| -------:|:-------:|:---:|:-----:|:--------------------:|
-| Firefox | +       | +   | +     | x                    |
-| Safari  |         | +   |       |                      |
-| Chrome  |         | x   | x     | x                    |
-| Edge    | +       | x   | x     | x                    |
-| Vivaldi | +       | x   | x     | x                    |
-| Opera   | +       | x   | x     | x                    |
+|         | Windows                              | Mac                                  | Linux                                | Android <sup>§</sup>               |
+| -------:|:------------------------------------:|:------------------------------------:|:------------------------------------:|:----------------------------------:|
+| Firefox | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: red;'>x</span> |
+| Safari  |                                      | <span style='color: green;'>+</span> |                                      |                                    |
+| Chrome  |                                      | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span> |
+| Edge    | <span style='color: green;'>+</span> | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span> |
+| Vivaldi | <span style='color: green;'>+</span> | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span> |
+| Opera   | <span style='color: green;'>+</span> | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span> |
 
-<sup>x</sup> *Audio does not work in* ***Show Page***
+<span style='color: red;'><sup>x</sup></span> *Audio does not work in* ***Show Page***
 
 <sup>§</sup> ***Show Page*** *and* ***Save Experiment...*** *do not work on Android*
 
@@ -279,14 +279,14 @@ Browser compatibility was tested with all interfering browser protections switch
 
 *Table 4: Browsers that run GitHub Pages akousteCreate.html with **Show Page**.*
 
-|         | Windows | Mac | Linux | Android |
-| -------:|:-------:|:---:|:-----:|:-------:|
-| Firefox | +       | +   | +     | +       |
-| Safari  |         | +   |       |         |
-| Chrome  |         | +   | +     | +       |
-| Edge    | +       | +   | +     | +       |
-| Vivaldi | +       | +   | +     | +       |
-| Opera   | +       | +   | +     | +       |
+|         | Windows                              | Mac                                  | Linux                                | Android                              |
+| -------:|:------------------------------------:|:------------------------------------:|:------------------------------------:|:------------------------------------:|
+| Firefox | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
+| Safari  |                                      | <span style='color: green;'>+</span> |                                      |                                      |
+| Chrome  |                                      | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
+| Edge    | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
+| Vivaldi | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
+| Opera   | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
 
 ---------
 
