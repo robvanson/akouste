@@ -316,6 +316,11 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	var currentMarkdown = "";
 	var editPosition = 1;
 	function initializeMarkdown() {
+		if(navigator.userAgent.match(/Android/i)){
+			document.getElementById('markdownText').style = 'font-family: Arial, Helvetica, sans-serif;';
+		} else {
+			document.getElementById('markdownText').style = 'font-family: "Lucida Console", "Courier New", monospace;';
+		};
 		document.getElementById('markdownText').value = initialMarkdown;
 		currentMarkdown = initialMarkdown;
 		markdownStack = [];
