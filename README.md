@@ -262,16 +262,16 @@ Browser compatibility was tested with all interfering browser protections switch
 
 *Table 3: Browsers that run local akousteCreate.html file with **Show Page** and web audio.*
 
-|         | Windows                              | Mac                                  | Linux                                | Android <sup>§</sup>               |
-| -------:|:------------------------------------:|:------------------------------------:|:------------------------------------:|:----------------------------------:|
-| Firefox | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: red;'>x</span> |
-| Safari  |                                      | <span style='color: green;'>+</span> |                                      |                                    |
-| Chrome  |                                      | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span> |
-| Edge    | <span style='color: green;'>+</span> | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span> |
-| Vivaldi | <span style='color: green;'>+</span> | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span> |
-| Opera   | <span style='color: green;'>+</span> | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span> |
+|         | Windows                              | Mac                                  | Linux                                | Android <sup>§</sup>                           |
+| -------:|:------------------------------------:|:------------------------------------:|:------------------------------------:|:----------------------------------------------:|
+| Firefox | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: red;'>-</span><sup>*</sup> |
+| Safari  |                                      | <span style='color: green;'>+</span> |                                      |                                                |
+| Chrome  |                                      | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>             |
+| Edge    | <span style='color: green;'>+</span> | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>             |
+| Vivaldi | <span style='color: green;'>+</span> | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>             |
+| Opera   | <span style='color: green;'>+</span> | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>             |
 
-<span style='color: red;'><sup>x</sup></span> *Audio does not work in* ***Show Page***
+<span style='color: red;'><sup>x</sup></span> *Audio does not work in* ***Show Page***, <sup>*</sup> *Cannot load local file*
 
 <sup>§</sup> ***Show Page*** *and* ***Save Experiment...*** *do not work on Android*
 
