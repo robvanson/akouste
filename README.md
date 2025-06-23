@@ -236,7 +236,7 @@ Browser compatibility was tested with all interfering browser protections switch
 
 |         | Windows                              | Mac                                  | Linux                                | Android                                         |
 | -------:|:------------------------------------:|:------------------------------------:|:------------------------------------:|:-----------------------------------------------:|
-| Firefox | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: red;'>x</span> <sup>*</sup> |
+| Firefox | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: red;'>-</span> <sup>*</sup> |
 | Safari  |                                      | <span style='color: green;'>+</span> |                                      |                                                 |
 | Chrome  |                                      | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span>            |
 | Edge    | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span>            |
