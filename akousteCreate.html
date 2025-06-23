@@ -647,8 +647,22 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		return winURL;
 	};
 	
+	var bodyFontSize=100;
+	function incrementBodyFontSize () {
+		bodyFontSize += 10;
+		 document.getElementById("bodyFontSize").innerHtml = bodyFontSize + '%';
+		 markdown2HTML ();
+	};
+	
+	function decrementBodyFontSize () {
+		if(bodyFontSize > 10){
+			bodyFontSize -= 10;
+		};
+		document.getElementById("bodyFontSize").innerHtml = bodyFontSize + '%';
+		markdown2HTML ();
+	};
+	
 	function createDisplayHTMLpage (text) {
-		var bodyFontSize='font-size: 100%;';
 		
 		var fullPage = '<!DOCTYPE html><head>\n'+experimentStyles + '\n\<script  type="text/javascript"\>\n' + `
 			function stopAllAudio () {
@@ -660,7 +674,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 					};
 				};
 			};
-		` + '\n\</script\>' +'\n<body style="' + bodyFontSize + bodyStyleText + '">\n'+text+'\n</body>';
+		` + '\n\</script\>' +'\n<body style="' + 'font-size: ' + bodyFontSize + '%;' + bodyStyleText + '">\n'+text+'\n</body>';
 		
 		return fullPage;
 	};
@@ -678,6 +692,8 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			// Display in HTML text
 			document.getElementById('htmlText').style.display = 'block';
 			document.getElementById('htmlDisplay').style.display = 'none';
+			document.getElementById('bodyFontLine').style.visibility = 'hidden';
+
 			return null;
 		};
 		
@@ -716,7 +732,8 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		// Display in iFrame
 		document.getElementById('htmlText').style.display = 'none';
 		document.getElementById('htmlDisplay').style.display = 'block';
-		
+		document.getElementById('bodyFontLine').style.visibility = 'visible';
+	
 		setHTMLdisplayButtonColor ();
 	}
 	
@@ -726,6 +743,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		// Display in HTML text
 		document.getElementById('htmlText').style.display = 'block';
 		document.getElementById('htmlDisplay').style.display = 'none';
+		document.getElementById('bodyFontLine').style.visibility = 'hidden';
 		
 		setHTMLdisplayButtonColor ();
 	}
@@ -1191,11 +1209,12 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			<td><input type="button" id='SwitchPageDisplay' value="Switch Page" onclick="switchPageHTMLdisplay ()"  title='Switch between Cover Page and Experiment Page' style='background-color: gray;'></td>
 			<td><input type="button" id='RenderButtonText' value="HTML text" onclick="markdown2HTMLtext ()"></td>
 			<td><input type="button" id='ShowButton' value="Show Page" onclick="openAndWrite(preamble, document.getElementById('htmlText').value, postamble);"></td>
-			<td  width="25%">&emsp;</td>
+			<td  width="25%">&nbsp;<span id='bodyFontLine' style='display=none;' title='Zoom text'><a href='javascript:void(0)' onclick='incrementBodyFontSize ();' style='text-decoration-line: none'> &uarr;</a> <span id='bodyFontSize'>100%</span> <a href='javascript:void(0)' onclick='decrementBodyFontSize ();' style='text-decoration-line: none'>&darr; </a></span>&emsp;</td>
 			<td><input type="button" id='saveHTMLbutton' value="Save Experiment..." onclick="saveHTML()" title='Save current experiment as an HTML web page'</td>
 		</table>
 
-		<textarea id="htmlText" rows=50 cols=80' onchange="HTMLchanged = true; document.getElementById('ShowButton').style.backgroundColor = 'red';" style='display:none;'>
+		
+	    <textarea id="htmlText" rows=50 cols=80' onchange="HTMLchanged = true; document.getElementById('ShowButton').style.backgroundColor = 'red';" style='display:none;'>
 		</textarea>
 		<div style='zoom: 0.75' title='The HTML displayed here is non-functional. Click the "Show Page" button to open a functional page'>
 		<iframe src="" id='htmlDisplay' name='htmlDisplay'  scrolling="auto" width=127% height=1550 style='zoom: 0.75;-moz-transform: scale(0.75);  -moz-transform-origin: 0 0;  -o-transform: scale(0.75);  -o-transform-origin: 0 0;  -webkit-transform: scale(0.75);  -webkit-transform-origin: 0 0;display:block'></iframe>
