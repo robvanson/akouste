@@ -650,16 +650,16 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	var bodyFontSize=100;
 	function incrementBodyFontSize () {
 		bodyFontSize += 10;
-		 document.getElementById("bodyFontSize").innerHtml = bodyFontSize + '%';
 		 markdown2HTML ();
+		 document.getElementById("bodyFontSize").innerText = bodyFontSize + '%';
 	};
 	
 	function decrementBodyFontSize () {
 		if(bodyFontSize > 10){
 			bodyFontSize -= 10;
 		};
-		document.getElementById("bodyFontSize").innerHtml = bodyFontSize + '%';
 		markdown2HTML ();
+		document.getElementById("bodyFontSize").innerText =  bodyFontSize + '%';
 	};
 	
 	function createDisplayHTMLpage (text) {
