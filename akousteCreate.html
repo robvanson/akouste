@@ -318,8 +318,12 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	function initializeMarkdown() {
 		if(navigator.userAgent.match(/Android/i)){
 			document.getElementById('markdownText').style = 'font-family: Arial, Helvetica, sans-serif;';
+			document.getElementById('markdownText').cols = 70;
+			document.getElementById('htmlText').cols = 60;
 		} else {
 			document.getElementById('markdownText').style = 'font-family: "Lucida Console", "Courier New", monospace;';
+			document.getElementById('markdownText').cols = 80;
+			document.getElementById('htmlText').cols = 80;
 		};
 		document.getElementById('markdownText').value = initialMarkdown;
 		currentMarkdown = initialMarkdown;
@@ -644,6 +648,8 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	};
 	
 	function createDisplayHTMLpage (text) {
+		var bodyFontSize='font-size: 100%;';
+		
 		var fullPage = '<!DOCTYPE html><head>\n'+experimentStyles + '\n\<script  type="text/javascript"\>\n' + `
 			function stopAllAudio () {
 				var audioPlayers = document.getElementsByTagName('Audio');
@@ -654,7 +660,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 					};
 				};
 			};
-		` + '\n\</script\>' +'\n<body style="' + bodyStyleText + '">\n'+text+'\n</body>';
+		` + '\n\</script\>' +'\n<body style="' + bodyFontSize + bodyStyleText + '">\n'+text+'\n</body>';
 		
 		return fullPage;
 	};
