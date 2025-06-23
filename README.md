@@ -45,7 +45,7 @@ Examples (random audio examples courtesy of [Wikimedia Commons](https://commons.
 - Minimalistic [Audiotest experiment](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=Audiotest). Test full chain from local stimulus files to audible audio
 
 - Direct to **online** [Audiotest experiment](https://robvanson.github.io/akouste/Audiotest_experiment.html)
-  
+
 For browser specific information, see [Browser settings](#Browser-settings-and-compatibility) below.
 
 ## What you get
@@ -230,6 +230,8 @@ To check local audio access, *Audiotest_experiment.html* has been added with ass
 
 Browser compatibility was tested with all interfering browser protections switched off. Ad-blockers, anti-tracking settings, and blocking third-party cookies interfered with the experiments in most browsers. The browsers were tested using the [GitHub pages](http://robvanson.github.io/akouste) examples of the experiments as well as by loading the local *Audiotest_experiment.html* webpage in the downloaded *akoúste* package.
 
+### Running experiments
+
 *Table 1: Browsers that run local akoúste experiment file with local audio.*
 
 |         | Windows | Mac | Linux | Android        |
@@ -237,7 +239,7 @@ Browser compatibility was tested with all interfering browser protections switch
 | Firefox | +       | +   | +     | - <sup>*</sup> |
 | Safari  |         | +   |       |                |
 | Chrome  |         | +   | +     | +              |
-| Edge    | +       | +   |       | +              |
+| Edge    | +       | +   | +     | +              |
 | Vivaldi | +       | +   | +     | +              |
 | Opera   | +       | +   | +     | +              |
 
@@ -252,22 +254,24 @@ Browser compatibility was tested with all interfering browser protections switch
 | Firefox | +       | +   | +     | +       |
 | Safari  |         | +   |       |         |
 | Chrome  |         | +   | +     | +       |
-| Edge    | +       | +   |       | +       |
+| Edge    | +       | +   | +     | +       |
 | Vivaldi | +       | +   | +     | +       |
 | Opera   | +       | +   | +     | +       |
 
-&nbsp;
+### Creating and editing experiments
 
 *Table 3: Browsers that run local akousteCreate.html file with **Show Page** and web audio.*
 
 |         | Windows | Mac | Linux | Android <sup>§</sup> |
 | -------:|:-------:|:---:|:-----:|:--------------------:|
-| Firefox | +       | +   | +     | -                    |
+| Firefox | +       | +   | +     | x                    |
 | Safari  |         | +   |       |                      |
-| Chrome  |         | +   | +     | -                    |
-| Edge    | +       | +   |       | -                    |
-| Vivaldi | +       | +   | +     | -                    |
-| Opera   | +       | +   | +     | -                    |
+| Chrome  |         | x   | x     | x                    |
+| Edge    | +       | x   | x     | x                    |
+| Vivaldi | +       | x   | x     | x                    |
+| Opera   | +       | x   | x     | x                    |
+
+<sup>x</sup> *Audio does not work in* ***Show Page***
 
 <sup>§</sup> ***Show Page*** *and* ***Save Experiment...*** *do not work on Android*
 
@@ -280,7 +284,7 @@ Browser compatibility was tested with all interfering browser protections switch
 | Firefox | +       | +   | +     | +       |
 | Safari  |         | +   |       |         |
 | Chrome  |         | +   | +     | +       |
-| Edge    | +       | +   |       | +       |
+| Edge    | +       | +   | +     | +       |
 | Vivaldi | +       | +   | +     | +       |
 | Opera   | +       | +   | +     | +       |
 
