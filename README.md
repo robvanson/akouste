@@ -243,7 +243,7 @@ Browser compatibility was tested with all interfering browser protections switch
 | Vivaldi | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span>            |
 | Opera   | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span>            |
 
-<sup>*</sup> Cannot load local file
+<sup>*</sup> *Cannot load local files*
 
 &nbsp;
 
@@ -260,7 +260,11 @@ Browser compatibility was tested with all interfering browser protections switch
 
 ### Creating and editing experiments
 
-*Table 3: Browsers that run local akousteCreate.html file with **Show Page** and web audio. Chrome and Chrome-like browsers will not run local akousteCreate.html. There are some other browsers that will run it well, eg, Falkon and Epiphany on Linux.*
+Chrome and Chrome-like browsers will not support full functionality for local akousteCreate.html. There are some other browsers that will do support this, eg, [Falkon](https://download.cnet.com/falkon/3000-windows-falkon.html) and [Epiphany](https://windowsreport.com/epiphany-browser/) on Linux and Windows.
+
+&nbsp;
+
+*Table 3: Browsers that run local akousteCreate.html file with* **Show Page** *and web audio. 
 
 |         | Windows                              | Mac                                  | Linux                                | Android <sup>§</sup>                           |
 | -------:|:------------------------------------:|:------------------------------------:|:------------------------------------:|:----------------------------------------------:|
@@ -271,7 +275,7 @@ Browser compatibility was tested with all interfering browser protections switch
 | Vivaldi | <span style='color: green;'>+</span> | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>             |
 | Opera   | <span style='color: green;'>+</span> | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>             |
 
-<span style='color: red;'><sup>x</sup></span> *Audio does not work in* ***Show Page***, <sup>*</sup> *Cannot load local file*
+<span style='color: red;'><sup>x</sup></span> *Audio does not work in* ***Show Page***, <sup>*</sup> *Cannot load local files*
 
 <sup>§</sup> ***Show Page*** *and* ***Save Experiment...*** *do not work on Android*
 
