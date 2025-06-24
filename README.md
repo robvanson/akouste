@@ -228,7 +228,7 @@ For the final experiments to work with local audio in a web browser, *JavaScript
 
 To check local audio access, *Audiotest_experiment.html* has been added with associated stimulus files in the *./Stimuli* subfolder of *akoúste*. When loaded from the editor, **Show Page** in *akousteCreate.html*, it will use the default web based audio. When loaded from the akoúste link (URL) or a local file, *Audiotest_experiment.html* will read a stimulus list from *Audiotest_stimuluslist.js*, which uses audio files stored in the *./Stimuli* folder.
 
-Browser compatibility was tested with all interfering browser protections switched off. Ad-blockers, anti-tracking settings, and blocking third-party cookies interfered with the experiments in most browsers. The browsers were tested using the [GitHub pages](http://robvanson.github.io/akouste) examples of the experiments as well as by loading the local *Audiotest_experiment.html* webpage in the downloaded *akoúste* package.
+Browser compatibility was tested with all interfering browser protections switched off. Ad-blockers, anti-tracking settings, and blocking third-party cookies interfered with the experiments in most browsers. The browsers were tested using the [GitHub pages](http://robvanson.github.io/akouste) examples of the experiments as well as by loading the local *Audiotest_experiment.html* webpage in the downloaded *akoúste* package. Only the most common multi-platform browsers were tested, other browsers derived from Chrome, e.g., Brave, or Firefox, e.g., Midori, give similar results as Chrome and Firefox, respectively. 
 
 ### Running experiments
 
@@ -260,7 +260,7 @@ Browser compatibility was tested with all interfering browser protections switch
 
 ### Creating and editing experiments
 
-*Table 3: Browsers that run local akousteCreate.html file with **Show Page** and web audio.*
+*Table 3: Browsers that run local akousteCreate.html file with **Show Page** and web audio. Chrome and Chrome-like browsers will not run local akousteCreate.html. There are some other browsers that will run it well, eg, Falkon and Epiphany on Linux.*
 
 |         | Windows                              | Mac                                  | Linux                                | Android <sup>§</sup>                           |
 | -------:|:------------------------------------:|:------------------------------------:|:------------------------------------:|:----------------------------------------------:|
