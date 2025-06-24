@@ -260,7 +260,7 @@ Browser compatibility was tested with all interfering browser protections switch
 
 ### Creating and editing experiments
 
-Chrome and Chrome-like browsers will not support full functionality for local akousteCreate.html. There are some other browsers that will do support this, eg, [Falkon](https://download.cnet.com/falkon/3000-windows-falkon.html) and [Epiphany](https://windowsreport.com/epiphany-browser/) on Linux and Windows.
+Chrome and Chrome-like browsers will not support full functionality for local *akousteCreate.html*. There are some other browsers that will do support this, eg, [Falkon](https://download.cnet.com/falkon/3000-windows-falkon.html) and [Epiphany](https://windowsreport.com/epiphany-browser/) on Linux and Windows.
 
 &nbsp;
 
@@ -283,7 +283,7 @@ Chrome and Chrome-like browsers will not support full functionality for local ak
 
 &nbsp;
 
-*Table 4: Browsers that run GitHub Pages akousteCreate.html with **Show Page**.*
+*Table 4: Browsers that run GitHub Pages akousteCreate.html with* **Show Page**.
 
 |         | Windows                              | Mac                                  | Linux                                | Android                              |
 | -------:|:------------------------------------:|:------------------------------------:|:------------------------------------:|:------------------------------------:|
