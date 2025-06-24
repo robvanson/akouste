@@ -275,7 +275,9 @@ Chrome and Chrome-like browsers will not support full functionality for local ak
 | Vivaldi | <span style='color: green;'>+</span> | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>             |
 | Opera   | <span style='color: green;'>+</span> | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>             |
 
-<span style='color: red;'><sup>x</sup></span> *Audio does not work in* ***Show Page***, <sup>*</sup> *Cannot load local files*
+<span style='color: red;'><sup>x</sup></span> *Audio does not work in* ***Show Page***,  
+
+<sup>*</sup> *Cannot load local files*
 
 <sup>§</sup> ***Show Page*** *and* ***Save Experiment...*** *do not work on Android*
 
