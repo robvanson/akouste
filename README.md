@@ -222,7 +222,7 @@ The stimulus table can be edited directly in the markdown file. The format is ra
 
 ## Browser settings and compatibility
 
-Web browsers implement security measures to prevent web sites from acccessing each other's data or the clients's local data, both for reading and writing. These [Same-origin policies](https://en.wikipedia.org/wiki/Same-origin_policy) affect how *akoúste* can implement experiments. It means that the demonstration page (**Show Page**) in the *akousteCreate.html* environment cannot use locally stored audio, only audio accessed through web links.
+Web browsers implement security measures to prevent web sites from acccessing each other's data or the clients's local data, both for reading and writing. These [Same-origin policies](https://en.wikipedia.org/wiki/Same-origin_policy) affect how *akoúste* can implement experiments. It means that the demonstration page (**Show Page**) in the *akousteCreate.html* environment cannot use locally stored audio, only audio accessed through web links. It also means that some browsers will not allow a fully functional demonstration page at all. In such cases, the next best solution is to save the experiment (**Save Experiment...**), if necessary in the correct folder, and open the downloaded file.
 
 For the final experiments to work with local audio in a web browser, *JavaScript* and *Third-party cookies* should be allowed (Chrome, Edge and derived browsers), or *cross-site tracking* should be allowed (ie, *not* prevented, Safari). Firefox and derived browsers seem to work in most settings. Using *akoúste* with Internet Explorer (IE) does not work. 
 
@@ -238,12 +238,12 @@ Browser compatibility was tested with all interfering browser protections switch
 | -------:|:------------------------------------:|:------------------------------------:|:------------------------------------:|:-----------------------------------------------:|
 | Firefox | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: red;'>-</span> <sup>*</sup> |
 | Safari  |                                      | <span style='color: green;'>+</span> |                                      |                                                 |
-| Chrome  |                                      | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span>            |
+| Chrome  | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span>            |
 | Edge    | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span>            |
 | Vivaldi | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span>            |
 | Opera   | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span>            |
 
-<sup>*</sup> *Cannot load local files*
+<sup>*</sup> *Firefox in Android cannot load local files*
 
 &nbsp;
 
@@ -253,7 +253,7 @@ Browser compatibility was tested with all interfering browser protections switch
 | -------:|:------------------------------------:|:------------------------------------:|:------------------------------------:|:------------------------------------:|
 | Firefox | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
 | Safari  |                                      | <span style='color: green;'>+</span> |                                      |                                      |
-| Chrome  |                                      | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
+| Chrome  | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
 | Edge    | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
 | Vivaldi | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
 | Opera   | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
@@ -270,14 +270,14 @@ Chrome and Chrome-like browsers will not support full functionality for local ak
 | -------:|:------------------------------------:|:------------------------------------:|:------------------------------------:|:----------------------------------------------:|
 | Firefox | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: red;'>-</span><sup>*</sup> |
 | Safari  |                                      | <span style='color: green;'>+</span> |                                      |                                                |
-| Chrome  |                                      | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>             |
-| Edge    | <span style='color: green;'>+</span> | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>             |
-| Vivaldi | <span style='color: green;'>+</span> | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>             |
-| Opera   | <span style='color: green;'>+</span> | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>             |
+| Chrome  | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>             |
+| Edge    | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>             |
+| Vivaldi | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>             |
+| Opera   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>             |
 
 <span style='color: red;'><sup>x</sup></span> *Audio does not work in* ***Show Page***,  
 
-<sup>*</sup> *Cannot load local files*
+<sup>*</sup> *Firefox in Android cannot load local files*
 
 <sup>§</sup> ***Show Page*** *and* ***Save Experiment...*** *do not work on Android*
 
@@ -289,7 +289,7 @@ Chrome and Chrome-like browsers will not support full functionality for local ak
 | -------:|:------------------------------------:|:------------------------------------:|:------------------------------------:|:------------------------------------:|
 | Firefox | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
 | Safari  |                                      | <span style='color: green;'>+</span> |                                      |                                      |
-| Chrome  |                                      | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
+| Chrome  | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
 | Edge    | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
 | Vivaldi | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
 | Opera   | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
