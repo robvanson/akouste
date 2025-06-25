@@ -662,28 +662,38 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		document.getElementById("bodyFontSize").innerText =  bodyFontSize + '%';
 	};
 
-	var displayWidthPerc=130;
 	var markdownTextWidth = 80;
-	function incrementDisplayWidth () {
-		displayWidthPerc += 10;
-		markdownTextWidth += 5;
+	function incrementMarkdownTextWidth () {
+		markdownTextWidth += 8;
 		
 		document.getElementById("markdownText").cols = markdownTextWidth;
+		document.getElementById("markdownTextWidth").innerText =  Math.round(100 * markdownTextWidth/80) + '%';
+	};
+	
+	function decrementMarkdownTextWidth () {
+		if(markdownTextWidth > 20){
+			 markdownTextWidth -= 8;
+		};
+		
+		document.getElementById("markdownText").cols = markdownTextWidth;
+		document.getElementById("markdownTextWidth").innerText =  Math.round(100 * markdownTextWidth/80) + '%';
+	};
+
+	var displayWidthPerc=130;
+	function incrementDisplayWidth () {
+		displayWidthPerc += 13;
+		
 		document.getElementById("htmlDisplay").width = displayWidthPerc + '%';
-		document.getElementById("displayWidthText").innerText =  displayWidthPerc + '%';
+		document.getElementById("displayWidthText").innerText =  Math.round(100*displayWidthPerc/130) + '%';
 	};
 	
 	function decrementDisplayWidth () {
-		if(displayWidthPerc > 10){
-			displayWidthPerc -= 10;
-		};
-		if(markdownTextWidth > 20){
-			 markdownTextWidth -= 5;
+		if(displayWidthPerc > 13){
+			displayWidthPerc -= 13;
 		};
 		
-		document.getElementById("markdownText").cols = markdownTextWidth;
 		document.getElementById("htmlDisplay").width =  displayWidthPerc + '%';
-		document.getElementById("displayWidthText").innerText =  displayWidthPerc + '%';
+		document.getElementById("displayWidthText").innerText =  Math.round(100*displayWidthPerc/130) + '%';
 	};
 	
 	function createDisplayHTMLpage (text) {
@@ -1224,7 +1234,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 
 		<textarea id="markdownText" rows=50 cols=80 onfocusout="markdownPush();" onchange='markdown2HTML();' style='font-family: "Lucida Console", "Courier New", monospace;'>
 		</textarea><br />
-		<table width='100%'><tr><td  width="85%">&emsp;</td><td><span title='Zoom display widths'><a href='javascript:void(0)' onclick='decrementDisplayWidth ();' style='text-decoration-line: none;font-weight: bold;'> &larr;</a> <span id='displayWidthText'>127%</span> <a href='javascript:void(0)' onclick='incrementDisplayWidth ();' style='text-decoration-line: none;font-weight: bold;'>&rarr; </a></span></td></tr></table>
+		<table width='100%'><tr><td  width="70%">&emsp;</td><td><span title='Zoom edit frame width'><a href='javascript:void(0)' onclick='decrementMarkdownTextWidth ();' style='text-decoration-line: none;font-weight: bold;'> &larr;</a> <span id='markdownTextWidth'>100%</span> <a href='javascript:void(0)' onclick='incrementMarkdownTextWidth ();' style='text-decoration-line: none;font-weight: bold;'>&rarr; </a></span></td></tr></table>
 	</div>
 
 	<div style="width: 50%; float: right;"> 
@@ -1241,8 +1251,9 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	    <textarea id="htmlText" rows=60 cols=80' onchange="HTMLchanged = true; document.getElementById('ShowButton').style.backgroundColor = 'red';" style='display:none;'>
 		</textarea>
 		<div style='zoom: 0.75' title='The HTML displayed here is non-functional. Click the "Show Page" button to open a functional page'>
-		<iframe src="" id='htmlDisplay' name='htmlDisplay'  scrolling="auto" width=127% height=1550 style='vertical-align: bottom; zoom: 0.75;-moz-transform: scale(0.75);  -moz-transform-origin: 0 0;  -o-transform: scale(0.75);  -o-transform-origin: 0 0;  -webkit-transform: scale(0.75);  -webkit-transform-origin: 0 0; display:block;' ></iframe>
+		<iframe src="" id='htmlDisplay' name='htmlDisplay'  scrolling="auto" width=130% height=1550 style='vertical-align: bottom; zoom: 0.75;-moz-transform: scale(0.75);  -moz-transform-origin: 0 0;  -o-transform: scale(0.75);  -o-transform-origin: 0 0;  -webkit-transform: scale(0.75);  -webkit-transform-origin: 0 0; display:block;' ></iframe>
 	    </div>
+	    <span title='Zoom display width'><a href='javascript:void(0)' onclick='decrementDisplayWidth ();' style='text-decoration-line: none;font-weight: bold;'> &larr;</a> <span id='displayWidthText'>100%</span> <a href='javascript:void(0)' onclick='incrementDisplayWidth ();' style='text-decoration-line: none;font-weight: bold;'>&rarr; </a></span>
 	</div>
  </div>
 
