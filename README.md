@@ -264,7 +264,7 @@ Chrome and Chrome-like browsers will not support full functionality for local *a
 
 &nbsp;
 
-*Table 3: Browsers that run local akousteCreate.html file with* **Show Page** *and web audio. 
+*Table 3: Browsers that run local akousteCreate.html file with* **Show Page** *and web audio.* 
 
 |         | Windows                              | Mac                                  | Linux                                | Android <sup>§</sup>                           |
 | -------:|:------------------------------------:|:------------------------------------:|:------------------------------------:|:----------------------------------------------:|
