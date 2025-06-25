@@ -277,7 +277,7 @@ Chrome and Chrome-like browsers will not support full functionality for local *a
 
 <span style='color: red;'><sup>x</sup></span> *Audio does not work in* **Show Page**  
 
-<sup>*</sup>  *Firefox in Android cannot load local files*
+<sup>\*</sup>  *Firefox in Android cannot load local files*
 
 <sup>§</sup>  **Show Page**  *and* **Save Experiment...**  *do not work on Android*
 
