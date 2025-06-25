@@ -266,14 +266,14 @@ Chrome and Chrome-like browsers will not support full functionality for local *a
 
 *Table 3: Browsers that run local akousteCreate.html file with* **Show Page** *and web audio.* 
 
-|         | Windows                              | Mac                                  | Linux                                | Android <sup>§</sup>                           |
-| -------:|:------------------------------------:|:------------------------------------:|:------------------------------------:|:----------------------------------------------:|
-| Firefox | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: red;'>-</span><sup>*</sup> |
-| Safari  |                                      | <span style='color: green;'>+</span> |                                      |                                                |
-| Chrome  | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>             |
-| Edge    | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>             |
-| Vivaldi | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>             |
-| Opera   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>             |
+|         | Windows                              | Mac                                  | Linux                                | Android <sup>§</sup>                            |
+| -------:|:------------------------------------:|:------------------------------------:|:------------------------------------:|:-----------------------------------------------:|
+| Firefox | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: red;'>-</span><sup>\*</sup> |
+| Safari  |                                      | <span style='color: green;'>+</span> |                                      |                                                 |
+| Chrome  | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>              |
+| Edge    | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>              |
+| Vivaldi | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>              |
+| Opera   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>   | <span style='color: red;'>x</span>              |
 
 <span style='color: red;'><sup>x</sup></span> *Audio does not work in* **Show Page**  
 
