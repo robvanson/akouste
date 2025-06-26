@@ -6,8 +6,7 @@
 
 Version 2 [^1]
 
-[Try the demo](https://robvanson.github.io/akouste/akousteCreate.html)
-
+[Try the demo](https://robvanson.github.io/akouste/akousteCreate.html)  
 [Minimal demo](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=Audiotest)
 
 ## Client-side listening experiments in the browser
