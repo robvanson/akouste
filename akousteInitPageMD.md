@@ -26,7 +26,11 @@ It is adviseable to include a [[[ sound sample\|<https://upload.wikimedia.org/wi
 
 </center>
 
-The tripple &#123;&#123;&#123;**name\|style**&#125;&#125;&#125;-bracket pairs insert text. A simple **name** is interpreted as the name of a Stimulus table column and is replaced with the current content of that stimulus value. If **name** has the form **&lt;URL&gt;**, the page behind that URL is loaded. If **name** has the form of **!parameter!** (parameter enclosed between two !-characters), the value of that variable is subtituted, as is done below.
+All elements, eg, radio and audio buttons, sliders are positioned in tables. 
+Tables are defined using the \|-bar character together with the :--: separator. See this [tutorial](https://htmlmarkdown.com/syntax/markdown-tables/). The full syntax of the markdown used is described [here](https://markdown-it.github.io/). You can freely mix in HTML and JavaScript, but you need to leave empty lines between HTML+JavaScript and markdown.
+
+Audio buttons are enclosed in tripple &#91;&#91;&#91;&#93;&#93;&#93;-brackets with content inside. The format is &#91;&#91;&#91;**text|name{style}**&#93;&#93;&#93;, 
+with the displayed **text**, a "**\|**", the **name** of a stimulus (column) and a CSS **style** of the button, eg, font-size. When the **name** is enclosed in &lt;&gt;-brackets, eg, &lt;**url-or-local-file-path**&gt;, this is used as a fixed sound. Everything but the name is optional.
 
 <center>
 
@@ -38,11 +42,9 @@ The tripple &#123;&#123;&#123;**name\|style**&#125;&#125;&#125;-bracket pairs in
 
 </center>
 
-All elements, eg, radio and audio buttons, sliders are positioned in tables. 
-Tables are defined using the \|-bar character together with the :--: separator. See this [tutorial](https://htmlmarkdown.com/syntax/markdown-tables/). The full syntax of the markdown used is described [here](https://markdown-it.github.io/). You can freely mix in HTML and JavaScript, but you need to leave empty lines between HTML+JavaScript and markdown.
+The tripple &#123;&#123;&#123;**name\|style**&#125;&#125;&#125;-bracket pairs insert text. A simple **name** is interpreted as the name of a Stimulus table column and is replaced with the current content of that stimulus value. If **name** has the form **&lt;URL&gt;**, the page behind that URL is loaded. If **name** has the form of **!parameter!** (parameter enclosed between two !-characters), the value of that variable is substituted, as is done above.
 
-Audio buttons are enclosed in tripple &#91;&#91;&#91;&#93;&#93;&#93;-brackets with content inside. The format is &#91;&#91;&#91;**text|name{style}**&#93;&#93;&#93;, 
-with the displayed **text**, a "**\|**", the **name** of a stimulus (column) and a CSS **style** of the button, eg, font-size. When the **name** is enclosed in &lt;&gt;-brackets, eg, &lt;**url-or-local-file-path**&gt;, this is used as a fixed sound. Everything but the name is optional.
+---------------------------
 
 Here you can put the text which tells the subjects what they are supposed to do. You can add or remove &lt;center&gt; &lt;/center&gt; pairs if you want to change the text alignment. The [&lt;div&gt; tag](https://elementor.com/blog/what-is-div-in-html/) gives many more layout options.
 
@@ -50,7 +52,7 @@ Here you can put the text which tells the subjects what they are supposed to do.
 
 <center>
 
-### Question text. Which sound is most like the X sound? The double ()-brackets are converted into radio buttons
+### Question text. Which sound is most like the X sound? The double &#40;&#40;&#41;&#41;-brackets are converted into radio buttons
 
 |     |      |      |     |
 | ---:|:----:|:----:|:--- |
