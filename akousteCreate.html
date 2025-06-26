@@ -695,6 +695,23 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		document.getElementById("htmlDisplay").width =  displayWidthPerc + '%';
 		document.getElementById("displayWidthText").innerText =  Math.round(100*displayWidthPerc/130) + '%';
 	};
+
+	var displayHeightVal=1550;
+	function incrementDisplayHeight () {
+		displayHeightVal += 155;
+		
+		document.getElementById("htmlDisplay").height = displayHeightVal;
+		document.getElementById("displayHeightText").innerText =  Math.round(100*displayHeightVal/1550) + '%';
+	};
+	
+	function decrementDisplayHeight () {
+		if(displayHeightVal > 160){
+			displayHeightVal -= 155;
+		};
+		
+		document.getElementById("htmlDisplay").height =  displayHeightVal;
+		document.getElementById("displayHeightText").innerText =  Math.round(100*displayHeightVal/1550) + '%';
+	};
 	
 	function createDisplayHTMLpage (text) {
 		
@@ -1252,7 +1269,8 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		<div style='zoom: 0.75' title='The HTML displayed here is non-functional. Click the "Show Page" button to open a functional page'>
 		<iframe src="" id='htmlDisplay' name='htmlDisplay'  scrolling="auto" width=130% height=1550 style='vertical-align: bottom; zoom: 0.75;-moz-transform: scale(0.75);  -moz-transform-origin: 0 0;  -o-transform: scale(0.75);  -o-transform-origin: 0 0;  -webkit-transform: scale(0.75);  -webkit-transform-origin: 0 0; display:block;' ></iframe>
 	    </div>
-	    <span title='Zoom display width'><a href='javascript:void(0)' onclick='decrementDisplayWidth ();' style='text-decoration-line: none;font-weight: bold;'> &larr;</a> <span id='displayWidthText'>100%</span> <a href='javascript:void(0)' onclick='incrementDisplayWidth ();' style='text-decoration-line: none;font-weight: bold;'>&rarr; </a></span>
+	    <span title='Zoom display width'><a href='javascript:void(0)' onclick='decrementDisplayWidth ();' style='text-decoration-line: none;font-weight: bold;'> &larr;</a> <span id='displayWidthText'>100%</span> <a href='javascript:void(0)' onclick='incrementDisplayWidth ();' style='text-decoration-line: none;font-weight: bold;'>&rarr; </a></span>&emsp;
+	    <span title='Zoom display height'><a href='javascript:void(0)' onclick='incrementDisplayHeight ();' style='text-decoration-line: none;font-weight: bold;'> &uarr;</a> <span id='displayHeightText'>100%</span> <a href='javascript:void(0)' onclick='decrementDisplayHeight ();' style='text-decoration-line: none;font-weight: bold;'>&darr; </a></span>
 	</div>
  </div>
 
