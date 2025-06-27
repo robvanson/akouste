@@ -37,6 +37,8 @@ Examples (random audio examples courtesy of [Wikimedia Commons](https://commons.
 
 - [ABX comparison](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=ABXexample)
 
+- [ABX Pseudonymization identification](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=Pseudonymization) 
+
 - [Transcription](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=Transcribe)
 
 - [SToPS (Sunderland
