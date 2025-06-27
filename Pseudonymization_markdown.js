@@ -27,7 +27,7 @@ initialMarkdown = `
 
 </center>
 
-The audio of this example is taken from [Pseudonymize Speech](https://robvanson.github.io/PseudonymizeSpeech/).
+The audio of this example is delivered from [Pseudonymize Speech](https://robvanson.github.io/PseudonymizeSpeech/).
 
 [//comment]: # "CSS style for HTML body of page"
 [//comment]: # "Add error checking digest to results"
