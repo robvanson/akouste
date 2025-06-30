@@ -125,7 +125,7 @@ Two constructs are defined to present stimulus sounds and texts to subjects:
 - \{\{\{name\|style\}\}\} creates a text field showing the string in column *name* in *style*.   
   For instance, \{\{\{LangA\|font-style: italic;\}\}\} would show the text in *italic* of the current stimulus in the column labeled *LangA* of the stimulus table.
 
-*Note: Stimulus related constructs are not functional in the editor preview window of akousteCreate.html. The text stimulus {{{name|style}}} constructs might, therefore, be invisible in the preview window.*
+*Note: Stimulus related constructs are not functional in the editor preview window of akousteCreate.html. Therefore, the audio stimulus is replaced by a short beep sound in the preview window. The text stimulus {{{name|style}}} constructs is replaced by* **XXXX** *in the preview window.*
 
 *All* sounds have to be played before the subject can proceed to the next stimulus.
 
