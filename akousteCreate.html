@@ -725,6 +725,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 					};
 				};
 			};
+			function unblockNext(x) {};
 		` + '\n\</script\>' +'\n<body style="' + 'font-size: ' + bodyFontSize + '%;' + bodyStyleText + '">\n'+text+'\n</body>';
 		
 		return fullPage;
@@ -1007,7 +1008,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		text = text.replace(/\{\{\{\<([^\>\|\¦\\]*[^\>\|\¦\\\s])\s*\>(\s*\\?[\|\¦]([^\}]*))?\}\}\}/g, '<iframe id="FixedText$1" src="$1"   scrolling="auto" name="FixedText" style="$3"></iframe>');;
 
 		// Parameter fields {{{! parameter ! | css style }}}
-		text = text.replace(/\{\{\{!\s*([^\|!\¦]*[^\|!\¦\s])\s*!(\s*\\?[\|\¦]([^\}]*))?\}\}\}/g, '<span id="$1" name="parameterText" style="$3"></span>');
+		text = text.replace(/\{\{\{!\s*([^\|!\¦]*[^\|!\¦\s])\s*!(\s*\\?[\|\¦]([^\}]*))?\}\}\}/g, '<span id="$1" name="parameterText" style="$3">XXXX</span>');
 
 		// StimulusTable references {{{ stimulus | css style }}}
 		var textNamesRaw = text.match(/\{\{\{([^\}]+)\}\}\}/g);
@@ -1017,7 +1018,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			textNames.push(textNamesRaw);
 
 			textNames = textNames.flat();
-			text = text.replace(/\{\{\{\s*([^\}\|\¦\\]*[^\}\|\¦\\\s])(\s*\\?[\|\¦]\s*([^\}]*))?\s*\}\}\}/g, '<span id="Text$1" name="Text$1" style="$3"></span>');
+			text = text.replace(/\{\{\{\s*([^\}\|\¦\\]*[^\}\|\¦\\\s])(\s*\\?[\|\¦]\s*([^\}]*))?\s*\}\}\}/g, '<span id="Text$1" name="Text$1" style="$3">XXXX</span>');
 		};
 	
 		return text;	
@@ -1039,10 +1040,10 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		text = text.replace(/\[\[\[\s*([^\]\|\¦\\]*[^\]\|\¦\\\s])\s*\\?[\|\¦]\s*\<([^\>]*)\>\s*(\{\s*([^\}]+)\s*\})?\]\]\]/g, '<audio id="Fixed$2" name="Fixed$2" src="$2" preload="auto" title="" ></audio><button id="Audio$2Button" onclick="stopAllAudio ();document.getElementById(\'Fixed$2\').play();" style="font-size:30px;background-color:white;$4;"><strong><div id="PlayFixed$2Text" style="background-color:white;">$1</div></strong></button>');
 				
 		// Stimulus links with label [[[ label | stimulus {css style}]]]
-		text = text.replace(/\[\[\[\s*([^\]\|\¦\\]*[^\]\|\¦\\\s])\s*\\?[\|\¦]\s*([^\]\{]*[^\]\{\s])\s*(\{\s*([^\}]*[^\}\s])\s*\})?\s*\]\]\]/g, '<audio id="Audio$2" name="Audio$2" src="" preload="auto" title="" onplaying="unblockNext (\'Audio$2\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$2" data-toggle="tooltip" title="'+ToolTipPlay+'"><button id="Audio$2Button" onclick="stopAllAudio ();document.getElementById(\'Audio$2\').play();" style="font-size:30px;background-color:white;$4;"><strong><div id="PlayAudio$2Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
+		text = text.replace(/\[\[\[\s*([^\]\|\¦\\]*[^\]\|\¦\\\s])\s*\\?[\|\¦]\s*([^\]\{]*[^\]\{\s])\s*(\{\s*([^\}]*[^\}\s])\s*\})?\s*\]\]\]/g, '<audio id="Audio$2" name="Audio$2" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/NEC_PC-9801VX_ITF_beep_sound.ogg" preload="auto" title="" onplaying="unblockNext (\'Audio$2\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$2" data-toggle="tooltip" title="'+ToolTipPlay+'"><button id="Audio$2Button" onclick="stopAllAudio ();document.getElementById(\'Audio$2\').play();" style="font-size:30px;background-color:white;$4;"><strong><div id="PlayAudio$2Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
 		
 		// Stimulus links without label [[[ stimulus {css style}]]]
-		return text.replace(/\[\[\[\s*([^\]\{]*[^\]\{\s])\s*(\{\s*([^\}]*[^\}\s])\s*\})?\s*\]\]\]/g, '<audio id="Audio$1" name="Audio$1" src="" preload="auto" title="" onplaying="unblockNext (\'Audio$1\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$1" data-toggle="tooltip" title="'+ToolTipPlay+'"><button id="Audio$1Button" onclick="stopAllAudio ();document.getElementById(\'Audio$1\').play();" style="font-size:30px;background-color:white;$3;"><strong><div id="PlayAudio$1Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
+		return text.replace(/\[\[\[\s*([^\]\{]*[^\]\{\s])\s*(\{\s*([^\}]*[^\}\s])\s*\})?\s*\]\]\]/g, '<audio id="Audio$1" name="Audio$1" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/NEC_PC-9801VX_ITF_beep_sound.ogg" preload="auto" title="" onplaying="unblockNext (\'Audio$1\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$1" data-toggle="tooltip" title="'+ToolTipPlay+'"><button id="Audio$1Button" onclick="stopAllAudio ();document.getElementById(\'Audio$1\').play();" style="font-size:30px;background-color:white;$3;"><strong><div id="PlayAudio$1Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
 	};
 
 	function preProcessMD (text) {
