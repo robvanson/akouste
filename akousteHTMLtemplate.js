@@ -239,6 +239,7 @@ function unblockNext (x) {
 	};
 	if(x.match("Audio")){
 		document.getElementById(x).style.backgroundColor = "#EEFFEE";
+		document.getElementById(x+"Button").style.backgroundColor = "#EEFFEE";
 		document.getElementById("Play"+x+"Text").style.backgroundColor = "#EEFFEE";
 	};
 };
