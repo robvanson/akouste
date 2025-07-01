@@ -41,8 +41,7 @@ Examples (random audio examples courtesy of [Wikimedia Commons](https://commons.
 
 - [Transcription](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=Transcribe)
 
-- [SToPS (Sunderland
-  Tracheoesophageal Perceptual Scale)](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=SToPS) [^2]   
+- [SToPS (Sunderland Tracheoesophageal Perceptual Scale)](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=SToPS) [^2]   
   with fancy formatting
 
 - Minimalistic [Audiotest experiment](https://robvanson.github.io/akouste/akousteCreate.html?ExperimentAcronym=Audiotest). Test full chain from local stimulus files to audible audio
@@ -55,7 +54,7 @@ For browser specific information, see [Browser settings](#Browser-settings-and-c
 
 *akousteCreate* creates a self contained web page that can run the experiment and can be distributed together with the stimuli, if the stimuli are local. Contrary to what the name *web page* suggests, the experiment web page works completely off-line. Internet is only used when stimuli are not available locally and for the SHA digest checks, if needed, and this can be stored locally when desired. [*akousteCreate.html*](https://robvanson.github.io/akouste/akousteCreate.html) accesses a markdown converter online [^3], the experiments access a SHA library online [^4].
 
-The web page optionally starts with a cover page which can contain all the information and instructions for the subjects. The stimulus list will be contained in the web page, but a suitable *.js* file with stimuli can be supplied that will read a new stimulus list. The subject can pace through the experiment and pause as they see fit. All information needed to pick up the experiment at a later time is stored inside the browser. After the last answer is given, the subject is offered the option to save the results in a text file (*.txt*). After that, the data in the browser can be deleted by clicking the **Restart** button.
+The web page optionally starts with a cover page which can contain all the information and instructions for the subjects. The stimulus list will be contained in the web page, but a suitable *.js* file with stimuli can be supplied that will read a new stimulus list. The subject can pace through the experiment and pause as they see fit. All information needed to pick up the experiment at a later time is stored locally inside the browser of the user. After the last answer is given, the subject is offered the option to save the results in a text file (*.txt*) (**Save Results**, or chosen equivalent). After that, the data in the browser can be deleted by clicking a **Restart** button (or chosen equivalent text).
 
 ## What you do *not* get
 
@@ -65,7 +64,7 @@ Although *akoúste* stores progress of the experiment in the local browser, abso
 
 The *akoúste* experiments are constructed as a self-contained web page in plain HTML + CSS + Javascript. Experiments can be constructed in a [self contained Web page editor](https://robvanson.github.io/akouste/akousteCreate.html). The basis is a markdown text file using [markdown-it](https://github.com/markdown-it/markdown-it) ([demo](https://markdown-it.github.io/)). The markdown file will have experimental settings and the stimulus table appended in a comment section at the end. This information can be edited directly in the markdown file, but care should be taken as the formatting requirements for settings and stimuli are rather strict. The markdown file is a full description of the experiment and is all that is needed to edit or recreate the experiment. It is advised to save the markdown of an experiment, using **Save MD...**, as it will be needed to debug or adapt the experiment. The markdown file can be edited in any markdown aware editor and opened again in *akousteCreate.html* using **Open a Markdown file (.md)**. 
 
-Stimulus tables are incorporated into the experiment web page from CSV tables uploaded with the **Open a Stimulus Table** selection and upload buttons. Stimuli can be presented with fixed or dynamic practice items, in pseudo-randomized order, with pseudo-randomized pairs if two sounds are to be presented. The answers are added as seperate columns to the stimulus table. Stimulus tables can contain more information than just the stimuli which makes the results tables directly usable for analysis.
+Stimulus tables are incorporated into the experiment web page from CSV tables uploaded with the **Open a Stimulus Table** selection and upload buttons. Stimuli can be presented with fixed or dynamic practice items, in pseudo-randomized order, with pseudo-randomized pairs if two sounds are to be presented (first two stimulus sounds in the page). The answers are added as seperate columns to the stimulus table. Stimulus tables can contain more information than just the stimuli which makes the results tables directly usable for analysis.
 
 The tasks can be any number of stimulus sounds, A, AB, ABX testing, and responses can be any number of Likert scales with any number of choices as well as any number of computerized Visual Analogue Scales (VAS) and text entry fields, or any mix of these.
 
