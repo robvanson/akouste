@@ -370,6 +370,7 @@ function nextStimulus () {
 		requiredAnswers = new Array(requiredNames.length).fill(false);
 		for(i in audioNames) {
 			document.getElementById('Audio'+audioNames[i]).style.backgroundColor = "white";
+			document.getElementById('Audio'+audioNames[i]+"Button").style.backgroundColor = "white";
 			document.getElementById("Play"+'Audio'+audioNames[i]+"Text").style.backgroundColor = "white";
 		};
 		
