@@ -757,6 +757,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		HTMLchanged = false;
 
 		var newPage = createDisplayHTMLpage (htmlText);
+
 		if(SwitchedPage > 0){
 			newPage = setExperimentPageHTMLtext (newPage);
 		};
@@ -840,9 +841,11 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 						currentHTML = setCoverPageHTMLtext (currentHTML);
 				};
 				
+				document.getElementById('htmlText').value = currentHTML;
+				
+				currentHTML = createDisplayHTMLpage (currentHTML);
 				setSwitchPageButtonColor (currentHTML);
 				
-				document.getElementById('htmlText').value = currentHTML;
 				winURL = HTML2URL (currentHTML);
 				document.getElementById('htmlDisplay').src=winURL;
 			} ;
@@ -1083,10 +1086,10 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		// Ready number of scales
 		NumberOfScales = questionNum;
 		var processedText = lines.join('\n');
-		
+
 		// insert Cover page
 		processedText = replaceCoverPage(processedText);
-		
+
 		return processedText;
 	};
 	
