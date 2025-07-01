@@ -245,6 +245,7 @@ function unblockNext (x) {
 	};
 	if(x.match("Audio")){
 		document.getElementById(x).style.backgroundColor = "#EEFFEE";
+		document.getElementById(x+"Button").style.backgroundColor = "#EEFFEE";
 		document.getElementById("Play"+x+"Text").style.backgroundColor = "#EEFFEE";
 	};
 };
@@ -375,6 +376,7 @@ function nextStimulus () {
 		requiredAnswers = new Array(requiredNames.length).fill(false);
 		for(i in audioNames) {
 			document.getElementById('Audio'+audioNames[i]).style.backgroundColor = "white";
+			document.getElementById('Audio'+audioNames[i]+"Button").style.backgroundColor = "white";
 			document.getElementById("Play"+'Audio'+audioNames[i]+"Text").style.backgroundColor = "white";
 		};
 		
@@ -582,74 +584,10 @@ function SetUp() {
 	  <div id="progressBar" style="background-color:#cce6ff;height:8px;width:0%"></div>
 	</div> 
 
-<!DOCTYPE html><head>
-<style>
-		/* Increase radio button's size */
-		input[type='radio']{
-			width: 25px;
-			height: 25px;
-		}
-				
-		/* The slider itself */
-		.slider {
-		  -webkit-appearance: none;  /* Override default CSS styles */
-		  appearance: none;
-		  width: 100%; /* Full-width */
-		  height: 5px; /* Specified height */
-		  border-radius: 5px;  
-		  background: #d3d3d3; /* Grey background */
-		  outline: none; /* Remove outline */
-		  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-		  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-		  transition: opacity .2s;
-		}
-		
-		/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-		.slider::-webkit-slider-thumb {
-		  -webkit-appearance: none; /* Override default look */
-		  appearance: none;
-		  width: 15px; /* Set a specific slider handle width */
-		  height: 15px; /* Slider handle height */
-		  border-radius: 50%; 
-		  /* background: #4CAF50;*/ /* Green background */
-		  background: #6495ED; /* Green background */
-		  cursor: pointer; /* Cursor on hover */
-		}
-
-		/* center tag *
-		center {
-			background: none;
-		}
-	
-		/* Table layout */
-		table {
-		  width: 80%;
-		  table-layout: fixed;
-		  background: none;
-		}
-		
-		table, tr, td {
-		  background: none;
-		}
-</style>
-<script  type="text/javascript">
-
-			function stopAllAudio () {
-				var audioPlayers = document.getElementsByTagName('Audio');
-				for(i in audioPlayers){
-					if(typeof audioPlayers[i] == 'object'){
-						audioPlayers[i].pause();
-						audioPlayers[i].currentTime = 0;
-					};
-				};
-			};
-		
-</script>
-<body style="font-size: 100%;">
 <center>
 <h1>Who is the unknown speaker? Speaker A or B?</h1>
 <h2>The voices of the speakers A and B have been changed. Which one do you think is the unknown speaker X?</h2>
-<h2><span id="answerstogo" name="parameterText" style="font-weight:bold"></span> answers to go</h2>
+<h2><span id="answerstogo" name="parameterText" style="font-weight:bold">XXXX</span> answers to go</h2>
 <table>
 <thead>
 <tr>
@@ -665,18 +603,18 @@ function SetUp() {
 <tbody>
 <tr>
 <td style="text-align:right"></td>
-<td style="text-align:right"><audio id="AudioA" name="AudioA" src="" preload="auto" title="" onplaying="unblockNext ('AudioA');"></audio><a href="javascript:void(0)" id="ToolTipAudioA" data-toggle="tooltip" title="Play sound"><button onclick="stopAllAudio ();document.getElementById('AudioA').play();" style="font-size:30px;background-color:white;;"><strong><div id="PlayAudioAText" style="background-color:white;">  A ►</div></strong></button></a></td>
+<td style="text-align:right"><audio id="AudioA" name="AudioA" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/NEC_PC-9801VX_ITF_beep_sound.ogg" preload="auto" title="" onplaying="unblockNext ('AudioA');"></audio><a href="javascript:void(0)" id="ToolTipAudioA" data-toggle="tooltip" title="Play sound"><button id="AudioAButton" onclick="stopAllAudio ();document.getElementById('AudioA').play();" style="font-size:30px;background-color:white;;"><strong><div id="PlayAudioAText" style="background-color:white;">  A ►</div></strong></button></a></td>
 <td></td>
 <td style="text-align:center"></td>
 <td></td>
-<td style="text-align:left"><audio id="AudioB" name="AudioB" src="" preload="auto" title="" onplaying="unblockNext ('AudioB');"></audio><a href="javascript:void(0)" id="ToolTipAudioB" data-toggle="tooltip" title="Play sound"><button onclick="stopAllAudio ();document.getElementById('AudioB').play();" style="font-size:30px;background-color:white;;"><strong><div id="PlayAudioBText" style="background-color:white;">  B ►</div></strong></button></a></td>
+<td style="text-align:left"><audio id="AudioB" name="AudioB" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/NEC_PC-9801VX_ITF_beep_sound.ogg" preload="auto" title="" onplaying="unblockNext ('AudioB');"></audio><a href="javascript:void(0)" id="ToolTipAudioB" data-toggle="tooltip" title="Play sound"><button id="AudioBButton" onclick="stopAllAudio ();document.getElementById('AudioB').play();" style="font-size:30px;background-color:white;;"><strong><div id="PlayAudioBText" style="background-color:white;">  B ►</div></strong></button></a></td>
 <td style="text-align:left"></td>
 </tr>
 <tr>
 <td style="text-align:right"></td>
 <td style="text-align:right"></td>
 <td></td>
-<td style="text-align:center"><audio id="AudioX" name="AudioX" src="" preload="auto" title="" onplaying="unblockNext ('AudioX');"></audio><a href="javascript:void(0)" id="ToolTipAudioX" data-toggle="tooltip" title="Play sound"><button onclick="stopAllAudio ();document.getElementById('AudioX').play();" style="font-size:30px;background-color:white;;"><strong><div id="PlayAudioXText" style="background-color:white;">  X ►</div></strong></button></a></td>
+<td style="text-align:center"><audio id="AudioX" name="AudioX" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/NEC_PC-9801VX_ITF_beep_sound.ogg" preload="auto" title="" onplaying="unblockNext ('AudioX');"></audio><a href="javascript:void(0)" id="ToolTipAudioX" data-toggle="tooltip" title="Play sound"><button id="AudioXButton" onclick="stopAllAudio ();document.getElementById('AudioX').play();" style="font-size:30px;background-color:white;;"><strong><div id="PlayAudioXText" style="background-color:white;">  X ►</div></strong></button></a></td>
 <td></td>
 <td style="text-align:left"></td>
 <td style="text-align:left"></td>
@@ -721,9 +659,8 @@ function SetUp() {
 </tbody>
 </table>
 </center>
-<p>The audio of this example is taken from <a href="https://robvanson.github.io/PseudonymizeSpeech/">Pseudonymize Speech</a>.</p>
+<p>The audio of this example is delivered from <a href="https://robvanson.github.io/PseudonymizeSpeech/">Pseudonymize Speech</a>.</p>
 
-</body>
 	  <p>
 	  <table style="text-align:center;width:50%;margin-left:auto;margin-right:auto;">
 	  <tr style="font-size:30px">

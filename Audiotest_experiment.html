@@ -243,6 +243,7 @@ function unblockNext (x) {
 	};
 	if(x.match("Audio")){
 		document.getElementById(x).style.backgroundColor = "#EEFFEE";
+		document.getElementById(x+"Button").style.backgroundColor = "#EEFFEE";
 		document.getElementById("Play"+x+"Text").style.backgroundColor = "#EEFFEE";
 	};
 };
@@ -373,6 +374,7 @@ function nextStimulus () {
 		requiredAnswers = new Array(requiredNames.length).fill(false);
 		for(i in audioNames) {
 			document.getElementById('Audio'+audioNames[i]).style.backgroundColor = "white";
+			document.getElementById('Audio'+audioNames[i]+"Button").style.backgroundColor = "white";
 			document.getElementById("Play"+'Audio'+audioNames[i]+"Text").style.backgroundColor = "white";
 		};
 		
@@ -580,74 +582,10 @@ function SetUp() {
 	  <div id="progressBar" style="background-color:#cce6ff;height:8px;width:0%"></div>
 	</div> 
 
-<!DOCTYPE html><head>
-<style>
-		/* Increase radio button's size */
-		input[type='radio']{
-			width: 25px;
-			height: 25px;
-		}
-				
-		/* The slider itself */
-		.slider {
-		  -webkit-appearance: none;  /* Override default CSS styles */
-		  appearance: none;
-		  width: 100%; /* Full-width */
-		  height: 5px; /* Specified height */
-		  border-radius: 5px;  
-		  background: #d3d3d3; /* Grey background */
-		  outline: none; /* Remove outline */
-		  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-		  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-		  transition: opacity .2s;
-		}
-		
-		/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-		.slider::-webkit-slider-thumb {
-		  -webkit-appearance: none; /* Override default look */
-		  appearance: none;
-		  width: 15px; /* Set a specific slider handle width */
-		  height: 15px; /* Slider handle height */
-		  border-radius: 50%; 
-		  /* background: #4CAF50;*/ /* Green background */
-		  background: #6495ED; /* Green background */
-		  cursor: pointer; /* Cursor on hover */
-		}
-
-		/* center tag *
-		center {
-			background: none;
-		}
-	
-		/* Table layout */
-		table {
-		  width: 80%;
-		  table-layout: fixed;
-		  background: none;
-		}
-		
-		table, tr, td {
-		  background: none;
-		}
-</style>
-<script  type="text/javascript">
-
-			function stopAllAudio () {
-				var audioPlayers = document.getElementsByTagName('Audio');
-				for(i in audioPlayers){
-					if(typeof audioPlayers[i] == 'object'){
-						audioPlayers[i].pause();
-						audioPlayers[i].currentTime = 0;
-					};
-				};
-			};
-		
-</script>
-<body style="">
 <center>
 <h1>akoúste test for local audio</h1>
-<p><audio id="AudioA" name="AudioA" src="" preload="auto" title="" onplaying="unblockNext ('AudioA');"></audio><a href="javascript:void(0)" id="ToolTipAudioA" data-toggle="tooltip" title="Play sound"><button onclick="stopAllAudio ();document.getElementById('AudioA').play();" style="font-size:30px;background-color:white;;"><strong><div id="PlayAudioAText" style="background-color:white;">Play A</div></strong></button></a></p>
-<h2><span id="answerstogo" name="parameterText" style="font-weight:bold"></span> answers to go</h2>
+<p><audio id="AudioA" name="AudioA" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/NEC_PC-9801VX_ITF_beep_sound.ogg" preload="auto" title="" onplaying="unblockNext ('AudioA');"></audio><a href="javascript:void(0)" id="ToolTipAudioA" data-toggle="tooltip" title="Play sound"><button id="AudioAButton" onclick="stopAllAudio ();document.getElementById('AudioA').play();" style="font-size:30px;background-color:white;;"><strong><div id="PlayAudioAText" style="background-color:white;">Play A</div></strong></button></a></p>
+<h2><span id="answerstogo" name="parameterText" style="font-weight:bold">XXXX</span> answers to go</h2>
 <p>Minimal test of audio. Uses two sounds<sup>1</sup> from ./Stimuli as listed in Audiotest_stimuluslist.js (in the same folder as the web page) or web audio when this stimuluslist is not available.</p>
 <p>For it to work, JavaScript should be allowed, <em>Third-party cookies</em> should be allowed (Chrome, Edge and derived browsers),  or <em>cross-site tracking</em> should be allowed (ie, <em>not</em> prevented, Safari). Firefox and derived browsers seem to work in most settings. Internet Explorer (IE) does not work.</p>
 </center>
@@ -682,7 +620,6 @@ function SetUp() {
 <hr>
 <p><sup>1</sup> Wikimedia Commons <a href="https://commons.wikimedia.org/wiki/File:Nl-Be.ogg">Nl-Be.ogg</a> and <a href="https://commons.wikimedia.org/wiki/File:Open_front_unrounded_vowel.ogg">Open_front_unrounded_vowel.mp3</a></p>
 
-</body>
 	  <p>
 	  <table style="text-align:center;width:50%;margin-left:auto;margin-right:auto;">
 	  <tr style="font-size:30px">
