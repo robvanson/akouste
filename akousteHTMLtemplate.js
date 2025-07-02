@@ -85,6 +85,9 @@ preamble = `<!DOCTYPE html>
 	};
 </script>
 
+<script language="JavaScript">
+var audioBaseURL = 'XXaudioBaseURLXX';
+</script>
 <script language="JavaScript" src="./XXEXPERIMENTNAMEXX_stimuluslist.js"></script>
 <script language="JavaScript">
 // Insert stimulus table
@@ -98,7 +101,6 @@ var PracticeItems = XXPracticeItemsXX;
 var ShuffleStimulusList = XXSHUFFLESTIMULUSLISTXX;
 var CurrentExperimentID = "XXEXPERIMENTNAMEXX";
 
-var audioBaseURL = 'XXaudioBaseURLXX';
 var stimulusTable = [];
 var audioNames = [];
 var textNames = [];
