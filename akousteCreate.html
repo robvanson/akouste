@@ -256,7 +256,15 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 						// Silly Javascript hack to remove CR \r
 						row = textRead[i].replace(/\r/g,"");
 						if(row.search(/\w/) >= 0){
-							tableList.push(row.split(separator));
+							if(row.match(/^\s*\#/)) {
+								line = row.replace(/^\s*\#\s*/, "");
+								if(line.match(/['"]\s*audioBaseURL\s*:\s*/)){
+									audioBaseURL = line.replace(/^[^'"]*['"]audioBaseURL\s*:\s*([^"']*)["'].*$/g, "$1");
+									document.getElementById("audioBaseURL").value = audioBaseURL;
+								};
+							} else {
+								tableList.push(row.split(separator));
+							};
 						};
 					};
 					if(tableList.length <= 1) {
