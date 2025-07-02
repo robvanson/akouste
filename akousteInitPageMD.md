@@ -42,7 +42,7 @@ with the displayed **text**, a "**\|**", the **name** of a stimulus (column) and
 
 </center>
 
-The tripple &#123;&#123;&#123;**name\|style**&#125;&#125;&#125;-bracket pairs insert text. A simple **name** is interpreted as the name of a Stimulus table column and is replaced with the current content of that stimulus value. If **name** has the form **&lt;URL&gt;**, the page behind that URL is loaded. If **name** has the form of **!parameter!** (parameter enclosed between two !-characters), the value of that variable is substituted, as is done above.
+The tripple &#123;&#123;&#123;**name\|style**&#125;&#125;&#125;-bracket pairs insert text. A simple **name** is interpreted as the name of a Stimulus table column and is replaced with the current content of that stimulus value. If **name** has the form **&lt;URL&gt;**, the page behind that URL is loaded. If **name** has the form of **!parameter!** (parameter is a variable name enclosed between two !-characters), the value of that variable is substituted, as is done above.
 
 ---------------------------
 
