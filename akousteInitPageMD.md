@@ -11,6 +11,10 @@ A cover page is optional, but often useful. A cover page is generally used to ex
 
 It is adviseable to include a [[[ sound sample\|<https://upload.wikimedia.org/wikipedia/commons/2/2d/Nl-aardhommel.ogg>{font-size:1em}]]] to check the sound quality and level. 
 
+### If you continue by clicking <span style="font-family: Arial, Helvetica, sans-serif;font-weight:normal;">Next</span>, this web page will  <span style="color:red;">store your responses</span> locally in this browser on this device. 
+
+This information will remain stored in your browser until you erase it by clicking **Restart** after completing the experiment and saving the results. You can remove this information at any time by erasing the relevant history of your browser.
+
 [//coverpage]: # "End of coverpage"
 
 <center>
