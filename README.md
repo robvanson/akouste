@@ -304,11 +304,11 @@ Chrome and Chrome-like browsers will not support full functionality for local *a
 
 akoúste git repositories are available at:
 
-- [GitHub robvanson/akouste]((https://github.com/robvanson/akouste))
+- [GitHub robvanson/akouste](https://github.com/robvanson/akouste)  
 
-- [GitLab robvanson/akouste](https://gitlab.com/robvanson/akouste) (mirror)
+- [GitLab robvanson/akouste](https://gitlab.com/robvanson/akouste) (mirror)  
 
-- [SourceForge akouste](https://sourceforge.net/p/akouste) (mirror)
+- [SourceForge akouste](https://sourceforge.net/p/akouste) (mirror)  
 
 - Zenodo *forthcoming* (releases snapshots)
 
