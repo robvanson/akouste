@@ -68,7 +68,7 @@ Stimulus tables are incorporated into the experiment web page from CSV tables up
 
 The tasks can be any number of stimulus sounds, A, AB, ABX testing, and responses can be any number of Likert scales with any number of choices as well as any number of computerized Visual Analogue Scales (VAS) and text entry fields, or any mix of these.
 
-The final experiment is created, after clicking **Show page** or **Save experiment...**, by translating the markdown to HTML and combining it with a HTML template, *akousteHTMLtemplate.js*, the experiment parameters, and the stimulus table, into a functioning experiment web page. It is possible to create *\<experimentname\>\_stimuluslist.js* files to use different stimulus tables for the same experiment page.
+The final experiment is created, after clicking **Show page** or **Save experiment...**, by translating the markdown to HTML and combining it with a HTML template, *akousteHTMLtemplate.js* [^5], the experiment parameters, and the stimulus table, into a functioning experiment web page. It is possible to create *\<experimentname\>\_stimuluslist.js* files to use different stimulus tables for the same experiment page.
 
 ## User Interface
 
@@ -303,4 +303,5 @@ Chrome and Chrome-like browsers will not support full functionality for local *a
 [^1]: Version 1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)  
 [^2]: [Guidance for SToPS (PDF)](https://eprints.leedsbeckett.ac.uk/id/eprint/4126/3/Guidance%20notes%20for%20SToPS.pdf)  
 [^3]: The converter [*markdown-it.min.js*](https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/) can be stored locally if desired.  
-[^4]: The SHA library [sha.js](https://cdn.jsdelivr.net/npm/jssha@3.3.1/dist/) can be stored locally if desired.
+[^4]: The SHA library [sha.js](https://cdn.jsdelivr.net/npm/jssha@3.3.1/dist/) can be stored locally if desired.  
+[^5]: Integrating *akousteHTMLtemplate.js* into the code of *akousteCreate.html* proved to be so confusing during coding and maintenance that it was decided to not be worth it.
