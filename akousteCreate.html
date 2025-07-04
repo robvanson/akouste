@@ -49,6 +49,7 @@ function loadMarkdown(fileName) {
 	  markdownStack.push(currentMarkdown);
 	};
 	
+	// =============================================
 	// This is the baked-in version of the akousteInitPageMD.js file of the default markdown text
 	if(typeof initialMarkdown != "string" || initialMarkdown == null){
 		initialMarkdown = ` 
@@ -182,9 +183,17 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 `
 }
 
+// End of default markdown text
+// =============================================
+
 </script>
 
 <script type="text/javascript" src="./akousteHTMLtemplate.js"></script>
+<script type="text/javascript">
+	if(typeof preamble != "string" || preamble == null){
+}
+</script>
+
 <script type="text/javascript">
 	// Extract the styles from the preamble
 		var experimentStyles = preamble.replace(/^(.|\n|\r)*<style/i, "<style");
