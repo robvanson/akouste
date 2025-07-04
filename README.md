@@ -52,7 +52,9 @@ For browser specific information, see [Browser settings](#Browser-settings-and-c
 
 ## What you get
 
-*akousteCreate* creates a self contained web page that can run the experiment and can be distributed together with the stimuli, if the stimuli are local. Contrary to what the name *web page* suggests, the experiment web page works completely off-line. Internet is only used when stimuli are not available locally and for the SHA digest checks, if needed, and this can be stored locally when desired. [*akousteCreate.html*](https://robvanson.github.io/akouste/akousteCreate.html) accesses a markdown converter online [^3], the experiments access a SHA library online [^4].
+*akousteCreate* creates a self contained web page that can run the experiment and can be distributed together with the stimuli, if the stimuli are local. Contrary to what the name *web page* suggests, the experiment web page works completely off-line. Internet is only used when stimuli are not available locally and for the SHA digest checks, if needed, and this can be stored locally when desired. 
+
+[*akousteCreate.html*](https://robvanson.github.io/akouste/akousteCreate.html) itself accesses a markdown converter online [^3], the experiments access a SHA library online [^4]. If not present locally in the same folder, [*akousteCreate.html*](https://robvanson.github.io/akouste/akousteCreate.html) will load [*akousteHTMLtemplate.js*](https://robvanson.github.io/akouste/akousteHTMLtemplate.js) from an online repository [^5].
 
 The web page optionally starts with a cover page which can contain all the information and instructions for the subjects. The stimulus list will be contained in the web page, but a suitable *.js* file with stimuli can be supplied that will read a new stimulus list. The subject can pace through the experiment and pause as they see fit. All information needed to pick up the experiment at a later time is stored locally inside the browser of the user. After the last answer is given, the subject is offered the option to save the results in a text file (*.txt*) (**Save Results**, or chosen equivalent). After that, the data in the browser can be deleted by clicking a **Restart** button (or chosen equivalent text).
 
@@ -316,4 +318,4 @@ akoúste git repositories are available at:
 [^2]: [Guidance for SToPS (PDF)](https://eprints.leedsbeckett.ac.uk/id/eprint/4126/3/Guidance%20notes%20for%20SToPS.pdf)  
 [^3]: The converter [*markdown-it.min.js*](https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/) can be stored locally if desired.  
 [^4]: The SHA library [sha.js](https://cdn.jsdelivr.net/npm/jssha@3.3.1/dist/) can be stored locally if desired.  
-[^5]: Integrating *akousteHTMLtemplate.js* into the code of *akousteCreate.html* proved to be so confusing during coding and maintenance that it was decided to not be worth it.
+[^5]: Integrating *akousteHTMLtemplate.js* into the code of *akousteCreate.html* proved to be so confusing during coding and maintenance that it was decided to not be worth it. Instead, *akousteCreate.html* will use a local version of *akousteHTMLtemplate.js* if it is available, else it will use the online GitHub version. If both are not found, a warning will be displayed.
