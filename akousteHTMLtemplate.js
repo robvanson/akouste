@@ -52,7 +52,7 @@ preamble = `<!DOCTYPE html>
 </style>
 
 <meta charset = "UTF-8" />
-<script language="JavaScript">
+<script type="text/javascript">
 	// Before anything else, warn IE users
 	var ua = window.navigator.userAgent;
 	// If Internet Explorer, warn user
@@ -63,7 +63,7 @@ preamble = `<!DOCTYPE html>
 </script>
 <script type="text/javascript" src="./sha.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jssha@3.3.1/dist/sha.js"></script>
-<script language="JavaScript">
+<script type="text/javascript">
 	// Hash Function definitions
 	function hex_sha1 (plaintext) {
 		var shaObj = new jsSHA("SHA-1", "TEXT");
@@ -85,11 +85,11 @@ preamble = `<!DOCTYPE html>
 	};
 </script>
 
-<script language="JavaScript">
+<script type="text/javascript">
 var audioBaseURL = 'XXaudioBaseURLXX';
 </script>
-<script language="JavaScript" src="./XXEXPERIMENTNAMEXX_stimuluslist.js"></script>
-<script language="JavaScript">
+<script type="text/javascript" src="./XXEXPERIMENTNAMEXX_stimuluslist.js"></script>
+<script type="text/javascript">
 // Insert stimulus table
 if(typeof stimulusTableJSON == 'undefined' || stimulusTableJSON == null || stimulusTableJSON.length == 0){
 	stimulusTableJSON = XXstimulusTableJSONXX;
