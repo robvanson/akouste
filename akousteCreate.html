@@ -191,7 +191,19 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 <script type="text/javascript" src="./akousteHTMLtemplate.js"></script>
 <script type="text/javascript">
 	if(typeof preamble != "string" || preamble == null){
-}
+		 preamble = `<!DOCTYPE html>
+		 <head>
+		 <style>
+			table {width: 80%;table-layout: fixed;background: none;}
+		</style>
+		 </head>
+		 <body> 
+			 <h1 style="text-align:center"><a href="https://robvanson.github.io/akouste/akousteHTMLtemplate.js">akousteHTMLtemplate.js</a> is missing</h1>
+			 <h3 style="text-align:center">Please download into the same folder as <em>akousteCreate.html</em></h3>
+			 <h3 style="text-align:center"><a href="https://robvanson.github.io/akouste/akousteHTMLtemplate.js">akousteHTMLtemplate.js</a> is required to create functioning experiments</h3>
+		 `;
+		 postamble = '</body>';
+	}
 </script>
 
 <script type="text/javascript">
