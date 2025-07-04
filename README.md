@@ -300,6 +300,18 @@ Chrome and Chrome-like browsers will not support full functionality for local *a
 | Vivaldi | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
 | Opera   | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
 
+## Repositories
+
+akoúste git repositories are available at:
+
+- [GitHub robvanson/akouste](https://github.com/robvanson/akouste)
+
+- [GitLab robvanson/akouste](https://gitlab.com/robvanson/akouste) (mirror)
+
+- [SourceForge akouste](https://sourceforge.net/p/akouste) (mirror)
+
+- Zenodo *forthcoming* (releases snapshots)
+
 ---------
 
 [^1]: Version 1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)  
