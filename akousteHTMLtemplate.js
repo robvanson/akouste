@@ -61,28 +61,45 @@ preamble = `<!DOCTYPE html>
 		alert("This experiment does not work with Internet Explorer. Please, use Chrome, Firefox, Safari or related browsers");
 	};
 </script>
+<script type="text/javascript">
+	// Stub Hash Function definitions
+	function hex_sha1 (plaintext) {
+		return "Not Available";
+	};
+	function hex_sha256 (plaintext) {
+		return "Not Available";
+	};
+	function hex_sha512 (plaintext) {
+		return "Not Available";
+	};
+	function chained_sha (plaintext) {
+		return "Not Available";
+	};
+</script>
 <script type="text/javascript" src="./sha.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jssha@3.3.1/dist/sha.js"></script>
 <script type="text/javascript">
-	// Hash Function definitions
-	function hex_sha1 (plaintext) {
-		var shaObj = new jsSHA("SHA-1", "TEXT");
-		shaObj.update(plaintext);
-		return shaObj.getHash("HEX");
-	};
-	function hex_sha256 (plaintext) {
-		var shaObj = new jsSHA("SHA-256", "TEXT");
-		shaObj.update(plaintext);
-		return shaObj.getHash("HEX");
-	};
-	function hex_sha512 (plaintext) {
-		var shaObj = new jsSHA("SHA-512", "TEXT");
-		shaObj.update(plaintext);
-		return shaObj.getHash("HEX");
-	};
-	function chained_sha (plaintext) {
-		return hex_sha256( hex_sha256( hex_sha512(plaintext) ) );
-	};
+	if(typeof jsSHA == "function") {
+		// Hash Function definitions
+		function hex_sha1 (plaintext) {
+			var shaObj = new jsSHA("SHA-1", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		function hex_sha256 (plaintext) {
+			var shaObj = new jsSHA("SHA-256", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		function hex_sha512 (plaintext) {
+			var shaObj = new jsSHA("SHA-512", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		function chained_sha (plaintext) {
+			return hex_sha256( hex_sha256( hex_sha512(plaintext) ) );
+		};
+	}
 </script>
 
 <script type="text/javascript">

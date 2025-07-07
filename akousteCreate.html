@@ -1154,6 +1154,11 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			processedPreamble = processedPreamble.replace(/var addDigest\s*=\s*false;/, 'var addDigest = '+addDigestText.replace(/["']/g, "") +';');
 			processedPreamble = processedPreamble.replace(/<body onload="SetUp\(\);" style="">/, '<body onload="SetUp();" style="' + bodyStyleText.replace(/["]/g, "") + '">');
 			
+			if(addDigestText != 'true'){
+				processedPreamble = processedPreamble.replace(/src\s*=\s*["'](\.\/)?sha\.js["']/ig, "src='' ")
+				processedPreamble = processedPreamble.replace(/src\s*=\s*["']https:\/\/cdn\.jsdelivr\.net\/npm\/jssha\@[\d\.]*\/dist\/sha\.js["']/ig, "src='' ")
+			};
+			
 			return processedPreamble;
 	};
 	
