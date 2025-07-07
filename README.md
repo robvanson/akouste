@@ -300,6 +300,14 @@ Chrome and Chrome-like browsers will not support full functionality for local *a
 | Vivaldi | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
 | Opera   | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
 
+## Distributing an ``experiment''
+
+When using online stimuli, all that has to be distributed is a link to the *\*__experiment.html* file, or the HTML file itself. In this case, *akoúste* is like any other online experiment, except that the subjects have to submit the results of the experiment themselves.
+
+If the stimuli cannot be served from a web server, but have to reside locally, both the *\*__experiment.html* and the stimuli must be present at the subject's location. This can be on local (network) storage or on portable storage, eg, a USB thumbdrive. In such situations it is easiest to package the *\*__experiment.html* file, any accessory files, eg, *\*__stimuluslist.js*, *sha.js*, and the stimuli, eg, *Stimuli/\*.wav*, in a ZIP archive. 
+
+The experiment ZIP archive can be unpacked at the desired position for the subjects, and the experiment run by loading the *.html* file in a web browser. On some platforms, eg, MS Windows, such a ZIP file can be opened without unpacking and the experiment can be run directly from the ZIP file. This simplifies managing the files and prevents clutering the storage of the experimental computer. It also allows to easily produce several versions of the experiment with, eg, different stimulus lists (*\*__stimuluslist.js*), packaged with differently named ZIP archives.
+
 ## Repositories
 
 akoúste git repositories are available at:
