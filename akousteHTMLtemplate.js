@@ -347,6 +347,7 @@ function collectAnswer () {
 
 };
 var digestText = '';
+var displayBlobURL = '';
 function displayArray (x) {
 	var answerNums = Array.from(Array(NumberOfScales+1).keys());
 	var answerTexts = Array(NumberOfScales).fill("Answer");
@@ -362,11 +363,15 @@ function displayArray (x) {
 	var resultFileName = CurrentExperimentID + currentDateTime + ".txt";
 	
 	var blob = new Blob([output], {type: "text/plain"});
-	var blobURL = URL.createObjectURL(blob);
+	if(displayBlobURL.length > 0){
+		URL.revokeObjectURL(displayBlobURL);
+		displayBlobURL = '';
+	};
+	displayBlobURL = URL.createObjectURL(blob);
 	document.getElementById('SaveButtonText').innerHTML = "XXSaveButtonTextXX";
 	document.getElementById('SaveButton').style.visibility = 'visible';
 	document.getElementById('ToolTipSave').style.visibility = 'visible';
-	document.getElementById('SaveLink').href = blobURL;
+	document.getElementById('SaveLink').href = displayBlobURL;
 	document.getElementById('SaveLink').download = resultFileName;
 }
 
