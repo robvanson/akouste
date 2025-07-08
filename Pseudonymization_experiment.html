@@ -228,11 +228,9 @@ function loadList () {
 				var practiceList = data.slice(0,-PracticeItems);
 				var shuffleList = data.slice(-PracticeItems,);
 				data = shuffleAB(shuffleList, audioPos[0], audioPos[1]);
-				//data = switchAB(shuffleList, textPos[0], textPos[1]);
 				data = practiceList.concat(shuffleList);
 			} else {
 				data = shuffleAB(data, audioPos[0], audioPos[1]);
-				//data = switchAB(data, textPos[0], textPos[1]);
 			};
 		};
 		
@@ -532,33 +530,34 @@ function shuffle(array) {
 }
 
 function shuffleAB(stimarray, posA, posB) {
-  var temporaryValue, switchAB, currentSubarray;
+  var temporaryValue, switchAB, currentRow;
   // While there remain elements to shuffle...
   for (var i=0; i<stimarray.length; i++) {
-	currentSubarray = stimarray[i];
+	currentRow = stimarray[i];
 	// Random uniform Integer [0, 2>
 	switchAB = Math.floor(Math.random() * 2) == 1;
 	if (switchAB){
-		temporaryValue = currentSubarray[posA];
-		currentSubarray[posA] = currentSubarray[posB];
-		currentSubarray[posB] = temporaryValue;
+		temporaryValue = currentRow[posA];
+		currentRow[posA] = currentRow[posB];
+		currentRow[posB] = temporaryValue;
 	};
-	currentSubarray.push(switchAB)
+	currentRow.push(switchAB)
   }
 
   return stimarray;
 }
 
+// Switches the elements PosA and PosB based on the boolean value of the last element of the row
 function switchAB(stimarray, posA, posB) {
-  var temporaryValue, switchAB, currentSubarray;
+  var temporaryValue, switchAB, currentRow;
   // While there remain elements to shuffle...
   for (var i=0; i<stimarray.length; i++) {
-	currentSubarray = stimarray[i];
-	switchAB = currentSubarray[currentSubarray.length - 1];
+	currentRow = stimarray[i];
+	switchAB = currentRow[currentRow.length - 1];
 	if (switchAB){
-		temporaryValue = currentSubarray[posA];
-		currentSubarray[posA] = currentSubarray[posB];
-		currentSubarray[posB] = temporaryValue;
+		temporaryValue = currentRow[posA];
+		currentRow[posA] = currentRow[posB];
+		currentRow[posB] = temporaryValue;
 	};
   }
 
