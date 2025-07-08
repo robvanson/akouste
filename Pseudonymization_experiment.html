@@ -61,28 +61,45 @@
 		alert("This experiment does not work with Internet Explorer. Please, use Chrome, Firefox, Safari or related browsers");
 	};
 </script>
-<script type="text/javascript" src="./sha.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jssha@3.3.1/dist/sha.js"></script>
 <script type="text/javascript">
-	// Hash Function definitions
+	// Stub Hash Function definitions
 	function hex_sha1 (plaintext) {
-		var shaObj = new jsSHA("SHA-1", "TEXT");
-		shaObj.update(plaintext);
-		return shaObj.getHash("HEX");
+		return "Not Available";
 	};
 	function hex_sha256 (plaintext) {
-		var shaObj = new jsSHA("SHA-256", "TEXT");
-		shaObj.update(plaintext);
-		return shaObj.getHash("HEX");
+		return "Not Available";
 	};
 	function hex_sha512 (plaintext) {
-		var shaObj = new jsSHA("SHA-512", "TEXT");
-		shaObj.update(plaintext);
-		return shaObj.getHash("HEX");
+		return "Not Available";
 	};
 	function chained_sha (plaintext) {
-		return hex_sha256( hex_sha256( hex_sha512(plaintext) ) );
+		return "Not Available";
 	};
+</script>
+<script type="text/javascript" src='' ></script>
+<script type="text/javascript" src='' ></script>
+<script type="text/javascript">
+	if(typeof jsSHA == "function") {
+		// Hash Function definitions
+		function hex_sha1 (plaintext) {
+			var shaObj = new jsSHA("SHA-1", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		function hex_sha256 (plaintext) {
+			var shaObj = new jsSHA("SHA-256", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		function hex_sha512 (plaintext) {
+			var shaObj = new jsSHA("SHA-512", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		function chained_sha (plaintext) {
+			return hex_sha256( hex_sha256( hex_sha512(plaintext) ) );
+		};
+	}
 </script>
 
 <script type="text/javascript">
@@ -94,10 +111,10 @@ var audioBaseURL = 'https://robvanson.github.io/PseudonymizeSpeech/Examples/Audi
 if(typeof stimulusTableJSON == 'undefined' || stimulusTableJSON == null || stimulusTableJSON.length == 0){
 	stimulusTableJSON = ` 
 [["A","B","X","SA","SB","SX"],
-[["LA_0004_E_9892674.flac","LA_0016_E_3432530.flac","LA_0002_E_8748336_LA_0009-3.flac","LA_0004","LA_0016","LA_0002"],
-["LA_0003_E_2088854.flac","LA_0015_E_2912526.flac","LA_0001_E_7952980_LA_0107-3.flac","LA_0003","LA_0015","LA_0001"],
-["LA_0002_E_5862458.flac","LA_0014_E_3452213.flac","LA_0004_E_7314361_LA_0046-1.flac","LA_0002","LA_0014","LA_0004"],
-["LA_0001_E_9516558.flac","LA_0013_E_5839040.flac","LA_0003_E_1335207_LA_0066-1.flac","LA_0001","LA_0013","LA_0003"]]]
+[["LA_0004_E_9892674.flac","LA_0016_E_3432530.flac","LA_0004_E_7314361_LA_0046-1.flac","LA_0004","LA_0016","LA_0004"],
+["LA_0003_E_2088854.flac","LA_0015_E_2912526.flac","LA_0003_E_1335207_LA_0066-1.flac","LA_0003","LA_0015","LA_0003"],
+["LA_0002_E_5862458.flac","LA_0014_E_3452213.flac","LA_0002_E_8748336_LA_0009-3.flac","LA_0002","LA_0014","LA_0002"],
+["LA_0001_E_9516558.flac","LA_0013_E_5839040.flac","LA_0003_E_1335207_LA_0066-1.flac","LA_0001","LA_0013","LA_0001"]]]
 `;
 };
 
@@ -186,25 +203,40 @@ function loadList () {
 		};
 
 		// Prepare the stimulus list
-		if(RandomizeAB){
-			data = shuffleAB(data, audioPos[0], audioPos[1]);
-			data = switchAB(data, textPos[0], textPos[1]);
-		};
-
+		// First shuffle list
 		if(ShuffleStimulusList){
 			if(PracticeItems < 0){
-				practiceList = data.slice(0,-PracticeItems);
-				shuffleList = shuffle(data.slice(-PracticeItems,));
+				// Make sure this is REALY a clone
+				var practiceList = JSON.parse(JSON.stringify(data.slice(0,-PracticeItems)));
+				var shuffleList = shuffle(data.slice(-PracticeItems,));
 				data = practiceList.concat(shuffleList);
 			} else {
 				data = shuffle(data);
 			};
 		};
+
+		// Then add practice items
 		if(PracticeItems > 0){
-			practise = data.slice(data.length-PracticeItems, data.length).reverse();
-			tmp = practise.concat(data);
+			var practise = JSON.parse(JSON.stringify(data.slice(data.length-PracticeItems, data.length).reverse()));
+			var tmp = practise.concat(data);
 			data = tmp.concat();
 		};
+
+		// Then shuffle AB
+		if(RandomizeAB){
+			if(PracticeItems < 0){
+				var practiceList = data.slice(0,-PracticeItems);
+				var shuffleList = data.slice(-PracticeItems,);
+				data = shuffleAB(shuffleList, audioPos[0], audioPos[1]);
+				//data = switchAB(shuffleList, textPos[0], textPos[1]);
+				data = practiceList.concat(shuffleList);
+			} else {
+				data = shuffleAB(data, audioPos[0], audioPos[1]);
+				//data = switchAB(data, textPos[0], textPos[1]);
+			};
+		};
+		
+		
 		// Store the stimulus data
 		if (typeof(Storage) !== "undefined") {
 			// Store
@@ -336,6 +368,7 @@ function collectAnswer () {
 
 };
 var digestText = '';
+var displayBlobURL = '';
 function displayArray (x) {
 	var answerNums = Array.from(Array(NumberOfScales+1).keys());
 	var answerTexts = Array(NumberOfScales).fill("Answer");
@@ -351,11 +384,15 @@ function displayArray (x) {
 	var resultFileName = CurrentExperimentID + currentDateTime + ".txt";
 	
 	var blob = new Blob([output], {type: "text/plain"});
-	var blobURL = URL.createObjectURL(blob);
+	if(displayBlobURL.length > 0){
+		URL.revokeObjectURL(displayBlobURL);
+		displayBlobURL = '';
+	};
+	displayBlobURL = URL.createObjectURL(blob);
 	document.getElementById('SaveButtonText').innerHTML = "Save Results";
 	document.getElementById('SaveButton').style.visibility = 'visible';
 	document.getElementById('ToolTipSave').style.visibility = 'visible';
-	document.getElementById('SaveLink').href = blobURL;
+	document.getElementById('SaveLink').href = displayBlobURL;
 	document.getElementById('SaveLink').download = resultFileName;
 }
 
