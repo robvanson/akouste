@@ -201,25 +201,38 @@ function loadList () {
 		};
 
 		// Prepare the stimulus list
-		if(RandomizeAB){
-			data = shuffleAB(data, audioPos[0], audioPos[1]);
-			data = switchAB(data, textPos[0], textPos[1]);
-		};
-
+		// First shuffle list
 		if(ShuffleStimulusList){
 			if(PracticeItems < 0){
-				practiceList = data.slice(0,-PracticeItems);
-				shuffleList = shuffle(data.slice(-PracticeItems,));
+				// Make sure this is REALY a clone
+				var practiceList = JSON.parse(JSON.stringify(data.slice(0,-PracticeItems)));
+				var shuffleList = shuffle(data.slice(-PracticeItems,));
 				data = practiceList.concat(shuffleList);
 			} else {
 				data = shuffle(data);
 			};
 		};
+
+		// Then add practice items
 		if(PracticeItems > 0){
-			practise = data.slice(data.length-PracticeItems, data.length).reverse();
-			tmp = practise.concat(data);
+			var practise = JSON.parse(JSON.stringify(data.slice(data.length-PracticeItems, data.length).reverse()));
+			var tmp = practise.concat(data);
 			data = tmp.concat();
 		};
+
+		// Then shuffle AB
+		if(RandomizeAB){
+			if(PracticeItems < 0){
+				var practiceList = data.slice(0,-PracticeItems);
+				var shuffleList = data.slice(-PracticeItems,);
+				data = shuffleAB(shuffleList, audioPos[0], audioPos[1]);
+				data = practiceList.concat(shuffleList);
+			} else {
+				data = shuffleAB(data, audioPos[0], audioPos[1]);
+			};
+		};
+		
+		
 		// Store the stimulus data
 		if (typeof(Storage) !== "undefined") {
 			// Store
