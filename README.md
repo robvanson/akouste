@@ -46,13 +46,14 @@ Examples (random audio examples courtesy of [Wikimedia Commons](https://commons.
 
 - Minimalistic [Audiotest experiment](./akousteCreate.html?ExperimentAcronym=Audiotest). Test full chain from local stimulus files to audible audio
 
-Direct to demonstration experiment files
+Direct links to demonstration experiment *html* files
 
 - Direct to **online** [ABX Pseudonymization experiment](./Pseudonymization_experiment.html) 
 
 - Direct to **online** [Audiotest experiment](./Audiotest_experiment.html)
 
-- Download minimalistic [Audiotest\_package.zip](./Audiotest_package.zip) for local use
+- Download minimalistic [Audiotest\_package.zip](./Audiotest_package.zip) for local use  
+  *One web page and two stimulus files*
 
 For browser specific information, see [Browser settings](#Browser-settings-and-compatibility) below. For requirements of *akousteCreate.html*, see  [Under the hood](#Under-the-hood).
 
