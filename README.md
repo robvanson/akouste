@@ -48,6 +48,8 @@ Examples (random audio examples courtesy of [Wikimedia Commons](https://commons.
 
 - Direct to **online** [Audiotest experiment](./Audiotest_experiment.html)
 
+- Download minimalistic [Audiotest\_package.zip](./Audiotest_package.zip) for local use
+
 For browser specific information, see [Browser settings](#Browser-settings-and-compatibility) below. For requirements of *akousteCreate.html*, see  [Under the hood](#Under-the-hood).
 
 ## What you get
