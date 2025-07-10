@@ -220,6 +220,9 @@ function loadList () {
 		if(RandomizeAB){
 			if(PracticeItems < 0){
 				var practiceList = data.slice(0,-PracticeItems);
+				for (var i=0; i<practiceList.length; i++) {
+						practiceList[i].push(false);
+				};
 				var shuffleList = data.slice(-PracticeItems,);
 				data = shuffleAB(shuffleList, audioPos[0], audioPos[1]);
 				data = practiceList.concat(shuffleList);
