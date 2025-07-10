@@ -510,6 +510,8 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			if(lines[i].match(/\[\/\/(parameter|buttontext|tooltiptext|stimulus[01])\]: # ["']/) || 
 				lines[i].match(/\[\/\/comment\]: # ["']These are internal parameters for the experiment and visible texts not in this Markdown["']/) || 
 				lines[i].match(/\[\/\/comment\]: # ["']These are stimuli for this experiment["']/) || 
+				lines[i].match(/\[\/\/comment\]: # ["']CSS style for HTML body of page["']/) || 
+				lines[i].match(/\[\/\/comment\]: # ["']Add error checking digest to results["']/) || 
 				lines[i].match(/\[\/\/comment\]: # ["']----------["']/)){
 				// Do nothing
 			} else {
