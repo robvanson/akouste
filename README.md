@@ -307,7 +307,7 @@ Chrome and Chrome-like browsers will not support full functionality for local *a
 | Vivaldi | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
 | Opera   | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
 
-## Distributing an ``experiment''
+## Distributing an "experiment"
 
 When using online stimuli, all that has to be distributed is a link to the *\*__experiment.html* file, or the HTML file itself. In this case, *akoúste* is like any other online experiment, except that the subjects have to submit the results of the experiment themselves.
 
