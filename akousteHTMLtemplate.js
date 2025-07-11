@@ -188,8 +188,16 @@ function loadList () {
 		audioPos = [];
 		for(i in audioNames){
 			audioPos.push(columnNames.indexOf(audioNames[i]));
-			if(audioPos[i] < 0)audioPos[i] = -1;
+			if(audioPos.at(-1) < 0)audioPos.at(-1) = -1;
 		};
+		var posA = audioPos[0];
+		var posB = audioPos[1];
+		if(audioNames.indexOf("A") >= 0 && audioNames.indexOf("B") >= 0){
+			posA = columnNames.indexOf("A");
+			posB = columnNames.indexOf("B");
+		};
+		console.log([posA, posB])
+
 		textPos = [];
 		for(i in textNames){
 			textPos.push(columnNames.indexOf(textNames[i]));
@@ -224,10 +232,10 @@ function loadList () {
 						practiceList[i].push(false);
 				};
 				var shuffleList = data.slice(-PracticeItems,);
-				data = shuffleAB(shuffleList, audioPos[0], audioPos[1]);
+				data = shuffleAB(shuffleList, posA, posB);
 				data = practiceList.concat(shuffleList);
 			} else {
-				data = shuffleAB(data, audioPos[0], audioPos[1]);
+				data = shuffleAB(data, posA, posB);
 			};
 		};
 		
