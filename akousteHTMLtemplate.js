@@ -196,7 +196,6 @@ function loadList () {
 			posA = columnNames.indexOf("A");
 			posB = columnNames.indexOf("B");
 		};
-		console.log([posA, posB])
 
 		textPos = [];
 		for(i in textNames){
