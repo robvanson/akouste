@@ -256,7 +256,7 @@ Browser compatibility was tested with all interfering browser protections switch
 | Vivaldi | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span>            |
 | Opera   | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span>            |
 
-<sup>*</sup> *Firefox in Android cannot load local files*
+<sup>\*</sup> *Firefox in Android cannot load local files*
 
 &nbsp;
 
