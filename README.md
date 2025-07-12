@@ -151,7 +151,7 @@ Extensions of the \[\[\[text\|name\{style\}\]\]\] audio button and \{\{\{name\|s
 
 These extensions present fixed content and are intended to present examples or explanations. Subjects do not have to interact with them to proceed to the next stimulus.
 
-- \[\[\[ text |\<URL\>\\{style\}\]\]\] inserts an audio button that will play the sound at the **URL** (\< \> are obligatory). 
+- \[\[\[ text \|\<URL\>\\{style\}\]\]\] inserts an audio button that will play the sound at the **URL** (\< \> are obligatory). 
 - \{\{\{\<URL\>\|style\}\}\} insert an *iframe* with the page at the **URL**.
 - \{\{\{!parameter!\|style\}\}\} insert the text value of the internal variable **parameter**. This is used, e.g., to display the remaining number of stimuli in the examples.
 
