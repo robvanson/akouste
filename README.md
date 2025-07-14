@@ -23,15 +23,15 @@ Bill of Materials
 - A table listing which stimuli should be presented at each turn
 - An experiment web page that presents the stimuli to the listeners and collects their responses
 
-To create a listening experiment, access to [*akousteCreate.html*](./akousteCreate.html) is needed. This access does not have to be local, the [*akoúste* github pages](./) will do. For a real experiment, stimulus audio files are required, preferably in a local folder. The stimulus files can be accessed locally, or remotely over https. Any audio format that can be played by the web browsers of choice can be used.
+To create a listening experiment, access to [*akousteCreate.html*](./akousteCreate.html) is needed. This access does not have to be local, the [*akoúste* github pages](./) will do. For a real experiment, stimulus media files are required, preferably in a local folder. The stimulus files can be accessed locally, or remotely over https. Any audio or video format that can be played by the web browsers of choice can be used.
 
-For stimulus lists, *akousteCreate* will read .csv tables (comma-separated-values) as can be derived from most spreadsheet, database, or statistics applications. Columns in these tables should have names in a header row. The table should contain columns that contain the names of the stimulus files. The tables can store any other information that is convenient in other columns. It is OK if there is only a single column with stimulus file names. The path or URL to the folder that contains the audio stimulus files can be supplied separately, so it is not necessary to write out the path to each individual stimulus.
+For stimulus lists, *akousteCreate* will read .csv tables (comma-separated-values) as can be derived from most spreadsheet, database, or statistics applications. Columns in these tables should have names in a header row. The table should contain columns that contain the names of the stimulus files. The tables can store any other information that is convenient in other columns. It is OK if there is only a single column with stimulus file names. The path or URL to the folder that contains the stimulus files can be supplied separately, so it is not necessary to write out the path to each individual stimulus.
 
-The visual layout and text of the web page that presents the experiment is written in an easy to use Markdown format in an edit frame in *akousteCreate.html*. The web version is visible in another frame on the same page. The full page can be tested in a functional popup window (**Show Page**). As most, if not all, browsers block access to local files on the user's computer from an in-browser generated web page, it is not possible to test local audio in the popup window. 
+The visual layout and text of the web page that presents the experiment is written in an easy to use Markdown format in an edit frame in *akousteCreate.html*. The web version is visible in another frame on the same page. The full page can be tested in a functional popup window (**Show Page**). As most, if not all, browsers block access to local files on the user's computer from an in-browser generated web page, it is not possible to test local audio or video in the popup window. 
 
-In our demonstrations, we use web URLs to demonstrate the full functionality. But when designing and testing an experiment using local audio files, the experiment page should be saved to the local drive (**Save Experiment...**) after setting the (relative) path to the audio folder, and opened from there. It is a good idea to save the markdown of an experiment too, using **Save MD...**, as it will be needed to debug or adapt the experiment.
+In our demonstrations, we use web URLs to demonstrate the full functionality. But when designing and testing an experiment using local stimulus files, the experiment page should be saved to the local drive (**Save Experiment...**) after setting the (relative) path to the stimulus folder, and opened from there. It is a good idea to save the markdown of an experiment too, using **Save MD...**, as it will be needed to debug or adapt the experiment.
 
-Examples (random audio examples courtesy of [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page)):
+Examples (random audio and video examples courtesy of [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page)):
 
 - [AB comparison](./akousteCreate.html?ExperimentAcronym=ABexample)
 
@@ -45,6 +45,8 @@ Examples (random audio examples courtesy of [Wikimedia Commons](https://commons.
   with fancy formatting
 
 - Minimalistic [Audiotest experiment](./akousteCreate.html?ExperimentAcronym=Audiotest). Test full chain from local stimulus files to audible audio
+
+- Minimalistic [Videotest experiment](./akousteCreate.html?ExperimentAcronym=Videotest). Test use of video stimuli
 
 Direct links to demonstration experiment *html* files
 
@@ -83,19 +85,19 @@ The final experiment is created, after clicking **Show page** or **Save experime
 
 The editor is a web page with on top two blocks of experiment settings. Top-left are settings relevant to the stimulus presentation. Top-right the texts used for the buttons and information to steer the subjects in their responses and experiment.
 
-At the bottom are two frames. To the left is the Markdown edit window. The text and audio presented during the experiment can be edited and formated here. To the right is a Display/HTML frame. It shows the rendered HTML created from the Markdown (**Display HTML**) or the HTML source text (**HTML text**). This is just the HTML created from the Markdown. This is not functional. The HTML source text can be edited directly. However, this will disappear easily, so any changes not transfered to the markdown should be saved using the **Save Experiment...** button.
+At the bottom are two frames. To the left is the Markdown edit window. The text and audio or video presented during the experiment can be edited and formated here. To the right is a Display/HTML frame. It shows the rendered HTML created from the Markdown (**Display HTML**) or the HTML source text (**HTML text**). This is just the HTML created from the Markdown. This is not functional. The HTML source text can be edited directly. However, this will disappear easily, so any changes not transfered to the markdown should be saved using the **Save Experiment...** button.
 
 <img src="./akousteCreateScreenshot.jpg" title="" alt="*User Interface of akoústeCreate.html*" data-align="center">
 
 *User Interface of akousteCreate.html*
 
-When the **Show Page** button is clicked, a popup with a functioning page will appear. This shows the experiment as it appears to the actual user. This page is fully functional. However, if the page refers to stimuli on the local computer, almost all browsers will block the audio. It generally only works for audio files accessed through *HTTPS://* URLs.
+When the **Show Page** button is clicked, a popup with a functioning page will appear. This shows the experiment as it appears to the actual user. This page is fully functional. However, if the page refers to stimuli on the local computer, almost all browsers will block the audio and video. It generally only works for media files accessed through *HTTPS://* URLs.
 
 When the experiment is ready to be deployed, it can be saved using the **Save Experiment...** button on top of the HTML window. If work has to be interrupted before it is finished, or when the final experiment is ready, the Markdown window can be saved using the **Save MD...** button. The resulting Markdown file will contain all information needed to continue later or to add changes. It can be opened again with the **Open a Markdown file** selection/upload button.
 
 ## Stimuli
 
-Stimuli are organized as tables with named columns and each row containing the information of a single presentation. Necessary information contained in each row are the stimulus files (audio) or values (text fields) to be presented, and, for the analysis, the experimental conditions they represent. 
+Stimuli are organized as tables with named columns and each row containing the information of a single presentation. Necessary information contained in each row are the stimulus files (audio/video) or values (text fields) to be presented, and, for the analysis, the experimental conditions they represent. 
 
 The stimulus tables can be constructed in a simple spreadsheet table and saved as a CSV (comma separated values) file. For practical reasons, it is advisable to use the ; as a separation symbol (semicolon separated values) as *akoúste* cannot handle comma-separated values that themselves contain comma's. 
 
@@ -106,7 +108,7 @@ The stimulus tables can be constructed in a simple spreadsheet table and saved a
 
 *A simple stimulus table from the ABX example. Note the audio files need a common base URL: `https://upload.wikimedia.org/wikipedia/commons/`.*
 
-Stimulus tables are uploaded by **Open a Stimulus Table (.csv):**. *akoúste* is designed to work with local stimulus files. However, modern web browsers prohibit mixing the access of web URLs and local files. Therefor, it is not possible to access local audio files from *akousteCreate.html*. The examples given all use web URLs to access sound files. They are practical to debug the experiment. When the experiment is completed and ready for execution, the stimulus table can be uploaded and the experiment saved with **Save Experiment...**. If the file paths are entered correctly, the experiment file can be opened in a browser and the experiment will run with the local files (see [Browser settings](#Browser-settings)). There is a trick to save an experiment with URL stimuli and then save a *.js* file with the local file stimulus list next to it, the *Audiotest* example uses this trick. When started, the experiment will load the stimuli in the *.js* file. The button to downoad this *.js* stimulus table, **Download stimuli** will appear after uploading the *.csv* table.
+Stimulus tables are uploaded by **Open a Stimulus Table (.csv):**. *akoúste* is designed to work with local stimulus files. However, modern web browsers prohibit mixing the access of web URLs and local files. Therefor, it is not possible to access local audio or video files from *akousteCreate.html*. The examples given all use web URLs to access sound files. They are practical to debug the experiment. When the experiment is completed and ready for execution, the stimulus table can be uploaded and the experiment saved with **Save Experiment...**. If the file paths are entered correctly, the experiment file can be opened in a browser and the experiment will run with the local files (see [Browser settings](#Browser-settings)). There is a trick to save an experiment with URL stimuli and then save a *.js* file with the local file stimulus list next to it, the *Audiotest* example uses this trick. When started, the experiment will load the stimuli in the *.js* file. The button to downoad this *.js* stimulus table, **Download stimuli** will appear after uploading the *.csv* table.
 
 Stimulus files can be entered as full or relative paths or full URLs. When a comon base folder path or URL path is given in the **URL/path to audio:** parameter, eg, *./Stimuli/*, only the varying part of the path or URL has to be placed in the stimulus table.
 
@@ -126,14 +128,15 @@ A new experiment requires a lot of text writing. The editor of *akouseCreate.htm
 
 ### Stimulus related constructs
 
-Two constructs are defined to present stimulus sounds and texts to subjects:
+Three constructs are defined to present stimulus sounds and texts to subjects:
 
 - \[\[\[text\|name\{style\}\]\]\] creates an audio button showing *text* in *style*, playing the audio files mentioned in column *name*.   
   For instance, \[\[\[Speaker A\|A\{font-style: italic;\}\]\]\] would show a button with the text *Speaker A* in italic and play the current stimulus in the column labeled *A* of the stimulus table.
+- \[\[§alt-text\|name\{style\}§\]\] embeds a video in the page in *style*, playing the video files mentioned in column *name*.  The *alt-text* likely does not work and can be ommited. *Style* should include the desired dimensions, *width* or *height*, of the video, eg, *\{width=30%;height:auto;\}*. The embeded video will show the current source file as a tooltip when the mosue hoversover the video. This cannot be changed.
 - \{\{\{name\|style\}\}\} creates a text field showing the string in column *name* in *style*.   
   For instance, \{\{\{LangA\|font-style: italic;\}\}\} would show the text in *italic* of the current stimulus in the column labeled *LangA* of the stimulus table.
 
-*Note: Stimulus related constructs are not functional in the editor preview window of akousteCreate.html. Therefore, the audio stimulus is replaced by a short beep sound in the preview window. The text stimulus \{\{\{name\|style\}\}\} construct is replaced by* **XXXX** *in the preview window.*
+*Note: Stimulus related constructs are not functional in the editor preview window of akousteCreate.html. Therefore, the stimulus is replaced by a short beep sound in the preview window. The text stimulus \{\{\{name\|style\}\}\} construct is replaced by* **XXXX** *in the preview window.*
 
 *All* sounds have to be played before the subject can proceed to the next stimulus.
 
@@ -147,11 +150,12 @@ Three constructs are defined to collect subject evaluations based on answers in 
 
 ### Extensions
 
-Extensions of the \[\[\[text\|name\{style\}\]\]\] audio button and \{\{\{name\|style\}\}\} text constructs have been added to simplify some tasks. In these constructs, **URL** means *http(s)://* style links as well as local files *./path/file.ext*. Using stored local files is preferable as it is robust to network downtime and [link-rot](https://en.wikipedia.org/wiki/Link_rot).
+Extensions of the \[\[\[text\|name\{style\}\]\]\] audio button, \[\[§alt-text\|name\{style\}§\]\] video clip, and \{\{\{name\|style\}\}\} text constructs have been added to simplify some tasks. In these constructs, **URL** means *http(s)://* style links as well as local files *./path/file.ext*. Using stored local files is preferable as it is robust to network downtime and [link-rot](https://en.wikipedia.org/wiki/Link_rot).
 
 These extensions present fixed content and are intended to present examples or explanations. Subjects do not have to interact with them to proceed to the next stimulus.
 
 - \[\[\[ text \|\<URL\>\\{style\}\]\]\] inserts an audio button that will play the sound at the **URL** (\< \> are obligatory). 
+- \[\[§ alt-text \|\<URL\>\\{style\}$\]\] inserts an audio button that will play the sound at the **URL** (\< \> are obligatory). 
 - \{\{\{\<URL\>\|style\}\}\} insert an *iframe* with the page at the **URL**.
 - \{\{\{!parameter!\|style\}\}\} insert the text value of the internal variable **parameter**. This is used, e.g., to display the remaining number of stimuli in the examples.
 
@@ -235,9 +239,9 @@ Even though the *[//stimulus\*]* lines in the markdown files can be edited to ad
 
 ## Browser settings and compatibility
 
-Web browsers implement security measures to prevent web sites from acccessing each other's data or the clients's local data, both for reading and writing. These [Same-origin policies](https://en.wikipedia.org/wiki/Same-origin_policy) affect how *akoúste* can implement experiments. It means that the demonstration page (**Show Page**) in the *akousteCreate.html* environment cannot use locally stored audio, only audio accessed through web links. It also means that some browsers will not allow a fully functional demonstration page at all. In such cases, the next best solution is to save the experiment (**Save Experiment...**), if necessary in the correct folder, and open the downloaded file.
+Web browsers implement security measures to prevent web sites from acccessing each other's data or the clients's local data, both for reading and writing. These [Same-origin policies](https://en.wikipedia.org/wiki/Same-origin_policy) affect how *akoúste* can implement experiments. It means that the demonstration page (**Show Page**) in the *akousteCreate.html* environment cannot use locally stored audio or video, only media accessed through web links. It also means that some browsers will not allow a fully functional demonstration page at all. In such cases, the next best solution is to save the experiment (**Save Experiment...**), if necessary in the correct folder, and open the downloaded file.
 
-For the final experiments to work with local audio in a web browser, *JavaScript* and *Third-party cookies* should be allowed (Chrome, Edge and derived browsers), or *cross-site tracking* should be allowed (ie, *not* prevented, Safari). Firefox and derived browsers seem to work in most settings. Using *akoúste* with Internet Explorer (IE) does not work. 
+For the final experiments to work with local audio or video in a web browser, *JavaScript* and *Third-party cookies* should be allowed (Chrome, Edge and derived browsers), or *cross-site tracking* should be allowed (ie, *not* prevented, Safari). Firefox and derived browsers seem to work in most settings. Using *akoúste* with Internet Explorer (IE) does not work. 
 
 To check local audio access, *Audiotest_experiment.html* has been added with associated stimulus files in the *./Stimuli* subfolder of *akoúste*. When loaded from the editor, **Show Page** in *akousteCreate.html*, it will use the default web based audio. When loaded from the akoúste link (URL) or a local file, *Audiotest_experiment.html* will read a stimulus list from *Audiotest_stimuluslist.js*, which uses audio files stored in the *./Stimuli* folder.
 
