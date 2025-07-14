@@ -281,8 +281,10 @@ function unblockNext (x) {
 	};
 	if(x.match("Audio")){
 		document.getElementById(x).style.backgroundColor = "#EEFFEE";
-		document.getElementById(x+"Button").style.backgroundColor = "#EEFFEE";
-		document.getElementById("Play"+x+"Text").style.backgroundColor = "#EEFFEE";
+		if(document.getElementById('AudioA'+'Button') != null ) {
+			document.getElementById(x+"Button").style.backgroundColor = "#EEFFEE";
+			document.getElementById("Play"+x+"Text").style.backgroundColor = "#EEFFEE";
+		};
 	};
 };
 
@@ -417,8 +419,10 @@ function nextStimulus () {
 		requiredAnswers = new Array(requiredNames.length).fill(false);
 		for(i in audioNames) {
 			document.getElementById('Audio'+audioNames[i]).style.backgroundColor = "white";
-			document.getElementById('Audio'+audioNames[i]+"Button").style.backgroundColor = "white";
-			document.getElementById("Play"+'Audio'+audioNames[i]+"Text").style.backgroundColor = "white";
+			if(document.getElementById('Audio'+audioNames[i]+"Button") != null) {
+				document.getElementById('Audio'+audioNames[i]+"Button").style.backgroundColor = "white";
+				document.getElementById("Play"+'Audio'+audioNames[i]+"Text").style.backgroundColor = "white";
+			};
 		};
 		
 		playedSamples = false;
