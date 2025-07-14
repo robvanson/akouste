@@ -57,5 +57,5 @@ For it to work, JavaScript should be allowed, *Third-party cookies* should be al
 [//comment]: # "----------"
 [//stimulus0]: # "A"
 [//stimulus1]: # "a/aa/LL-Q33302_%28fsl%29-Taliba31-acheter.webm/LL-Q33302_%28fsl%29-Taliba31-acheter.webm.360p.webm"
-[//stimulus1]: # "2/2a/LL-Q33302_%28fsl%29-Taliba31-th%C3%A9atre.webm/LL-Q33302_%28fsl%29-Taliba31-th%C3%A9atre.webm.360p.webm?download"
+[//stimulus1]: # "2/2a/LL-Q33302_%28fsl%29-Taliba31-th%C3%A9atre.webm/LL-Q33302_%28fsl%29-Taliba31-th%C3%A9atre.webm.360p.webm"
 [//comment]: # "----------"
