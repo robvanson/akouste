@@ -19,7 +19,7 @@ The *akoúste* project aims to provide tools for simple, adaptable listening exp
 
 Bill of Materials
 
-- Stimuli
+- Stimuli, can be audio, video, or text
 - A table listing which stimuli should be presented at each turn
 - An experiment web page that presents the stimuli to the listeners and collects their responses
 
@@ -132,13 +132,14 @@ Three constructs are defined to present stimulus sounds and texts to subjects:
 
 - \[\[\[text\|name\{style\}\]\]\] creates an audio button showing *text* in *style*, playing the audio files mentioned in column *name*.   
   For instance, \[\[\[Speaker A\|A\{font-style: italic;\}\]\]\] would show a button with the text *Speaker A* in italic and play the current stimulus in the column labeled *A* of the stimulus table.
-- \[\[§alt-text\|name\{style\}§\]\] embeds a video in the page in *style*, playing the video files mentioned in column *name*.  The *alt-text* likely does not work and can be ommited. *Style* should include the desired dimensions, *width* or *height*, of the video, eg, *\{width=30%;height:auto;\}*. The embeded video will show the current source file as a tooltip when the mosue hoversover the video. This cannot be changed.
+- \[\[§ alt-text\|name\{style\} §\]\] embeds a video in the page in *style*, playing the video files mentioned in column *name*.  The *alt-text* part likely does not work and can be ommited. *Style* should include the desired dimensions, *width* or *height*, of the video, eg, *\{width=30%;height:auto;\}*. The embeded video will show the current source file as a tooltip when the mouse hovers over the video. This is unwanted but cannot be changed.   
+  *Note: Browsers differ in which video formats they support. Test your browser platforms before deployment.*
 - \{\{\{name\|style\}\}\} creates a text field showing the string in column *name* in *style*.   
   For instance, \{\{\{LangA\|font-style: italic;\}\}\} would show the text in *italic* of the current stimulus in the column labeled *LangA* of the stimulus table.
 
 *Note: Stimulus related constructs are not functional in the editor preview window of akousteCreate.html. Therefore, the stimulus is replaced by a short beep sound in the preview window. The text stimulus \{\{\{name\|style\}\}\} construct is replaced by* **XXXX** *in the preview window.*
 
-*All* sounds have to be played before the subject can proceed to the next stimulus.
+*All* sounds and video stimuli have to be played before the subject can proceed to the next stimulus.
 
 Three constructs are defined to collect subject evaluations based on answers in the questionnaire:
 
