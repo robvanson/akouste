@@ -1086,6 +1086,29 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		return text.replace(/\[\[\[\s*([^\]\{]*[^\]\{\s])\s*(\{\s*([^\}]*[^\}\s])\s*\})?\s*\]\]\]/g, '<audio id="Audio$1" name="Audio$1" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/NEC_PC-9801VX_ITF_beep_sound.ogg" preload="auto" title="" onplaying="unblockNext (\'Audio$1\');"></audio><a href="javascript:void(0)" id="ToolTipAudio$1" data-toggle="tooltip" title="'+ToolTipPlay+'"><button id="Audio$1Button" onclick="stopAllAudio ();document.getElementById(\'Audio$1\').play();" style="font-size:30px;background-color:white;$3;"><strong><div id="PlayAudio$1Text" style="background-color:white;">'+PlayText+' $1</div></strong></button></a>');
 	};
 
+	
+	// Video buttons [[[ alt-text | stimulus {css style} ]]] (alt-text does not work)
+	function replaceVideo (text) {
+		var audioNamesRaw = text.match(/\[\[§([^\]§]+)§\]\]/g);
+		
+		// Remove direct audio links
+		audioNamesRaw = audioNamesRaw.filter(function(x){return !x.match(/[\>\<]/)})
+		// Seperate audio names from text
+		audioNamesRaw = audioNamesRaw.map(x => x.replace(/^\[\[§\s*([^\|\¦\{]*[\|\¦])?\s*([^§\]\{]*[^§\]\{\s])\s*(\{.*)?§\]\]$/g, "$2"))
+		audioNames.push(audioNamesRaw);
+
+		audioNames = audioNames.flat();
+
+		// Fixed links [[[ label | <url> {css style}]]]
+		text = text.replace(/\[\[§\s*([^§\]\|\¦\\]*[^\]\|\¦\\\s])\s*\\?[\|\¦]\s*\<([^\>]*)\>\s*(\{\s*([^\}]+)\s*\})?§\]\]/g, '<video controls id="Fixed$2" name="Fixed$2" src="$2" preload="auto" style="$4" alt="$1" crossorigin="anonymous"></video>');
+				
+		// Stimulus links with label [[[ label | stimulus {css style}]]]
+		text = text.replace(/\[\[§\s*([^§\]\|\¦\\]*[^§\]\|\¦\\\s])\s*\\?[\|\¦]\s*([^§\]\{]*[^§\]\{\s])\s*(\{\s*([^\}]*[^\}\s])\s*\})?\s*§\]\]/g, '<video controls id="Audio$2" name="Audio$2" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/NEC_PC-9801VX_ITF_beep_sound.ogg" preload="auto" style="$4" onplay="unblockNext (\'Audio$2\');" alt="$1" crossorigin="anonymous"></video>');
+		
+		// Stimulus links without label [[[ stimulus {css style}]]]
+		return text.replace(/\[\[§\s*([^§\]\{]*[^§\]\{\s])\s*(\{\s*([^\}]*[^\}\s])\s*\})?\s*§\]\]/g, '<video controls id="Audio$1" name="Audio$1" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/NEC_PC-9801VX_ITF_beep_sound.ogg" preload="auto" style="$3" onplay="unblockNext (\'Audio$1\');" alt="$1" crossorigin="anonymous"></video>');
+	};
+
 	function preProcessMD (text) {
 		var lines = text.split(/\r?\n|\r|\n/g);
 		var questionNum = 0;
@@ -1095,6 +1118,10 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			// Stimuli
 			if(lines[i].match(/\[\[\[[^\]]*\]\]\]/)){
 				lines[i] = replaceAudio(lines[i]);
+			};
+
+			if(lines[i].match(/\[\[§[^§\]]*§\]\]/)){
+				lines[i] = replaceVideo(lines[i]);
 			};
 
 			if(lines[i].match(/\{\{\{[^\}]*\}\}\}/)){
