@@ -1100,7 +1100,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		audioNames = audioNames.flat();
 
 		// Fixed links [[[ label | <url> {css style}]]]
-		text = text.replace(/\[\[§\s*([^§\]\|\¦\\]*[^\]\|\¦\\\s])\s*\\?[\|\¦]\s*\<([^\>]*)\>\s*(\{\s*([^\}]+)\s*\})?§\]\]/g, '<video controls id="Fixed$2" name="Fixed$2" src="$2" preload="auto" style="$4" alt="$1" crossorigin="anonymous"></video>');
+		text = text.replace(/\[\[§\s*(([^§\]\|\¦\\\<\>]*[^\]\|\¦\\\s\<\>])\s*\\?[\|\¦])?\s*\<([^\>]*)\>\s*(\{\s*([^\}]+)\s*\})?§\]\]/g, '<video controls id="Fixed$3" name="Fixed$3" src="$3" preload="auto" style="$5" alt="$2" crossorigin="anonymous"></video>');
 				
 		// Stimulus links with label [[[ label | stimulus {css style}]]]
 		text = text.replace(/\[\[§\s*([^§\]\|\¦\\]*[^§\]\|\¦\\\s])\s*\\?[\|\¦]\s*([^§\]\{]*[^§\]\{\s])\s*(\{\s*([^\}]*[^\}\s])\s*\})?\s*§\]\]/g, '<video controls id="Audio$2" name="Audio$2" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/NEC_PC-9801VX_ITF_beep_sound.ogg" preload="auto" style="$4" onplay="unblockNext (\'Audio$2\');" alt="$1" crossorigin="anonymous"></video>');
