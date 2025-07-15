@@ -121,9 +121,11 @@ var CurrentExperimentID = "XXEXPERIMENTNAMEXX";
 var stimulusTable = [];
 var audioNames = [];
 var textNames = [];
+var imageNames = [];
 var columnNames = [];
 var audioPos = [];
 var textPos = [];
+var imgPos = [];
 var answerstogo = 0;
 
 var answerList = [];
@@ -137,6 +139,7 @@ var stimulusNbr = 0;
 function loadList () {
 	columnNames = audioNames;
 	columnNames.concat(textNames).flat();
+	columnNames.concat(imageNames).flat();
 	// Check whether there is an ongoing experiment
 	if(typeof(Storage) !== "undefined" && localStorage.getItem(CurrentExperimentID+'stimuluslist')){
 		// Store
@@ -203,6 +206,12 @@ function loadList () {
 			if(textPos[i] < 0)textPos[i] = -1;
 		};
 
+		imgPos = [];
+		for(i in imageNames){
+			imgPos.push(columnNames.indexOf(imageNames[i]));
+			if(imgPos[i] < 0)imgPos[i] = -1;
+		};
+
 		// Prepare the stimulus list
 		// First shuffle list
 		if(ShuffleStimulusList){
@@ -253,10 +262,17 @@ function loadList () {
 		audioPos.push(columnNames.indexOf(audioNames[i]));
 		if(audioPos[i] < 0)audioPos[i] = -1;
 	};
+	
 	textPos = [];
 	for(i in textNames){
 		textPos.push(columnNames.indexOf(textNames[i]));
 		if(textPos[i] < 0)textPos[i] = -1;
+	};
+	
+	imgPos = [];
+	for(i in imageNames){
+		imgPos.push(columnNames.indexOf(imageNames[i]));
+		if(imgPos[i] < 0)imgPos[i] = -1;
 	};
 	
 	stimulusTable = [columnNames, data];
@@ -314,6 +330,15 @@ function setAudio(i, stimulusTable) {
 			alert("No Audio " + audioNames[i]);
 		};
 	};
+	
+	// Images from stimuli
+	for(var i in  imageNames) {
+		if(stimulusTable[1][stimulusNbr][imgPos[i]] != undefined && stimulusTable[1][stimulusNbr][imgPos[i]].length > 0){
+			var currentImage = stimulusTable[1][stimulusNbr][imgPos[i]];
+			document.getElementById('Image'+imageNames[i]).src = currentImage;
+		};
+	};
+	
 	// Text from stimuli
 	for(var i in  textNames) {
 		if(stimulusTable[1][stimulusNbr][textPos[i]] != undefined && stimulusTable[1][stimulusNbr][textPos[i]].length > 0){

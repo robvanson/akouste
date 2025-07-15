@@ -347,6 +347,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	var questionDefaults='"Default"';
 	var audioNames = [];
 	var textNames = [];
+	var imageNames = [];
 	var markdownStack = [];
 	var currentMarkdown = "";
 	var editPosition = 1;
@@ -1064,6 +1065,26 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		return text;	
 	};
 	
+	// Image insertions
+	function replaceImage (text) {
+		// Fixed image {{§< url >|  css style §}}
+		// First, remove the fixed, iFrame cases
+		text = text.replace(/\{\{§\<([^\>\|\¦\\]*[^\>\|\¦\\\s])\s*\>(\s*\\?[\|\¦]([^\}§]*))?§\}\}/g, '<img id="FixedImage$1" src="$1"  alt="" name="FixedImage" style="$3">');;
+
+		// StimulusTable references {{§ stimulus | css style §}}
+		var imageNamesRaw = text.match(/\{\{§([^§\}]+)§\}\}/g);
+		if(imageNamesRaw != null && imageNamesRaw.length > 0) {
+			// Seperate text names from text
+			imageNamesRaw = imageNamesRaw.map(x => x.replace(/^\{\{§\s*([^§\}\|\¦\\]*[^§\}\|\¦\\\s])(\s*\\?[\|\¦]([^§\}]*))?\s*§\}\}$/g, "$1"))
+			imageNames.push(imageNamesRaw);
+
+			imageNames = imageNames.flat();
+			text = text.replace(/\{\{§\s*([^\}\|\¦\\]*[^\}\|\¦\\\s])(\s*\\?[\|\¦]\s*([^\}]*))?\s*§\}\}/g, '<img id="Image$1" name="Image$1" alt="$1" style="$3">');
+		};
+	
+		return text;	
+	};
+	
 	// Audio buttons [[[ label | stimulus {css style} ]]]
 	function replaceAudio (text) {
 		var audioNamesRaw = text.match(/\[\[\[([^\]]+)\]\]\]/g);
@@ -1114,6 +1135,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		var questionNum = 0;
 		audioNames = [];
 		textNames = [];
+		imageNames = [];
 		for(var i=0; i < lines.length; ++i){
 			// Stimuli
 			if(lines[i].match(/\[\[\[[^\]]*\]\]\]/)){
@@ -1126,6 +1148,10 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 
 			if(lines[i].match(/\{\{\{[^\}]*\}\}\}/)){
 				lines[i] = replaceTextItems(lines[i]);
+			};
+			
+			if(lines[i].match(/\{\{§[^§\}]*§\}\}/)){
+				lines[i] = replaceImage(lines[i]);
 			};
 			
 			// Input
@@ -1179,6 +1205,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			
 			processedPreamble = processedPreamble.replace(/var audioNames\s*\=\s*\[\];/, 'var audioNames = ["'+audioNames.join('", "')+'"];');
 			processedPreamble = processedPreamble.replace(/var textNames\s*\=\s*\[\];/, 'var textNames = ["'+textNames.join('", "')+'"];');
+			processedPreamble = processedPreamble.replace(/var imageNames\s*\=\s*\[\];/, 'var imageNames = ["'+imageNames.join('", "')+'"];');
 			processedPreamble = processedPreamble.replace(/var requiredNames\s*\=\s*\[\];/, 'var requiredNames = ["'+requiredNames.join('", "')+'"];');
 			processedPreamble = processedPreamble.replace(/var addDigest\s*=\s*false;/, 'var addDigest = '+addDigestText.replace(/["']/g, "") +';');
 			processedPreamble = processedPreamble.replace(/<body onload="SetUp\(\);" style="">/, '<body onload="SetUp();" style="' + bodyStyleText.replace(/["]/g, "") + '">');
