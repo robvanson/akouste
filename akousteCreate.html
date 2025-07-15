@@ -1203,9 +1203,13 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			processedPreamble = processedPreamble.replace(/XXToolTipSaveXX/g, ToolTipSave);
 			processedPreamble = processedPreamble.replace(/XXstimulusTableJSONXX/g, stimulusTableJSON);
 			
-			processedPreamble = processedPreamble.replace(/var audioNames\s*\=\s*\[\];/, 'var audioNames = ["'+audioNames.join('", "')+'"];');
-			processedPreamble = processedPreamble.replace(/var textNames\s*\=\s*\[\];/, 'var textNames = ["'+textNames.join('", "')+'"];');
-			processedPreamble = processedPreamble.replace(/var imageNames\s*\=\s*\[\];/, 'var imageNames = ["'+imageNames.join('", "')+'"];');
+			audioNamesString  = (audioNames.length > 0) ? '"' + audioNames.join('", "')+ '"'     : "";
+			textNamesString     = (textNames.length > 0)    ? '"' + textNames.join('", "') + '"'      :  "";
+			imageNamesString = (imageNames.length > 0) ? '"' + imageNames.join('", "') +  '"' : "";
+			
+			processedPreamble = processedPreamble.replace(/var audioNames\s*\=\s*\[\];/, 'var audioNames = ['+ audioNamesString +'];');
+			processedPreamble = processedPreamble.replace(/var textNames\s*\=\s*\[\];/, 'var textNames = ['+ textNamesString +'];');
+			processedPreamble = processedPreamble.replace(/var imageNames\s*\=\s*\[\];/, 'var imageNames = ['+ imageNamesString +'];');
 			processedPreamble = processedPreamble.replace(/var requiredNames\s*\=\s*\[\];/, 'var requiredNames = ["'+requiredNames.join('", "')+'"];');
 			processedPreamble = processedPreamble.replace(/var addDigest\s*=\s*false;/, 'var addDigest = '+addDigestText.replace(/["']/g, "") +';');
 			processedPreamble = processedPreamble.replace(/<body onload="SetUp\(\);" style="">/, '<body onload="SetUp();" style="' + bodyStyleText.replace(/["]/g, "") + '">');
