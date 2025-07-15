@@ -130,7 +130,7 @@ A new experiment requires a lot of text writing. The editor of *akouseCreate.htm
 
 ### Stimulus related constructs
 
-Four constructs are defined to present stimulus sounds and texts to subjects:
+Four constructs are defined to present stimulus sounds, videos, images, and texts to subjects:
 
 - \[\[\[text\|name\{style\}\]\]\] creates an audio button showing *text* in *style*, playing the audio files mentioned in column *name*.   
   For instance, \[\[\[Speaker A\|A\{font-style: italic;\}\]\]\] would show a button with the text *Speaker A* in italic and play the current stimulus in the column labeled *A* of the stimulus table.
