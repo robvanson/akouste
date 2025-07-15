@@ -1,3 +1,4 @@
+initialMarkdown = ` 
 <center>
 
 # akoúste test for Images
@@ -57,3 +58,4 @@ Minimal test of images. Uses two images<sup>1</sup> from Wikimedia Commons.
 [//stimulus1]: # "4/42/ASL_OpenB%40Chin-PalmBack.jpg"
 [//stimulus1]: # "2/2d/ASL_C%40NearMouth-TipForward.jpg"
 [//comment]: # "----------"
+`

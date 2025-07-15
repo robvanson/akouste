@@ -11,7 +11,7 @@ Version 2 [^1]
 
 ## Client-side listening experiments in the browser
 
-The *akoúste* project aims to provide tools for simple, adaptable listening experiments for situations where the use of a dynamic host server storing and serving the speech and collecting the responses over the internet is unpractical or unwanted, e.g., due to privacy concerns. *akoúste* Pages can be used both on desk/laptops and on mobile devices, with and without a network connection.
+The *akoúste* project aims to provide tools for simple, adaptable listening experiments for situations where the use of a dynamic host server storing and serving the speech and collecting the responses over the internet is unpractical or unwanted, e.g., due to privacy concerns. *akoúste* pages can be used both on desk/laptops and on mobile devices, with and without a network connection. As not all "listening"" is limited to the ears, text, images, and video can also be used as stimuli.
 
 *akoúste* Experiments can as easily be run off thumbdrives, or local hard drives, with all data kept locally, as they can be run from a web server. Submission of results is under the control of the subject doing the experiment. The whole experiment is run inside the browser and intermediate results are stored in the browser's local storage. After completing the experiment, the subject can download the results in text format which can be submitted to the experimenter.
 
@@ -19,7 +19,7 @@ The *akoúste* project aims to provide tools for simple, adaptable listening exp
 
 Bill of Materials
 
-- Stimuli, can be audio, video, or text
+- Stimuli, which can be audio, video, images, or text
 - A table listing which stimuli should be presented at each turn
 - An experiment web page that presents the stimuli to the listeners and collects their responses
 
@@ -31,7 +31,7 @@ The visual layout and text of the web page that presents the experiment is writt
 
 In our demonstrations, we use web URLs to demonstrate the full functionality. But when designing and testing an experiment using local stimulus files, the experiment page should be saved to the local drive (**Save Experiment...**) after setting the (relative) path to the stimulus folder, and opened from there. It is a good idea to save the markdown of an experiment too, using **Save MD...**, as it will be needed to debug or adapt the experiment.
 
-Examples (random audio and video examples courtesy of [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page)):
+Examples (random audio, images, and video examples courtesy of [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page)):
 
 - [AB comparison](./akousteCreate.html?ExperimentAcronym=ABexample)
 
@@ -47,6 +47,8 @@ Examples (random audio and video examples courtesy of [Wikimedia Commons](https:
 - Minimalistic [Audiotest experiment](./akousteCreate.html?ExperimentAcronym=Audiotest). Test full chain from local stimulus files to audible audio
 
 - Minimalistic [Videotest experiment](./akousteCreate.html?ExperimentAcronym=Videotest). Test use of video stimuli
+
+- Minimalistic [Imagetest experiment](./akousteCreate.html?ExperimentAcronym=Imagetest). Test use of images as stimuli
 
 Direct links to demonstration experiment *html* files
 
@@ -128,7 +130,7 @@ A new experiment requires a lot of text writing. The editor of *akouseCreate.htm
 
 ### Stimulus related constructs
 
-Three constructs are defined to present stimulus sounds and texts to subjects:
+Four constructs are defined to present stimulus sounds and texts to subjects:
 
 - \[\[\[text\|name\{style\}\]\]\] creates an audio button showing *text* in *style*, playing the audio files mentioned in column *name*.   
   For instance, \[\[\[Speaker A\|A\{font-style: italic;\}\]\]\] would show a button with the text *Speaker A* in italic and play the current stimulus in the column labeled *A* of the stimulus table.
@@ -136,6 +138,8 @@ Three constructs are defined to present stimulus sounds and texts to subjects:
   *Note: Browsers differ in which video formats they support. Test your browser platforms before deployment.*
 - \{\{\{name\|style\}\}\} creates a text field showing the string in column *name* in *style*.   
   For instance, \{\{\{LangA\|font-style: italic;\}\}\} would show the text in *italic* of the current stimulus in the column labeled *LangA* of the stimulus table.
+- \{\{§name\|style§\}\} inserts an image showing the image linked in column *name* in *style*.  The style should include the dimensions of the image, eg, \{\{§name\|width:30%;height:auto;§\}\}
+  
 
 *Note: Stimulus related constructs are not functional in the editor preview window of akousteCreate.html. Therefore, the stimulus is replaced by a short beep sound in the preview window. The text stimulus \{\{\{name\|style\}\}\} construct is replaced by* **XXXX** *in the preview window.*
 
@@ -156,9 +160,10 @@ Extensions of the \[\[\[text\|name\{style\}\]\]\] audio button, \[\[§alt-text\|
 These extensions present fixed content and are intended to present examples or explanations. Subjects do not have to interact with them to proceed to the next stimulus.
 
 - \[\[\[ text \|\<URL\>\\{style\}\]\]\] inserts an audio button that will play the sound at the **URL** (\< \> are obligatory). 
-- \[\[§ alt-text \|\<URL\>\\{style\} §\]\] inserts a video that will play the clip at the **URL** (\< \> are obligatory). 
-- \{\{\{\<URL\>\|style\}\}\} insert an *iframe* with the page at the **URL**.
-- \{\{\{!parameter!\|style\}\}\} insert the text value of the internal variable **parameter**. This is used, e.g., to display the remaining number of stimuli in the examples.
+- \[\[§ alt-text \|\<URL\> \{style\} §\]\] inserts a video that will play the clip at the **URL** (\< \> are obligatory). 
+- \{\{§ \<URL\>\| style §\}\} insert the image from the **URL**.
+- \{\{\{ \<URL\>\| style \}\}\} insert an *iframe* with the page at the **URL**.
+- \{\{\{! parameter !\| style \}\}\} insert the text value of the internal variable **parameter**. This is used, e.g., to display the remaining number of stimuli in the examples.
 
 ### The cover page
 
