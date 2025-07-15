@@ -191,7 +191,7 @@ function loadList () {
 		audioPos = [];
 		for(i in audioNames){
 			audioPos.push(columnNames.indexOf(audioNames[i]));
-			if(audioPos.at(-1) < 0)audioPos.at(-1) = -1;
+			if(audioPos.length > 0 && audioPos.at(-1) < 0)audioPos.at(-1) = -1;
 		};
 		var posA = audioPos[0];
 		var posB = audioPos[1];
@@ -273,6 +273,7 @@ function loadList () {
 	for(i in imageNames){
 		imgPos.push(columnNames.indexOf(imageNames[i]));
 		if(imgPos[i] < 0)imgPos[i] = -1;
+console.log(c(2, imgPos));
 	};
 	
 	stimulusTable = [columnNames, data];
