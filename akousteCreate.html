@@ -1079,7 +1079,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			imageNames.push(imageNamesRaw);
 
 			imageNames = imageNames.flat();
-			text = text.replace(/\{\{§\s*([^\}\|\¦\\]*[^\}\|\¦\\\s])(\s*\\?[\|\¦]\s*([^\}]*))?\s*§\}\}/g, '<img id="Image$1" src="" name="Image$1" alt="$1" style="$3">');
+			text = text.replace(/\{\{§\s*([^\}\|\¦\\]*[^\}\|\¦\\\s])(\s*\\?[\|\¦]\s*([^\}]*))?\s*§\}\}/g, '<img id="Image$1" src="https://upload.wikimedia.org/wikipedia/commons/4/4b/IEC_60417_-_Ref-No_5211.svg" name="Image$1" alt="$1" style="$3">');
 		};
 	
 		return text;	
