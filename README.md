@@ -139,7 +139,6 @@ Four constructs are defined to present stimulus sounds, videos, images, and text
 - \{\{\{name\|style\}\}\} creates a text field showing the string in column *name* in *style*.   
   For instance, \{\{\{LangA\|font-style: italic;\}\}\} would show the text in *italic* of the current stimulus in the column labeled *LangA* of the stimulus table.
 - \{\{§name\|style§\}\} inserts an image showing the image linked in column *name* in *style*.  The style should include the dimensions of the image, eg, \{\{§name\|width:30%;height:auto;§\}\}
-  
 
 *Note: Stimulus related constructs are not functional in the editor preview window of akousteCreate.html. Therefore, the stimulus is replaced by a short beep sound in the preview window. The text stimulus \{\{\{name\|style\}\}\} construct is replaced by* **XXXX** *in the preview window.*
 
@@ -331,7 +330,9 @@ akoúste git repositories are available at:
 
 - [GitHub robvanson/akouste](https://github.com/robvanson/akouste)  
 
-- [GitLab robvanson/akouste](https://gitlab.com/robvanson/akouste) (mirror)  
+- [Codeberg robvanson/akouste](https://codeberg.org/robvanson/akouste) (mirror)  
+
+- [GitLab robvanson/akouste](https://gitlab.com/robvanson/akouste) (mirror)
 
 - [SourceForge akouste](https://sourceforge.net/p/akouste) (mirror)  
 
