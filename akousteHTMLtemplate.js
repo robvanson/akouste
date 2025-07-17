@@ -335,7 +335,7 @@ function setAudio(i, stimulusTable) {
 	for(var i in  imageNames) {
 		if(stimulusTable[1][stimulusNbr][imgPos[i]] != undefined && stimulusTable[1][stimulusNbr][imgPos[i]].length > 0){
 			var currentImage = stimulusTable[1][stimulusNbr][imgPos[i]];
-			document.getElementById('Image'+imageNames[i]).src = currentImage;
+			document.getElementById('Image'+imageNames[i]).src = audioBaseURL + currentImage;
 		};
 	};
 	
