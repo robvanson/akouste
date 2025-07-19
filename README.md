@@ -336,7 +336,7 @@ akoúste git repositories are available at:
 
 - [SourceForge akouste](https://sourceforge.net/p/akouste) (mirror)  
 
-- Zenodo *forthcoming* (releases snapshots)
+- [Zenodo *forthcoming*](https://doi.org/10.5281/zenodo.3712141) (releases snapshots)
 
 ---------
 
