@@ -338,7 +338,7 @@ The experiment ZIP archive can be unpacked at the desired position for the subje
 
 - [Zenodo robvanson/akouste](https://doi.org/10.5281/zenodo.3712141) (releases snapshots)
 
-† Contains functional *akoúste* web site with examples
+† *Contains functional* akoúste *web site with examples*
 
 ---------
 
