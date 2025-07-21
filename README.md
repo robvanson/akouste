@@ -23,7 +23,7 @@ Bill of Materials
 - A table listing which stimuli should be presented at each turn
 - An experiment web page that presents the stimuli to the listeners and collects their responses
 
-To create a listening experiment, access to [*akousteCreate.html*](./akousteCreate.html) is needed. This access does not have to be local, the [*akoúste* github pages](./) will do. For a real experiment, stimulus media files, audio or video, are required, preferably in a local folder. The stimulus files can be accessed locally, or remotely over https. Any audio or video format that can be played by the web browsers of choice can be used.
+To create a listening experiment, access to [*akousteCreate.html*](./akousteCreate.html) is needed. This access does not have to be local, the [*akoúste* github pages](./) (or equivalent repositories) will do. For a real experiment, stimulus media files, audio or video, are required, preferably in a local folder. The stimulus files can be accessed locally, or remotely over https. Any audio or video format that can be played by the web browsers of choice can be used.
 
 For stimulus lists, *akousteCreate* will read .csv tables (comma-separated-values) as can be derived from most spreadsheet, database, or statistics applications. Columns in these tables should have names in a header row. The table should contain columns that contain the names of the stimulus files. The tables can store any other information that is convenient in other columns. It is OK if there is only a single column with stimulus file names. The path or URL to the folder that contains the stimulus files can be supplied separately, so it is not necessary to write out the path to each individual stimulus.
 
