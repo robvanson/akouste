@@ -326,17 +326,19 @@ The experiment ZIP archive can be unpacked at the desired position for the subje
 
 ## Repositories
 
-akoúste git repositories are available at:
+*akoúste* git repositories are available at:
 
-- [GitHub robvanson/akouste](https://github.com/robvanson/akouste)  
+- [GitHub robvanson/akouste](https://github.com/robvanson/akouste)<sup>†</sup>
 
-- [Codeberg robvanson/akouste](https://codeberg.org/robvanson/akouste) (mirror)  
+- [Codeberg robvanson/akouste](https://codeberg.org/robvanson/akouste)† (mirror)  
 
 - [GitLab robvanson/akouste](https://gitlab.com/robvanson/akouste) (mirror)
 
-- [SourceForge akouste](https://sourceforge.net/p/akouste) (mirror)  
+- [SourceForge akouste](https://sourceforge.net/p/akouste)† (mirror)  
 
 - [Zenodo robvanson/akouste](https://doi.org/10.5281/zenodo.3712141) (releases snapshots)
+
+† Contains functional *akoúste* web site with examples
 
 ---------
 
