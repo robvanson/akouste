@@ -20,8 +20,8 @@ The *akoúste* project aims to provide tools for simple, adaptable listening exp
 Bill of Materials
 
 - Stimuli, which can be audio, video, images, or text
-- A table listing which stimuli should be presented at each turn
-- An experiment web page that presents the stimuli to the listeners and collects their responses
+- A table listing which stimuli should be presented at each turn. ([instructions](https://youtu.be/sYVBrWeSlVg))
+- An experiment web page that presents the stimuli to the listeners and collects their responses. ([instructions](https://youtu.be/SWUlduH3Vkk))
 
 To create a listening experiment, access to [*akousteCreate.html*](./akousteCreate.html) is needed. This access does not have to be local, the [*akoúste* github pages](./) (or equivalent repositories) will do. For a real experiment, stimulus media files, audio or video, are required, preferably in a local folder. The stimulus files can be accessed locally, or remotely over https. Any audio or video format that can be played by the web browsers of choice can be used.
 
@@ -58,6 +58,14 @@ Direct links to demonstration experiment *html* files
 
 - Download minimalistic [Audiotest\_package.zip](./Audiotest_package.zip) for local use  
   *One web page and two stimulus files*
+
+Instruction videos
+
+* [Create a stimulus table](https://youtu.be/sYVBrWeSlVg)
+
+* [Create a new experiment](https://youtu.be/NZb2pkzk4KU)
+
+* [Adapt and translate an experiment](https://youtu.be/SWUlduH3Vkk)
 
 For browser specific information, see [Browser settings](#Browser-settings-and-compatibility) below. For requirements of *akousteCreate.html*, see  [Under the hood](#Under-the-hood).
 
