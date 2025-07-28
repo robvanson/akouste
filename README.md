@@ -166,7 +166,7 @@ Extensions of the \[\[\[text\|name\{style\}\]\]\] audio button, \[\[§alt-text\|
 
 These extensions present fixed content and are intended to present examples or explanations. Subjects do not have to interact with them to proceed to the next stimulus.
 
-- \[\[\[ text \|\<URL\>\\{style\}\]\]\] inserts an audio button that will play the sound at the **URL** (\< \> are obligatory). 
+- \[\[\[ text \|\<URL\> {style\}\]\]\] inserts an audio button that will play the sound at the **URL** (\< \> are obligatory). 
 - \[\[§ alt-text \|\<URL\> \{style\} §\]\] inserts a video that will play the clip at the **URL** (\< \> are obligatory). 
 - \{\{§ \<URL\>\| style §\}\} insert the image from the **URL**.
 - \{\{\{ \<URL\>\| style \}\}\} insert an *iframe* with the page at the **URL**.
