@@ -126,10 +126,12 @@ var CurrentExperimentID = "Pseudonymization";
 
 var stimulusTable = [];
 var audioNames = ["A", "B", "X"];
-var textNames = [""];
+var textNames = [];
+var imageNames = [];
 var columnNames = [];
 var audioPos = [];
 var textPos = [];
+var imgPos = [];
 var answerstogo = 0;
 
 var answerList = [];
@@ -143,6 +145,7 @@ var stimulusNbr = 0;
 function loadList () {
 	columnNames = audioNames;
 	columnNames.concat(textNames).flat();
+	columnNames.concat(imageNames).flat();
 	// Check whether there is an ongoing experiment
 	if(typeof(Storage) !== "undefined" && localStorage.getItem(CurrentExperimentID+'stimuluslist')){
 		// Store
@@ -194,12 +197,25 @@ function loadList () {
 		audioPos = [];
 		for(i in audioNames){
 			audioPos.push(columnNames.indexOf(audioNames[i]));
-			if(audioPos[i] < 0)audioPos[i] = -1;
+			if(audioPos.length > 0 && audioPos.at(-1) < 0)audioPos[audioPos.length - 1] = -1;
 		};
+		var posA = audioPos[0];
+		var posB = audioPos[1];
+		if(audioNames.indexOf("A") >= 0 && audioNames.indexOf("B") >= 0){
+			posA = columnNames.indexOf("A");
+			posB = columnNames.indexOf("B");
+		};
+
 		textPos = [];
 		for(i in textNames){
 			textPos.push(columnNames.indexOf(textNames[i]));
 			if(textPos[i] < 0)textPos[i] = -1;
+		};
+
+		imgPos = [];
+		for(i in imageNames){
+			imgPos.push(columnNames.indexOf(imageNames[i]));
+			if(imgPos[i] < 0)imgPos[i] = -1;
 		};
 
 		// Prepare the stimulus list
@@ -226,11 +242,14 @@ function loadList () {
 		if(RandomizeAB){
 			if(PracticeItems < 0){
 				var practiceList = data.slice(0,-PracticeItems);
+				for (var i=0; i<practiceList.length; i++) {
+						practiceList[i].push(false);
+				};
 				var shuffleList = data.slice(-PracticeItems,);
-				data = shuffleAB(shuffleList, audioPos[0], audioPos[1]);
+				data = shuffleAB(shuffleList, posA, posB);
 				data = practiceList.concat(shuffleList);
 			} else {
-				data = shuffleAB(data, audioPos[0], audioPos[1]);
+				data = shuffleAB(data, posA, posB);
 			};
 		};
 		
@@ -249,10 +268,17 @@ function loadList () {
 		audioPos.push(columnNames.indexOf(audioNames[i]));
 		if(audioPos[i] < 0)audioPos[i] = -1;
 	};
+	
 	textPos = [];
 	for(i in textNames){
 		textPos.push(columnNames.indexOf(textNames[i]));
 		if(textPos[i] < 0)textPos[i] = -1;
+	};
+	
+	imgPos = [];
+	for(i in imageNames){
+		imgPos.push(columnNames.indexOf(imageNames[i]));
+		if(imgPos[i] < 0)imgPos[i] = -1;
 	};
 	
 	stimulusTable = [columnNames, data];
@@ -277,8 +303,10 @@ function unblockNext (x) {
 	};
 	if(x.match("Audio")){
 		document.getElementById(x).style.backgroundColor = "#EEFFEE";
-		document.getElementById(x+"Button").style.backgroundColor = "#EEFFEE";
-		document.getElementById("Play"+x+"Text").style.backgroundColor = "#EEFFEE";
+		if(document.getElementById('AudioA'+'Button') != null ) {
+			document.getElementById(x+"Button").style.backgroundColor = "#EEFFEE";
+			document.getElementById("Play"+x+"Text").style.backgroundColor = "#EEFFEE";
+		};
 	};
 };
 
@@ -308,6 +336,15 @@ function setAudio(i, stimulusTable) {
 			alert("No Audio " + audioNames[i]);
 		};
 	};
+	
+	// Images from stimuli
+	for(var i in  imageNames) {
+		if(stimulusTable[1][stimulusNbr][imgPos[i]] != undefined && stimulusTable[1][stimulusNbr][imgPos[i]].length > 0){
+			var currentImage = stimulusTable[1][stimulusNbr][imgPos[i]];
+			document.getElementById('Image'+imageNames[i]).src = audioBaseURL + currentImage;
+		};
+	};
+	
 	// Text from stimuli
 	for(var i in  textNames) {
 		if(stimulusTable[1][stimulusNbr][textPos[i]] != undefined && stimulusTable[1][stimulusNbr][textPos[i]].length > 0){
@@ -413,8 +450,10 @@ function nextStimulus () {
 		requiredAnswers = new Array(requiredNames.length).fill(false);
 		for(i in audioNames) {
 			document.getElementById('Audio'+audioNames[i]).style.backgroundColor = "white";
-			document.getElementById('Audio'+audioNames[i]+"Button").style.backgroundColor = "white";
-			document.getElementById("Play"+'Audio'+audioNames[i]+"Text").style.backgroundColor = "white";
+			if(document.getElementById('Audio'+audioNames[i]+"Button") != null) {
+				document.getElementById('Audio'+audioNames[i]+"Button").style.backgroundColor = "white";
+				document.getElementById("Play"+'Audio'+audioNames[i]+"Text").style.backgroundColor = "white";
+			};
 		};
 		
 		playedSamples = false;
