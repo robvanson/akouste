@@ -105,6 +105,7 @@ preamble = `<!DOCTYPE html>
 <script type="text/javascript">
 var audioBaseURL = 'XXaudioBaseURLXX';
 </script>
+<script type="text/javascript" src="ExpAcronym_examples/XXEXPERIMENTNAMEXX_stimuluslist.js"></script>
 <script type="text/javascript" src="./XXEXPERIMENTNAMEXX_stimuluslist.js"></script>
 <script type="text/javascript">
 // Insert stimulus table
