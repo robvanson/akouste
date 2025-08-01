@@ -54,7 +54,7 @@ Direct links to demonstration experiment *html* files
 
 - Direct to **online** [ABX Pseudonymization experiment](Experiment_HTML_Examples/Pseudonymization_experiment.html) 
 
-- Direct to **online** [Audiotest experiment](Experiment_HTML_Examples/Audiotest_experiment.html)
+- Direct to **online** [Audiotest experiment](./Audiotest_experiment.html)
 
 - Download minimalistic [Audiotest\_package.zip](Experiment_HTML_Examples/Audiotest_package.zip) for local use  
   *One web page and two stimulus files*
