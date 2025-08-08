@@ -806,9 +806,11 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		document.getElementById('htmlDisplay').src=winURL;
 		
 		// Set up the couter of for the unblock function
-		requiredNames = document.getElementById('htmlText').value.match(/name\s*\=\s*['"](Audio|Question)[^'"]*['"]/ig);
-		requiredNames = requiredNames.map(x => x.replace(/name\s*\=\s*['"]([^'"]*)['"]/, "$1"));
-		requiredNames = requiredNames.filter(onlyUnique);
+		if(requiredNames.length > 0){
+			requiredNames = document.getElementById('htmlText').value.match(/name\s*\=\s*['"](Audio|Question)[^'"]*['"]/ig);
+			requiredNames = requiredNames.map(x => x.replace(/name\s*\=\s*['"]([^'"]*)['"]/, "$1"));
+			requiredNames = requiredNames.filter(onlyUnique);
+		};
 		
 		// Set buttons
 		setHTMLdisplayButtonColor ();
