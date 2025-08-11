@@ -67,6 +67,8 @@ Demonstration videos
 
 * [Adapt and translate an experiment](https://youtu.be/SWUlduH3Vkk)
 
+* [Creation of a complete ABX experiment from scratch](https://www.youtube.com/watch?v=NxMwvMu55t4)
+
 For browser specific information, see [Browser settings](#Browser-settings-and-compatibility) below. For requirements of *akousteCreate.html*, see  [Under the hood](#Under-the-hood).
 
 ## What you get
