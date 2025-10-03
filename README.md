@@ -172,8 +172,8 @@ These extensions present fixed content and are intended to present examples or e
 
 - \[\[\[ text \|\<URL\> {style\}\]\]\] inserts an audio button that will play the sound at the **URL** (\< \> are obligatory). 
 - \[\[§ alt-text \|\<URL\> \{style\} §\]\] inserts a video that will play the clip at the **URL** (\< \> are obligatory). 
-- \{\{§ \<URL\>\| style §\}\} insert the image from the **URL**.
-- \{\{\{ \<URL\>\| style \}\}\} insert an *iframe* with the page at the **URL**.
+- \{\{§ \<URL\>\| style §\}\} insert the image from the **URL** (< > are obligatory).
+- \{\{\{ \<URL\>\| style \}\}\} insert an *iframe* with the page at the **URL** (< > are obligatory).
 - \{\{\{! parameter !\| style \}\}\} insert the text value of the internal variable **parameter**. This is used, e.g., to display the remaining number of stimuli in the examples.
 
 ### The cover page
