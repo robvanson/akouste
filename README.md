@@ -111,7 +111,7 @@ When the experiment is ready to be deployed, it can be saved using the **Save Ex
 
 ## Stimuli
 
-Stimuli are organized as tables with named columns and each row containing the information of a single presentation. Necessary inf ormation contained in each row are the stimulus files (audio/video) or values (text fields) to be presented, and, for the analysis, the experimental conditions they represent. 
+Stimuli are organized as tables with named columns and each row containing the information of a single presentation. Necessary information contained in each row are the stimulus files (audio/video) or values (text fields) to be presented, and, for the analysis, the experimental conditions they represent. 
 
 The stimulus tables can be constructed in a simple spreadsheet table and saved as a CSV (comma separated values) file, demonstrated in this [video](https://youtu.be/sYVBrWeSlVg). For practical reasons, it is advisable to use the ; as a separation symbol (semicolon separated values) as *akoúste* cannot handle comma-separated values that themselves contain comma's. 
 
