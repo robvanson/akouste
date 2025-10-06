@@ -7,8 +7,9 @@
 
 Version 2 [^1]
 
-[Try the demo](./akousteCreate.html)  
-[Minimal demo](./akousteCreate.html?ExperimentAcronym=Audiotest)
+[Try a minimal demo](./akousteCreate.html?ExperimentAcronym=Audiotest)
+
+[A more complete experiment with answering options](./akousteCreate.html)  
 
 ## Client-side listening experiments in the browser
 
