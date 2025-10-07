@@ -77,29 +77,13 @@ preamble = `<!DOCTYPE html>
 	};
 </script>
 <script type="text/javascript" src="./sha.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jssha@3.3.1/dist/sha.js"></script>
 <script type="text/javascript">
-	if(typeof jsSHA == "function") {
-		// Hash Function definitions
-		function hex_sha1 (plaintext) {
-			var shaObj = new jsSHA("SHA-1", "TEXT");
-			shaObj.update(plaintext);
-			return shaObj.getHash("HEX");
-		};
-		function hex_sha256 (plaintext) {
-			var shaObj = new jsSHA("SHA-256", "TEXT");
-			shaObj.update(plaintext);
-			return shaObj.getHash("HEX");
-		};
-		function hex_sha512 (plaintext) {
-			var shaObj = new jsSHA("SHA-512", "TEXT");
-			shaObj.update(plaintext);
-			return shaObj.getHash("HEX");
-		};
-		function chained_sha (plaintext) {
-			return hex_sha256( hex_sha256( hex_sha512(plaintext) ) );
-		};
-	}
+	if(typeof window.jsSHA == 'undefined' || typeof window.jsSHA != "function") {
+		var script = document.createElement('script');
+		script.type='text/javascript';
+		script.src = 'https://cdn.jsdelivr.net/npm/jssha@3.3.1/dist/sha.js';
+		document.getElementsByTagName('head')[0].appendChild(script);
+	};
 </script>
 
 <script type="text/javascript">
@@ -643,6 +627,30 @@ function SetUp() {
 	stimulusNbr = 0;
 	stimulusTable = loadList (); 
 	setAudio(stimulusNbr, stimulusTable);
+
+	// Construct SHA functions
+	if(typeof window.jsSHA != 'undefined' && typeof window.jsSHA == "function") {
+		// Hash Function definitions
+		window.hex_sha1 = function  (plaintext) {
+			var shaObj = new jsSHA("SHA-1", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		window.hex_sha256 = function (plaintext) {
+			var shaObj = new jsSHA("SHA-256", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		window.hex_sha512 = function (plaintext) {
+			var shaObj = new jsSHA("SHA-512", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		window.chained_sha = function (plaintext) {
+			return hex_sha256( hex_sha256( hex_sha512(plaintext) ) );
+		};
+	}
+
 	return 0;
 };
 
