@@ -7,9 +7,9 @@
 
 Version 2 [^1]
 
-[Try a minimal demo](./akousteCreate.html?ExperimentAcronym=Audiotest)
+[Try a minimal demo](./akousteCreate.html?ExperimentAcronym=Audiotest) with just an audio button, two stimuli, and a small likert scale
 
-[A more complete, and more complex, demo](./akousteCreate.html)  
+[A more complete, and more complex, demo](./akousteCreate.html)  including an introduction and a selection of question forms
 
 ## Client-side listening experiments in the browser
 
