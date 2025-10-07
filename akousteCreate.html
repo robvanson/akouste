@@ -20,7 +20,15 @@
 <meta name="msapplication-TileImage" content="favicon/favicon-512x512.png" />
 
 <script src="./markdown-it.min.js" ></script>
-<script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js" referrerpolicy="no-referrer" onerror="if(typeof window.markdownit == 'undefined')alert('No HTML! Cannot load '+this.src);"></script>
+<script type="text/javascript">
+	if(typeof window.markdownit == 'undefined' || typeof window.markdownit != "function") {
+		var script = document.createElement('script');
+		script.type='text/javascript';
+		script.src = 'https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js';
+		document.getElementsByTagName('head')[0].appendChild(script);
+	};
+</script>
+
 <script id='mardownRead' type="text/javascript" src="./akousteInitPageMD.js"></script>
 <script type="text/javascript" >
 function loadMarkdown(fileName) {
