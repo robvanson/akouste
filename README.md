@@ -7,7 +7,7 @@
 
 Version 2 [^1]
 
-[Try a minimal demo](./akousteCreate.html?ExperimentAcronym=Audiotest) with just an audio button, two stimuli, and a small likert scale
+[Try a minimal demo](./akousteCreate.html?ExperimentAcronym=Audiotest) with just an audio button, two stimuli, and a yes/no question
 
 [A more complete, and more complex, demo](./akousteCreate.html)  including an introduction and a selection of question forms
 
