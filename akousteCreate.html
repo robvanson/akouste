@@ -1232,6 +1232,51 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			return processedPreamble;
 	};
 	
+	 function checkBrowser() {
+        
+            // Get the user-agent string
+            let userAgentString = 
+                navigator.userAgent;
+        
+            // Detect Chrome
+            let chromeAgent = 
+                userAgentString.indexOf("Chrome") > -1;
+        
+            // Detect Internet Explorer
+            let IExplorerAgent = 
+                userAgentString.indexOf("MSIE") > -1 || 
+                userAgentString.indexOf("rv:") > -1;
+        
+            // Detect Firefox
+            let firefoxAgent = 
+                userAgentString.indexOf("Firefox") > -1;
+        
+            // Detect Safari
+            let safariAgent = 
+                userAgentString.indexOf("Safari") > -1;
+                
+            // Discard Safari since it also matches Chrome
+            if ((chromeAgent) && (safariAgent)) 
+                safariAgent = false;
+        
+            // Detect Opera
+            let operaAgent = 
+                userAgentString.indexOf("OP") > -1;
+                
+            // Discard Chrome since it also matches Opera     
+            if ((chromeAgent) && (operaAgent)) 
+                chromeAgent = false;
+        
+			var browserAgent = 'unknown';
+            if(safariAgent) browserAgent = 'safari';
+             if(chromeAgent) browserAgent = 'chrome';
+             if(IExplorerAgent) browserAgent = 'IExplore';
+            if(operaAgent)  browserAgent = 'opera';
+             if(firefoxAgent) browserAgent = 'firefox';
+             
+             return(browserAgent);
+        };
+
 	function setUp() {
 		if(window.location.search.match(/ExperimentAcronym\=/)){
 				fileName = window.location.search.replace(/^.*ExperimentAcronym\=([^&]+)[&]?.*$/g, "$1");
@@ -1245,6 +1290,24 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 					bodyStyleText = "";
 				};
 		};
+
+		// Set Zoom of HTML Text frame
+		var zoomValue = 0.9;
+		var defaultZoom = 1.5;
+		var currentBrowser = checkBrowser ();
+		switch (currentBrowser) {
+			case 'opera': zoomValue = defaultZoom;break;
+			case 'chrome': zoomValue = defaultZoom;break;
+			case 'IExplore': zoomValue = defaultZoom;break;
+			case 'firefox': zoomValue = defaultZoom;break;
+			case 'safari': zoomValue = 0.75;break;
+			default: zoomValue = 1;
+		};
+		
+		// Browser detection
+		document.getElementById('htmlTextFrame').style = 'zoom: ' + zoomValue;
+
+
 		initializeMarkdown();
 	};
 	
@@ -1385,7 +1448,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 
 	    <textarea id="htmlText" rows=60 cols=80' onchange="HTMLchanged = true; document.getElementById('ShowButton').style.backgroundColor = 'red';" style='display:none;'>
 		</textarea>
-		<div style='zoom: 0.75' title='The HTML displayed here is non-functional. Click the "Show Page" button to open a functional page'>
+		<div id='htmlTextFrame' style='zoom: 0.75' title='The HTML displayed here is non-functional. Click the "Show Page" button to open a functional page'>
 		<iframe src="" id='htmlDisplay' name='htmlDisplay'  scrolling="auto" width=130% height=1550 style='vertical-align: bottom; zoom: 0.75;-moz-transform: scale(0.75);  -moz-transform-origin: 0 0;  -o-transform: scale(0.75);  -o-transform-origin: 0 0;  -webkit-transform: scale(0.75);  -webkit-transform-origin: 0 0; display:block;' ></iframe>
 	    </div>
 	    <div id='DisplaySizeControls' style='visibility:visible'>
