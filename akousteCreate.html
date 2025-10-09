@@ -359,6 +359,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	var markdownStack = [];
 	var currentMarkdown = "";
 	var editPosition = 1;
+	var zoomValue = 1;
 	function initializeMarkdown() {
 		if(navigator.userAgent.match(/Android/i)){
 			document.getElementById('markdownText').style = 'font-family: Arial, Helvetica, sans-serif;';
@@ -772,7 +773,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 				};
 			};
 			function unblockNext(x) {};
-		` + '\n\</script\>' +'\n<body style="' + 'font-size: ' + bodyFontSize + '%;' + bodyStyleText + '">\n'+text+'\n</body>';
+		` + '\n\</script\>' +'\n<body style="' + 'font-size: ' + zoomValue*bodyFontSize + '%;' + bodyStyleText + '">\n'+text+'\n</body>';
 		
 		return fullPage;
 	};
@@ -1292,22 +1293,17 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		};
 
 		// Set Zoom of HTML Text frame
-		var zoomValue = 0.9;
-		var defaultZoom = 1.5;
+		var defaultZoom = 2.2;
 		var currentBrowser = checkBrowser ();
 		switch (currentBrowser) {
-			case 'opera': zoomValue = defaultZoom;break;
+			case 'opera': zoomValue = 0.55*defaultZoom;break;
 			case 'chrome': zoomValue = defaultZoom;break;
 			case 'IExplore': zoomValue = defaultZoom;break;
-			case 'firefox': zoomValue = defaultZoom;break;
-			case 'safari': zoomValue = 0.75;break;
-			default: zoomValue = 1;
+			case 'firefox': zoomValue = 1.1*defaultZoom;break;
+			case 'safari': zoomValue = 0.5*defaultZoom;break;
+			default: zoomValue = defaultZoom;
 		};
 		
-		// Browser detection
-		document.getElementById('htmlTextFrame').style = 'zoom: ' + zoomValue;
-
-
 		initializeMarkdown();
 	};
 	
@@ -1449,7 +1445,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	    <textarea id="htmlText" rows=60 cols=80' onchange="HTMLchanged = true; document.getElementById('ShowButton').style.backgroundColor = 'red';" style='display:none;'>
 		</textarea>
 		<div id='htmlTextFrame' style='zoom: 0.75' title='The HTML displayed here is non-functional. Click the "Show Page" button to open a functional page'>
-		<iframe src="" id='htmlDisplay' name='htmlDisplay'  scrolling="auto" width=130% height=1550 style='vertical-align: bottom; zoom: 0.75;-moz-transform: scale(0.75);  -moz-transform-origin: 0 0;  -o-transform: scale(0.75);  -o-transform-origin: 0 0;  -webkit-transform: scale(0.75);  -webkit-transform-origin: 0 0; display:block;' ></iframe>
+		<iframe src="" id='htmlDisplay' name='htmlDisplay'  scrolling="auto" width=130% height=1550 style='vertical-align: bottom; zoom: 0.75;  -moz-transform-origin: 0 0;  -o-transform: scale(0.75);  -o-transform-origin: 0 0;  -webkit-transform: scale(0.75);  -webkit-transform-origin: 0 0; display:block;' ></iframe>
 	    </div>
 	    <div id='DisplaySizeControls' style='visibility:visible'>
 	    <span title='Zoom display width'><a href='javascript:void(0)' onclick='decrementDisplayWidth ();' style='text-decoration-line: none;font-weight: bold;'> &larr;</a> <span id='displayWidthText'>100%</span> <a href='javascript:void(0)' onclick='incrementDisplayWidth ();' style='text-decoration-line: none;font-weight: bold;'>&rarr; </a></span>&emsp;
