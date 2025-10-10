@@ -1449,9 +1449,9 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		<textarea id="markdownText" rows=50 cols=80 onfocusout="markdownPush();" onchange='markdown2HTML();' style='font-family: "Lucida Console", "Courier New", monospace;'>
 		</textarea><br />
 		<input type="checkbox" id="linkify" name="linkify" value="linkify" checked=true onchange='markdownLinkify=event.target.checked; parameters2Markdown(); markdown2HTML ()'>
-		<label for="likify"> linkify</label> 
+		<label for="likify" title="autoconvert link-like texts to links"> linkify</label> 
         <input type="checkbox" id="typographer" name="typographer" value="typographer" checked=true onchange='markdownTypographer=event.target.checked; parameters2Markdown(); markdown2HTML ()'>
-		<label for="typographer">typographer</label><br>
+		<label for="typographer" title="do typographic replacements, (c) → © and so on">typographer</label><br>
 	</div>
 
 	<div style="width: 50%; float: right;"> 
