@@ -9,7 +9,7 @@ Version 2 [^1]
 
 [Try a minimal demo](./akousteCreate.html?ExperimentAcronym=Audiotest) with just an audio button, two stimuli, and a yes/no question
 
-[A more complete, and more complex, demo](./akousteCreate.html)  including an introduction and a selection of question forms
+[A more complete, and more complex, demo](./akousteCreate.html)  including an introduction and a selection of question forms. *use **Switch Page** to switch between pages*
 
 ## Client-side listening experiments in the browser
 
