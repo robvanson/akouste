@@ -360,6 +360,9 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	var currentMarkdown = "";
 	var editPosition = 1;
 	var zoomValue = 1;
+	var markdownLinkify = true;
+	var markdownTypographer = true;
+
 	function initializeMarkdown() {
 		if(navigator.userAgent.match(/Android/i)){
 			document.getElementById('markdownText').style = 'font-family: Arial, Helvetica, sans-serif;';
@@ -486,6 +489,9 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			['[//parameter]: # "body.style:'+bodyStyleText.replace(/"`/g, "")+'"'],
 			['[//comment]: # "Add error checking digest to results"'],
 			['[//parameter]: # "addDigest:'+addDigestText.replace(/"`/g, "")+'"'],
+			['[//comment]: # "Parameters for Markdown"'],
+			['[//parameter]: # "Linkify:'+markdownLinkify+'"'],
+			['[//parameter]: # "Typographer:'+markdownTypographer+'"'],
 			['[//buttontext]: # "NextText:'+cleanString(NextText)+'"'],
 			['[//buttontext]: # "NextAlertText:'+cleanString(NextAlertText)+'"'],
 			['[//buttontext]: # "ReadyText:'+cleanString(ReadyText)+'"'],
@@ -522,6 +528,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 				lines[i].match(/\[\/\/comment\]: # ["']These are stimuli for this experiment["']/) || 
 				lines[i].match(/\[\/\/comment\]: # ["']CSS style for HTML body of page["']/) || 
 				lines[i].match(/\[\/\/comment\]: # ["']Add error checking digest to results["']/) || 
+				lines[i].match(/\[\/\/comment\]: # ["']Parameters for Markdown["']/) || 
 				lines[i].match(/\[\/\/comment\]: # ["']----------["']/)){
 				// Do nothing
 			} else {
@@ -594,6 +601,12 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 								break
 						case "addDigest":
 								addDigestText = parameterValue;
+							break;
+						case "Linkify":
+							markdownLinkify = (parameterValue == "true");
+							break;
+						case "Typographer":
+							markdownTypographer = (parameterValue == "true");
 							break;
 						case "NextText":
 							NextText = parameterValue;
@@ -678,6 +691,10 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		document.getElementById('ToolTipSave').value = ToolTipSave;
 		
 		document.getElementById('SaveText').value = SaveText;
+		
+		document.getElementById('linkify').checked = markdownLinkify;
+		document.getElementById('typographer').checked = markdownTypographer;
+
 	};
 	
 	function onlyUnique(value, index, array) {
@@ -799,7 +816,9 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		currentMarkdown = document.getElementById('markdownText').value ;
 		var processedMarkdown = preProcessMD (currentMarkdown);
 		var htmlText = window.markdownit({
-			  html: true
+			  html: true,
+			  linkify: markdownLinkify,
+			  typographer: markdownTypographer
 		}).render(processedMarkdown);
 		HTMLchanged = false;
 
@@ -1429,6 +1448,10 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 
 		<textarea id="markdownText" rows=50 cols=80 onfocusout="markdownPush();" onchange='markdown2HTML();' style='font-family: "Lucida Console", "Courier New", monospace;'>
 		</textarea><br />
+		<input type="checkbox" id="linkify" name="linkify" value="linkify" checked=true onchange='markdownLinkify=event.target.checked; parameters2Markdown(); markdown2HTML ()'>
+		<label for="likify"> linkify</label> 
+        <input type="checkbox" id="typographer" name="typographer" value="typographer" checked=true onchange='markdownTypographer=event.target.checked; parameters2Markdown(); markdown2HTML ()'>
+		<label for="typographer">typographer</label><br>
 	</div>
 
 	<div style="width: 50%; float: right;"> 
