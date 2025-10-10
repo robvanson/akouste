@@ -362,6 +362,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	var zoomValue = 1;
 	var markdownLinkify = true;
 	var markdownTypographer = true;
+	var markdownBreaks = false;
 
 	function initializeMarkdown() {
 		if(navigator.userAgent.match(/Android/i)){
@@ -492,6 +493,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			['[//comment]: # "Parameters for Markdown"'],
 			['[//parameter]: # "Linkify:'+markdownLinkify+'"'],
 			['[//parameter]: # "Typographer:'+markdownTypographer+'"'],
+			['[//parameter]: # "Breaks:'+markdownBreaks+'"'],
 			['[//buttontext]: # "NextText:'+cleanString(NextText)+'"'],
 			['[//buttontext]: # "NextAlertText:'+cleanString(NextAlertText)+'"'],
 			['[//buttontext]: # "ReadyText:'+cleanString(ReadyText)+'"'],
@@ -608,6 +610,9 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 						case "Typographer":
 							markdownTypographer = (parameterValue == "true");
 							break;
+						case "Breaks":
+							markdownBreaks = (parameterValue == "true");
+							break;
 						case "NextText":
 							NextText = parameterValue;
 							break;
@@ -694,6 +699,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		
 		document.getElementById('linkify').checked = markdownLinkify;
 		document.getElementById('typographer').checked = markdownTypographer;
+		document.getElementById('mdbreaks').checked = markdownBreaks;
 
 	};
 	
@@ -818,7 +824,8 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		var htmlText = window.markdownit({
 			  html: true,
 			  linkify: markdownLinkify,
-			  typographer: markdownTypographer
+			  typographer: markdownTypographer,
+			  breaks: markdownBreaks
 		}).render(processedMarkdown);
 		HTMLchanged = false;
 
@@ -1451,7 +1458,9 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		<input type="checkbox" id="linkify" name="linkify" value="linkify" checked=true onchange='markdownLinkify=event.target.checked; parameters2Markdown(); markdown2HTML ()'>
 		<label for="likify" title="autoconvert link-like texts to links"> linkify</label> 
         <input type="checkbox" id="typographer" name="typographer" value="typographer" checked=true onchange='markdownTypographer=event.target.checked; parameters2Markdown(); markdown2HTML ()'>
-		<label for="typographer" title="do typographic replacements, (c) → © and so on">typographer</label><br>
+		<label for="typographer" title="do typographic replacements, (c) → © and so on">typographer</label>
+        <input type="checkbox" id="mdbreaks" name="mdbreaks" value="mdbreaks" checked=false onchange='markdownBreaks=event.target.checked; parameters2Markdown(); markdown2HTML ()'>
+		<label for="mdbreaks" title="newlines in paragraphs are rendered as HTML breaks, <br>">breaks</label><br>
 	</div>
 
 	<div style="width: 50%; float: right;"> 
