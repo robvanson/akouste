@@ -1,4 +1,5 @@
 preamble = `<!DOCTYPE html>
+<html lang="XXExpLanguageXX"> 
 <head>
 <meta charset="UTF-8">
 <style>
@@ -700,4 +701,5 @@ postamble = `
 	</table>
 	
 </body>	
+</html>
 `

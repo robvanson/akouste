@@ -349,6 +349,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	var ToolTipReady = "Ready, please save results";
 	var ToolTipRestart = "Start a new experiment session";
 	var ToolTipSave = "Save the answer to a file";
+	var ExpLanguage = navigator.language || navigator.userLanguage;;
 	var bodyStyleText = "";
 	var addDigestText = "false";
 
@@ -508,6 +509,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			['[//tooltiptext]: # "ToolTipReady:'+cleanString(ToolTipReady)+'"'],
 			['[//tooltiptext]: # "ToolTipRestart:'+cleanString(ToolTipRestart)+'"'],
 			['[//tooltiptext]: # "ToolTipSave:'+cleanString(ToolTipSave)+'"'],
+			['[//tooltiptext]: # "ExpLanguage:'+cleanString(ExpLanguage)+'"'],
 			['[//comment]: # "----------"']
 		];
 		var stimulusTableLines = [];
@@ -651,6 +653,9 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 						case "ToolTipSave":
 							ToolTipSave = parameterValue;
 							break;
+						case "ExpLanguage":
+							ExpLanguage = parameterValue;
+							break;
 						 default:
 							break;
 					} 
@@ -695,6 +700,8 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		document.getElementById('SaveButtonTextButton').value = SaveButtonText;
 		document.getElementById('SaveButtonTextButton').title = ToolTipSave;
 		document.getElementById('SaveButtonText').value = SaveButtonText;
+		document.getElementById('ExpLanguage').value = ExpLanguage;
+
 		document.getElementById('ToolTipSave').value = ToolTipSave;
 		
 		document.getElementById('SaveText').value = SaveText;
@@ -1243,6 +1250,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			processedPreamble = processedPreamble.replace(/XXToolTipReadyXX/g, ToolTipReady);
 			processedPreamble = processedPreamble.replace(/XXToolTipRestartXX/g, ToolTipRestart);
 			processedPreamble = processedPreamble.replace(/XXToolTipSaveXX/g, ToolTipSave);
+			processedPreamble = processedPreamble.replace(/XXExpLanguageXX/g, ExpLanguage);
 			processedPreamble = processedPreamble.replace(/XXstimulusTableJSONXX/g, stimulusTableJSON);
 			
 			audioNamesString  = (audioNames.length > 0) ? '"' + audioNames.join('", "')+ '"'     : "";
@@ -1445,6 +1453,12 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			<td  style='font-size:80%'>Save&nbsp;text: </td><td>&nbsp;</td>
 			<td colspan="2"><input type="textarea" rows=2 id="SaveText" name="SaveText" value='' onchange="SaveText=this.value;parameters2Markdown();" size=50></td>
 		</tr>
+		<tr>
+			<td  style='font-size:80%'>Language: </td><td>&nbsp;</td>
+			<td><input type="textarea" rows=2 id="ExpLanguage" name="ExpLanguage" value='' onchange="this.value=this.value;ExpLanguage=this.value;parameters2Markdown();" size=5></td>
+			<td><a href='https://en.wikipedia.org/wiki/IETF_language_tag#List_of_common_primary_language_subtags' target="_blank">IETF</a> language code</td>
+		</tr>
+
 		<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 		</table>
 	</div>
