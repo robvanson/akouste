@@ -1056,7 +1056,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	var buttonCounter = 0;
 	function brackets2radiobuttons (text, offset, string) {
 		buttonCounter += 1;
-		result = '<input type="radio" value="'+buttonCounter+'" name="QuestionXXXX" id="QuestionXXXX.'+ buttonCounter +'" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value">';
+		result = '<input type="radio" value="'+buttonCounter+'" title="'+buttonCounter+'" name="QuestionXXXX" id="QuestionXXXX.'+ buttonCounter +'" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value">';
 		
 		return result;
 	};
@@ -1076,7 +1076,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	};
 	
 	function replaceVASslider (text) {
-		return text.replace(/\>\>[-]{10,}\<\</g,	'<input type="range" min="1" max="1000" value="500" class="slider" id="QuestionXXXX" name="QuestionXXXX" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value" style="width:100%;">')
+		return text.replace(/\>\>[-]{10,}\<\</g,	'<input type="range" min="1" max="1000" value="500" title="50%" class="slider" id="QuestionXXXX" name="QuestionXXXX" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value;title=Math.round(this.value/10)+`%`" style="width:100%;">')
 	};
 	
 	// Input text field <<| default text { css style }|>>
