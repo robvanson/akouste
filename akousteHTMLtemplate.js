@@ -60,6 +60,16 @@ preamble = `<!DOCTYPE html>
 	if(msie > 0){
 		alert("This experiment does not work with Internet Explorer. Please, use Chrome, Firefox, Safari or related browsers");
 	};
+
+	// Record keystrokes
+	var currentKey = "";
+	document.onkeyup = function (e) {
+		if(typeof document.getElementById('KeyStroke') != undefined) {
+			currentKey = e.key;
+			document.getElementById('KeyStroke').innerHTML = currentKey;
+		} 
+	};
+
 </script>
 <script type="text/javascript">
 	// Stub Hash Function definitions

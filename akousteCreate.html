@@ -1053,6 +1053,12 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		return text.replace(/\<\<\\?[\|\¦]\s*([^\|\¦\{\\]*[^\|\¦\{\s\\])\s*(\{\s*([^\}\\]*[^\}\\\s])\s*\})?\s*\\?[\|\¦]\>\>/g,	'<input type="text" value="$1" title="$1" id="QuestionXXXX" name="QuestionXXXX" onfocus="if(`$1`==this.value)this.value=``" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value" style="$3">')
 	};
 	
+	// Input text field <<| default text { css style }|>>
+	function replaceKeystrokeInput (text) {
+		console.log(text);
+		return text.replace(/@@@\s*([^\{]*)\s*(\{\s*([^\}\\]*[^\}\\\s])\s*\})?\s*\@@@/g,	'<span id="KeyStroke" name="QuestionXXXX" style="$3" >$1</span>');
+	};
+	
 	// Text insertions
 	function replaceTextItems (text) {
 		// Fixed text field (iframe) {{{< url >|  css style }}}
@@ -1180,6 +1186,11 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			if(lines[i].match(/\<\<[\|\¦]|[\|\¦]\>\>/)){
 				++questionNum;
 				lines[i] = replaceTextInput (lines[i]);
+				lines[i] = lines[i].replace(/XXXX/g, questionNum);
+			};
+			if(lines[i].match(/@@@[^@]+@@@/)){
+				++questionNum;
+				lines[i] = replaceKeystrokeInput (lines[i]);
 				lines[i] = lines[i].replace(/XXXX/g, questionNum);
 			};
 			
