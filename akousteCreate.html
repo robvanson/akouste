@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang='en-US'>
 <head>
 <meta charset="UTF-8">
 <link rel="apple-touch-icon" sizes="57x57" href="favicon/favicon-57x57.png" type="image/png" />
@@ -46,6 +47,25 @@ function loadMarkdown(fileName) {
 
 }
 </script>
+
+<script type="text/javascript" src="./akousteHTMLtemplate.js"></script>
+<script type="text/javascript">
+	var noPreamble = `<!doctypehtml><head><meta charset=UTF-8><style>input[type=radio]{width:25px;height:25px}.slider{-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:5px;background:#d3d3d3;outline:0;opacity:.7;-webkit-transition:.2s;transition:opacity .2s}.slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:15px;height:15px;border-radius:50%;background:#6495ed;cursor:pointer}table{width:80%;table-layout:fixed;background:0 0}table,td,tr{background:0 0}</style><meta charset=UTF-8></head>
+		 <body> 
+			 <h1 style="text-align:center"><a href="https://robvanson.github.io/akouste/akousteHTMLtemplate.js">akousteHTMLtemplate.js</a> is missing</h1>
+			 <h3 style="text-align:center">Please download into the same folder as <em>akousteCreate.html</em></h3>
+			 <h3 style="text-align:center"><a href="https://robvanson.github.io/akouste/akousteHTMLtemplate.js">akousteHTMLtemplate.js</a> is required to create functioning experiments</h3>
+	` ;
+	var preamble;
+	if(preamble == null || typeof preamble != "string"){
+		var script = document.createElement('script');
+		script.type='text/javascript';
+		script.src = 'https://robvanson.github.io/akouste/akousteHTMLtemplate.js';
+		document.getElementsByTagName('head')[0].appendChild(script);
+		console.log(script.src);
+	};
+</script>
+
 <script type="text/javascript" >
 	// Doesn't work due to blocking of Cross origin requests of local files
 	async function getMarkdown(file) {
@@ -198,24 +218,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 
 </script>
 
-<script type="text/javascript" src="https://robvanson.github.io/akouste/akousteHTMLtemplate.js"></script>
-<script type="text/javascript" src="./akousteHTMLtemplate.js"></script>
 <script type="text/javascript">
-	if(typeof preamble != "string" || preamble == null){
-		 preamble = `<!doctypehtml><head><meta charset=UTF-8><style>input[type=radio]{width:25px;height:25px}.slider{-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:5px;background:#d3d3d3;outline:0;opacity:.7;-webkit-transition:.2s;transition:opacity .2s}.slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:15px;height:15px;border-radius:50%;background:#6495ed;cursor:pointer}table{width:80%;table-layout:fixed;background:0 0}table,td,tr{background:0 0}</style><meta charset=UTF-8></head>
-		 <body> 
-			 <h1 style="text-align:center"><a href="https://robvanson.github.io/akouste/akousteHTMLtemplate.js">akousteHTMLtemplate.js</a> is missing</h1>
-			 <h3 style="text-align:center">Please download into the same folder as <em>akousteCreate.html</em></h3>
-			 <h3 style="text-align:center"><a href="https://robvanson.github.io/akouste/akousteHTMLtemplate.js">akousteHTMLtemplate.js</a> is required to create functioning experiments</h3>
-		 `;
-		 postamble = '</body>';
-	}
-</script>
-
-<script type="text/javascript">
-	// Extract the styles from the preamble
-		var experimentStyles = preamble.replace(/^(.|\n|\r)*<style/i, "<style");
-		experimentStyles = experimentStyles.replace(/<\/style>(?!(.|\n|\r)*<\/style>)(.|\n|\r)*/ig, "</style>");
 	
 		function readMDFromFile (elementId) {
 			mdFileText = "";
@@ -347,6 +350,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	var ToolTipReady = "Ready, please save results";
 	var ToolTipRestart = "Start a new experiment session";
 	var ToolTipSave = "Save the answer to a file";
+	var ExpLanguage = navigator.language || navigator.userLanguage;
 	var bodyStyleText = "";
 	var addDigestText = "false";
 
@@ -360,6 +364,10 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	var currentMarkdown = "";
 	var editPosition = 1;
 	var zoomValue = 1;
+	var markdownLinkify = true;
+	var markdownTypographer = true;
+	var markdownBreaks = false;
+
 	function initializeMarkdown() {
 		if(navigator.userAgent.match(/Android/i)){
 			document.getElementById('markdownText').style = 'font-family: Arial, Helvetica, sans-serif;';
@@ -486,6 +494,10 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			['[//parameter]: # "body.style:'+bodyStyleText.replace(/"`/g, "")+'"'],
 			['[//comment]: # "Add error checking digest to results"'],
 			['[//parameter]: # "addDigest:'+addDigestText.replace(/"`/g, "")+'"'],
+			['[//comment]: # "Parameters for Markdown"'],
+			['[//parameter]: # "Linkify:'+markdownLinkify+'"'],
+			['[//parameter]: # "Typographer:'+markdownTypographer+'"'],
+			['[//parameter]: # "Breaks:'+markdownBreaks+'"'],
 			['[//buttontext]: # "NextText:'+cleanString(NextText)+'"'],
 			['[//buttontext]: # "NextAlertText:'+cleanString(NextAlertText)+'"'],
 			['[//buttontext]: # "ReadyText:'+cleanString(ReadyText)+'"'],
@@ -498,6 +510,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			['[//tooltiptext]: # "ToolTipReady:'+cleanString(ToolTipReady)+'"'],
 			['[//tooltiptext]: # "ToolTipRestart:'+cleanString(ToolTipRestart)+'"'],
 			['[//tooltiptext]: # "ToolTipSave:'+cleanString(ToolTipSave)+'"'],
+			['[//tooltiptext]: # "ExpLanguage:'+cleanString(ExpLanguage)+'"'],
 			['[//comment]: # "----------"']
 		];
 		var stimulusTableLines = [];
@@ -522,6 +535,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 				lines[i].match(/\[\/\/comment\]: # ["']These are stimuli for this experiment["']/) || 
 				lines[i].match(/\[\/\/comment\]: # ["']CSS style for HTML body of page["']/) || 
 				lines[i].match(/\[\/\/comment\]: # ["']Add error checking digest to results["']/) || 
+				lines[i].match(/\[\/\/comment\]: # ["']Parameters for Markdown["']/) || 
 				lines[i].match(/\[\/\/comment\]: # ["']----------["']/)){
 				// Do nothing
 			} else {
@@ -595,6 +609,15 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 						case "addDigest":
 								addDigestText = parameterValue;
 							break;
+						case "Linkify":
+							markdownLinkify = (parameterValue == "true");
+							break;
+						case "Typographer":
+							markdownTypographer = (parameterValue == "true");
+							break;
+						case "Breaks":
+							markdownBreaks = (parameterValue == "true");
+							break;
 						case "NextText":
 							NextText = parameterValue;
 							break;
@@ -630,6 +653,9 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 							break;
 						case "ToolTipSave":
 							ToolTipSave = parameterValue;
+							break;
+						case "ExpLanguage":
+							ExpLanguage = parameterValue;
 							break;
 						 default:
 							break;
@@ -678,6 +704,13 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		document.getElementById('ToolTipSave').value = ToolTipSave;
 		
 		document.getElementById('SaveText').value = SaveText;
+		
+		document.getElementById('ExpLanguage').value = ExpLanguage;
+
+		document.getElementById('linkify').checked = markdownLinkify;
+		document.getElementById('typographer').checked = markdownTypographer;
+		document.getElementById('mdbreaks').checked = markdownBreaks;
+
 	};
 	
 	function onlyUnique(value, index, array) {
@@ -761,6 +794,9 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	};
 	
 	function createDisplayHTMLpage (text) {
+		// Extract the styles from the preamble
+		var experimentStyles = preamble.replace(/^(.|\n|\r)*<style/i, "<style");
+		experimentStyles = experimentStyles.replace(/<\/style>(?!(.|\n|\r)*<\/style>)(.|\n|\r)*/ig, "</style>");
 		
 		var fullPage = '<!DOCTYPE html><head>\n'+experimentStyles + '\n\<script  type="text/javascript"\>\n' + `
 			function stopAllAudio () {
@@ -799,7 +835,10 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		currentMarkdown = document.getElementById('markdownText').value ;
 		var processedMarkdown = preProcessMD (currentMarkdown);
 		var htmlText = window.markdownit({
-			  html: true
+			  html: true,
+			  linkify: markdownLinkify,
+			  typographer: markdownTypographer,
+			  breaks: markdownBreaks
 		}).render(processedMarkdown);
 		HTMLchanged = false;
 
@@ -1025,7 +1064,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	var buttonCounter = 0;
 	function brackets2radiobuttons (text, offset, string) {
 		buttonCounter += 1;
-		result = '<input type="radio" value="'+buttonCounter+'" name="QuestionXXXX" id="QuestionXXXX.'+ buttonCounter +'" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value">';
+		result = '<input type="radio" value="'+buttonCounter+'" title="'+buttonCounter+'" name="QuestionXXXX" id="QuestionXXXX.'+ buttonCounter +'" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value">';
 		
 		return result;
 	};
@@ -1045,7 +1084,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	};
 	
 	function replaceVASslider (text) {
-		return text.replace(/\>\>[-]{10,}\<\</g,	'<input type="range" min="1" max="1000" value="500" class="slider" id="QuestionXXXX" name="QuestionXXXX" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value" style="width:100%;">')
+		return text.replace(/\>\>[-]{10,}\<\</g,	'<input type="range" min="1" max="1000" value="500" title="50%" class="slider" id="QuestionXXXX" name="QuestionXXXX" onchange="unblockNext(\'QuestionXXXX\')" oninput="answer[XXXX - 1]=this.value;title=Math.round(this.value/10)+`%`" style="width:100%;">')
 	};
 	
 	// Input text field <<| default text { css style }|>>
@@ -1063,7 +1102,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	function replaceTextItems (text) {
 		// Fixed text field (iframe) {{{< url >|  css style }}}
 		// First, remove the fixed, iFrame cases
-		text = text.replace(/\{\{\{\<([^\>\|\¦\\]*[^\>\|\¦\\\s])\s*\>(\s*\\?[\|\¦]([^\}]*))?\}\}\}/g, '<iframe id="FixedText$1" src="$1"   scrolling="auto" name="FixedText" style="$3"></iframe>');;
+		text = text.replace(/\{\{\{\<([^\>\|\¦\\]*[^\>\|\¦\\\s])\s*\>(\s*\\?[\|\¦]([^\}]*))?\}\}\}/g, '<iframe id="FixedText$1" src="$1"   scrolling="auto" name="FixedText" style="$3"></iframe>');
 
 		// Parameter fields {{{! parameter ! | css style }}}
 		text = text.replace(/\{\{\{!\s*([^\|!\¦]*[^\|!\¦\s])\s*!(\s*\\?[\|\¦]([^\}]*))?\}\}\}/g, '<span id="$1" name="parameterText" style="$3">XXXX</span>');
@@ -1086,7 +1125,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	function replaceImage (text) {
 		// Fixed image {{§< url >|  css style §}}
 		// First, remove the fixed, iFrame cases
-		text = text.replace(/\{\{§\<([^\>\|\¦\\]*[^\>\|\¦\\\s])\s*\>(\s*\\?[\|\¦]([^\}§]*))?§\}\}/g, '<img id="FixedImage$1" src="$1"  alt="" name="FixedImage" style="$3">');;
+		text = text.replace(/\{\{§\<([^\>\|\¦\\]*[^\>\|\¦\\\s])\s*\>(\s*\\?[\|\¦]([^\}§]*))?§\}\}/g, '<img id="FixedImage$1" src="$1"  alt="" name="FixedImage" style="$3">');
 
 		// StimulusTable references {{§ stimulus | css style §}}
 		var imageNamesRaw = text.match(/\{\{§([^§\}]+)§\}\}/g);
@@ -1223,6 +1262,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			processedPreamble = processedPreamble.replace(/XXToolTipReadyXX/g, ToolTipReady);
 			processedPreamble = processedPreamble.replace(/XXToolTipRestartXX/g, ToolTipRestart);
 			processedPreamble = processedPreamble.replace(/XXToolTipSaveXX/g, ToolTipSave);
+			processedPreamble = processedPreamble.replace(/XXExpLanguageXX/g, ExpLanguage);
 			processedPreamble = processedPreamble.replace(/XXstimulusTableJSONXX/g, stimulusTableJSON);
 			
 			audioNamesString  = (audioNames.length > 0) ? '"' + audioNames.join('", "')+ '"'     : "";
@@ -1302,6 +1342,12 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 					bodyStyleText = "";
 				};
 		};
+		
+		// Handle missing akousteHTMLtemplate.js
+		if(preamble == null || typeof preamble != "string"){
+			 preamble =  noPreamble ;
+			 postamble = '</body>';
+		}
 
 		// Set Zoom of HTML Text frame
 		var defaultZoom = 2.2;
@@ -1383,8 +1429,8 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		<tr>
 			<td  style='font-size:80%'>Play&nbsp;text: </td>
 			<td><input type="button" id="PlayTextButton" value=""  title="" style="background-color: MediumAquaMarine"></td>
-			<td><input type="text" id="PlayText" name="PlayText" value='' onfocus="if(this.value==PlayText)this.value='';" onchange="PlayText=this.value;document.getElementById('PlayTextButton').value=this.value;parameters2Markdown();" size=15></td>
-			<td><input type="text" id="ToolTipPlay" name="ToolTipPlay" value='' onchange="ToolTipPlay=this.value;document.getElementById('PlayTextButton').title=this.value;parameters2Markdown();" size=35></td>
+			<td><input type="text" id="PlayText" name="PlayText" value='' onfocus=";" onchange="PlayText=this.value;document.getElementById('PlayTextButton').value=this.value;parameters2Markdown();markdown2HTML();" size=15></td>
+			<td><input type="text" id="ToolTipPlay" name="ToolTipPlay" value='' onchange="ToolTipPlay=this.value;document.getElementById('PlayTextButton').title=this.value;parameters2Markdown();markdown2HTML();" size=35></td>
 		</tr>
 		<tr>
 			<td  style='font-size:80%'>Next&nbsp;text: </td>
@@ -1419,6 +1465,12 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			<td  style='font-size:80%'>Save&nbsp;text: </td><td>&nbsp;</td>
 			<td colspan="2"><input type="textarea" rows=2 id="SaveText" name="SaveText" value='' onchange="SaveText=this.value;parameters2Markdown();" size=50></td>
 		</tr>
+		<tr>
+			<td  style='font-size:80%'>Language: </td><td>&nbsp;</td>
+			<td><input type="textarea" rows=2 id="ExpLanguage" name="ExpLanguage" value='' onchange="ExpLanguage=this.value;parameters2Markdown();" size=5></td>
+			<td><a href='https://en.wikipedia.org/wiki/IETF_language_tag#List_of_common_primary_language_subtags' target="_blank">IETF</a> language code</td>
+		</tr>
+
 		<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 		</table>
 	</div>
@@ -1440,6 +1492,12 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 
 		<textarea id="markdownText" rows=50 cols=80 onfocusout="markdownPush();" onchange='markdown2HTML();' style='font-family: "Lucida Console", "Courier New", monospace;'>
 		</textarea><br />
+		<input type="checkbox" id="linkify" name="linkify" value="linkify" checked=true onchange='markdownLinkify=event.target.checked; parameters2Markdown(); markdown2HTML ()'>
+		<label for="likify" title="autoconvert link-like texts to links"> linkify</label> 
+        <input type="checkbox" id="typographer" name="typographer" value="typographer" checked=true onchange='markdownTypographer=event.target.checked; parameters2Markdown(); markdown2HTML ()'>
+		<label for="typographer" title="do typographic replacements, (c) → © and so on">typographer</label>
+        <input type="checkbox" id="mdbreaks" name="mdbreaks" value="mdbreaks" checked=false onchange='markdownBreaks=event.target.checked; parameters2Markdown(); markdown2HTML ()'>
+		<label for="mdbreaks" title="newlines in paragraphs are rendered as HTML breaks, <br>">breaks</label><br>
 	</div>
 
 	<div style="width: 50%; float: right;"> 
@@ -1466,3 +1524,4 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
  </div>
 
 </body>
+</html>

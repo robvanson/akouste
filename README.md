@@ -9,7 +9,7 @@ Version 2 [^1]
 
 [Try a minimal demo](./akousteCreate.html?ExperimentAcronym=Audiotest) with just an audio button, two stimuli, and a yes/no question
 
-[A more complete, and more complex, demo](./akousteCreate.html)  including an introduction and a selection of question forms
+[A more complete, and more complex, demo](./akousteCreate.html)  including an introduction and a selection of question forms. *Use **Switch Page** to switch between pages*
 
 ## Client-side listening experiments in the browser
 
@@ -29,7 +29,7 @@ To create a listening experiment, access to both [*akousteCreate.html*](./akoust
 
 For stimulus lists, *akousteCreate* will read .csv tables (comma-separated-values) as can be derived from most spreadsheet, database, or statistics applications. Columns in these tables should have names in a header row. The table should contain columns that contain the names of the stimulus files. The tables can store any other information that is convenient in other columns. It is OK if there is only a single column with stimulus file names. The path or URL to the folder that contains the stimulus files can be supplied separately, so it is not necessary to write out the path to each individual stimulus.
 
-The visual layout and text of the web page that presents the experiment is written in an easy to use Markdown format in an edit frame in *akousteCreate.html*. The web version is visible in another frame on the same page. The full page can be tested in a functional popup window (**Show Page**). As most, if not all, browsers block access to local files on the user's computer from an in-browser generated web page, it is not possible to test locally stored stimulus files in the popup window. 
+The visual layout and text of the web page that presents the experiment is written in an easy to use [Markdown format](https://www.markdownguide.org/getting-started/) in an edit frame in *akousteCreate.html*. The web version is visible in another frame on the same page. The full page can be tested in a functional popup window (**Show Page**). As most, if not all, browsers block access to local files on the user's computer from an in-browser generated web page, it is not possible to test locally stored stimulus files in the popup window. 
 
 In our demonstrations, we use web URLs to demonstrate the full functionality. But when designing and testing an experiment using local stimulus files, the experiment page should be saved to the local drive (**Save Experiment...**) after setting the (relative) path to the stimulus folder, and opened from there. It is strongly adviced to save the markdown of an experiment too, using **Save MD...**, as it will be needed to debug or adapt the experiment.
 
@@ -135,7 +135,7 @@ As the result files have to be communicated by the subjects themselves and might
 
 ## Markdown
 
-The user facing part of the experiment is a web-page. The text and layout of this page are designed using an adapted Markdown language, [markdown-it](https://markdown-it.github.io/). The markdown library is obtained from [https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/](https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/), *markdown-it.min.js*. This file can also be downloaded and stored locally in the same folder as *akousteCreate.html* when convenient. It will then be loaded automatically if the link is not available.
+The user facing part of the experiment is a web-page. The text and layout of this page are designed using an adapted Markdown language ([tutorial](https://devarshi.dev/blog/complete-markdown-tutorial-for-beginners)), [markdown-it](https://markdown-it.github.io/). HTML tags are allowed inside this markdown and automatic conversion of links (linkify) and line-breaks (breaks) and the replacement of typographic combinations (typographer) are optional. The markdown library is obtained from [https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/](https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/), *markdown-it.min.js*. This file can also be downloaded and stored locally in the same folder as *akousteCreate.html* when convenient. It will then be loaded automatically if the link is not available.
 
 A new experiment requires a lot of text writing. The editor of *akouseCreate.html* is not equiped for serious word processing. It is best to create the initial markdown document with a fully featured markdown editor and later upload it to *akouseCreate.html*. There are a large number of fully featured markdown desktop editors available, eg, [PanWriter](https://panwriter.com/), [Zettlr](https://www.zettlr.com/), [MarkText](https://www.marktext.cc/), or [Visual Studio Code](https://code.visualstudio.com/docs/languages/markdown/) with [Markdown Extensions](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one), as well as browser plugins, eg, [Markdown Editor](https://chromewebstore.google.com/detail/ekdcaddpmiodcipjfmffhhefijpdckaf) for Chrome.
 
@@ -190,6 +190,8 @@ After entering the page, the cover page is closed with a single line:
 > \[//coverpage\]: \# "End of coverpage"
 
 This will translate to an HTML file that contains two \<div\>'s, one for each page, the cover page and the experiment page. Only one of these \<div\>'s will be visible at any time. When the experiment file is loaded, only the cover page will be visible. The experiment only starts when the subject clicks on the **Next** button.
+
+In *akousteCreate*, the display switches from cover page to experiment page with the **Switch Page** button.
 
 ### The settings
 
@@ -335,7 +337,7 @@ When using online stimuli, all that has to be distributed is a link to the *\*__
 
 If the stimuli cannot be served from a web server, but have to reside locally, both the *\*__experiment.html* and the stimuli must be present at the subject's location. This can be on local (network) storage or on portable storage, eg, a USB thumbdrive. In such situations it is easiest to package the *\*__experiment.html* file, any accessory files, eg, *\*__stimuluslist.js*, *sha.js*, and the stimuli, eg, *Stimuli/\*.wav*, in a ZIP archive. 
 
-The experiment ZIP archive can be unpacked at the desired position for the subjects, and the experiment run by loading the *.html* file in a web browser. On some platforms, eg, MS Windows, such a ZIP file can be opened without unpacking and the experiment can be run directly from the ZIP file. This simplifies managing the files and prevents clutering the storage of the experimental computer. It also allows to easily produce several versions of the experiment with, eg, different stimulus lists (*\*__stimuluslist.js*), packaged with differently named ZIP archives.
+The experiment ZIP archive can be unpacked at the desired position for the subjects, and the experiment run by loading the *.html* file in a web browser. With some applications, it is possible to open a ZIP file without unpacking and the experiment can be run directly from the ZIP file.  
 
 ## Repositories
 

@@ -77,50 +77,35 @@
 	};
 </script>
 <script type="text/javascript" src='' ></script>
-<script type="text/javascript" src='' ></script>
 <script type="text/javascript">
-	if(typeof jsSHA == "function") {
-		// Hash Function definitions
-		function hex_sha1 (plaintext) {
-			var shaObj = new jsSHA("SHA-1", "TEXT");
-			shaObj.update(plaintext);
-			return shaObj.getHash("HEX");
-		};
-		function hex_sha256 (plaintext) {
-			var shaObj = new jsSHA("SHA-256", "TEXT");
-			shaObj.update(plaintext);
-			return shaObj.getHash("HEX");
-		};
-		function hex_sha512 (plaintext) {
-			var shaObj = new jsSHA("SHA-512", "TEXT");
-			shaObj.update(plaintext);
-			return shaObj.getHash("HEX");
-		};
-		function chained_sha (plaintext) {
-			return hex_sha256( hex_sha256( hex_sha512(plaintext) ) );
-		};
-	}
+	if(typeof window.jsSHA == 'undefined' || typeof window.jsSHA != "function") {
+		var script = document.createElement('script');
+		script.type='text/javascript';
+		script.src='' ;
+		document.getElementsByTagName('head')[0].appendChild(script);
+	};
 </script>
 
 <script type="text/javascript">
 var audioBaseURL = 'https://robvanson.github.io/PseudonymizeSpeech/Examples/Audio/';
 </script>
+<script type="text/javascript" src="ExpAcronym_examples/Pseudonymization_stimuluslist.js"></script>
 <script type="text/javascript" src="./Pseudonymization_stimuluslist.js"></script>
 <script type="text/javascript">
 // Insert stimulus table
 if(typeof stimulusTableJSON == 'undefined' || stimulusTableJSON == null || stimulusTableJSON.length == 0){
 	stimulusTableJSON = ` 
 [["A","B","X","SA","SB","SX"],
-[["LA_0004_E_9892674.flac","LA_0016_E_3432530.flac","LA_0004_E_7314361_LA_0046-1.flac","LA_0004","LA_0016","LA_0004"],
-["LA_0003_E_2088854.flac","LA_0015_E_2912526.flac","LA_0003_E_1335207_LA_0066-1.flac","LA_0003","LA_0015","LA_0003"],
-["LA_0002_E_5862458.flac","LA_0014_E_3452213.flac","LA_0002_E_8748336_LA_0009-3.flac","LA_0002","LA_0014","LA_0002"],
-["LA_0001_E_9516558.flac","LA_0013_E_5839040.flac","LA_0001_E_7952980_LA_0107-3.flac","LA_0001","LA_0013","LA_0001"]]]
+[["LA_0004_E_9892674.flac","LA_0016_E_3432530.flac","LA_0002_E_8748336_LA_0009-3.flac","LA_0004","LA_0016","LA_0002"],
+["LA_0003_E_2088854.flac","LA_0015_E_2912526.flac","LA_0001_E_7952980_LA_0107-3.flac","LA_0003","LA_0015","LA_0001"],
+["LA_0002_E_5862458.flac","LA_0014_E_3452213.flac","LA_0004_E_7314361_LA_0046-1.flac","LA_0002","LA_0014","LA_0004"],
+["LA_0001_E_9516558.flac","LA_0013_E_5839040.flac","LA_0003_E_1335207_LA_0066-1.flac","LA_0001","LA_0013","LA_0003"]]]
 `;
 };
 
 var NumberOfScales = 1;
 var RandomizeAB = true;
-var PracticeItems = 4;
+var PracticeItems = 2;
 var ShuffleStimulusList = true;
 var CurrentExperimentID = "Pseudonymization";
 
@@ -648,6 +633,30 @@ function SetUp() {
 	stimulusNbr = 0;
 	stimulusTable = loadList (); 
 	setAudio(stimulusNbr, stimulusTable);
+
+	// Construct SHA functions
+	if(typeof window.jsSHA != 'undefined' && typeof window.jsSHA == "function") {
+		// Hash Function definitions
+		window.hex_sha1 = function  (plaintext) {
+			var shaObj = new jsSHA("SHA-1", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		window.hex_sha256 = function (plaintext) {
+			var shaObj = new jsSHA("SHA-256", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		window.hex_sha512 = function (plaintext) {
+			var shaObj = new jsSHA("SHA-512", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		window.chained_sha = function (plaintext) {
+			return hex_sha256( hex_sha256( hex_sha512(plaintext) ) );
+		};
+	}
+
 	return 0;
 };
 
@@ -718,9 +727,9 @@ function SetUp() {
 <tr>
 <td></td>
 <td style="text-align:right"></td>
-<td style="text-align:center"><input type="radio" value="1" name="Question1" id="Question1.1" onchange="unblockNext('Question1')" oninput="answer[1 - 1]=this.value"></td>
+<td style="text-align:center"><input type="radio" value="1" title="1" name="Question1" id="Question1.1" onchange="unblockNext('Question1')" oninput="answer[1 - 1]=this.value"></td>
 <td style="text-align:center">Your Choice</td>
-<td style="text-align:center"><input type="radio" value="2" name="Question1" id="Question1.2" onchange="unblockNext('Question1')" oninput="answer[1 - 1]=this.value"></td>
+<td style="text-align:center"><input type="radio" value="2" title="2" name="Question1" id="Question1.2" onchange="unblockNext('Question1')" oninput="answer[1 - 1]=this.value"></td>
 <td style="text-align:left"></td>
 <td></td>
 </tr>
