@@ -67,7 +67,11 @@ preamble = `<!DOCTYPE html>
 	document.onkeyup = function (e) {
 		if(typeof document.getElementById('KeyStroke') != undefined) {
 			currentKey = e.key;
-			document.getElementById('KeyStroke').innerHTML = currentKey;
+			var allowedKeys = document.getElementById('KeyStroke').className;
+			if(typeof allowedKeys == 'undefined' || allowedKeys == '' || (document.getElementById('KeyStroke').className).match(currentKey)){
+				document.getElementById('KeyStroke').innerHTML = currentKey;
+				document.getElementById('KeyStroke').click();
+			}
 		} 
 	};
 
@@ -458,6 +462,8 @@ function nextStimulus () {
 				} else if (object.type == "text" && object.name.match(/^Question/)) {
 					questionNum = Number(object.name.replace(/^Question/g, ""))
 					object.value = object.title;
+				} else if (object.tagName == "SPAN") {
+					object.innerHTML =object.title;
 				};
 			};
 		}
