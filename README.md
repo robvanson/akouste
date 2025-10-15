@@ -161,8 +161,8 @@ Three constructs are defined to collect subject evaluations based on answers in 
 
 - A row of \(\(\)\) is translated to a row of radio buttons. All radio buttons on a line will be combined in a single radio-button row. It is best to put the individual buttons and their labels into a table for consistent placement (see example markdown files).
 - \>\>----------\<\< (10 -dashes or more) will be transformed into a visual analogue slider.
-- \<\<\| text \|\>\> becomes a text input field with the *text* as default value.
-- @@@ text [keys] {style} @@@ captures general keystrokes. Only a single such construct can be present. The *text* is shown before a key is pressed, eg, *Press **q** or **p**.*, only the keys in *[keys]* are accepted, eg, *[qp]*. The key pressed will be shown in style. Style can also be *{visibility: hidden}*, if neither the text nor the keypresses should be shown.
+- \<\<\| text {style} \|\>\> becomes a text input field with the *text* as default value displayed in *style* (optional).
+- @@@ text [keys] {style} @@@ captures general keystrokes. Only a single such construct can be present. The *text* is shown before a key is pressed, eg, *Press **q** or **p**.*, only the keys in *[keys]* are accepted, eg, *[qp]* (optional). The key pressed will be shown in *style* (optional). Style can also be *{visibility: hidden}*, if neither the text nor the keypresses should be shown.
 
 *All* questions have to be answered (changed) before the subject can move to the next stimulus. Answers will be added to the Stimulus table with each question getting their own column, tagged Answer1, Answer2..., numbered in order of the questions on the page.
 
