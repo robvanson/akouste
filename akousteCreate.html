@@ -1227,11 +1227,12 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 				lines[i] = replaceVASslider (lines[i]);
 				lines[i] = lines[i].replace(/XXXX/g, questionNum);
 			};
-			if(lines[i].match(/\<\<[\|\¦]|[\|\¦]\>\>/)){
+			if(lines[i].match(/\<\<\\?[\|\¦][^\\\|\¦\>]+\\?[\|\¦]\>\>/)){
 				++questionNum;
 				lines[i] = replaceTextInput (lines[i]);
 				lines[i] = lines[i].replace(/XXXX/g, questionNum);
 			};
+
 			if(lines[i].match(/@@@[^@]+@@@/)){
 				++questionNum;
 				lines[i] = replaceKeystrokeInput (lines[i]);
