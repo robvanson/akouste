@@ -155,14 +155,18 @@ Four constructs are defined to present stimulus sounds, videos, images, and text
 
 *Note: Stimulus related constructs are not functional in the editor preview window of akousteCreate.html. Therefore, the stimulus is replaced by a short beep sound in the preview window. The text stimulus \{\{\{name\|style\}\}\} construct is replaced by* **XXXX** *in the preview window.*
 
-*All* sounds and video stimuli have to be played before the subject can proceed to the next stimulus.
+*All* sounds and video stimuli have to be played before the subject can proceed to the next stimulus. 
+
+Some browsers will automatically play audio or video. This can be added to stimuli with the **autoplay** keyword after the {}-style brackets (audio and video buttons, {}-brackets must be present, but can be empty, eg, *[[[A{}**autoplay**]]]*).
 
 Three constructs are defined to collect subject evaluations based on answers in the questionnaire:
 
 - A row of \(\(\)\) is translated to a row of radio buttons. All radio buttons on a line will be combined in a single radio-button row. It is best to put the individual buttons and their labels into a table for consistent placement (see example markdown files).
 - \>\>----------\<\< (10 -dashes or more) will be transformed into a visual analogue slider.
 - \<\<\| text {style} \|\>\> becomes a text input field with the *text* as default value displayed in *style* (optional).
-- @@@ text [keys] {style} @@@ captures general keystrokes. Only a single such construct can be present. The *text* is shown before a key is pressed, eg, *Press **q** or **p**.*, only the keys in *[keys]* are accepted, eg, *[qp]* (optional). The key pressed will be shown in *style* (optional). Style can also be *{visibility: hidden}*, if neither the text nor the keypresses should be shown.
+- @@@ text [keys] {style} @@@ captures general keystrokes. Only a single such construct can be present. The *text* is shown before a key is pressed, eg, *Press **q** or **p**.*, only the keys in *[keys]* are accepted, eg, *[qp]* for only ***p*** and ***q*** (optional). 
+
+When pressent, *{style}* (optional) controls how the text is presented. Style can also be *{visibility: hidden}*, which might be usefull for keystrokes if neither the text nor the keypresses should be shown.
 
 *All* questions have to be answered (changed) before the subject can move to the next stimulus. Answers will be added to the Stimulus table with each question getting their own column, tagged Answer1, Answer2..., numbered in order of the questions on the page.
 
