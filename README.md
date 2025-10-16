@@ -52,6 +52,8 @@ Examples (random audio, images, and video examples courtesy of [Wikimedia Common
 
 - Minimalistic [Imagetest experiment](./akousteCreate.html?ExperimentAcronym=Imagetest). Test use of images as stimuli
 
+- Minimalistic [Keystroketest experiment](./akousteCreate.html?ExperimentAcronym=Keystroketest). Test use of autoplay and keystroke capture
+
 Direct links to demonstration experiment *html* files
 
 - Direct to **online** [ABX Pseudonymization experiment](Experiment_HTML_Examples/Pseudonymization_experiment.html) 
