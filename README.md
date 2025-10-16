@@ -163,9 +163,9 @@ Four constructs are defined to present stimulus sounds, videos, images, and text
 
 Browsers can automatically play audio or video, but generally only after the user has "interacted" with the page. The required interaction can be induced by adding a sound button to a cover page and have the user listen to the audio. The **autoplay** keyword can be added to stimuli after the {}-style brackets (audio and video buttons, {}-brackets must be present, but can be empty, eg, *[[[A{}**autoplay**]]]*). The stimuli will then be played automatically on loading the page. It can be prudent to hide the **Play** button using the *visibility* style when using **autoplay**, eg, *[[[A{visibility:hidden}**autoplay**]]]*.
 
-### Collecting subject answers
+### Collecting subject responses
 
-Four constructs are defined to collect subject evaluations based on answers in the questionnaire:
+Four constructs are defined to collect subject responses from the questionnaire:
 
 - A row of \(\(\)\) is translated to a row of radio buttons (eg, Likert scale). All radio buttons on a line will be combined in a single radio-button row. It is best to put the individual buttons and their labels into a table for consistent placement (see example markdown files).
 - \>\>----------\<\< (10 -dashes or more) will be transformed into a visual analogue slider.
