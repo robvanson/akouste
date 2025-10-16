@@ -1,12 +1,35 @@
+[//comment]: # "Use the 'Start of coverpage' - 'End of coverpage' comments to insert a coverpage"
+[//coverpage]: # "Start of coverpage"
+
 <center>
 
 # akoúste test for keystroke capture and autoplay
 
-[[[A {} autoplay]]]
+## Cover page
+
+Please listen to the following sound:
+
+[[[Test | <https://upload.wikimedia.org/wikipedia/commons/transcoded/2/25/En-uk-a_few_sandwiches_short_of_a_picnic.ogg/En-uk-a_few_sandwiches_short_of_a_picnic.ogg.mp3?download>]]]
+
+Interacting with the page is necessary before the autoplay of the experiment will work. After listening, you can click next to start the real test.
+
+</center>
+
+
+[//coverpage]: # "End of coverpage"
+
+
+<center>
+
+# akoúste test for keystroke capture and autoplay
+
+[[[A {visibility:hidden} autoplay]]]
 
 ## {{{!answerstogo!|font-weight:bold}}} answers to go
 
-Minimal test of autoplay and key capture. Uses two sounds<sup>1</sup> from ./Stimuli as listed in Keystroketest_stimuluslist.js (in the same folder as the web page) or web audio when this stimuluslist is not available.
+Minimal test of autoplay and key capture. The <strong>Play</strong> button has been hidden and should play on loading the page. After entering a valid key, either the left or right arrow key, the next stimulus should appear.
+
+Uses two sounds<sup>1</sup> from ./Stimuli as listed in Keystroketest_stimuluslist.js (in the same folder as the web page) or web audio when this stimuluslist is not available.
 
 For it to work, JavaScript should be allowed, *Third-party cookies* should be allowed (Chrome, Edge and derived browsers),  or *cross-site tracking* should be allowed (ie, *not* prevented, Safari). Firefox and derived browsers seem to work in most settings. Internet Explorer (IE) does not work. Autoplay seems to work only in Safari.
 
@@ -18,7 +41,7 @@ For it to work, JavaScript should be allowed, *Third-party cookies* should be al
 
 ### Does this sound start with *ah* or not?
 
-@@@ Hit arrow key ← for <em>ah</em> and → for not <em>ah</em> [ArrowLeft,ArrowRight] {font-size:large;font-weight:bold;} @@@
+@@@ Hit arrow key ← (<) for <em>ah</em> and → (>) for not <em>ah</em> [ArrowLeft,ArrowRight,,,.] {font-size:large;font-weight:bold;} @@@
 
 </center>
 
