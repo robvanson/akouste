@@ -176,7 +176,7 @@ When pressent, *{style}* (optional) controls how the text is presented. Style ca
 
 *All* questions have to be answered (changed) before the subject can move to the next stimulus. Answers will be added to the Stimulus table with each question getting their own column, tagged Answer1, Answer2..., numbered in order of the questions on the page.
 
-Examples of all these constructs are available in the [Demonstrations and examples](#Demonstrations-and-examples) section.
+Examples of all these constructs are available in the [Demonstrations and examples](#demonstrations-and-examples) section.
 
 ### Extensions
 
