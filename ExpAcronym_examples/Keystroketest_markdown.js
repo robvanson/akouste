@@ -1,3 +1,4 @@
+initialMarkdown = ` 
 <center>
 
 # akoúste test for keystroke capture and autoplay
@@ -55,3 +56,4 @@ For it to work, JavaScript should be allowed, *Third-party cookies* should be al
 [//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/6/62/De-Aluminium.ogg"
 [//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg"
 [//comment]: # "----------"
+`
