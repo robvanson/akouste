@@ -33,7 +33,7 @@ The visual layout and text of the web page that presents the experiment is writt
 
 In our demonstrations, we use web URLs to demonstrate the full functionality. But when designing and testing an experiment using local stimulus files, the experiment page should be saved to the local drive (**Save Experiment...**) after setting the (relative) path to the stimulus folder, and opened from there. It is strongly adviced to save the markdown of an experiment too, using **Save MD...**, as it will be needed to debug or adapt the experiment.
 
-### Demonstrations and examples
+## Demonstrations and examples
 
 Examples (random audio, images, and video examples courtesy of [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page)):
 
