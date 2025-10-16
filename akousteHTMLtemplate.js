@@ -68,7 +68,7 @@ preamble = `<!DOCTYPE html>
 		if(typeof document.getElementById('KeyStroke') != undefined) {
 			currentKey = e.key;
 			var allowedKeys = document.getElementById('KeyStroke').className;
-			if(typeof allowedKeys == 'undefined' || allowedKeys == '' || (document.getElementById('KeyStroke').className).match(currentKey)){
+			if(typeof allowedKeys == 'undefined' || allowedKeys == '' || allowedKeys.match(","+currentKey+",")){
 				document.getElementById('KeyStroke').innerHTML = currentKey;
 				document.getElementById('KeyStroke').click();
 			}

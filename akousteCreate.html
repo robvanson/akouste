@@ -1094,8 +1094,8 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	
 	// Input text field <<| default text { css style }|>>
 	function replaceKeystrokeInput (text) {
-		// @@@ Default Text [ccc] {style} @@@
-		text = text.replace(/@@@\s*([^\[\{]*)\[\s*(\S+)\s*\]\s*(\{\s*([^\}\\]*[^\}\\\s])\s*\})?\s*\@@@/g,	'<span id="KeyStroke" name="QuestionXXXX" style="$4" class="$2" onclick="if(this.innerHTML != `$1`){answer[XXXX - 1]=this.innerHTML; unblockNext(`QuestionXXXX`)}" title="$1">$1</span>');
+		// @@@ Default Text [ccc] {style} @@@ Note the addition of flanking , to the list of accepted keys
+		text = text.replace(/@@@\s*([^\[\{]*)\[\s*(\S+)\s*\]\s*(\{\s*([^\}\\]*[^\}\\\s])\s*\})?\s*\@@@/g,	'<span id="KeyStroke" name="QuestionXXXX" style="$4" class=",$2," onclick="if(this.innerHTML != `$1`){answer[XXXX - 1]=this.innerHTML; unblockNext(`QuestionXXXX`)}" title="$1">$1</span>');
 		
 		// @@@ Default Text {style} @@@		
 		text =  text.replace(/@@@\s*([^\{]*)\s*(\{\s*([^\}\\]*[^\}\\\s])\s*\})?\s*\@@@/g,	'<span id="KeyStroke" name="QuestionXXXX" style="$3" onclick="if(this.innerHTML != `$1`){answer[XXXX - 1]=this.innerHTML; unblockNext(`QuestionXXXX`)}" title="$1">$1</span>');
