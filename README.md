@@ -11,6 +11,8 @@ Version 2 [^1]
 
 [A more complete, and more complex, demo](./akousteCreate.html)  including an introduction and a selection of question forms. *Use **Switch Page** to switch between pages*
 
+More [examples](#demonstrations-and-examples)
+
 ## Client-side listening experiments in the browser
 
 The *akoúste* project aims to provide tools for simple, adaptable listening experiments. *akoúste* is specially designed for situations where the use of a dynamic host server storing and serving the speech and collecting the responses over the internet is unpractical or unwanted, e.g., due to privacy concerns. *akoúste* pages can be used both on desk/laptops and on mobile devices, with and without a network connection. As not all "listening" is limited to the ears, text, images, and video can also be used.
