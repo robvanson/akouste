@@ -33,6 +33,8 @@ The visual layout and text of the web page that presents the experiment is writt
 
 In our demonstrations, we use web URLs to demonstrate the full functionality. But when designing and testing an experiment using local stimulus files, the experiment page should be saved to the local drive (**Save Experiment...**) after setting the (relative) path to the stimulus folder, and opened from there. It is strongly adviced to save the markdown of an experiment too, using **Save MD...**, as it will be needed to debug or adapt the experiment.
 
+### Demonstrations and examples
+
 Examples (random audio, images, and video examples courtesy of [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page)):
 
 - [AB comparison](./akousteCreate.html?ExperimentAcronym=ABexample)
@@ -159,18 +161,22 @@ Four constructs are defined to present stimulus sounds, videos, images, and text
 
 *All* sounds and video stimuli have to be played before the subject can proceed to the next stimulus. 
 
-Some browsers will automatically play audio or video. This can be added to stimuli with the **autoplay** keyword after the {}-style brackets (audio and video buttons, {}-brackets must be present, but can be empty, eg, *[[[A{}**autoplay**]]]*).
+Browsers can automatically play audio or video, but generally only after the user has "interacted" with the page. The required interaction can be induced by adding a sound button to a cover page and have the user listen to the audio. The **autoplay** keyword can be added to stimuli after the {}-style brackets (audio and video buttons, {}-brackets must be present, but can be empty, eg, *[[[A{}**autoplay**]]]*). The stimuli will then be played automatically on loading the page. It can be prudent to hide the **Play** button using the *visibility* style when using **autoplay**, eg, *[[[A{visibility:hidden}**autoplay**]]]*.
 
-Three constructs are defined to collect subject evaluations based on answers in the questionnaire:
+### Collecting subject answers
 
-- A row of \(\(\)\) is translated to a row of radio buttons. All radio buttons on a line will be combined in a single radio-button row. It is best to put the individual buttons and their labels into a table for consistent placement (see example markdown files).
+Four constructs are defined to collect subject evaluations based on answers in the questionnaire:
+
+- A row of \(\(\)\) is translated to a row of radio buttons (eg, Likert scale). All radio buttons on a line will be combined in a single radio-button row. It is best to put the individual buttons and their labels into a table for consistent placement (see example markdown files).
 - \>\>----------\<\< (10 -dashes or more) will be transformed into a visual analogue slider.
 - \<\<\| text {style} \|\>\> becomes a text input field with the *text* as default value displayed in *style* (optional).
-- @@@ text [keys] {style} @@@ captures general keystrokes. Only a single such construct can be present. The *text* is shown before a key is pressed, eg, *Press **q** or **p**.*, and is also the tooltip. Only the (optional) comma-separated keys in *[keys]* are accepted, eg, *[q,p]* for only ***p*** and ***q*** or *[**ArrowLeft**,**ArrowRight**]* for the left- and right-arrow keys ([**,**,**.**] is a valid way to accept the comma and period keys). Captured keys trigger the **Next** button and stimulus if all requisites for the stimulus are fulfilled.
+- @@@ text [keys] {style} @@@ captures general keystrokes. Only a single such construct can be present. The *text* is shown before a key is pressed, eg, *Press **q** or **p**.*, and is also the tooltip. Only the (optional) comma-separated keys in *[keys]* are accepted, eg, *[q,p]* for only ***q*** and ***p*** or *[**ArrowLeft**,**ArrowRight**]* for the left- and right-arrow keys ([**,**,**.**] is a valid way to accept the comma '**,**' and period '**.**' keys). Captured keys trigger the **Next** button and stimulus if all requisites for the next stimulus are fulfilled.
 
 When pressent, *{style}* (optional) controls how the text is presented. Style can also be *{visibility: hidden}*, which might be usefull for keystrokes if neither the text nor the keypresses should be shown.
 
 *All* questions have to be answered (changed) before the subject can move to the next stimulus. Answers will be added to the Stimulus table with each question getting their own column, tagged Answer1, Answer2..., numbered in order of the questions on the page.
+
+Examples of all these constructs are available in the [Demonstrations and examples](#Demonstrations-and-examples) section.
 
 ### Extensions
 
