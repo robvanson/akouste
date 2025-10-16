@@ -164,7 +164,7 @@ Three constructs are defined to collect subject evaluations based on answers in 
 - A row of \(\(\)\) is translated to a row of radio buttons. All radio buttons on a line will be combined in a single radio-button row. It is best to put the individual buttons and their labels into a table for consistent placement (see example markdown files).
 - \>\>----------\<\< (10 -dashes or more) will be transformed into a visual analogue slider.
 - \<\<\| text {style} \|\>\> becomes a text input field with the *text* as default value displayed in *style* (optional).
-- @@@ text [keys] {style} @@@ captures general keystrokes. Only a single such construct can be present. The *text* is shown before a key is pressed, eg, *Press **q** or **p**.*, and is also the tooltip. Only the (optional) comma-separated keys in *[keys]* are accepted, eg, *[q,p]* for only ***p*** and ***q*** or *[**ArrowLeft**,**ArrowRight**]* for the left- and right-arrow keys. 
+- @@@ text [keys] {style} @@@ captures general keystrokes. Only a single such construct can be present. The *text* is shown before a key is pressed, eg, *Press **q** or **p**.*, and is also the tooltip. Only the (optional) comma-separated keys in *[keys]* are accepted, eg, *[q,p]* for only ***p*** and ***q*** or *[**ArrowLeft**,**ArrowRight**]* for the left- and right-arrow keys. Captured keys trigger the **Next** button and stimulus if all requisites for the stimulus are fulfilled.
 
 When pressent, *{style}* (optional) controls how the text is presented. Style can also be *{visibility: hidden}*, which might be usefull for keystrokes if neither the text nor the keypresses should be shown.
 
