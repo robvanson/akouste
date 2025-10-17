@@ -8,14 +8,15 @@ initialMarkdown = `
 
 ## Cover page
 
-#### Please listen to the following sound:
+#### Please listen to the following sound<sup>*</sup>:
 
-[[[Play | <https://upload.wikimedia.org/wikipedia/commons/transcoded/2/25/En-uk-a_few_sandwiches_short_of_a_picnic.ogg/En-uk-a_few_sandwiches_short_of_a_picnic.ogg.mp3?download>]]]
+[[[Play | <https://upload.wikimedia.org/wikipedia/commons/2/25/En-uk-a_few_sandwiches_short_of_a_picnic.ogg> {font-size:larger}]]]  
 
 Interacting with the page is necessary before the autoplay of the experiment will work. After listening, you can click next to start the real test.
 
 </center>
 
+<sup>*</sup> <a href="https://commons.wikimedia.org/wiki/File:En-uk-a_few_sandwiches_short_of_a_picnic.ogg">From Wikimedia</a>
 
 [//coverpage]: # "End of coverpage"
 
@@ -42,7 +43,7 @@ For it to work, JavaScript should be allowed, *Third-party cookies* should be al
 
 ### Does this sound start with *ah* or not?
 
-@@@ Hit arrow key ← (<) for <em>ah</em> and → (>) for not <em>ah</em> [ArrowLeft,ArrowRight,,,.] {font-size:large;font-weight:bold;} @@@
+@@@ Hit arrow key ← (<) for <em>ah</em> and → (>) for not <em>ah</em> [ArrowLeft,ArrowRight,,,.] {font-size:larger;font-weight:bold;} @@@
 
 </center>
 
