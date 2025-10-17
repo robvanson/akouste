@@ -1338,18 +1338,6 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
         };
 
 	function setUp() {
-		if(window.location.search.match(/ExperimentAcronym\=/)){
-				fileName = window.location.search.replace(/^.*ExperimentAcronym\=([^&]+)[&]?.*$/g, "$1");
-				if(fileName.length > 0){
-					// Clear body.style
-					bodyStyleText = "";
-					
-					loadMarkdown('ExpAcronym_examples/'+fileName+'_markdown.js');
-					if(document.getElementById('ExperimentAcronym').value !=  fileName) {
-						loadMarkdown('./'+fileName+'_markdown.js');
-					};
-				};
-		};
 		
 		// Handle missing akousteHTMLtemplate.js
 		if(preamble == null || typeof preamble != "string"){
@@ -1369,7 +1357,22 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			default: zoomValue = defaultZoom;
 		};
 		
-		initializeMarkdown();
+		if(window.location.search.match(/ExperimentAcronym\=/)){
+				fileName = window.location.search.replace(/^.*ExperimentAcronym\=([^&]+)[&]?.*$/g, "$1");
+				if(fileName.length > 0){
+					// Clear body.style
+					bodyStyleText = "";
+					
+					loadMarkdown('ExpAcronym_examples/'+fileName+'_markdown.js');
+					if(document.getElementById('ExperimentAcronym').value !=  fileName) {
+						loadMarkdown('./'+fileName+'_markdown.js');
+					};
+				} else {
+					initializeMarkdown();
+				};
+		} else {
+			initializeMarkdown();
+		};
 	};
 	
 </script>
