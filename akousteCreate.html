@@ -2,6 +2,8 @@
 <html lang='en-US'>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+
 <link rel="apple-touch-icon" sizes="57x57" href="favicon/favicon-57x57.png" type="image/png" />
 <link rel="apple-touch-icon" sizes="60x60" href="favicon/favicon-60x60.png" type="image/png" />
 <link rel="apple-touch-icon" sizes="72x72" href="favicon/favicon-72x72.png" type="image/png" />
@@ -798,7 +800,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		var experimentStyles = preamble.replace(/^(.|\n|\r)*<style/i, "<style");
 		experimentStyles = experimentStyles.replace(/<\/style>(?!(.|\n|\r)*<\/style>)(.|\n|\r)*/ig, "</style>");
 		
-		var fullPage = '<!DOCTYPE html><head>\n'+experimentStyles + '\n\<script  type="text/javascript"\>\n' + `
+		var fullPage = '<!DOCTYPE html><head>\n<meta charset="UTF-8">\n'+experimentStyles + '\n\<script  type="text/javascript"\>\n' + `
 			function stopAllAudio () {
 				var audioPlayers = document.getElementsByTagName('Audio');
 				for(i in audioPlayers){
