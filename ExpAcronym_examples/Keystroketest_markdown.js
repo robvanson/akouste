@@ -8,9 +8,9 @@ initialMarkdown = `
 
 ## Cover page
 
-Please listen to the following sound:
+#### Please listen to the following sound:
 
-[[[Test | <https://upload.wikimedia.org/wikipedia/commons/transcoded/2/25/En-uk-a_few_sandwiches_short_of_a_picnic.ogg/En-uk-a_few_sandwiches_short_of_a_picnic.ogg.mp3?download>]]]
+[[[Play | <https://upload.wikimedia.org/wikipedia/commons/transcoded/2/25/En-uk-a_few_sandwiches_short_of_a_picnic.ogg/En-uk-a_few_sandwiches_short_of_a_picnic.ogg.mp3?download>]]]
 
 Interacting with the page is necessary before the autoplay of the experiment will work. After listening, you can click next to start the real test.
 
