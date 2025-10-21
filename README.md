@@ -1,5 +1,6 @@
 <p style='text-align:center'>
-<img src='./akouste-ear.png' alt='akoúste logo' />
+
+![akoúste logo](./akouste-ear.png)
 
 </p>
 
