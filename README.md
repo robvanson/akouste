@@ -371,7 +371,7 @@ The experiment ZIP archive can be unpacked at the desired position for the subje
 
 ### What's in a name
 
-*akoúste* is a latinized transcription of *ακούστε*, which is Greek for *'listen'*. The Greek original is pronounced as [aˈkus.te] (IPA).
+*akoúste* is a latinized transcription of *ακούστε*, which is Greek for *'listen'*. The Greek original is pronounced as [aˈkus.te] ([IPA](https://dictionary.cambridge.org/us/pronunciation/english/international-phonetic-alphabet "How to pronounce the International Phonetic Alphabet in English")).
 
 ---------
 
