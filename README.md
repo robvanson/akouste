@@ -1,9 +1,5 @@
 <p style='text-align:center'>
-
-
-![akoúste logo](./akouste-ear.png)
-
-
+<img src='./akouste-ear.png' alt='akoúste logo' title="akoúste ear logo" />
 </p>
 
 <H1 style='text-align: center'> akoúste</H1>
