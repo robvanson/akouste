@@ -104,11 +104,11 @@ The final experiment is created, after clicking **Show page** or **Save experime
 
 ## User Interface
 
-The editor is a web page with on top two blocks of experiment settings. Top-left are settings relevant to the stimulus presentation. Top-right the texts used for the buttons and information to steer the subjects in their responses and experiment.
+The editor is a web page with on top two blocks of experiment settings. Top-left are settings relevant to the stimulus presentation. Top-right are the texts used for the buttons and information to steer the subjects in their responses and experiment.
 
 At the bottom are two frames. To the left is the Markdown edit window. The text and media presented during the experiment can be edited and formated here. To the right is a Display/HTML frame. It shows the rendered HTML created from the Markdown (**Display HTML**) or the HTML source text (**HTML text**). This is just the HTML created from the Markdown. This is not functional. The HTML source text can be edited directly. However, this will disappear easily, so any changes not transfered to the markdown should be saved using the **Save Experiment...** button.
 
-<img src="./akousteCreateScreenshot.jpg" title="" alt="*User Interface of akoústeCreate.html*" data-align="center">
+[ ![User Interface](./akousteCreateScreenshot.jpg) ](./akousteCreateScreenshot.jpg)
 
 *User Interface of akousteCreate.html*
 
