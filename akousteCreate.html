@@ -58,13 +58,14 @@ function loadMarkdown(fileName) {
 			 <h3 style="text-align:center">Please download into the same folder as <em>akousteCreate.html</em></h3>
 			 <h3 style="text-align:center"><a href="https://robvanson.github.io/akouste/akousteHTMLtemplate.js">akousteHTMLtemplate.js</a> is required to create functioning experiments</h3>
 	` ;
+</script>
+<script type="text/javascript">
 	var preamble;
 	if(preamble == null || typeof preamble != "string"){
 		var script = document.createElement('script');
 		script.type='text/javascript';
 		script.src = 'https://robvanson.github.io/akouste/akousteHTMLtemplate.js';
 		document.getElementsByTagName('head')[0].appendChild(script);
-		console.log(script.src);
 	};
 </script>
 
