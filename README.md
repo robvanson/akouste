@@ -369,6 +369,10 @@ The experiment ZIP archive can be unpacked at the desired position for the subje
 
 † *Contains functional* akoúste *web site with examples*
 
+### What's in a name
+
+*akoúste* is a latinized transcription of *ακούστε*, which is Greek for *'listen'*. The Greek original is pronounced as [aˈkus.te] (IPA).
+
 ---------
 
 [^1]: Version 1 has moved to [Github akouste-v1](https://github.com/robvanson/akouste-v1)  
