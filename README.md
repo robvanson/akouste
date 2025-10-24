@@ -150,13 +150,13 @@ A new experiment requires a lot of text writing. The editor of *akouseCreate.htm
 
 Four constructs are defined to present stimulus sounds, videos, images, and texts to subjects:
 
-- \[\[\[text\|name\{style\}\]\]\] creates an audio button showing *text* in *style*, playing the audio files mentioned in column *name*.   
+- **\[\[\[text\|name\{style\}\]\]\]** creates an audio button showing *text* in *style*, playing the audio files mentioned in column *name*.   
   For instance, \[\[\[Speaker A\|A\{font-style: italic;\}\]\]\] would show a button with the text *Speaker A* in italic and play the current stimulus in the column labeled *A* of the stimulus table.
-- \[\[§ alt-text\|name\{style\} §\]\] embeds a video in the page in *style*, playing the video files mentioned in column *name*.  The *alt-text* part likely does not work and can be ommited. *Style* should include the desired dimensions, *width* or *height*, of the video, eg, *\{width=30%;height:auto;\}*. The embeded video will show the current source file as a tooltip when the mouse hovers over the video. This is unwanted but cannot be changed.   
+- **\[\[§ alt-text\|name\{style\} §\]\]** embeds a video in the page in *style*, playing the video files mentioned in column *name*.  The *alt-text* part likely does not work and can be ommited. *Style* should include the desired dimensions, *width* or *height*, of the video, eg, *\{width=30%;height:auto;\}*. The embeded video will show the current source file as a tooltip when the mouse hovers over the video. This is unwanted but cannot be changed.   
   *Note: Browsers differ in which video formats they support. Test your browser platforms before deployment.*
-- \{\{\{name\|style\}\}\} creates a text field showing the string in column *name* in *style*.   
+- **\{\{\{name\|style\}\}\}** creates a text field showing the string in column *name* in *style*.   
   For instance, \{\{\{LangA\|font-style: italic;\}\}\} would show the text in *italic* of the current stimulus in the column labeled *LangA* of the stimulus table.
-- \{\{§name\|style§\}\} inserts an image showing the image linked in column *name* in *style*.  The style should include the dimensions of the image, eg, \{\{§name\|width:30%;height:auto;§\}\}
+- **\{\{§name\|style§\}\}** inserts an image showing the image linked in column *name* in *style*.  The style should include the dimensions of the image, eg, \{\{§name\|width:30%;height:auto;§\}\}
 
 *Note: Stimulus related constructs are not functional in the editor preview window of akousteCreate.html. Therefore, the stimulus is replaced by a short beep sound in the preview window. The text stimulus \{\{\{name\|style\}\}\} construct is replaced by* **XXXX** *in the preview window.*
 
@@ -168,10 +168,10 @@ Browsers can automatically play audio or video, but generally only after the use
 
 Four constructs are defined to collect subject responses from the questionnaire:
 
-- A row of \(\(\)\) is translated to a row of radio buttons (eg, Likert scale). All radio buttons on a line will be combined in a single radio-button row. It is best to put the individual buttons and their labels into a table for consistent placement (see example markdown files).
-- \>\>----------\<\< (10 -dashes or more) will be transformed into a visual analogue slider.
-- \<\<\| text {style} \|\>\> becomes a text input field with the *text* as default value displayed in *style* (optional).
-- @@@ text [keys] {style} @@@ captures general keystrokes. Only a single such construct can be present. The *text* is shown before a key is pressed, eg, *Press **q** or **p**.*, and is also the tooltip. Only the (optional) comma-separated keys in *[keys]* are accepted, eg, *[q,p]* for only ***q*** and ***p*** or *[**ArrowLeft**,**ArrowRight**]* for the left- and right-arrow keys ([**,**,**.**] is a valid way to accept the comma '**,**' and period '**.**' keys). Captured keys trigger the **Next** button and stimulus if all requisites for the next stimulus are fulfilled.
+- A row of **\(\(\)\)** is translated to a row of radio buttons (eg, Likert scale). All radio buttons on a line will be combined in a single radio-button row. It is best to put the individual buttons and their labels into a table for consistent placement (see example markdown files).
+- **\>\>----------\<\<** (10 -dashes or more) will be transformed into a visual analogue slider.
+- **\<\<\| text {style} \|\>\>** becomes a text input field with the *text* as default value displayed in *style* (optional).
+- **@@@ text [keys] {style} @@@** captures general keystrokes. Only a single such construct can be present. The *text* is shown before a key is pressed, eg, *Press **q** or **p**.*, and is also the tooltip. Only the (optional) comma-separated keys in *[keys]* are accepted, eg, *[q,p]* for only ***q*** and ***p*** or *[**ArrowLeft**,**ArrowRight**]* for the left- and right-arrow keys ([**,**,**.**] is a valid way to accept the comma '**,**' and period '**.**' keys). Captured keys trigger the **Next** button and stimulus if all requisites for the next stimulus are fulfilled.
 
 When pressent, *{style}* (optional) controls how the text is presented. Style can also be *{visibility: hidden}*, which might be usefull for keystrokes if neither the text nor the keypresses should be shown.
 
