@@ -867,6 +867,23 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		setHTMLdisplayButtonColor ();
 		document.getElementById('ShowButton').style.backgroundColor = "red";
 		
+		if(typeof openWindow !=  'undefined'){			
+			// Finish HTML and open page
+			var coverPage = openWindow.document.getElementById("coverpage").style.display;
+			var experimentPage = openWindow.document.getElementById("experimentpage").style.display;
+			var text = document.getElementById('htmlText').value;
+			var preambleProc = preProcessPreamble(preamble);
+			var postambleProc = preProcessPreamble(postamble);
+			const pageHTML = preambleProc + text + postambleProc;
+			openWindow.document.open()
+   			openWindow.document.write(pageHTML);
+			openWindow.document.close()
+			if(typeof coverPage == 'string'){
+				openWindow.document.getElementById("coverpage").style.display = coverPage;
+				openWindow.document.getElementById("experimentpage").style.display = experimentPage;
+			};
+		};
+		
 		return document.getElementById('htmlText').value ;
 	}
 	
@@ -972,6 +989,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	};
 	
 	var HTMLchanged = false;
+	var openWindow;
 	function openAndWrite(preamble, text, postamble) {
 		if(!HTMLchanged){
 			markdown2HTML();
@@ -991,11 +1009,12 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		var postambleProc = preProcessPreamble(postamble);
 		const pageHTML = preambleProc + text + postambleProc;
 		winUrl = HTML2URL (pageHTML);
-		const win = window.open(
+		openWindow = window.open(
 			winUrl,
 			"RenderedHTML",
 			"popup"
 			);
+
 		if(HTMLchanged){
 			document.getElementById('ShowButton').style.backgroundColor = "pink";
 		} else {
