@@ -1,9 +1,9 @@
 initialMarkdown = ` 
 <center>
 
-# Who is the unknown speaker? Speaker A or B?
+# Who is most like speaker X? Speaker A or B?
 
-## The voices of the speakers A and B have been changed. Which one do you think is the unknown speaker X?
+## Which one of the voices, speakers A and B, do you think is most like speaker X?
 
 ## {{{!answerstogo!\|font-weight:bold}}} answers to go
 
@@ -18,7 +18,7 @@ initialMarkdown = `
 
 <center>
 
-### Which spreaker, A or B is the unknown speaker X
+### Which spreaker, A or B, is most like speaker X
 
 |     |     |       |             |       |     |     |
 | --- | ---:|:-----:|:-----------:|:-----:|:--- | --- |
