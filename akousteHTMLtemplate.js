@@ -66,7 +66,7 @@ preamble = `<!DOCTYPE html>
 	// Record keystrokes
 	var currentKey = "";
 	document.onkeyup = function (e) {
-		if(typeof document.getElementById('KeyStroke') != undefined) {
+		if(typeof document.getElementById('KeyStroke') != undefined && document.getElementById('KeyStroke')) {
 			currentKey = e.key;
 			var allowedKeys = document.getElementById('KeyStroke').className;
 			if(typeof allowedKeys == 'undefined' || allowedKeys == '' || allowedKeys.match(","+currentKey+",")){

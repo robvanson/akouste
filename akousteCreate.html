@@ -878,10 +878,6 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			openWindow.document.open()
    			openWindow.document.write(pageHTML);
 			openWindow.document.close()
-			if(typeof openWindow.document.getElementById("coverpage") != "undefined" && typeof coverPage == 'string'){
-				openWindow.document.getElementById("coverpage").style.display = coverPage;
-				openWindow.document.getElementById("experimentpage").style.display = experimentPage;
-			};
 		};
 		
 		return document.getElementById('htmlText').value ;
