@@ -111,7 +111,7 @@ At the bottom are two frames. To the left is the Markdown edit window. The text 
 
 *User Interface of akousteCreate.html*
 
-When the **Show Page** button is clicked, a popup with a functioning page will appear. This shows the experiment as it appears to the actual user. This page is fully functional. However, if the page refers to stimuli on the local computer, almost all browsers will block the audio and video. It generally only works for media files accessed through *HTTPS://* URLs.
+When the **Show Page** button is clicked, a popup with a functioning page will appear. This shows the experiment as it appears to the actual user. This page is fully functional and the contents of this popup window will follow edits in the main window. However, if the page refers to stimuli on the local computer or is labeled as *Not Secure* by the browser, almost all browsers will block the audio and video or display edits. The audio and video in the popup window generally only work for media files accessed through *HTTPS://* URLs (see [Browser compatibility](#Browser-settings-and-compatibility)). 
 
 When the experiment is ready to be deployed, it can be saved using the **Save Experiment...** button on top of the HTML window. If work has to be interrupted before it is finished, or when the final experiment is ready, the Markdown window can be saved using the **Save MD...** button. The resulting Markdown file will contain all information needed to continue later or to add changes. It can be opened again with the **Open a Markdown file** selection/upload button.
 
