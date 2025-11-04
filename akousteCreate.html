@@ -338,13 +338,14 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			var tableHTML = '<h1 style="text-align:center;width:90%;margin-left:auto;margin-right:auto;">Current Stimulus Table</h1>\n';
 			tableHTML += '<h3 style="text-align:center;width:90%;margin-left:auto;margin-right:auto;">Experiment acronym: <em>' + ExperimentAcronym +'</em></h3>\n';
 			tableHTML += '<h3 style="text-align:center;width:90%;margin-left:auto;margin-right:auto;">URL/path to stimuli: <em>' + audioBaseURL +'</em></h3>\n';
-			tableHTML += '<table style="text-align:left;width:90%;margin-left:auto;margin-right:auto;">\n';
-			tableHTML += '<tr style="font-weight: bold;"><td>'+stimulusTable[0].join("</td><td>")+'</td></strong></tr>\n';
+			tableHTML += '<table style="text-align:left;width:90%;margin-left:2%;margin-right:auto;">\n';
+			tableHTML += '<tr style="font-weight: bold;text-align:center;"><td style="align-text:right;">&nbsp;</td><td>'+stimulusTable[0].join("</td><td>")+'</td></strong></tr>\n';
 			for(r in stimulusTable[1]){
 				row = stimulusTable[1][r];
 				// Skip empty rows
 				if(row.length > 0){
-					tableHTML += "<tr style='font-size:smaller'><td>"+row.join("</td><td>")+"</td></tr>\n";
+					row.num = +r + 1;
+					tableHTML += "<tr style='font-size:smaller;'><td style='align-text:right;'>" + row.num + "</td><td>"+row.join("</td><td>")+"</td></tr>\n";
 				};
 			};
 			tableHTML += "</table>";
