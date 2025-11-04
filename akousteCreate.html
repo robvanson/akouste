@@ -335,17 +335,21 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		var winPageTableURL = '';
 		var openTable = "";
 		function displayStimulusTableHTML (stimulusTable) {
+			var tableCSV = "";
 			var tableHTML = '<h1 style="text-align:center;width:90%;margin-left:auto;margin-right:auto;">Current Stimulus Table</h1>\n';
 			tableHTML += '<h3 style="text-align:center;width:90%;margin-left:auto;margin-right:auto;">Experiment acronym: <em>' + ExperimentAcronym +'</em></h3>\n';
-			tableHTML += '<h3 style="text-align:center;width:90%;margin-left:auto;margin-right:auto;">URL/path to stimuli: <em>' + audioBaseURL +'</em></h3>\n';
+			tableHTML += '<h3 style="text-align:center;width:90%;margin-left:auto;margin-right:auto;">URL/path to stimuli: <em>' + audioBaseURL +'</em></h3>\n\n';
+			tableHTML += '<h3 style="text-align:center;width:90%;margin-left:auto;margin-right:auto;"># rows: ' + stimulusTable[1].length  +'</h3>\n<hr/>\n';
 			tableHTML += '<table style="text-align:left;width:90%;margin-left:2%;margin-right:auto;">\n';
-			tableHTML += '<tr style="font-weight: bold;text-align:center;"><td style="align-text:right;">&nbsp;</td><td>'+stimulusTable[0].join("</td><td>")+'</td></strong></tr>\n';
+			tableHTML += '<tr style="font-weight: bold;text-align:center;"><td>'+stimulusTable[0].join("</td><td>")+'</td></strong></tr>\n';
+			tableCSV += stimulusTable[0].join(";") + "\n";
 			for(r in stimulusTable[1]){
 				row = stimulusTable[1][r];
 				// Skip empty rows
 				if(row.length > 0){
 					row.num = +r + 1;
-					tableHTML += "<tr style='font-size:smaller;'><td style='align-text:right;'>" + row.num + "</td><td>"+row.join("</td><td>")+"</td></tr>\n";
+					tableHTML += "<tr style='font-size:smaller;'><td>"+row.join("</td><td>")+"</td></tr>\n";
+					tableCSV += row.join(";") + "\n";
 				};
 			};
 			tableHTML += "</table>";
@@ -357,9 +361,11 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 
 			// Finish HTML and open page
 			var text = document.getElementById('htmlText').value;
-			var preambleProc = preProcessPreamble(preamble);
+			var preambleProc = '<!DOCTYPE html><html lang="XXExpLanguageXX"> <head><meta charset="UTF-8"><meta http-equiv="Content-type" content="text/html; charset=UTF-8"></head><body>';
+			var intermission1 = "\n<hr/>\n<button onclick='if(document.getElementById(`csvtext`).style.visibility != `visible`){document.getElementById(`csvtext`).style.visibility = `visible`; this.style.backgroundColor=`CornflowerBlue`;} else {document.getElementById(`csvtext`).style.visibility = `hidden`; this.style.backgroundColor=`MediumAquaMarine`;};'  style='background-color:MediumAquaMarine'>Show CSV text</button><br />\n<p style='text-align:center;visibility: hidden;'><textarea id='csvtext'  rows=30 cols=120 readonly >";
+			var intermission2 = "</textarea></p>\n";
 			var postambleProc = '</body></html>';
-			const pageTableHTML = preambleProc + tableHTML + postambleProc;
+			const pageTableHTML = preambleProc + tableHTML + intermission1 + tableCSV + intermission2 + postambleProc;
 			winPageTableURL = URL.createObjectURL(new Blob([pageTableHTML], { type: "text/html" }));
 			openTable = window.open(
 				winPageTableURL,
