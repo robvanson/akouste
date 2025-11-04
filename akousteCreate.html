@@ -331,6 +331,43 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 				alert("Select a file first");
 			};			
 		};
+		
+		var winPageTableURL = '';
+		var openTable = "";
+		function displayStimulusTableHTML (stimulusTable) {
+			var tableHTML = '<h1 style="text-align:center;width:90%;margin-left:auto;margin-right:auto;">Current Stimulus Table</h1>\n';
+			tableHTML += '<h3 style="text-align:center;width:90%;margin-left:auto;margin-right:auto;">Experiment acronym: <em>' + ExperimentAcronym +'</em></h3>\n';
+			tableHTML += '<h3 style="text-align:center;width:90%;margin-left:auto;margin-right:auto;">URL/path to stimuli: <em>' + audioBaseURL +'</em></h3>\n';
+			tableHTML += '<table style="text-align:left;width:90%;margin-left:auto;margin-right:auto;">\n';
+			tableHTML += '<tr style="font-weight: bold;"><td>'+stimulusTable[0].join("</td><td>")+'</td></strong></tr>\n';
+			for(r in stimulusTable[1]){
+				row = stimulusTable[1][r];
+				// Skip empty rows
+				if(row.length > 0){
+					tableHTML += "<tr style='font-size:smaller'><td>"+row.join("</td><td>")+"</td></tr>\n";
+				};
+			};
+			tableHTML += "</table>";
+
+			if(winPageTableURL.length > 0){
+				URL.revokeObjectURL(winPageTableURL);
+				winPageTableURL = '';
+			};
+
+			// Finish HTML and open page
+			var text = document.getElementById('htmlText').value;
+			var preambleProc = preProcessPreamble(preamble);
+			var postambleProc = '</body></html>';
+			const pageTableHTML = preambleProc + tableHTML + postambleProc;
+			winPageTableURL = URL.createObjectURL(new Blob([pageTableHTML], { type: "text/html" }));
+			openTable = window.open(
+				winPageTableURL,
+				"RenderedHTML",
+				"popup"
+			);
+			
+			return(tableHTML);
+		};
 
 </script>
 <script type="text/javascript">	 
@@ -1416,7 +1453,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 				<td>Randomize AB stimulus pairs:  </td><td>Yes <input type="radio" id="RandomizeABYes" name="RandomizeAB" value="Yes" onchange="RandomizeAB=true;parameters2Markdown();"> No <input type="radio" id="RandomizeABNo" name="RandomizeAB" value="No" onchange="RandomizeAB=false;parameters2Markdown();"> </td>
 			</tr>
 			<tr>
-				<td>URL/path to audio:  </td><td><input type="text" id="audioBaseURL" name="audioBaseURL" value="./Stimuli/" title='This can be a URL or local path to a folder with audio' onchange="audioBaseURL=this.value; parameters2Markdown();" ></td>
+				<td>URL/path to stimuli:  </td><td><input type="text" id="audioBaseURL" name="audioBaseURL" value="./Stimuli/" title='This can be a URL or local path to a folder with stimuli' onchange="audioBaseURL=this.value; parameters2Markdown();" ></td>
 			</tr>
 			<tr>
 			<td colspan=2> 
@@ -1429,16 +1466,18 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			</tr>
 			<tr>
 				<td>Separator for stimulus table: </td>
-				<td style='text-align:right;'>
+				<td style='text-align:left;'>
 						<select id="Separator" title='Select the separator used in the .csv stimulus table. This page cannot handle fancy use of ,-commas in a literal ,-comma separated values table.'>
 						  <option value="automatic">automatic</option>
 						  <option value="semicolon">semicolon</option>
 						  <option value="tab">tab</option>
 						  <option value="comma">comma</option>
 						</select> 
-					&emsp;&emsp;
-						<input type="button" id='SaveStimulusTable' value="Download stimuli" title='Save a stimulus JSON .js file for automatic opening during experiments' onclick="saveStimulusTableJSON()" style='background-color:gray;visibility:hidden'></td>
-				</td>
+					&emsp;
+						<input type="button" id='SaveStimulusTable' value="Download stimuli" title='Save a stimulus JSON .js file for automatic opening during experiments' onclick="saveStimulusTableJSON()" style='background-color:gray;visibility:hidden'>
+				   &emsp;
+				   <button id="showstimuli" onclick='displayStimulusTableHTML (stimulusTable)' title='View stimulus table'> View Stimuli </button>
+				 </td>
 			</tr>
 			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 			<tr>
