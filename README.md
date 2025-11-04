@@ -244,7 +244,7 @@ As the answers can be communicated to the experimenter using any communication c
 
 ### The stimulus table
 
-The stimulus table is stored below the settings area in the markdown file. This area can be edited directly, but that should rarely be necessary. When a *.csv* file is uploaded, the contents automatically replace the existing data in the markdown file. It suffices to save the markdown with the **Save MD...** button.
+The current stimulus table can be viewed in a pop-up window by clicking on the **View Stimuli** button. The stimulus table is stored below the settings area in the markdown file. This area can be edited directly, but that should rarely be necessary. When a *.csv* file is uploaded, the contents automatically replace the existing data in the markdown file. It suffices to save the markdown with the **Save MD...** button.
 
 The definition of the stimulus table starts with:
 
