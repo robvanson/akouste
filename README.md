@@ -42,7 +42,7 @@ Examples (random audio, images, and video examples courtesy of [Wikimedia Common
 
 - [ABX comparison](./akousteCreate.html?ExperimentAcronym=ABXexample)
 
-- [ABX Pseudonymization identification](./akousteCreate.html?ExperimentAcronym=Pseudonymization) 
+- Short [ABX Pseudonymization identification](./akousteCreate.html?ExperimentAcronym=Pseudonymization) experiment and [full experiment](./akousteCreate.html?ExperimentAcronym=Pseudonymization)
 
 - [Transcription](./akousteCreate.html?ExperimentAcronym=Transcribe)
 
@@ -130,7 +130,7 @@ The stimulus tables can be constructed in a simple spreadsheet table and saved a
 
 Stimulus tables are uploaded by **Open a Stimulus Table (.csv):**. *akoúste* is designed to work with local stimulus files. However, modern web browsers prohibit mixing the access of web URLs and local files. Therefor, it is not possible to access local audio or video files from *akousteCreate.html*. The examples given all use web URLs to access sound files. They are practical to debug the experiment. When the experiment is completed and ready for execution, the stimulus table can be uploaded and the experiment saved with **Save Experiment...**. If the file paths are entered correctly, the experiment file can be opened in a browser and the experiment will run with the local files (see [Browser settings](#Browser-settings)). There is a trick to save an experiment with URL stimuli and then save a *.js* file with the local file stimulus list next to it, the *Audiotest* example uses this trick. When started, the experiment will load the stimuli in the *.js* file. The button to downoad this *.js* stimulus table, **Download stimuli** will appear after uploading the *.csv* table.
 
-Stimulus files can be entered as full or relative paths or full URLs. When a common base folder path or URL path is given in the **URL/path to audio:** parameter, eg, *./Stimuli/*, only the varying part of the path or URL has to be placed in the stimulus table.
+Stimulus files can be entered as full or relative paths or full URLs. When a common base folder path or URL path is given in the **URL/path to stimuli:** parameter, eg, *./Stimuli/*, only the varying part of the path or URL has to be placed in the stimulus table.
 
 *akoúste* Ignores all columns in the stimulus table that are not mentioned in the experiment. The output of the experiment is the original stimulus table, with columns added for answers, number of the stimulus during presentation, and AB switch if applicable. Note that the output table has the rows in the order of presentation with practice rows pre-pended if present.
 
@@ -269,7 +269,7 @@ The stimulus table ends with:
 
 The stimulus table can be edited directly in the markdown file. The format is rather strict with comma-separated values. All comma's and " '-quotes are replaced and stored as their &\#\<ASCII\>; values, ie, \& \# 44 ;, \& \# 34 ;, and \& \# 39 ;. Conversions are automatically back and forth between the internal stimulus table and the markdown file. If a quote should simply be displayed in the HTML page, use \&quot\; for " and \&apos\; for '.
 
-Even though the *[//stimulus\*]* lines in the markdown files can be edited to add stimulus tables, *akoúste* is designed to use *.csv* table files that are uploaded within *akousteCreate.html*. Lines in these *.csv* table files starting with the **#** character are ignored. Except when they contain the **[//parameter]: # "audioBaseURL:\<URL\>"** parameter line (without the \<\>-brackets). Then the *URL* is loaded as the **URL/path to audio** parameter. This simplifies the distribution of stimulus tables. When saving a stimulus table with the **Download Stimuli** button as *\<experimentname\>\_stimuluslist.js*, the current **URL/path to audio** path is stored alongside the stimulus table. The stimulus table will not work properly when this path is not set correctly. 
+Even though the *[//stimulus\*]* lines in the markdown files can be edited to add stimulus tables, *akoúste* is designed to use *.csv* table files that are uploaded within *akousteCreate.html*. Lines in these *.csv* table files starting with the **#** character are ignored. Except when they contain the **[//parameter]: # "audioBaseURL:\<URL\>"** parameter line (without the \<\>-brackets). Then the *URL* is loaded as the **URL/path to stimuli** parameter. This simplifies the distribution of stimulus tables. When saving a stimulus table with the **Download Stimuli** button as *\<experimentname\>\_stimuluslist.js*, the current **URL/path to stimuli** path is stored alongside the stimulus table. The stimulus table will not work properly when this path is not set correctly. 
 
 ## Browser settings and compatibility
 
