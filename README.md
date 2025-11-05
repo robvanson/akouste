@@ -175,7 +175,7 @@ Four constructs are defined to collect subject responses from the questionnaire:
 - **\<\<\| text {style} \|\>\>** becomes a text input field with the *text* as default value displayed in *style* (optional).
 - **@@@ text [keys] {style} @@@** captures general keystrokes. Only a single such construct can be present. The *text* is shown before a key is pressed, eg, *Press **q** or **p**.*, and is also the tooltip. Only the (optional) comma-separated keys in *[keys]* are accepted, eg, *[q,p]* for only ***q*** and ***p*** or *[**ArrowLeft**,**ArrowRight**]* for the left- and right-arrow keys ([**,**,**.**] is a valid way to accept the comma '**,**' and period '**.**' keys). Captured keys trigger the **Next** button and stimulus if all requisites for the next stimulus are fulfilled.
 
-When pressent, *{style}* (optional) controls how the text is presented. Style can also be *{visibility: hidden}*, which might be usefull for keystrokes if neither the text nor the keypresses should be shown.
+When present, *{style}* (optional) controls how the text is presented. Style can also be *{visibility: hidden}*, which might be usefull for keystrokes if neither the text nor the keypresses should be shown.
 
 *All* questions have to be answered (changed) before the subject can move to the next stimulus. Answers will be added to the Stimulus table with each question getting their own column, tagged Answer1, Answer2..., numbered in order of the questions on the page.
 
