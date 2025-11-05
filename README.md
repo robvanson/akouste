@@ -42,7 +42,7 @@ Examples (random audio, images, and video examples courtesy of [Wikimedia Common
 
 - [ABX comparison](./akousteCreate.html?ExperimentAcronym=ABXexample)
 
-- Short [ABX Pseudonymization identification](./akousteCreate.html?ExperimentAcronym=Pseudonymization) experiment and [full experiment](./akousteCreate.html?ExperimentAcronym=Pseudonymization)
+- Short [ABX Pseudonymization identification](./akousteCreate.html?ExperimentAcronym=Pseudonymization) experiment and [full experiment](./akousteCreate.html?ExperimentAcronym=PseudoSpeech)
 
 - [Transcription](./akousteCreate.html?ExperimentAcronym=Transcribe)
 
