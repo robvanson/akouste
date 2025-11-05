@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="nl"> 
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+<style>
+		/* Increase radio button's size */
+		input[type='radio']{
+			width: 25px;
+			height: 25px;
+		}
+				
+		/* The slider itself */
+		.slider {
+		  -webkit-appearance: none;  /* Override default CSS styles */
+		  appearance: none;
+		  width: 100%; /* Full-width */
+		  height: 5px; /* Specified height */
+		  border-radius: 5px;  
+		  background: #d3d3d3; /* Grey background */
+		  outline: none; /* Remove outline */
+		  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+		  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+		  transition: opacity .2s;
+		}
+		
+		/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+		.slider::-webkit-slider-thumb {
+		  -webkit-appearance: none; /* Override default look */
+		  appearance: none;
+		  width: 15px; /* Set a specific slider handle width */
+		  height: 15px; /* Slider handle height */
+		  border-radius: 50%; 
+		  /* background: #4CAF50;*/ /* Green background */
+		  background: #6495ED; /* Green background */
+		  cursor: pointer; /* Cursor on hover */
+		}
+
+		/* center tag *
+		center {
+			background: none;
+		}
+	
+		/* Table layout */
+		table {
+		  width: 80%;
+		  table-layout: fixed;
+		  background: none;
+		}
+		
+		table, tr, td {
+		  background: none;
+		}
+</style>
+
+<meta charset = "UTF-8" />
+<script type="text/javascript">
+	// Before anything else, warn IE users
+	var ua = window.navigator.userAgent;
+	// If Internet Explorer, warn user
+	var msie = ua.indexOf("MSIE ");
+	if(msie > 0){
+		alert("This experiment does not work with Internet Explorer. Please, use Chrome, Firefox, Safari or related browsers");
+	};
+
+	// Record keystrokes
+	var currentKey = "";
+	document.onkeyup = function (e) {
+		if(typeof document.getElementById('KeyStroke') != undefined && document.getElementById('KeyStroke')) {
+			currentKey = e.key;
+			var allowedKeys = document.getElementById('KeyStroke').className;
+			if(typeof allowedKeys == 'undefined' || allowedKeys == '' || allowedKeys.match(","+currentKey+",")){
+				document.getElementById('KeyStroke').innerHTML = currentKey;
+				document.getElementById('KeyStroke').click();
+			}
+		} 
+	};
+
+</script>
+<script type="text/javascript">
+	// Stub Hash Function definitions
+	function hex_sha1 (plaintext) {
+		return "Not Available";
+	};
+	function hex_sha256 (plaintext) {
+		return "Not Available";
+	};
+	function hex_sha512 (plaintext) {
+		return "Not Available";
+	};
+	function chained_sha (plaintext) {
+		return "Not Available";
+	};
+</script>
+<script type="text/javascript" src='' ></script>
+<script type="text/javascript">
+	if(typeof window.jsSHA == 'undefined' || typeof window.jsSHA != "function") {
+		var script = document.createElement('script');
+		script.type='text/javascript';
+		script.src='' ;
+		document.getElementsByTagName('head')[0].appendChild(script);
+	};
+</script>
+
+<script type="text/javascript">
+var audioBaseURL = 'https://robvanson.github.io/PseudonymizeSpeech/Examples/Pseudonymized/';
+</script>
+<script type="text/javascript" src="ExpAcronym_examples/PseudoSpeech_stimuluslist.js"></script>
+<script type="text/javascript" src="./PseudoSpeech_stimuluslist.js"></script>
+<script type="text/javascript">
+// Insert stimulus table
+if(typeof stimulusTableJSON == 'undefined' || stimulusTableJSON == null || stimulusTableJSON.length == 0){
+	stimulusTableJSON = ` 
+[["A","B","X","SpA","SpB","SpX"],
+[["afo_chp27_utt063.wav","ksh_chp21_utt010.wav","afo_chp28_utt116.wav","afo","ksh","afo"],
+["afo_chp28_utt158_500-120-4.0.wav","kmq_chp21_utt073_500-120-4.0.wav","afo_chp27_utt052.wav","afo","kmq","afo"],
+["hmc_chp15_utt049_575-175-4.0.wav","afo_chp27_utt012_575-175-4.0.wav","afo_chp28_utt107.wav","hmc","afo","afo"],
+["msm_chp33_utt042.wav","apr_chp27_utt003.wav","apr_chp20_utt126.wav","msm","apr","apr"],
+["apr_chp07_utt013_500-120-4.0.wav","gma_chp26_utt020_500-120-4.0.wav","apr_chp10_utt043.wav","apr","gma","apr"],
+["apr_chp04_utt011_575-175-4.0.wav","mjd_chp19_utt099_575-175-4.0.wav","apr_chp24_utt061.wav","apr","mjd","apr"],
+["cve_chp18_utt054.wav","hmc_chp16_utt011.wav","cve_chp17_utt003.wav","cve","hmc","cve"],
+["cve_chp17_utt011_500-120-4.0.wav","msm_chp16_utt048_500-120-4.0.wav","cve_chp17_utt083.wav","cve","msm","cve"],
+["kmq_chp22_utt008_575-175-4.0.wav","cve_chp17_utt017_575-175-4.0.wav","cve_chp17_utt061.wav","kmq","cve","cve"],
+["apr_chp11_utt143.wav","gma_chp26_utt019.wav","gma_chp03_utt016.wav","apr","gma","gma"],
+["gma_chp04_utt020_500-120-4.0.wav","mbr_chp01_utt114_500-120-4.0.wav","gma_chp03_utt009.wav","gma","mbr","gma"],
+["afo_chp27_utt023_575-175-4.0.wav","gma_chp03_utt066_575-175-4.0.wav","gma_chp04_utt071.wav","afo","gma","gma"],
+["hmc_chp15_utt025.wav","gma_chp03_utt059.wav","hmc_chp15_utt062.wav","hmc","gma","hmc"],
+["hmc_chp15_utt091_500-120-4.0.wav","nfo_chp24_utt053_500-120-4.0.wav","hmc_chp16_utt065.wav","hmc","nfo","hmc"],
+["hmc_chp16_utt055_575-175-4.0.wav","ksh_chp03_utt103_575-175-4.0.wav","hmc_chp15_utt070.wav","hmc","ksh","hmc"],
+["kmq_chp21_utt028.wav","iva_chp10_utt026.wav","iva_chp10_utt076.wav","kmq","iva","iva"],
+["cve_chp17_utt023_500-120-4.0.wav","iva_chp10_utt049_500-120-4.0.wav","iva_chp09_utt076.wav","cve","iva","iva"],
+["iva_chp09_utt055_575-175-4.0.wav","rph_chp33_utt108_575-175-4.0.wav","iva_chp10_utt055.wav","iva","rph","iva"],
+["apr_chp27_utt014.wav","jsu_chp32_utt113.wav","jsu_chp31_utt053.wav","apr","jsu","jsu"],
+["iva_chp09_utt105_500-120-4.0.wav","jsu_chp31_utt004_500-120-4.0.wav","jsu_chp32_utt081.wav","iva","jsu","jsu"],
+["mdw_chp07_utt039_575-175-4.0.wav","jsu_chp32_utt064_575-175-4.0.wav","jsu_chp32_utt073.wav","mdw","jsu","jsu"],
+["kmq_chp21_utt011.wav","hmc_chp15_utt113.wav","kmq_chp21_utt077.wav","kmq","hmc","kmq"],
+["kmq_chp21_utt025_500-120-4.0.wav","mjd_chp19_utt051_500-120-4.0.wav","kmq_chp21_utt016.wav","kmq","mjd","kmq"],
+["kmq_chp21_utt060_575-175-4.0.wav","jsu_chp31_utt063_575-175-4.0.wav","kmq_chp21_utt008.wav","kmq","jsu","kmq"],
+["ksh_chp08_utt069.wav","msm_chp20_utt142.wav","ksh_chp18_utt010.wav","ksh","msm","ksh"],
+["nfo_chp23_utt036_500-120-4.0.wav","ksh_chp31_utt009_500-120-4.0.wav","ksh_chp09_utt109.wav","nfo","ksh","ksh"],
+["jsu_chp31_utt076_575-175-4.0.wav","ksh_chp05_utt063_575-175-4.0.wav","ksh_chp26_utt122.wav","jsu","ksh","ksh"],
+["kmq_chp22_utt029.wav","ksh2_chp05_utt067.wav","ksh2_chp06_utt108.wav","kmq","ksh2","ksh2"],
+["ksh2_chp06_utt054_500-120-4.0.wav","iva_chp09_utt127_500-120-4.0.wav","ksh2_chp06_utt031.wav","ksh2","iva","ksh2"],
+["nfo_chp12_utt061_575-175-4.0.wav","ksh2_chp05_utt103_575-175-4.0.wav","ksh2_chp06_utt072.wav","nfo","ksh2","ksh2"],
+["mdw_chp08_utt033.wav","mbr_chp01_utt107.wav","mbr_chp13_utt030.wav","mdw","mbr","mbr"],
+["msm_chp19_utt079_500-120-4.0.wav","mbr_chp14_utt024_500-120-4.0.wav","mbr_chp13_utt063.wav","msm","mbr","mbr"],
+["jsu_chp31_utt048_575-175-4.0.wav","mbr_chp13_utt066_575-175-4.0.wav","mbr_chp14_utt086.wav","jsu","mbr","mbr"],
+["mdw_chp07_utt074.wav","nfo_chp23_utt012.wav","mdw_chp08_utt082.wav","mdw","nfo","mdw"],
+["mdw_chp08_utt073_500-120-4.0.wav","iva_chp09_utt121_500-120-4.0.wav","mdw_chp07_utt018.wav","mdw","iva","mdw"],
+["mdw_chp08_utt097_575-175-4.0.wav","ksh_chp26_utt060_575-175-4.0.wav","mdw_chp08_utt030.wav","mdw","ksh","mdw"],
+["kmq_chp21_utt034.wav","mjd_chp20_utt119.wav","mjd_chp20_utt033.wav","kmq","mjd","mjd"],
+["hmc_chp16_utt037_500-120-4.0.wav","mjd_chp20_utt030_500-120-4.0.wav","mjd_chp19_utt108.wav","hmc","mjd","mjd"],
+["gma_chp26_utt131_575-175-4.0.wav","mjd_chp20_utt146_575-175-4.0.wav","mjd_chp20_utt122.wav","gma","mjd","mjd"],
+["msm_chp20_utt066.wav","jsu_chp32_utt103.wav","msm_chp13_utt073.wav","msm","jsu","msm"],
+["msm_chp20_utt049_500-120-4.0.wav","cve_chp17_utt045_500-120-4.0.wav","msm_chp31_utt055.wav","msm","cve","msm"],
+["gma_chp03_utt079_575-175-4.0.wav","msm_chp25_utt007_575-175-4.0.wav","msm_chp31_utt093.wav","gma","msm","msm"],
+["cve_chp17_utt043.wav","nfo_chp12_utt040.wav","nfo_chp11_utt108.wav","cve","nfo","nfo"],
+["mbr_chp01_utt117_500-120-4.0.wav","nfo_chp12_utt110_500-120-4.0.wav","nfo_chp23_utt027.wav","mbr","nfo","nfo"],
+["apr_chp10_utt087_575-175-4.0.wav","nfo_chp12_utt002_575-175-4.0.wav","nfo_chp11_utt092.wav","apr","nfo","nfo"],
+["rph_chp30_utt101.wav","mjd_chp19_utt054.wav","rph_chp29_utt169.wav","rph","mjd","rph"],
+["rph_chp29_utt061_500-120-4.0.wav","jsu_chp31_utt060_500-120-4.0.wav","rph_chp29_utt081.wav","rph","jsu","rph"],
+["rph_chp33_utt117_575-175-4.0.wav","hmc_chp15_utt130_575-175-4.0.wav","rph_chp29_utt009.wav","rph","hmc","rph"]]]
+`;
+};
+
+var NumberOfScales = 1;
+var RandomizeAB = true;
+var PracticeItems = 4;
+var ShuffleStimulusList = true;
+var CurrentExperimentID = "PseudoSpeech";
+
+var stimulusTable = [];
+var audioNames = ["A", "X", "B"];
+var textNames = [];
+var imageNames = [];
+var columnNames = [];
+var audioPos = [];
+var textPos = [];
+var imgPos = [];
+var answerstogo = 0;
+
+var answerList = [];
+var requiredNames = ["AudioA", "AudioX", "AudioB", "Question1"];
+var requiredAnswers = new Array(requiredNames.length).fill(false);
+var playedSamples = false;
+var finishedExperiment = false;
+
+var answer = new Array(NumberOfScales).fill(-1);
+var stimulusNbr = 0;
+function loadList () {
+	columnNames = audioNames;
+	columnNames.concat(textNames).flat();
+	columnNames.concat(imageNames).flat();
+	// Check whether there is an ongoing experiment
+	if(typeof(Storage) !== "undefined" && localStorage.getItem(CurrentExperimentID+'stimuluslist')){
+		// Store
+		data = JSON.parse(localStorage.getItem(CurrentExperimentID+'stimuluslist'));
+		if(localStorage.getItem(CurrentExperimentID+'columnnames')){
+			columnNames = JSON.parse(localStorage.getItem(CurrentExperimentID+'columnnames'));
+		} else {
+			localStorage.setItem(CurrentExperimentID+'columnnames', JSON.stringify(columnNames));
+		};
+		if(localStorage.getItem(CurrentExperimentID+'answerlist')){
+			answerList = JSON.parse(localStorage.getItem(CurrentExperimentID+'answerlist'));
+			stimulusNbr = answerList.length;
+		};
+	} else {
+		// Read and process the stimulus list
+
+		// First try the JSON options
+		if(typeof stimulusTableJSON !== 'undefined' && stimulusTableJSON.length > 0) {
+			var stimulusTableParsed = JSON.parse(stimulusTableJSON);
+			// Use Array version if possible, but not if expnum > length
+			if(! Array.isArray(stimulusTableParsed) || stimulusTableParsed.length < 2){
+				stimulusTableParsed = [["A","B","X"], ["", "", ""]];
+				alert("ERROR: invalid stimulus list");
+				document.getElementById('TitleText').innerHTML = "ERROR: invalid stimulus list";
+			};
+			columnNames = stimulusTableParsed [0];
+			data = stimulusTableParsed [1];
+		
+		// No JSON data, use CSV			
+		} else if (typeof csv != 'undefined' && csv != null) {
+			// Split the input into lines
+			lines = csv.split('\n');
+		
+			// Extract column names from the first line
+			columnNamesLine = lines[0];
+			columnNames = columnNamesLine.split(/[;	]/g).filter(e => e);
+		
+			// Extract data from subsequent lines
+			dataLines = lines.slice(1);
+			while(dataLines[dataLines.length-1] == [])dataLines.pop();
+			data = dataLines.map(function(x){return x.split(/[;	]/g).filter(e => e)});
+		};	
+
+		if(RandomizeAB) {
+			columnNames.push("ABswitch");
+		};
+
+		// Locate the stimuli
+		audioPos = [];
+		for(i in audioNames){
+			audioPos.push(columnNames.indexOf(audioNames[i]));
+			if(audioPos.length > 0 && audioPos.at(-1) < 0)audioPos[audioPos.length - 1] = -1;
+		};
+		var posA = audioPos[0];
+		var posB = audioPos[1];
+		if(audioNames.indexOf("A") >= 0 && audioNames.indexOf("B") >= 0){
+			posA = columnNames.indexOf("A");
+			posB = columnNames.indexOf("B");
+		};
+
+		textPos = [];
+		for(i in textNames){
+			textPos.push(columnNames.indexOf(textNames[i]));
+			if(textPos[i] < 0)textPos[i] = -1;
+		};
+
+		imgPos = [];
+		for(i in imageNames){
+			imgPos.push(columnNames.indexOf(imageNames[i]));
+			if(imgPos[i] < 0)imgPos[i] = -1;
+		};
+
+		// Prepare the stimulus list
+		// First shuffle list
+		if(ShuffleStimulusList){
+			if(PracticeItems < 0){
+				// Make sure this is REALY a clone
+				var practiceList = JSON.parse(JSON.stringify(data.slice(0,-PracticeItems)));
+				var shuffleList = shuffle(data.slice(-PracticeItems,));
+				data = practiceList.concat(shuffleList);
+			} else {
+				data = shuffle(data);
+			};
+		};
+
+		// Then add practice items
+		if(PracticeItems > 0){
+			var practise = JSON.parse(JSON.stringify(data.slice(data.length-PracticeItems, data.length).reverse()));
+			var tmp = practise.concat(data);
+			data = tmp.concat();
+		};
+
+		// Then shuffle AB
+		if(RandomizeAB){
+			if(PracticeItems < 0){
+				var practiceList = data.slice(0,-PracticeItems);
+				for (var i=0; i<practiceList.length; i++) {
+						practiceList[i].push(false);
+				};
+				var shuffleList = data.slice(-PracticeItems,);
+				data = shuffleAB(shuffleList, posA, posB);
+				data = practiceList.concat(shuffleList);
+			} else {
+				data = shuffleAB(data, posA, posB);
+			};
+		};
+		
+		
+		// Store the stimulus data
+		if (typeof(Storage) !== "undefined") {
+			// Store
+			localStorage.setItem(CurrentExperimentID+'stimuluslist', JSON.stringify(data));
+			localStorage.setItem(CurrentExperimentID+'columnnames', JSON.stringify(columnNames));
+		};
+	};
+	
+	// Locate the stimuli (again?)
+	audioPos = [];
+	for(i in audioNames){
+		audioPos.push(columnNames.indexOf(audioNames[i]));
+		if(audioPos[i] < 0)audioPos[i] = -1;
+	};
+	
+	textPos = [];
+	for(i in textNames){
+		textPos.push(columnNames.indexOf(textNames[i]));
+		if(textPos[i] < 0)textPos[i] = -1;
+	};
+	
+	imgPos = [];
+	for(i in imageNames){
+		imgPos.push(columnNames.indexOf(imageNames[i]));
+		if(imgPos[i] < 0)imgPos[i] = -1;
+	};
+	
+	stimulusTable = [columnNames, data];
+	
+	// The experiment has been finished, but not reset
+	if(stimulusNbr >= data.length){
+		// The experiment has been finished, but not reset
+		FinishExperimentRun ();
+		onSave ();
+	};
+	
+	return stimulusTable;
+};
+
+
+function unblockNext (x) {
+	requiredAnswers[requiredNames.indexOf(x)] = true;
+	playedSamples = requiredAnswers.reduce((a, b) => a & b) ;
+	if(playedSamples) {
+		document.getElementById('NextText').style.backgroundColor="white";
+		document.getElementById('NextButton').style.backgroundColor="white";
+	};
+	if(x.match("Audio")){
+		document.getElementById(x).style.backgroundColor = "#EEFFEE";
+		if(document.getElementById('AudioA'+'Button') != null ) {
+			document.getElementById(x+"Button").style.backgroundColor = "#EEFFEE";
+			document.getElementById("Play"+x+"Text").style.backgroundColor = "#EEFFEE";
+		};
+	};
+};
+
+function stopAllAudio () {
+	var audioPlayers = document.getElementsByTagName('Audio');
+	for(i in audioPlayers){
+		if(typeof audioPlayers[i] == 'object'){
+			audioPlayers[i].pause();
+			audioPlayers[i].currentTime = 0;
+		};
+	};
+};
+
+function setAudio(i, stimulusTable) {
+	if(finishedExperiment) return;
+	for(var i in  audioNames) {
+		if(stimulusTable[1][stimulusNbr][audioPos[i]] != undefined && stimulusTable[1][stimulusNbr][audioPos[i]].length > 0){
+			var currentAudio = stimulusTable[1][stimulusNbr][audioPos[i]];
+			if(! currentAudio.match("http(s)?://")) {
+				currentAudio = audioBaseURL + currentAudio;
+			};
+			document.getElementById('Audio'+audioNames[i]).src = currentAudio;
+			document.getElementById('Audio'+audioNames[i]).title = currentAudio.replace(/^.*\/([^\/]+).wav$/, "$1");
+			document.getElementById('Audio'+audioNames[i]).style.backgroundColor = "#F0F0F0";
+			document.getElementById('Audio'+audioNames[i]).parentNode.parentNode.style.backgroundColor = "#F0F0F0";
+		} else {
+			alert("No Audio " + audioNames[i]);
+		};
+	};
+	
+	// Images from stimuli
+	for(var i in  imageNames) {
+		if(stimulusTable[1][stimulusNbr][imgPos[i]] != undefined && stimulusTable[1][stimulusNbr][imgPos[i]].length > 0){
+			var currentImage = stimulusTable[1][stimulusNbr][imgPos[i]];
+			document.getElementById('Image'+imageNames[i]).src = audioBaseURL + currentImage;
+		};
+	};
+	
+	// Text from stimuli
+	for(var i in  textNames) {
+		if(stimulusTable[1][stimulusNbr][textPos[i]] != undefined && stimulusTable[1][stimulusNbr][textPos[i]].length > 0){
+			var currentText = stimulusTable[1][stimulusNbr][textPos[i]];
+			document.getElementById('Text'+textNames[i]).innerText = currentText;
+		};
+	};
+	
+	// Text from parameters
+	answerstogo = (stimulusTable[1].length - stimulusNbr);
+	parameterTextList = document.getElementsByName('parameterText');
+	for(o in parameterTextList) {
+		if(typeof parameterTextList[o] == 'object'){
+			parameterTextList[o].innerHTML = window[parameterTextList[o].id];
+		};
+	};
+	
+	setProgress(100*stimulusNbr/data.length);
+};
+
+function collectAnswerOLD () {
+	var newLine = (stimulusNbr+1)+";"+answer.join(";")+";"+(stimulusTable[1][stimulusNbr]).join(";");
+	answerList.push(newLine);
+	if (typeof(Storage) !== "undefined") {
+		// Store
+		localStorage.setItem(CurrentExperimentID+'answerlist', JSON.stringify(answerList));
+	};
+};
+
+var addDigest = false;
+var lastDigest = hex_sha256 (" ".repeat(256));
+function collectAnswer () {
+	var newLine = (stimulusNbr+1)+";"+answer.join(";")+";"+(stimulusTable[1][stimulusNbr]).join(";");
+	
+	if(addDigest) {
+		if(typeof(Storage) !== "undefined" && localStorage.getItem(CurrentExperimentID+'lastDigest') != null){
+			lastDigest = localStorage.getItem(CurrentExperimentID+'lastDigest');
+		} else {
+			lastDigest = hex_sha256 (" ".repeat(256));
+		};
+		var newDigest = hex_sha256(lastDigest + newLine);
+		lastDigest = newDigest;
+		answerList.push(newLine + ";" + newDigest.substr(0,6));
+		if (typeof(Storage) !== "undefined") {
+			localStorage.setItem(CurrentExperimentID+'lastDigest', lastDigest);
+		};
+		 digestText = ';Digest';
+	} else {
+		answerList.push(newLine);
+	};
+	
+	// Store
+	if (typeof(Storage) !== "undefined") {
+		localStorage.setItem(CurrentExperimentID+'answerlist', JSON.stringify(answerList));
+	};
+
+};
+var digestText = '';
+var displayBlobURL = '';
+function displayArray (x) {
+	var answerNums = Array.from(Array(NumberOfScales+1).keys());
+	var answerTexts = Array(NumberOfScales).fill("Answer");
+	answerTexts = answerTexts.map(function(el, idx){return el+answerNums[idx+1]});
+	var output = "Num;"+answerTexts.join(";")+";"+(stimulusTable[0]).join(";")+digestText+"\n";
+	for (var i=0; i<x.length; i++) {
+		line = "";
+		output += x[i] + '\n';
+	};
+	
+	var currentDateTime = new Date().toISOString();
+	currentDateTime = currentDateTime.replace(/.[0-9Z]+$/, "").replace(/:/g,".");
+	var resultFileName = CurrentExperimentID + currentDateTime + ".txt";
+	
+	var blob = new Blob([output], {type: "text/plain"});
+	if(displayBlobURL.length > 0){
+		URL.revokeObjectURL(displayBlobURL);
+		displayBlobURL = '';
+	};
+	displayBlobURL = URL.createObjectURL(blob);
+	document.getElementById('SaveButtonText').innerHTML = "Save Results";
+	document.getElementById('SaveButton').style.visibility = 'visible';
+	document.getElementById('ToolTipSave').style.visibility = 'visible';
+	document.getElementById('SaveLink').href = displayBlobURL;
+	document.getElementById('SaveLink').download = resultFileName;
+}
+
+function nextStimulus () {
+	// if on cover page, unblock button
+	if(document.getElementById('coverpage') && document.getElementById('coverpage').style.display != 'none'){
+		document.getElementById('coverpage').style.display = 'none';
+		document.getElementById('experimentpage').style.display = 'block';
+		SetUp ();
+		return false;
+	};
+	
+	// Ready, no next
+	if(finishedExperiment)return false;
+	
+	// Genuine Next stimulus
+	if(playedSamples) {
+		// Reset played
+		playedSamples = false
+		requiredAnswers = new Array(requiredNames.length).fill(false);
+		for(i in audioNames) {
+			document.getElementById('Audio'+audioNames[i]).style.backgroundColor = "white";
+			if(document.getElementById('Audio'+audioNames[i]+"Button") != null) {
+				document.getElementById('Audio'+audioNames[i]+"Button").style.backgroundColor = "white";
+				document.getElementById("Play"+'Audio'+audioNames[i]+"Text").style.backgroundColor = "white";
+			};
+		};
+		
+		playedSamples = false;
+		for(q in requiredNames) {
+			optionsList = document.getElementsByName(requiredNames[q]);
+			for(o in optionsList) {
+				object = optionsList[o];
+				if(object.type == "radio") {
+					object.checked = false;
+				} else if (object.type == "range") {
+					object.value = 500;
+				} else if (object.type == "text" && object.name.match(/^Question/)) {
+					questionNum = Number(object.name.replace(/^Question/g, ""))
+					object.value = object.title;
+				} else if (object.tagName == "SPAN") {
+					object.innerHTML =object.title;
+				};
+			};
+		}
+
+		// Process answers
+		collectAnswer ();
+		stimulusNbr = answerList.length;
+		
+		// Block Next button
+		document.getElementById('NextText').style.backgroundColor = "gray";
+		document.getElementById('NextButton').style.backgroundColor = "gray";
+		
+		// Check whether the run is finished
+		// If so, display results and restart
+		if(stimulusNbr >= data.length){
+			FinishExperimentRun ();
+			return true;
+		};
+		// Next stimulus
+		setAudio(stimulusNbr, stimulusTable);
+		return true;
+	} else {
+		alert('Please listen to the recordings and answer the questions first');
+		return false;
+	};
+	
+};
+
+function FinishExperimentRun () {
+	displayArray(answerList);
+	document.getElementById('NextText').innerHTML = "Ready";
+	document.getElementById('NextText').title = "Ready, please save results";
+	document.getElementById('NextText').style.backgroundColor = "gray";
+	document.getElementById('SaveText').innerHTML =  "Please click Save Results and store the file";
+	finishedExperiment = true;
+	setProgress(100);
+
+};
+
+function onSave () {
+	document.getElementById('RestartPage').style.visibility = 'visible'
+	document.getElementById('ToolTipRestart').style.visibility = 'visible'
+	document.getElementById('SaveText').innerHTML =  'Please click Save Results and store the file';
+};
+
+function resetPage () {
+	// Reset all
+	localStorage.removeItem(CurrentExperimentID+'stimuluslist');
+	localStorage.removeItem(CurrentExperimentID+'columnnames');
+	localStorage.removeItem(CurrentExperimentID+'answerlist');
+	localStorage.removeItem(CurrentExperimentID+'lastDigest');
+
+	playedSamples = false;
+	for(q in requiredNames) {
+		optionsList = document.getElementsByName(requiredNames[q]);
+		for(o in optionsList) {
+			object = optionsList[o];
+			if(object.type == "radio") {
+				object.checked = false;
+			} else if (object.type == "range") {
+				object.value = 500;
+			} else if (object.type == "text" && object.name.match(/^Question/)) {
+				questionNum = Number(object.name.replace(/^Question/g, ""))
+				object.value = object.title;
+			};
+		};
+	};
+
+	finishedExperiment = false;
+	answerList = [];
+	answer = new Array(NumberOfScales).fill(-1);
+	stimulusNbr = 0;
+	
+	// Reset cover page, if there is one
+	if(document.getElementById('coverpage')) {
+		document.getElementById('coverpage').style.display = 'block';
+		document.getElementById('experimentpage').style.display = 'none';
+	};
+};
+
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+	// Pick a remaining element...
+	randomIndex = Math.floor(Math.random() * currentIndex);
+	currentIndex -= 1;
+
+	// And swap it with the current element.
+	temporaryValue = array[currentIndex];
+	array[currentIndex] = array[randomIndex];
+	array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+function shuffleAB(stimarray, posA, posB) {
+  var temporaryValue, switchAB, currentRow;
+  // While there remain elements to shuffle...
+  for (var i=0; i<stimarray.length; i++) {
+	currentRow = stimarray[i];
+	// Random uniform Integer [0, 2>
+	switchAB = Math.floor(Math.random() * 2) == 1;
+	if (switchAB){
+		temporaryValue = currentRow[posA];
+		currentRow[posA] = currentRow[posB];
+		currentRow[posB] = temporaryValue;
+	};
+	currentRow.push(switchAB)
+  }
+
+  return stimarray;
+}
+
+// Switches the elements PosA and PosB based on the boolean value of the last element of the row
+function switchAB(stimarray, posA, posB) {
+  var temporaryValue, switchAB, currentRow;
+  // While there remain elements to shuffle...
+  for (var i=0; i<stimarray.length; i++) {
+	currentRow = stimarray[i];
+	switchAB = currentRow[currentRow.length - 1];
+	if (switchAB){
+		temporaryValue = currentRow[posA];
+		currentRow[posA] = currentRow[posB];
+		currentRow[posB] = temporaryValue;
+	};
+  }
+
+  return stimarray;
+}
+
+// Warning before leaving the page (back button, or outgoing link)
+window.onbeforeunload = function () {
+	if(answerList.length > 0){
+		return "-";
+	} else {
+		return;
+	};
+};
+
+function setProgress(percentComplete) {
+  var elem = document.getElementById("progressBar");
+  elem.style.width = percentComplete + '%';
+}
+	
+</script>
+
+<script type="text/javascript">
+function SetUp() {
+	// Check whether JavaScript is enabled
+	document.getElementById('JavaScriptWarningText').style.display = 'none';
+	
+	// Check whether local storage is enabled!
+	if(typeof(Storage) !== "undefined"){
+		document.getElementById('LocalStoragePresent').style.background = '#90EE90';
+	};
+
+	// Defer setup on cover page if there is no stored stimulus list
+	if(document.getElementById('coverpage') && document.getElementById('coverpage').style.display != 'none' && !localStorage.getItem(CurrentExperimentID+'stimuluslist')){
+		document.getElementById('NextText').style.backgroundColor = "white";
+		document.getElementById('NextButton').style.backgroundColor = "white";
+
+		return false;
+	} else if(document.getElementById('coverpage')) {
+		document.getElementById('coverpage').style.display = 'none';
+		document.getElementById('experimentpage').style.display = 'block';
+	};
+
+	// Set layout
+	//initTableClasses ();
+	// The following are set by the Init function
+	answerList = [];
+	answer = new Array(NumberOfScales).fill(-1);
+	stimulusNbr = 0;
+	stimulusTable = loadList (); 
+	setAudio(stimulusNbr, stimulusTable);
+
+	// Construct SHA functions
+	if(typeof window.jsSHA != 'undefined' && typeof window.jsSHA == "function") {
+		// Hash Function definitions
+		window.hex_sha1 = function  (plaintext) {
+			var shaObj = new jsSHA("SHA-1", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		window.hex_sha256 = function (plaintext) {
+			var shaObj = new jsSHA("SHA-256", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		window.hex_sha512 = function (plaintext) {
+			var shaObj = new jsSHA("SHA-512", "TEXT");
+			shaObj.update(plaintext);
+			return shaObj.getHash("HEX");
+		};
+		window.chained_sha = function (plaintext) {
+			return hex_sha256( hex_sha256( hex_sha512(plaintext) ) );
+		};
+	}
+
+	return 0;
+};
+
+</script>
+</head>
+<body onload="SetUp();" style="">
+	
+	<h1 style="text-align:center" id="JavaScriptWarningText">Please enable JavaScript in your browser</h1>
+
+	<div id="progress" style="background-color:#F0F0F0;height:10px;text-align:left;width:60%;margin-left:auto;margin-right:auto;">
+	  <div id="progressBar" style="background-color:#cce6ff;height:8px;width:0%"></div>
+	</div> 
+
+<center>
+<h1>Who is the unknown speaker X?</h1>
+<h2>Speaker A or Speaker B?</h2>
+<h2><span id="answerstogo" name="parameterText" style="font-weight:bold">XXXX</span> answers to go</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center"><audio id="AudioA" name="AudioA" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/NEC_PC-9801VX_ITF_beep_sound.ogg" preload="auto" title="" onplaying="unblockNext ('AudioA');"  ></audio><a href="javascript:void(0)" id="ToolTipAudioA" data-toggle="tooltip" title="Play sound"><button id="AudioAButton" onclick="stopAllAudio ();document.getElementById('AudioA').play();" style="font-size:30px;background-color:white;;"><strong><div id="PlayAudioAText" style="background-color:white;">Play A</div></strong></button></a></th>
+<th style="text-align:center"><audio id="AudioX" name="AudioX" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/NEC_PC-9801VX_ITF_beep_sound.ogg" preload="auto" title="" onplaying="unblockNext ('AudioX');"  ></audio><a href="javascript:void(0)" id="ToolTipAudioX" data-toggle="tooltip" title="Play sound"><button id="AudioXButton" onclick="stopAllAudio ();document.getElementById('AudioX').play();" style="font-size:30px;background-color:white;;"><strong><div id="PlayAudioXText" style="background-color:white;">Play X</div></strong></button></a></th>
+<th style="text-align:center"><audio id="AudioB" name="AudioB" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/NEC_PC-9801VX_ITF_beep_sound.ogg" preload="auto" title="" onplaying="unblockNext ('AudioB');"  ></audio><a href="javascript:void(0)" id="ToolTipAudioB" data-toggle="tooltip" title="Play sound"><button id="AudioBButton" onclick="stopAllAudio ();document.getElementById('AudioB').play();" style="font-size:30px;background-color:white;;"><strong><div id="PlayAudioBText" style="background-color:white;">Play B</div></strong></button></a></th>
+<th></th>
+</tr>
+</thead>
+</table>
+</center>
+<hr>
+<center>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center"><input type="radio" value="1" title="1" name="Question1" id="Question1.1" onchange="unblockNext('Question1')" oninput="answer[1 - 1]=this.value"></th>
+<th style="text-align:center">Your Choice</th>
+<th style="text-align:center"><input type="radio" value="2" title="2" name="Question1" id="Question1.2" onchange="unblockNext('Question1')" oninput="answer[1 - 1]=this.value"></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td style="text-align:center"><strong>A</strong></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"><strong>B</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</center>
+<hr>
+
+	  <p>
+	  <table style="text-align:center;width:50%;margin-left:auto;margin-right:auto;">
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td><a href="javascript:void(0)" id="ToolTipNext" data-toggle="tooltip" title="Go to next item"><button id="NextButton" onclick="nextStimulus ();" style="font-size:30px;background-color:gray"><strong><div id="NextText" style="font-size:30px;background-color:gray">Next</div></strong></button></a></td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr style="font-size:30px">
+	    <td><a href="javascript:void(0)" id="ToolTipRestart" data-toggle="tooltip" title="Start a new experiment session" style="visibility:hidden"><button id="RestartPage" onclick="resetPage(); location.reload();" style="font-size:30px;visibility:hidden;"><strong><div id="RestartPageText">Restart</div></strong></button></a></td>
+	    <td>&nbsp;</td>
+	    <td><a href="javascript:void(0)" id="ToolTipSave" data-toggle="tooltip" title="Save the answer to a file" style="visibility:hidden"><button onclick="document.getElementById('SaveLink').click();" style="font-size:30px;visibility:hidden;" id="SaveButton"><strong><div id="SaveButtonText"style="color:blue;">Save Results</div></strong></button></a></td>
+	  </tr>
+	  </table>
+	  <br />
+	  <h2 style="text-align:center"><div id="SaveText"></div></h2>
+	  <a href="" Id="SaveLink" download onclick="onSave ()" style="font-size:30px;visibility:hidden"></a>
+	  </p>
+	  
+	<table style="text-align:center;width:99%;margin-left:auto;margin-right:auto;">
+		<col width="90%">
+		<col width="10%">
+	  <tr style="font-size:30px">
+	    <td>&nbsp;</td>
+	    <td><div style="text-align:right;height:25px;width:25px;border-radius: 45px;background:#ee9090;" id="LocalStoragePresent">&nbsp;</div></td>
+	  </tr>
+	</table>
+	
+</body>	
+</html>
