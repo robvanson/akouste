@@ -59,7 +59,9 @@ Examples (random audio, images, and video examples courtesy of [Wikimedia Common
 
 Direct links to demonstration experiment *html* files
 
-- Direct to **online** [ABX Pseudonymization experiment](Experiment_HTML_Examples/Pseudonymization_experiment.html) 
+- Direct to **online** [short ABX Pseudonymization experiment](Experiment_HTML_Examples/Pseudonymization_experiment.html) 
+
+- Direct to **online** [long ABX Pseudonymization experiment](Experiment_HTML_Examples/PseudoSpeech_experiment.html)
 
 - Direct to **online** [Audiotest experiment](./Audiotest_experiment.html)
 
