@@ -263,6 +263,29 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			parameters2Markdown();
 		};
 		
+		function csvTableText2stimulusTable (text, separator) {
+			var newTable = [];
+			lines = text.split('\n');
+			// Remove empty lines and comments
+			for(var i=lines.length -1; i >= 0; i--){
+				if(lines[i].match(/^(#.*|\s*)$/)){
+					lines.splice(i, 1);
+				};
+			};
+			newTable[0] = lines[0].split(separator);
+			newTable[1] = [];
+			for(var i=1; i < lines.length; i++){
+				if(lines[i].length > 0){
+					newTable[1].push( lines[i].split(separator));
+				};
+			};
+			
+			stimulusTable = newTable;
+			parameters2Markdown();
+
+			return(newTable);
+		};
+		
 		function readTableFromFile (elementId) {
 			tableJSON = "";
 			var tableListJSON = new Array();
@@ -361,8 +384,22 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 
 			// Finish HTML and open page
 			var text = document.getElementById('htmlText').value;
-			var preambleProc = '<!DOCTYPE html><html lang="XXExpLanguageXX"> <head><meta charset="UTF-8"><meta http-equiv="Content-type" content="text/html; charset=UTF-8"></head><body>';
-			var intermission1 = "\n<hr/>\n<button onclick='if(document.getElementById(`csvtext`).style.visibility != `visible`){document.getElementById(`csvtext`).style.visibility = `visible`; this.style.backgroundColor=`CornflowerBlue`;} else {document.getElementById(`csvtext`).style.visibility = `hidden`; this.style.backgroundColor=`MediumAquaMarine`;};'  style='background-color:MediumAquaMarine'>Show CSV text</button><br />\n<p style='text-align:center;visibility: hidden;'><textarea id='csvtext'  rows=30 cols=120 readonly >";
+			var preambleProc = `
+			<!DOCTYPE html>
+			<html lang="en">
+			<head>
+			<meta charset="UTF-8" />
+			<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+			\<script\>
+				window.onbeforeunload = function () {if(document.getElementById("saveChanges").style.visibility == "visible"){	return "-";	} else {return;};};\</script\></head><body>
+			`;
+			var intermission1 = `
+			<hr/>
+			<button onclick='if(document.getElementById("csvtext").style.visibility != "visible"){document.getElementById("csvtext").style.visibility = "visible"; this.style.backgroundColor="CornflowerBlue";} else {document.getElementById("csvtext").style.visibility = "hidden"; this.style.backgroundColor="MediumAquaMarine";};'  style='background-color:MediumAquaMarine'>Edit CSV text</button> 
+			<button id='saveChanges' onclick='window.opener.csvTableText2stimulusTable(document.getElementById("csvtext").value, ";"); window.close()' style='background-color:red;visibility:hidden'>Save changes & Close</button><br />
+			<p style='text-align:center;visibility: hidden;'>
+			<textarea id='csvtext'  rows=30 cols=120 onchange='document.getElementById("saveChanges").style.visibility="visible"'>`;
+			
 			var intermission2 = "</textarea></p>\n";
 			var postambleProc = '</body></html>';
 			const pageTableHTML = preambleProc + tableHTML + intermission1 + tableCSV + intermission2 + postambleProc;
