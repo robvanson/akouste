@@ -246,7 +246,9 @@ As the answers can be communicated to the experimenter using any communication c
 
 ### The stimulus table
 
-The current stimulus table can be viewed in a pop-up window by clicking on the **View Stimuli** button. The stimulus table is stored below the settings area in the markdown file. This area can be edited directly, but that should rarely be necessary. When a *.csv* file is uploaded, the contents automatically replace the existing data in the markdown file. It suffices to save the markdown with the **Save MD...** button.
+The current stimulus table can be viewed in a pop-up window by clicking on the **View Stimuli** button. Editing is possible in the **View Stimuli** pop-up window after clicking the **Edit CSV text** button below the table. After changing the semicolon separated values table, a (red) **Save changes & Close** button appears. To discard all changes, close the window without clicking the **Save changes & Close** button (an alert will pop up that asks for confirmation).
+
+The stimulus table is stored below the settings area in the markdown file. This area can be edited directly, but that should rarely be necessary. When a *.csv* file is uploaded, the contents automatically replace the existing data in the markdown file. It suffices to save the markdown with the **Save MD...** button.
 
 The definition of the stimulus table starts with:
 
@@ -269,9 +271,9 @@ The stimulus table ends with:
 
 > \[//comment\]: \# "----------"
 
-The stimulus table can be edited directly in the markdown file. The format is rather strict with comma-separated values. All comma's and " '-quotes are replaced and stored as their &\#\<ASCII\>; values, ie, \& \# 44 ;, \& \# 34 ;, and \& \# 39 ;. Conversions are automatically back and forth between the internal stimulus table and the markdown file. If a quote should simply be displayed in the HTML page, use \&quot\; for " and \&apos\; for '.
+The stimulus table can be edited directly in the markdown file, but this is not practical. The format is rather strict with comma-separated values. All comma's and " '-quotes are replaced and stored as their &\#\<ASCII\>; values, ie, \& \# 44 ;, \& \# 34 ;, and \& \# 39 ;. Conversions are automatically back and forth between the internal stimulus table and the markdown file. If a quote should simply be displayed in the HTML page, use \&quot\; for " and \&apos\; for '. 
 
-Even though the *[//stimulus\*]* lines in the markdown files can be edited to add stimulus tables, *akoúste* is designed to use *.csv* table files that are uploaded within *akousteCreate.html*. Lines in these *.csv* table files starting with the **#** character are ignored. Except when they contain the **[//parameter]: # "audioBaseURL:\<URL\>"** parameter line (without the \<\>-brackets). Then the *URL* is loaded as the **URL/path to stimuli** parameter. This simplifies the distribution of stimulus tables. When saving a stimulus table with the **Download Stimuli** button as *\<experimentname\>\_stimuluslist.js*, the current **URL/path to stimuli** path is stored alongside the stimulus table. The stimulus table will not work properly when this path is not set correctly. 
+Even though the stimulus table can be edited in the markdown and **View Stimuli** window, *akoúste* is designed to use *.csv* table files that are uploaded within *akousteCreate.html*. Lines in these *.csv* table files starting with the **# character are ignored. Except when they contain the **[//parameter]: # "audioBaseURL:\<URL\>"** parameter line (without the \<\>-brackets). Then the *URL* is loaded as the **URL/path to stimuli** parameter. This simplifies the distribution of stimulus tables. When saving a stimulus table with the **Download Stimuli** button as *\<experimentname\>\_stimuluslist.js*, the current **URL/path to stimuli** path is stored alongside the stimulus table. The stimulus table will not work properly when this path is not set correctly. 
 
 ## Browser settings and compatibility
 
