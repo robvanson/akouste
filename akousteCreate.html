@@ -364,8 +364,8 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			var tableHTML = '<h1 style="text-align:center;width:90%;margin-left:auto;margin-right:auto;">Current Stimulus Table</h1>\n';
 			tableHTML += '<h3 style="text-align:center;width:90%;margin-left:auto;margin-right:auto;">Experiment acronym: <em>' + ExperimentAcronym +'</em></h3>\n';
 			tableHTML += '<h3 style="text-align:center;width:90%;margin-left:auto;margin-right:auto;">URL/path to stimuli: <em>' + audioBaseURL +'</em></h3>\n\n';
-			tableHTML += '<h3 style="text-align:center;width:90%;margin-left:auto;margin-right:auto;"># rows: ' + stimulusTable[1].length  +'</h3>\n<hr/>\n';
-			tableHTML += '<table style="text-align:left;width:90%;margin-left:2%;margin-right:auto;">\n';
+			tableHTML += '<h3 style="text-align:center;width:90%;margin-left:auto;margin-right:auto;"># rows: <span id="NumRows">' + stimulusTable[1].length  +'</span></h3>\n<hr/>\n';
+			tableHTML += '<table id="stimulustable" style="text-align:left;width:90%;margin-left:2%;margin-right:auto;">\n';
 			tableHTML += '<tr style="font-weight: bold;text-align:center;"><td>'+stimulusTable[0].join("</td><td>")+'</td></strong></tr>\n';
 			tableCSV += stimulusTable[0].join(";") + "\n";
 			for(r in stimulusTable[1]){
@@ -393,14 +393,26 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			<meta charset="UTF-8" />
 			<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
 			\<script\>
-				window.onbeforeunload = function () {if(document.getElementById("saveChanges").style.visibility == "visible"){	return "-";	} else {return;};};\</script\></head><body>
+				window.onbeforeunload = function () {if(document.getElementById("saveChanges").style.visibility == "visible"){	return "-";	} else {return;};};
+				function csv2HTMLtable(){
+					document.getElementById('csvtext').value = document.getElementById('csvtext').value.trim().replace(/\\n\\s*(?=\\n)/g, '');
+					document.getElementById('csvtext').value = document.getElementById('csvtext').value.trim().replace(/\\n#[^\\n]*(?=\\n)/g, '').replace(/\\n[ \\t]*#[^\\n]*(?=\\n)/g, '');
+					document.getElementById('csvtext').value = document.getElementById('csvtext').value.trim().replace(/\\n[ \\t]*#(?=\\n)/g, '');
+					document.getElementById('csvtext').value = document.getElementById('csvtext').value.trim().replace(/^[ \\t]*#[^\\n]*(?=\\n)/g, '');
+					document.getElementById('csvtext').value = document.getElementById('csvtext').value.trim().replace(/\\n[ \\t]*#[^\\n]*$/g, '');
+
+					document.getElementById("stimulustable").innerHTML = "<tr><td>" + document.getElementById('csvtext').value.replace(/\\n/g, '</td></tr>\\n<tr><td>').replace(/;/g, '</td><td>')+"</td></tr>";
+					document.getElementById("stimulustable").rows[0].style.fontWeight='bold';
+					document.getElementById("stimulustable").style.fontSize='smaller';
+					document.getElementById("NumRows").innerText = document.getElementById("stimulustable").rows.length - 1;
+				};\</script\></head><body>
 			`;
 			var intermission1 = `
 			<hr/>
 			<button onclick='if(document.getElementById("csvtext").style.visibility != "visible"){document.getElementById("csvtext").style.visibility = "visible"; this.style.backgroundColor="CornflowerBlue";} else {document.getElementById("csvtext").style.visibility = "hidden"; this.style.backgroundColor="MediumAquaMarine";};'  style='background-color:MediumAquaMarine'>Edit CSV text</button> 
 			<button id='saveChanges' onclick='window.opener.csvTableText2stimulusTable(document.getElementById("csvtext").value, ";"); window.close()' style='background-color:red;visibility:hidden'>Save changes & Close</button><br />
 			<p style='text-align:center;visibility: hidden;'>
-			<textarea id='csvtext'  rows=30 cols=120 onchange='document.getElementById("saveChanges").style.visibility="visible"'>`;
+			<textarea id='csvtext'  rows=30 cols=120 onchange='document.getElementById("saveChanges").style.visibility="visible";csv2HTMLtable()'>`;
 			
 			var intermission2 = "</textarea></p>\n";
 			var postambleProc = '</body></html>';
