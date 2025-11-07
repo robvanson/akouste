@@ -410,7 +410,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			var intermission1 = `
 			<hr/>
 			<button onclick='if(document.getElementById("csvtext").style.visibility != "visible"){document.getElementById("csvtext").style.visibility = "visible"; this.style.backgroundColor="CornflowerBlue";} else {document.getElementById("csvtext").style.visibility = "hidden"; this.style.backgroundColor="MediumAquaMarine";};'  style='background-color:MediumAquaMarine'>Edit CSV text</button> 
-			<button id='saveChanges' onclick='window.opener.csvTableText2stimulusTable(document.getElementById("csvtext").value, ";"); window.close()' style='background-color:red;visibility:hidden'>Save changes & Close</button><br />
+			<button id='saveChanges' onclick='window.opener.csvTableText2stimulusTable(document.getElementById("csvtext").value, ";"); document.getElementById("saveChanges").style.visibility = "hidden"; window.close()' style='background-color:red;visibility:hidden'>Save changes & Close</button><br />
 			<p style='text-align:center;visibility: hidden;'>
 			<textarea id='csvtext'  rows=30 cols=120 onchange='document.getElementById("saveChanges").style.visibility="visible";csv2HTMLtable()'>`;
 			
