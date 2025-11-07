@@ -246,7 +246,7 @@ As the answers can be communicated to the experimenter using any communication c
 
 ### The stimulus table
 
-The current stimulus table can be viewed in a pop-up window by clicking on the **View Stimuli** button. Editing is possible in the **View Stimuli** pop-up window after clicking the **Edit CSV text** button below the table[^6]. After changing the semicolon separated values table, a (red) **Save changes & Close** button appears. To discard all changes, close the window without clicking the **Save changes & Close** button (an alert will pop up that asks for confirmation).
+The current stimulus table can be viewed in a pop-up window by clicking on the **View Stimuli** button. Editing is possible in the **View Stimuli** pop-up window after clicking the **Edit CSV text** button below the table[^6]. After changing the semicolon separated values table, a (red) **Save changes & Close** button appears[^6]. To discard all changes, close the window without clicking the **Save changes & Close** button (an alert will pop up that asks for confirmation).
 
 The stimulus table is stored below the settings area in the markdown file. This area can be edited directly, but that should rarely be necessary. When a *.csv* file is uploaded, the contents automatically replace the existing data in the markdown file. It suffices to save the markdown with the **Save MD...** button.
 
@@ -384,4 +384,4 @@ The experiment ZIP archive can be unpacked at the desired position for the subje
 [^3]: The converter [*markdown-it.min.js*](https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/) can be stored locally if desired.  
 [^4]: The SHA library [sha.js](https://cdn.jsdelivr.net/npm/jssha@3.3.1/dist/) can be stored locally if desired. The library is *only* loaded if the experiment requests digests. 
 [^5]: Integrating *akousteHTMLtemplate.js* into the code of *akousteCreate.html* proved to be so confusing during coding and maintenance that it was decided to not be worth it. Instead, *akousteCreate.html* will use a local version of *akousteHTMLtemplate.js* if it is available, else it will use the online GitHub version. If both are not found, a warning will be displayed.
-[^6]: The content of the View Stimuli pop-up window cannot be edited in Chrome, Edge, and derived browsers. That is, in browsers that label the pop-up window as **Not Secure**. The CSV text can be edited, but the edits do not appear in the table and cannot be saved to the main window. In these cases, the table or CSV text can be copied to, and edited, in a spreadsheet or text file.
+[^6]: The content of the View Stimuli pop-up window cannot be edited in Chrome, Edge, and derived browsers. That is, in browsers that label the pop-up window as **Not Secure**. The CSV text can be edited, but the edits cannot be saved to the main window. In these cases, the table or CSV text can be copied to, and edited, in a spreadsheet or text file.
