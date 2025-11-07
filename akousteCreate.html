@@ -405,6 +405,8 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 					document.getElementById("stimulustable").rows[0].style.fontWeight='bold';
 					document.getElementById("stimulustable").style.fontSize='smaller';
 					document.getElementById("NumRows").innerText = document.getElementById("stimulustable").rows.length - 1;
+					var numCols = document.getElementById("stimulustable").rows[0].children.length;
+					for(var item=1;item < document.getElementById("stimulustable").rows.length; item++){if(document.getElementById("stimulustable").rows[item].children.length != numCols){alert("Incorrect number of columns in row: "+item);break}};
 				};\</script\></head><body>
 			`;
 			var intermission1 = `
