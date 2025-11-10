@@ -285,6 +285,10 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			markdown2Parameters();
 			markdown2HTML();
 			
+			// Show Save button
+			document.getElementById('SaveStimulusTable').style.visibility = 'visible';
+			document.getElementById('SaveStimulusTable').style.backgroundColor = 'MediumAquaMarine';
+
 			return(newTable);
 		};
 		
@@ -357,6 +361,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			};			
 		};
 		
+		// Pop-up Stimulus Table page
 		var winPageTableURL = '';
 		var openTable = "";
 		function displayStimulusTableHTML (stimulusTable) {
@@ -384,7 +389,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 				winPageTableURL = '';
 			};
 
-			// Finish HTML and open page
+			// Finish pop-up page HTML and open page
 			var text = document.getElementById('htmlText').value;
 			var preambleProc = `
 			<!DOCTYPE html>
@@ -1168,12 +1173,14 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			anchor.href = stimBlobUrl;
 			anchor.target = "_blank";
 			anchor.download = ExperimentAcronym+"_stimuluslist.js";
+			anchor.onclick = function () {document.getElementById('SaveStimulusTable').style.backgroundColor = 'White';};
 
 			 // Auto click on a element, trigger the file download
 			 anchor.click();
 
-			 // This is required
+			 // Releasing Blob URL  is required
 			 URL.revokeObjectURL(stimBlobUrl);
+			 
 		};
 	
 	var buttonCounter = 0;
