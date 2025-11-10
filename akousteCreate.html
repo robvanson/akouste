@@ -236,6 +236,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 					initializeMarkdown();
 					markdown2HTML ();
 					document.getElementById('MarkdownFileUpload').value = "";
+					document.getElementById('SaveStimulusTable').style.visibility = 'hidden';
 			    };
 			    reader.onerror = function (evt) {
 			        alert("error reading file");
