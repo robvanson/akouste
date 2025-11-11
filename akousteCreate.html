@@ -770,7 +770,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		};
 		
 		// Construct stimulusTable
-		if(tmpStimulusTable1.length > 0) stimulusTable = [tmpStimulusTable0, tmpStimulusTable1];
+		if(tmpStimulusTable0.length > 0 && tmpStimulusTable1.length > 0) stimulusTable = [tmpStimulusTable0, tmpStimulusTable1];
 
 		stimulusTableJSON = "\` \n" + JSON.stringify(stimulusTable) + "\n\`"
 		stimulusTableJSON = stimulusTableJSON.replace(/\],\[/g, "],\n[");
