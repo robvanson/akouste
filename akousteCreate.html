@@ -669,7 +669,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		var tmpStimulusTable1 = [];
 		var lines = currentMarkdown.split(/(\r|\n)/g);
 		for(var i=0; i < lines.length; ++i){
-			if(lines[i].match(/\[\/\/stimulus[01]\]: # ["']/)){
+			if(lines[i].match(/\[\/\/stimulus[01]\]: # ["']/) && lines[i].match(/["']\s*$/)){
 				var valueString = lines[i].replace(/^\s*\[\/\/stimulus[01]\]: # ["']/, "")
 				valueString = valueString.replace(/['"]\s*$/, "");
 				var valueList = valueString.split(/\s*,\s*/);
@@ -680,6 +680,10 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 				} else {
 						tmpStimulusTable1.push(valueList);
 				};
+			} else if(lines[i].match(/\[\/\/stimulus[01]\]: # ["']/)) {
+					// Stimulus setttings in Markdown are broken, do not touch
+					tmpStimulusTable0 = [];
+					tmpStimulusTable1 = [];
 			};
 
 			if(lines[i].match(/\[\/\/(parameter|buttontext|tooltiptext)\]: # ["']/)){
