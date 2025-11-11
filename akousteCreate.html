@@ -1624,7 +1624,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			</tr>
 		</table>
 
-		<textarea id="markdownText" rows=50 cols=80 onfocusout="markdownPush();" onchange='markdown2HTML();' style='font-family: "Lucida Console", "Courier New", monospace;'>
+		<textarea id="markdownText" rows=50 cols=80 onfocusout="markdownPush();" onchange='markdown2HTML();markdown2Parameters();parameters2Markdown();' style='font-family: "Lucida Console", "Courier New", monospace;'>
 		</textarea><br />
 		<input type="checkbox" id="linkify" name="linkify" value="linkify" checked=true onchange='markdownLinkify=event.target.checked; parameters2Markdown(); markdown2HTML ()'>
 		<label for="likify" title="autoconvert link-like texts to links"> linkify</label> 
