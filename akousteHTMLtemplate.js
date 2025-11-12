@@ -438,6 +438,10 @@ function nextStimulus () {
 	// Ready, no next
 	if(finishedExperiment)return false;
 	
+	// Reset resetCount and remove Reset button
+	resetCount = 0;
+	document.getElementById('RestartPage').style.visibility = 'hidden';
+	
 	// Genuine Next stimulus
 	if(playedSamples) {
 		// Reset played
@@ -542,6 +546,15 @@ function resetPage () {
 	if(document.getElementById('coverpage')) {
 		document.getElementById('coverpage').style.display = 'block';
 		document.getElementById('experimentpage').style.display = 'none';
+	};
+};
+
+var resetCount = 0;
+function incrResetCount() {
+	++resetCount;
+	if(resetCount > 6){
+		document.getElementById('RestartPage').style.visibility = 'visible';
+		resetCount = 0;
 	};
 };
 
@@ -713,7 +726,7 @@ postamble = `
 		<col width="10%">
 	  <tr style="font-size:30px">
 	    <td>&nbsp;</td>
-	    <td><div style="text-align:right;height:25px;width:25px;border-radius: 45px;background:#ee9090;" id="LocalStoragePresent">&nbsp;</div></td>
+	    <td><div style="text-align:right;height:25px;width:25px;border-radius: 45px;background:#ee9090;" id="LocalStoragePresent" onclick="incrResetCount();" >&nbsp;</div></td>
 	  </tr>
 	</table>
 	
