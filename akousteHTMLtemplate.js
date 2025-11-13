@@ -438,7 +438,7 @@ function nextStimulus () {
 	// Ready, no next
 	if(finishedExperiment)return false;
 	
-	// Reset resetCount and remove Reset button
+	// Reset resetCount and remove Reset button, cancels abortion of experiment
 	resetCount = 0;
 	document.getElementById('RestartPage').style.visibility = 'hidden';
 	
@@ -497,6 +497,7 @@ function nextStimulus () {
 	
 };
 
+// Display buttons and prepare responses when the experiment is finished.
 function FinishExperimentRun () {
 	displayArray(answerList);
 	document.getElementById('NextText').innerHTML = "XXReadyTextXX";
@@ -508,12 +509,14 @@ function FinishExperimentRun () {
 
 };
 
+// Buttons to show after saving the data
 function onSave () {
 	document.getElementById('RestartPage').style.visibility = 'visible'
 	document.getElementById('ToolTipRestart').style.visibility = 'visible'
 	document.getElementById('SaveText').innerHTML =  'XXSaveTextXX';
 };
 
+// Restart experiment
 function resetPage () {
 	// Reset all
 	localStorage.removeItem(CurrentExperimentID+'stimuluslist');
@@ -549,6 +552,7 @@ function resetPage () {
 	};
 };
 
+// Counter to abort current experiment with Restart button after 7 clicks on green spot (LocalStoragePresent)
 var resetCount = 0;
 function incrResetCount() {
 	++resetCount;
@@ -558,7 +562,7 @@ function incrResetCount() {
 	};
 };
 
-
+// Basic random shuffle array function
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -578,6 +582,7 @@ function shuffle(array) {
   return array;
 }
 
+// Shuffle two parallel stimuli (AB)
 function shuffleAB(stimarray, posA, posB) {
   var temporaryValue, switchAB, currentRow;
   // While there remain elements to shuffle...
