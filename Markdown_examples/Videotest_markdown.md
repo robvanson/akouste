@@ -2,7 +2,7 @@
 
 # akoúste test for video
 
-[[§A{width:30%;}§]]
+[[§Video stimulus|A{width:30%;}§]]
 
 ## {{{!answerstogo!|font-weight:bold}}} answers to go
 

@@ -154,7 +154,7 @@ Four constructs are defined to present stimulus sounds, videos, images, and text
 
 - **\[\[\[text\|name\{style\}\]\]\]** creates an audio button showing *text* in *style*, playing the audio files mentioned in column *name*.   
   For instance, \[\[\[Speaker A\|A\{font-style: italic;\}\]\]\] would show a button with the text *Speaker A* in italic and play the current stimulus in the column labeled *A* of the stimulus table.
-- **\[\[§ alt-text\|name\{style\} §\]\]** embeds a video in the page in *style*, playing the video files mentioned in column *name*.  The *alt-text* appears as a tooltip. *Style* should include the desired dimensions, *width* or *height*, of the video, eg, *\{width=30%;height:auto;\}*.  
+- **\[\[§ alt-text\|name\{style\} §\]\]** embeds a video in the page in *style*, playing the video files mentioned in column *name*. The *alt-text* appears as a tooltip. *Style* should include the desired dimensions, *width* or *height*, of the video, eg, *\{width=30%;height:auto;\}*.  
   *Note: Browsers differ in which video formats they support. Test your browser platforms before deployment.*
 - **\{\{\{name\|style\}\}\}** creates a text field showing the string in column *name* in *style*.   
   For instance, \{\{\{LangA\|font-style: italic;\}\}\} would show the text in *italic* of the current stimulus in the column labeled *LangA* of the stimulus table.
