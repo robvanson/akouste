@@ -363,7 +363,7 @@ The experiment ZIP archive can be unpacked at the desired position for the subje
 
 If there are wories about the responses in an experiment, clicking the **Restart** button at the end of the experiment[^6] or a browser history delete (*Delete browsing data*) should clear out any local data.
 
-In normal use, simple markdown texts or genuine stimuli should not introduce risks for users or subjects. But when creating a new experiment, special care should be taken when including HTML, JavaScript, or CSS code which might compromise the privacy or security of users or experimental subjects. Also, it is prudent to check the provenance of the components of akoúste used and whether new versions might be available.
+In normal use, simple markdown texts or genuine stimuli should not introduce risks for users or subjects. But when creating a new experiment, special care should be taken when including HTML, JavaScript, or CSS code which might compromise the privacy or security of users or experimental subjects. Also, it is prudent to check the provenance of the components of *akoúste* used and whether new versions might be available.
 
 ## Repositories
 
