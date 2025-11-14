@@ -1296,7 +1296,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	};
 
 	
-	// Video buttons [[[ alt-text | stimulus {css style} ]]] (alt-text does not work)
+	// Video buttons [[§ alt-text | stimulus {css style} §]] (alt-text does not work)
 	function replaceVideo (text) {
 		var audioNamesRaw = text.match(/\[\[§([^\]§]+)§\]\]/g);
 		
@@ -1308,14 +1308,14 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 
 		audioNames = audioNames.flat();
 
-		// Fixed links [[[ label | <url> {css style}]]]
-		text = text.replace(/\[\[§\s*(([^§\]\|\¦\\\<\>]*[^\]\|\¦\\\s\<\>])\s*\\?[\|\¦])?\s*\<([^\>]*)\>\s*(\{\s*([^\}]*)\s*\})?\s*(autoplay)?\s*§\]\]/g, '<video controls controlslist="nofullscreen nodownload noremoteplayback noplaybackrate noseeking" id="Fixed$3" name="Fixed$3" src="$3" preload="auto" style="$5" alt="$2" crossorigin="anonymous" $6 ></video>');
+		// Fixed links [[§ label | <url> {css style}§]]
+		text = text.replace(/\[\[§\s*(([^§\]\|\¦\\\<\>]*[^\]\|\¦\\\s\<\>])\s*\\?[\|\¦])?\s*\<([^\>]*)\>\s*(\{\s*([^\}]*)\s*\})?\s*(autoplay)?\s*§\]\]/g, '<video controls controlslist="nofullscreen nodownload noremoteplayback noplaybackrate noseeking" id="Fixed$3" name="Fixed$3" src="$3" preload="auto" style="$5" alt="$2" onmouseover="this.title=\'$2\';" crossorigin="anonymous" $6 ></video>');
 				
-		// Stimulus links with label [[[ label | stimulus {css style}]]]
-		text = text.replace(/\[\[§\s*([^§\]\|\¦\\]*[^§\]\|\¦\\\s])\s*\\?[\|\¦]\s*([^§\]\{]*[^§\]\{\s])\s*(\{\s*([^\}]*)\s*\})?\s*(autoplay)?\s*§\]\]/g, '<video controls controlslist="nofullscreen nodownload noremoteplayback noplaybackrate noseeking" id="Audio$2" name="Audio$2" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/NEC_PC-9801VX_ITF_beep_sound.ogg" preload="auto" style="$4" onplay="unblockNext (\'Audio$2\');" alt="$1" crossorigin="anonymous" $5 ></video>');
+		// Stimulus links with label [[§ label | stimulus {css style}§]]
+		text = text.replace(/\[\[§\s*([^§\]\|\¦\\]*[^§\]\|\¦\\\s])\s*\\?[\|\¦]\s*([^§\]\{]*[^§\]\{\s])\s*(\{\s*([^\}]*)\s*\})?\s*(autoplay)?\s*§\]\]/g, '<video controls controlslist="nofullscreen nodownload noremoteplayback noplaybackrate noseeking" id="Audio$2" name="Audio$2" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/NEC_PC-9801VX_ITF_beep_sound.ogg" preload="auto" style="$4" onplay="unblockNext (\'Audio$2\');" alt="$1" onmouseover="this.title=\'$1\';" crossorigin="anonymous" $5 ></video>');
 		
-		// Stimulus links without label [[[ stimulus {css style}]]]
-		return text.replace(/\[\[§\s*([^§\]\{]*[^§\]\{\s])\s*(\{\s*([^\}]*)\s*\})?\s*(autoplay)?\s*§\]\]/g, '<video controls controlslist="nofullscreen nodownload noremoteplayback noplaybackrate noseeking" id="Audio$1" name="Audio$1" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/NEC_PC-9801VX_ITF_beep_sound.ogg" preload="auto" style="$3" onplay="unblockNext (\'Audio$1\');" alt="$1" crossorigin="anonymous" $4 ></video>');
+		// Stimulus links without label [[§ stimulus {css style}§]]
+		return text.replace(/\[\[§\s*([^§\]\{]*[^§\]\{\s])\s*(\{\s*([^\}]*)\s*\})?\s*(autoplay)?\s*§\]\]/g, '<video controls controlslist="nofullscreen nodownload noremoteplayback noplaybackrate noseeking" id="Audio$1" name="Audio$1" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/NEC_PC-9801VX_ITF_beep_sound.ogg" preload="auto" style="$3" onplay="unblockNext (\'Audio$1\');" alt="$1"  onmouseover="this.title=\'Video\';" crossorigin="anonymous" $4 ></video>');
 	};
 
 	function preProcessMD (text) {
