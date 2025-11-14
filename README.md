@@ -361,6 +361,8 @@ The experiment ZIP archive can be unpacked at the desired position for the subje
 
 *acousteCreate.html* converts markdown text to an HTML webpage. That HTML webpage can do anything an HTML page can do, including execute unwanted actions. *akoúste* Is designed to produce experiment web pages that neither compromise the devices nor privacy of the users or subjects. As far as known, the four components that make up akoúste, ie, *akousteCreate.html*, *akousteHTMLtemplate.js*, and the libraries *markdown-it.min.js* and *sha.js*, do not compromise devices or privacy of the users and subjects. Nor do any of the examples. 
 
+*akoúste* supports subject privacy by keeping all responses local, in the browser. *akoúste* has no provisions for storing personal information of subjects. Responses are only accessible to the experimental subject or the operator of the browser, and only as a text download after completing the experiment. It is the responsibility of the subject to convey the responses to the experimenter, together with any personal information that might be required. 
+
 If there are wories about the responses in an experiment, clicking the **Restart** button at the end of the experiment[^6] or a browser history delete (*Delete browsing data*) should clear out any local data.
 
 In normal use, simple markdown texts or genuine stimuli should not introduce risks for users or subjects. But when creating a new experiment, special care should be taken when including HTML, JavaScript, or CSS code which might compromise the privacy or security of users or experimental subjects. Also, it is prudent to check the provenance of the components of *akoúste* used and whether new versions might be available.
