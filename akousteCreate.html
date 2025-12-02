@@ -929,7 +929,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		var experimentStyles = preamble.replace(/^(.|\n|\r)*<style/i, "<style");
 		experimentStyles = experimentStyles.replace(/<\/style>(?!(.|\n|\r)*<\/style>)(.|\n|\r)*/ig, "</style>");
 		
-		var fullPage = '<!DOCTYPE html><head>\n<meta charset="UTF-8">\n'+experimentStyles + '\n\<script  type="text/javascript"\>\n' + `
+		var fullPage = '<!DOCTYPE html><head>\n<meta charset="UTF-8">\n<meta name="generator" content="' + selectMarkdownParser + '">\n'+experimentStyles + '\n\<script  type="text/javascript"\>\n' + `
 			function stopAllAudio () {
 				var audioPlayers = document.getElementsByTagName('Audio');
 				for(i in audioPlayers){
