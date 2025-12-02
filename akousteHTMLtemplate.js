@@ -3,6 +3,7 @@ preamble = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+<meta name="generator" content="XXMarkdownParserXX">
 <style>
 		/* Increase radio button's size */
 		input[type='radio']{
