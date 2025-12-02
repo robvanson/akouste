@@ -26,27 +26,34 @@
 <script src="./remarkable.min.js" ></script>
 <script type="text/javascript">
 	// Load markdown parser from online link.
-	var selectMarkdownit = true; // Use Markdown-it or else the next one, Remarkable
-	if(window.location.search.match(/MarkdownParser\=Remarkable/i)){
-		selectMarkdownit = false; 
+	var selectMarkdownParser = 'markdown-it'; // Use Markdown-it or else the next one
+	if(window.location.search.match(/MarkdownParser\=markdown-?it/i)){
+		selectMarkdownParser = 'markdown-it'; 
+	} else if(window.location.search.match(/MarkdownParser\=Remarkable/i)){
+		selectMarkdownParser = 'Remarkable'; 
 	};
 	
-	if(selectMarkdownit && (typeof window.markdownit == 'undefined' || typeof window.markdownit != "function") && (typeof window.remarkable == 'undefined' || typeof window.remarkable.Remarkable != "function")) {
-		var script = document.createElement('script');
-		script.type='text/javascript';
-		script.src = 'https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js';
-		document.getElementsByTagName('head')[0].appendChild(script);
-	};
-
-	if(!selectMarkdownit && (typeof window.markdownit == 'undefined' || typeof window.markdownit != "function") && (typeof window.remarkable == 'undefined' || typeof window.remarkable.Remarkable != "function")) {
-		var script = document.createElement('script');
-		script.type='text/javascript';
-		script.src = 'https://unpkg.com/remarkable@2.0.1/dist/remarkable.min.js';
-		document.getElementsByTagName('head')[0].appendChild(script);
+	if(selectMarkdownParser && (typeof window.markdownit == 'undefined' || typeof window.markdownit != "function") && (typeof window.remarkable == 'undefined' || typeof window.remarkable.Remarkable != "function")) {
+		switch(selectMarkdownParser) {
+				case "markdown-it":
+					var script = document.createElement('script');
+					script.type='text/javascript';
+					script.src = 'https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js';
+					document.getElementsByTagName('head')[0].appendChild(script);
+					break;
+				case "Remarkable":
+					var script = document.createElement('script');
+					script.type='text/javascript';
+					script.src = 'https://unpkg.com/remarkable@2.0.1/dist/remarkable.min.js';
+					document.getElementsByTagName('head')[0].appendChild(script);
+					break;
+				 default:
+					break;
+		};
 	};
 </script>
 
-<script id='mardownRead' type="text/javascript" src="./akousteInitPageMD.js"></script>
+<script id='markdownRead' type="text/javascript" src="./akousteInitPageMD.js"></script>
 <script type="text/javascript" >
 function loadMarkdown(fileName) {
   (function(d, script) {
