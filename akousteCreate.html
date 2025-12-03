@@ -26,14 +26,18 @@
 <script src="./remarkable.min.js" ></script>
 <script type="text/javascript">
 	// Load markdown parser from online link.
-	var selectMarkdownParser = 'markdown-it@14.1.0'; // Use Markdown-it or else the next one
+	var selectMarkdownParser = 'markdown-it@14.1.0'; // Default is Markdown-it
 	if(window.location.search.match(/MarkdownParser\=markdown-?it/i)){
 		selectMarkdownParser = 'markdown-it@14.1.0'; 
 	} else if(window.location.search.match(/MarkdownParser\=Remarkable/i)){
 		selectMarkdownParser = 'remarkable@2.0.1'; 
 	};
 	
-	if(selectMarkdownParser && (typeof window.markdownit == 'undefined' || typeof window.markdownit != "function") && (typeof window.remarkable == 'undefined' || typeof window.remarkable.Remarkable != "function")) {
+	if(typeof window.markdownit != 'undefined' && typeof window.markdownit == "function"){
+		selectMarkdownParser = 'markdown-it@14.1.0'; 
+	} else if (typeof window.remarkable != 'undefined' && typeof window.remarkable.Remarkable == "function") {
+		selectMarkdownParser = 'remarkable@2.0.1'; 
+	}	else {
 		switch(selectMarkdownParser) {
 				case "markdown-it@14.1.0":
 					var script = document.createElement('script');
