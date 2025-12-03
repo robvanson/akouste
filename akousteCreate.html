@@ -24,6 +24,7 @@
 
 <script src="./markdown-it.min.js" ></script>
 <script src="./remarkable.min.js" ></script>
+<script src="./marked.umd.js" ></script>
 <script type="text/javascript">
 	// Load markdown parser from online link.
 	var selectMarkdownParser = 'markdown-it@14.1.0'; // Default is Markdown-it
@@ -31,12 +32,16 @@
 		selectMarkdownParser = 'markdown-it@14.1.0'; 
 	} else if(window.location.search.match(/MarkdownParser\=Remarkable/i)){
 		selectMarkdownParser = 'remarkable@2.0.1'; 
+	} else if(window.location.search.match(/MarkdownParser\=marked/i)){
+		selectMarkdownParser = 'marked@17.0.1'; 
 	};
-	
+
 	if(typeof window.markdownit != 'undefined' && typeof window.markdownit == "function"){
 		selectMarkdownParser = 'markdown-it@14.1.0'; 
 	} else if (typeof window.remarkable != 'undefined' && typeof window.remarkable.Remarkable == "function") {
 		selectMarkdownParser = 'remarkable@2.0.1'; 
+	} else if (typeof window.marked != 'undefined' && typeof window.marked.parse == "function") {
+		selectMarkdownParser = 'marked@17.0.1'; 
 	}	else {
 		switch(selectMarkdownParser) {
 				case "markdown-it@14.1.0":
@@ -49,6 +54,12 @@
 					var script = document.createElement('script');
 					script.type='text/javascript';
 					script.src = 'https://unpkg.com/remarkable@2.0.1/dist/remarkable.min.js';
+					document.getElementsByTagName('head')[0].appendChild(script);
+					break;
+				case "marked@17.0.1":
+					var script = document.createElement('script');
+					script.type='text/javascript';
+					script.src = 'https://cdn.jsdelivr.net/npm/marked@17.0.1/lib/marked.umd.js';
 					document.getElementsByTagName('head')[0].appendChild(script);
 					break;
 				 default:
@@ -951,7 +962,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	
 	function markdown2HTML () {
 		// Warn if markdown-it has not been loaded
-		if(typeof window.markdownit == 'undefined' && typeof window.remarkable.Remarkable == 'undefined') {
+		if(typeof window.markdownit == 'undefined' && typeof window.remarkable == 'undefined' && typeof window.marked == 'undefined') {
 			document.getElementById('htmlText').value = `
 			HTML not available
 			"markdown-it.min.js" not found
@@ -977,13 +988,20 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 				  typographer: markdownTypographer,
 				  breaks: markdownBreaks
 			}).render(processedMarkdown);
-		} else if(typeof window.remarkable.Remarkable != 'undefined'){
+		} else if(typeof window.remarkable != 'undefined'){
 			var md = new window.remarkable.Remarkable({
 				  html: true,
 				  breaks: markdownBreaks,
 				  typographer: markdownTypographer
 			});
 			htmlText = md.render(processedMarkdown);
+		} else if(typeof window.marked != 'undefined') {
+			htmlText = window.marked.parse(processedMarkdown, {
+				  html: true,
+				  linkify: markdownLinkify,
+				  typographer: markdownTypographer,
+				  breaks: markdownBreaks
+				});
 		};
 		HTMLchanged = false;
 
