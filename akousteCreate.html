@@ -995,6 +995,9 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 				  typographer: markdownTypographer
 			});
 			htmlText = md.render(processedMarkdown);
+			markdownLinkify = false;
+			document.getElementById("linkify").checked = markdownLinkify;
+			document.getElementById("linkify").style.visibility = 'hidden';
 		} else if(typeof window.marked != 'undefined') {
 			htmlText = window.marked.parse(processedMarkdown, {
 				  html: true,
@@ -1002,6 +1005,12 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 				  typographer: markdownTypographer,
 				  breaks: markdownBreaks
 				});
+			markdownTypographer = false;
+			document.getElementById("typographer").checked = markdownTypographer;
+			document.getElementById("typographer").style.visibility = 'hidden';
+			markdownLinkify = true;
+			document.getElementById("linkify").checked = markdownLinkify;
+			document.getElementById("linkify").style.visibility = 'hidden';
 		};
 		HTMLchanged = false;
 
