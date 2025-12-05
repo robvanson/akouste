@@ -36,13 +36,15 @@
 		selectMarkdownParser = 'marked@17.0.1'; 
 	};
 
+	// Local parser libraries have unknown version numbers
 	if(typeof window.markdownit != 'undefined' && typeof window.markdownit == "function"){
-		selectMarkdownParser = 'markdown-it@14.1.0'; 
+		selectMarkdownParser = 'markdown-it@'; 
 	} else if (typeof window.remarkable != 'undefined' && typeof window.remarkable.Remarkable == "function") {
-		selectMarkdownParser = 'remarkable@2.0.1'; 
+		selectMarkdownParser = 'remarkable@'; 
 	} else if (typeof window.marked != 'undefined' && typeof window.marked.parse == "function") {
-		selectMarkdownParser = 'marked@17.0.1'; 
+		selectMarkdownParser = 'marked@'; 
 	}	else {
+		// Downloaded parser libraries have known version numbers
 		switch(selectMarkdownParser) {
 				case "markdown-it@14.1.0":
 					var script = document.createElement('script');
