@@ -85,7 +85,7 @@ For it to work, JavaScript should be allowed, *Third-party cookies* should be al
 
 Target language: German.
 
-Create an akoúste markdown file presenting a simple audio listening experiment in the target language, with two questions:
+Create an akoúste markdown file presenting a simple audio listening experiment with a single stimulus video in the target language, with two questions:
 
 -1. Ask the subject to judge the intelligibility of the speech on a 5 point Likert scale of radio buttons, from very unintelligible to very intelligible.
 
