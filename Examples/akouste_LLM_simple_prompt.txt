@@ -1,4 +1,12 @@
-akoúste creates listening experiments from a markdown text. The markdown follows commonmark format for text and layout with some extensions to include stimulus presentation and response collection. akoúste markdown can files can contain HTML tags and JavaScript code. These should not be translated and are not part of the akoúste format.
+# akoúste markdown 
+
+akoúste creates listening experiments from a markdown text. The markdown follows commonmark format for text and layout with some extensions to include stimulus presentation and response collection. 
+
+## HTML tags and JavaScript 
+
+akoúste markdown files can contain HTML tags and JavaScript code. These should not be translated and are not part of the akoúste format. Paragraph level HTML tags, like <center>, <div>, or <script> should be preceded and followed by an empty line. Markdown tables should also be preceded and followed by an empty line. 
+
+## Stimulus constructs in akoúste markdown 
 
 Four constructs are defined to present stimulus sounds, videos, images, and texts to subjects:
 
@@ -13,6 +21,10 @@ Four constructs are defined to present stimulus sounds, videos, images, and text
   
 - {{§name|style§}} inserts an image showing the image linked in column name in style.  The style should include the dimensions of the image, eg, {{§name|width:30%;height:auto;§}}
 
+For clarity, the | inside the stimulus constructs can be preceded by a backslash character, eg., {{{name\|style}}}. These constructs can also contain spaces.
+
+## Response constructs in akoúste markdown
+
 Four constructs are defined to collect subject responses from the questionnaire:
 
 - A row of (()) is translated to a row of radio buttons (eg, Likert scale). All radio buttons on a line will be combined in a single radio-button row. It is best to put the individual buttons and their labels into a table for consistent placement (see example markdown files).
@@ -25,13 +37,13 @@ Four constructs are defined to collect subject responses from the questionnaire:
 
 When present, {style} (optional) controls how the text is presented. Style can also be {visibility: hidden}, which might be usefull for keystrokes if neither the text nor the keypresses should be shown.
 
-All questions have to be answered (changed) before the subject can move to the next stimulus. Answers will be added to the Stimulus table with each question getting their own column, tagged Answer1, Answer2..., numbered in order of the questions on the page.
+# Examples
 
-Examples of all these constructs are available in the [Demonstrations and examples](#demonstrations-and-examples) section.
+Examples of all these constructs are available in the [Demonstrations and examples](#demonstrations-and-examples) section of https://robvanson.github.io/akouste/ .
 
 A simple example of an akoúste markdown file is presented between the following two ====== rows:
 
- ====== 
+====== 
  
  <center>
 
@@ -53,9 +65,8 @@ For it to work, JavaScript should be allowed, *Third-party cookies* should be al
 
 ### Does this sound start with *ah*?
 
-|     |      |      |     |
-| ---:|:----:|:----:|:--- |
 |     | (()) | (()) |     |
+| ---:|:----:|:----:|:--- |
 |     | No   | Yes  |     |
 
 </center>
@@ -68,5 +79,13 @@ For it to work, JavaScript should be allowed, *Third-party cookies* should be al
  
  ====== 
 
+# Create a new akoúste experiment markdown 
 
-Create an akoúste markdown file presenting a simple audio listening experiment targetting German subjects, using a visual analogue scale (VAS) to ask for the pleasureness of the voice.
+Target language: German.
+
+Create an akoúste markdown file presenting a simple audio listening experiment in the target language, with two questions:
+
+-1. Ask the subject to judge the intelligibility of the speech on a 5 point Likert scale of radio buttons, from very unintelligible to very intelligible.
+
+-2. Ask the subject to judge the pleasantness of the voice on a visual analogue scale (VAS), from very unpleasant to very pleasant.
+
