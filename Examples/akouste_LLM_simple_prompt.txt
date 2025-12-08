@@ -1,0 +1,72 @@
+akoúste creates listening experiments from a markdown text. The markdown follows commonmark format for text and layout with some extensions to include stimulus presentation and response collection. akoúste markdown can files can contain HTML tags and JavaScript code. These should not be translated and are not part of the akoúste format.
+
+Four constructs are defined to present stimulus sounds, videos, images, and texts to subjects:
+
+- [[[text|name{style}]]] creates an audio button showing text in style, playing the audio files mentioned in column name.   
+  For instance, [[[Speaker A|A{font-style: italic;}]]] would show a button with the text Speaker A in italic and play the current stimulus in the column labeled A of the stimulus table.
+  
+- [[§ alt-text|name{style} §]] embeds a video in the page in style, playing the video files mentioned in column name. The alt-text appears as a tooltip. Style should include the desired dimensions, width or height, of the video, eg, {width=30%;height:auto;}.  
+  Note: Browsers differ in which video formats they support. Test your browser platforms before deployment.
+  
+- {{{name|style}}} creates a text field showing the string in column name in style.   
+  For instance, {{{LangA|font-style: italic;}}} would show the text in italic of the current stimulus in the column labeled LangA of the stimulus table.
+  
+- {{§name|style§}} inserts an image showing the image linked in column name in style.  The style should include the dimensions of the image, eg, {{§name|width:30%;height:auto;§}}
+
+Four constructs are defined to collect subject responses from the questionnaire:
+
+- A row of (()) is translated to a row of radio buttons (eg, Likert scale). All radio buttons on a line will be combined in a single radio-button row. It is best to put the individual buttons and their labels into a table for consistent placement (see example markdown files).
+
+- >>----------<< (10 -dashes or more) will be transformed into a visual analogue slider.
+
+- <<| text {style} |>> becomes a text input field with the text as default value displayed in style (optional).
+
+- @@@ text [keys] {style} @@@ captures general keystrokes. Only a single such construct can be present. The text is shown before a key is pressed, eg, Press q or p., and is also the tooltip. Only the (optional) comma-separated keys in [keys] are accepted, eg, [q,p] for only q and p or [ArrowLeft,ArrowRight] for the left- and right-arrow keys ([,,.] is a valid way to accept the comma ',' and period '.' keys). Captured keys trigger the Next button and stimulus if all requisites for the next stimulus are fulfilled.
+
+When present, {style} (optional) controls how the text is presented. Style can also be {visibility: hidden}, which might be usefull for keystrokes if neither the text nor the keypresses should be shown.
+
+All questions have to be answered (changed) before the subject can move to the next stimulus. Answers will be added to the Stimulus table with each question getting their own column, tagged Answer1, Answer2..., numbered in order of the questions on the page.
+
+Examples of all these constructs are available in the [Demonstrations and examples](#demonstrations-and-examples) section.
+
+A simple example of an akoúste markdown file is presented between the following two ====== rows:
+
+ ====== 
+ 
+ <center>
+
+# akoúste test for local audio
+
+[[[A]]]
+
+## {{{!answerstogo!|font-weight:bold}}} answers to go
+
+Minimal test of audio. Uses two sounds<sup>1</sup> from ./Stimuli as listed in Audiotest_stimuluslist.js (in the same folder as the web page) or web audio when this stimuluslist is not available.
+
+For it to work, JavaScript should be allowed, *Third-party cookies* should be allowed (Chrome, Edge and derived browsers),  or *cross-site tracking* should be allowed (ie, *not* prevented, Safari). Firefox and derived browsers seem to work in most settings. Internet Explorer (IE) does not work.
+
+</center>
+
+---------------------------
+
+<center>
+
+### Does this sound start with *ah*?
+
+|     |      |      |     |
+| ---:|:----:|:----:|:--- |
+|     | (()) | (()) |     |
+|     | No   | Yes  |     |
+
+</center>
+
+---------------------------
+
+<sup>1</sup> Wikimedia Commons [Nl-Be.ogg](https://commons.wikimedia.org/wiki/File:Nl-Be.ogg) and [Open_front_unrounded_vowel.mp3](https://commons.wikimedia.org/wiki/File:Open_front_unrounded_vowel.ogg)
+
+
+ 
+ ====== 
+
+
+Create an akoúste markdown file presenting a simple audio listening experiment targetting German subjects, using a visual analogue scale (VAS) to ask for the pleasureness of the voice.
