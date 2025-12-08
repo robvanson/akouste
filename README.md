@@ -373,13 +373,13 @@ In normal use, simple markdown texts or genuine stimuli should not introduce ris
 
 *akoúste* git repositories are available at:
 
-- [GitHub robvanson/akouste](https://github.com/robvanson/akouste)<sup>†</sup>
+- [GitHub robvanson/akouste](https://github.com/robvanson/akouste)<sup> [†](https://robvanson.github.io/akouste/)</sup>
 
-- [Codeberg robvanson/akouste](https://codeberg.org/robvanson/akouste)† (mirror)  
+- [Codeberg robvanson/akouste](https://codeberg.org/robvanson/akouste)<sup> [†](https://robvanson.codeberg.page/akouste/)</sup> (mirror)  
 
-- [GitLab robvanson/akouste](https://gitlab.com/robvanson/akouste) (mirror)
+- [GitLab robvanson/akouste](https://gitlab.com/robvanson/akouste)<sup> [†](https://akouste-fc1799.gitlab.io/)</sup> (mirror)
 
-- [SourceForge akouste](https://sourceforge.net/p/akouste)† (mirror)  
+- [SourceForge akouste](https://sourceforge.net/p/akouste)<sup> [†](https://akouste.sourceforge.io/)</sup> (mirror)  
 
 - [Zenodo robvanson/akouste](https://doi.org/10.5281/zenodo.3712141) (releases snapshots)
 
