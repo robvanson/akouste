@@ -156,7 +156,7 @@ Markdown is well understood by Large Language Models (LLMs). As an initial step 
 
 A LLM prompt should introduce the desired target language and descriptions of the desired stimulus and response characteristics and suitable example markdown. These characteristics can be found below in the sections [Stimulus related constructs](#STimulus-related-constructs) and [Collecting subject responses](#Collecting-subject-responses), and a suitable markdown example can be found above from the [Demonstrations and examples](#Demonstrations-and-examples). It is unwise to trust text and translations of the LLMs on first sight. But the text delivered by a LLM can go a long way towards the desired end result even if it still requires editing to get everything right. 
 
-An example of a simple prompt text that gives a usefull first draft [can be found here](./Examples/akouste_LLM_simple_prompt.md). An example prompt for an [ABX experiment with cover page can be found here](./Examples/akouste_LLM_cover_prompt.md).
+An example of a simple prompt text that gives a usefull first draft [can be found here](./Examples/akouste_LLM_simple_prompt.txt). An example prompt for an [ABX experiment with cover page can be found here](./Examples/akouste_LLM_cover_prompt.txt).
 
 ### Stimulus related constructs
 
