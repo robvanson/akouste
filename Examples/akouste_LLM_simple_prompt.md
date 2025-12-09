@@ -90,5 +90,5 @@ Create an akoúste markdown file presenting a simple video signing experiment wi
 
 -1. Ask the subject to judge the intelligibility of the signs on a 5 point Likert scale of radio buttons, from very unintelligible to very intelligible.
 
--2. Ask the subject to judge the pleasantness of the signs on a visual analogue scale (VAS), from very unpleasant to very pleasant.
+-2. Ask the subject to judge the pleasantness of the presentation of the signs on a visual analogue scale (VAS), from very unpleasant to very pleasant.
 
