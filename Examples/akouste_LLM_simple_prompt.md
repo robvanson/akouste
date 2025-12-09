@@ -2,6 +2,9 @@
 
 akoúste creates listening experiments from a markdown text. The markdown follows the commonmark format for text and layout with some extensions to include stimulus presentation and response collection. Markdown tables should have a header line and a line with the text alignments.
 
+When creating a new markdown file, do not add a comment with hints or notes into the markdown!
+
+
 ## HTML tags and JavaScript 
 
 akoúste markdown files can contain HTML tags and JavaScript code for layout and extra functions. These should not be translated and are not part of the akoúste format. 
@@ -31,7 +34,7 @@ Four constructs are defined to collect subject responses from the questionnaire:
 
 - A row of (()) is translated to a row of radio buttons (eg, Likert scale). All radio buttons on a line will be combined in a single radio-button row. It is best to put the individual buttons and their labels into a table for consistent placement (see example markdown files).
 
-- >>----------<< (10 -dashes or more) will be transformed into a visual analogue slider. Sliders should not take the complete width of a page and should be put in a markdown table.
+- >>----------<< (10 -dashes or more) will be transformed into a visual analogue scale (VAS) slider. Sliders should not take the complete width of a page and should be put inside a markdown table.
 
 - <<| text {style} |>> becomes a text input field with the text as default value displayed in style (optional).
 
@@ -55,7 +58,7 @@ A simple example of an akoúste markdown file presenting a single sound button w
 
 ## {{{!answerstogo!|font-weight:bold}}} answers to go
 
-Minimal test of audio. Uses two sounds<sup>1</sup> from ./Stimuli as listed in Audiotest_stimuluslist.js (in the same folder as the web page) or web audio when this stimuluslist is not available.
+Minimal test of audio. Uses two sounds from ./Stimuli as listed in Audiotest_stimuluslist.js (in the same folder as the web page) or web audio when this stimuluslist is not available.
 
 For it to work, JavaScript should be allowed, *Third-party cookies* should be allowed (Chrome, Edge and derived browsers),  or *cross-site tracking* should be allowed (ie, *not* prevented, Safari). Firefox and derived browsers seem to work in most settings. Internet Explorer (IE) does not work.
 
@@ -75,19 +78,17 @@ For it to work, JavaScript should be allowed, *Third-party cookies* should be al
 
 ---------------------------
 
-<sup>1</sup> Wikimedia Commons [Nl-Be.ogg](https://commons.wikimedia.org/wiki/File:Nl-Be.ogg) and [Open_front_unrounded_vowel.mp3](https://commons.wikimedia.org/wiki/File:Open_front_unrounded_vowel.ogg)
-
-When creating a new markdown file, do not add a comment with hints or notes into the markdown!
- 
 ====== 
+
+ 
 
 # Create a new akoúste experiment markdown 
 
 Target language: German.
 
-Create an akoúste markdown file presenting a simple audio listening experiment with a single stimulus video in the target language, with two questions:
+Create an akoúste markdown file presenting a simple video signing experiment with a single stimulus video in the target language, with two questions:
 
--1. Ask the subject to judge the intelligibility of the speech on a 5 point Likert scale of radio buttons, from very unintelligible to very intelligible.
+-1. Ask the subject to judge the intelligibility of the signs on a 5 point Likert scale of radio buttons, from very unintelligible to very intelligible.
 
--2. Ask the subject to judge the pleasantness of the voice on a visual analogue scale (VAS), from very unpleasant to very pleasant.
+-2. Ask the subject to judge the pleasantness of the signs on a visual analogue scale (VAS), from very unpleasant to very pleasant.
 
