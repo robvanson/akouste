@@ -152,7 +152,7 @@ There are many implementations of Markdown, and they all have their own strenght
 
 ### Generating akoúste markdown with LLMs
 
-Markdown is understood by Large Language Models (LLMs). As an initial step to create a new experiment, it is possible to prompt an LLM to create a draft *akoúste* markdown file. Issuing a suitable prompt with the specifications of the desired experiment can already result in a useful first draft. 
+Markdown is well understood by Large Language Models (LLMs). As an initial step to create a new experiment in *akoúste*, it is possible to prompt an LLM to create a draft markdown file. Issuing a suitable prompt with the specifications of the desired experiment can already result in a useful first draft. 
 
 A LLM prompt should introduce the desired target language and descriptions of the desired stimulus and response characteristics and suitable example markdown. These characteristics can be found below in the sections [Stimulus related constructs](#STimulus-related-constructs) and [Collecting subject responses](#Collecting-subject-responses), and a suitable markdown example can be found above from the [Demonstrations and examples](#Demonstrations-and-examples). It is unwise to trust text and translations of the LLMs on first sight. But the text delivered by a LLM can go a long way towards the desired end result even if it still requires editing to get everything right. 
 
