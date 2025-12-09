@@ -1,6 +1,6 @@
 # akoúste markdown 
 
-akoúste creates listening experiments from a markdown text. The markdown follows the commonmark format for text and layout with some extensions to include stimulus presentation and response collection. 
+akoúste creates listening experiments from a markdown text. The markdown follows the commonmark format for text and layout with some extensions to include stimulus presentation and response collection. Markdown tables should have a header line and a line with the text alignments.
 
 ## HTML tags and JavaScript 
 
@@ -31,7 +31,7 @@ Four constructs are defined to collect subject responses from the questionnaire:
 
 - A row of (()) is translated to a row of radio buttons (eg, Likert scale). All radio buttons on a line will be combined in a single radio-button row. It is best to put the individual buttons and their labels into a table for consistent placement (see example markdown files).
 
-- >>----------<< (10 -dashes or more) will be transformed into a visual analogue slider.
+- >>----------<< (10 -dashes or more) will be transformed into a visual analogue slider. Sliders should not take the complete width of a page and should be put in a markdown table.
 
 - <<| text {style} |>> becomes a text input field with the text as default value displayed in style (optional).
 
@@ -77,9 +77,9 @@ For it to work, JavaScript should be allowed, *Third-party cookies* should be al
 
 <sup>1</sup> Wikimedia Commons [Nl-Be.ogg](https://commons.wikimedia.org/wiki/File:Nl-Be.ogg) and [Open_front_unrounded_vowel.mp3](https://commons.wikimedia.org/wiki/File:Open_front_unrounded_vowel.ogg)
 
-
+When creating a new markdown file, do not add a comment with hints or notes into the markdown!
  
- ====== 
+====== 
 
 # Create a new akoúste experiment markdown 
 
