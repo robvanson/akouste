@@ -86,8 +86,6 @@ Create an akoúste markdown file presenting a simple video signing experiment wi
 * There are four **[//stimulus1]** lines, each with a single entry:
 1.  `a/aa/LL-Q33302_%28fsl%29-Taliba31-acheter.webm/LL-Q33302_%28fsl%29-Taliba31-acheter.webm.360p.webm`
 2.  `2/2a/LL-Q33302_%28fsl%29-Taliba31-th%C3%A9atre.webm/LL-Q33302_%28fsl%29-Taliba31-th%C3%A9atre.webm.360p.webm`
-3.  `2/2a/LL-Q33302_%28fsl%29-Taliba31-th%C3%A9atre.webm/LL-Q33302_%28fsl%29-Taliba31-th%C3%A9atre.webm.360p.webm`
-4.  `a/aa/LL-Q33302_%28fsl%29-Taliba31-acheter.webm/LL-Q33302_%28fsl%29-Taliba31-acheter.webm.360p.webm`
 
 Subjects should answer two questions:
 1. Ask the subject to judge the intelligibility of the signs on a 5 point Likert scale of radio buttons, from very unintelligible to very intelligible.

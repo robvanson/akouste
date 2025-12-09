@@ -124,8 +124,14 @@ Remember, paragraph level HTML tags, like <center>, <div>, or <script> as well a
 
 Target language: German.
 
-Create an akoúste markdown file in the target language presenting an ABX experiment where you label the stimuli 'Left', 'Right', 'Which', (Label A, Label B, Label X) respectively, with three questions:
+Create an akoúste markdown file in the target language presenting an ABX experiment where you label the stimuli 'Left', 'Right', 'Which', (Label A, Label B, Label X) respectively:
+* The  **audioBaseURL** of the stimuli is `https://upload.wikimedia.org/wikipedia/commons/`. 
+* **[//stimulus0]** has the entry: `A,B,X,LangA,LangB,LangX`.
+* There are two **[//stimulus1]** lines, each with the following entries:
+1.  `6/62/De-Aluminium.ogg,e/e7/Fr-bordure.ogg,d/db/En-uk-illustrate.ogg,German (De),French (Fr),English (En)`
+2.  `2/2d/Nl-aardhommel.ogg,8/8e/Or-ଅନୁଶୀଳନ.oga,d/da/L1188694-F1.oga,Dutch (Nl),Oriya (Or),Arabic (Ar)`
 
+Subjects should answer three questions:
 1. Ask the subject which of the speech sounds 'Left' or 'Right' is most like the stimulus sound 'Which' using two radio buttons labelled 'Left' and 'Right'.
 
 2. Ask the subject to judge the intelligibility of the X stimulus on a 5 point Likert scale of radio buttons, from very unintelligible to very intelligible.
