@@ -73,6 +73,7 @@ For it to work, JavaScript should be allowed, *Third-party cookies* should be al
 
 Remember, paragraph level HTML tags, like <center>, <div>, or <script> as well as **markdown header lines** (ie, those starting with #) and lines starting with `[//comment]` should be preceded and followed by an empty line. Markdown tables should also be preceded and followed by an empty line. 
 
+***
 
 # **Create a new akoúste experiment markdown**
 
