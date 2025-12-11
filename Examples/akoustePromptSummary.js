@@ -5,7 +5,7 @@ var akoustePromptSummary = `
 
 ## **akoúste markdown**
 
-akoúste creates listening experiments from a markdown text. The markdown follows the commonmark format for text and layout with some extensions to include stimulus presentation and response collection. Markdown tables should have a header line and a line with the text alignments.
+akoúste creates listening experiments from a markdown text. The markdown follows the commonmark format for text and layout with some extensions to include stimulus presentation and response collection. Markdown tables should have a header line and a line with the text alignments. Add empty lines around paragraph level content, eg., headers, tables, paragraphs, HTML-blocks, and around <center>, </center>, <div> or </div> tags. 
 
 When creating a new markdown file, do not add a comment with hints or notes into the markdown!
 
@@ -94,3 +94,15 @@ To generate a valid akoúste markdown file:
 ***
 
 `
+
+var akoustePromptPostExample = `
+
+In all transformations and translations:
+* Markdown tables should have a header line and a line with the text alignments. 
+* Add empty lines around paragraph level content, eg., headers, tables, paragraphs, HTML-blocks.
+* Add empty lines around lines with opening or closing **center** or **div** HTML-tags.
+* Lines containing ${"`"}[//comment]: # ${"`"}, followed by text on the same line should be used verbatim and never be translated
+* Keep empty lines like they are present in the example.
+
+`
+

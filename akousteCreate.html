@@ -1557,8 +1557,39 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		} else {
 			initializeMarkdown();
 		};
+		
+		// Show LLM prompt button when prompt summary is present
+		if(typeof akoustePromptSummary == 'string') {
+			document.getElementById('showprompt').style.visibility='visible';
+		};
 	};
 	
+</script>
+
+<script src="./Examples/akoustePromptSummary.js" ></script>
+<script type="text/javascript">
+		// Pop-up LLM prompt page
+		var winLLMpromptURL = '';
+		function displayLLMpromptText () {
+
+			if(winLLMpromptURL.length > 0){
+				URL.revokeObjectURL(winLLMpromptURL);
+				winLLMpromptURL = '';
+			};
+
+			// Finish pop-up page TEXT and open page
+			var text = document.getElementById('markdownText').value;
+			const pageTableHTML = akoustePromptSummary + '\n Here follows a relevant example: ...\n\n' + text + '\n\n...\n\n' + akoustePromptPostExample;
+			winLLMpromptURL = URL.createObjectURL(new Blob([pageTableHTML], { type: "text/plain;charset=utf8" }));
+			openTable = window.open(
+				winLLMpromptURL,
+				"RenderedHTML",
+				"popup"
+			);
+			
+			return(pageTableHTML);
+		};
+
 </script>
 
 </head>
@@ -1682,8 +1713,11 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			<td><input type="button" value="Current" onclick="document.getElementById('markdownText').value = markdownCurrent();"</td>
 			<td><input type="button" value="Redo >" onclick="document.getElementById('markdownText').value = markdownRedo();"</td>
 			<td><input type="button" value="Clear" onclick="document.getElementById('markdownText').value = ' ';"</td>
-			<td  width="35%">&emsp;</td>
-			<td><input type="button" id='SaveMDbutton' value="Save MD..." onclick="saveMarkdown() " title='Save current Markdown and settings as .md file. '</td>
+			<td  width="40%" style='text-align:right;'>
+				<input type="button" id="showprompt" onclick='displayLLMpromptText ()' value='LLM prompt' title='View pop-up with LLM prompt with current markdown as example. Copy or save for use with LLM.' style='visibility:hidden'>
+				&emsp;&emsp;
+			</td>
+			<td style='text-align:right;'><input type="button" id='SaveMDbutton' value="Save MD..." onclick="saveMarkdown() " title='Save current Markdown and settings as .md file. '></td>
 			</tr>
 		</table>
 
