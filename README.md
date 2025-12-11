@@ -158,7 +158,7 @@ A LLM prompt should introduce the desired target language and descriptions of th
 
 There is a [summary description of *akoúste* markdown for use in LLM prompts](./Examples/akoustePromptSummary.txt) available. This can be combined with [a simple example LLM prompt](./Examples/akoustePromptExample.txt) to give a useful first draft. An example prompt for an [ABX experiment](./Examples/akoustePrompt_ABX_Example.txt) that can be combined with the summary is also available. Note that LLM prompt design is not a hard science or engineering, and the results may vary based on the LLM model, version, and account used. Also, current LLMs are generally stochastic so their output will always have a certain randomness.
 
-To simplyfy prompt construction, a LLM prompt button will appear when a summary description for LLM prompts is present in a local file. The file should be called [akoustePromptSummary.js](./Examples/akoustePromptSummary.js), and be found in either the same folder as *akoústeCreate.html*or in a an *Examples* subfolder.
+To simplyfy prompt construction, a LLM prompt button will appear when a summary description for LLM prompts is present in a local file. The file should be called [akoustePromptSummary.js](./Examples/akoustePromptSummary.js), and be found in either the same folder as *akoústeCreate.html*or or in a an *Examples* subfolder.
 
 ### Stimulus related constructs
 
