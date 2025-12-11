@@ -97,6 +97,8 @@ To generate a valid akoúste markdown file:
 
 var akoustePromptPostExample = `
 
+# Further instructions
+
 In all transformations and translations:
 * Markdown tables should have a header line and a line with the text alignments. 
 * Add empty lines around paragraph level content, eg., headers, tables, paragraphs, HTML-blocks.
