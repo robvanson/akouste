@@ -95,6 +95,44 @@ To generate a valid akoúste markdown file:
 
 `
 
+var akousteShortPromptSummary = `
+akoúste markdown files define listening experiments using CommonMark with extensions for stimuli and responses.
+Do not add comments or hints beyond the specified format.
+
+Structure:
+
+Cover Page: Starts with [//coverpage]: # "Start of coverpage" and ends with [//coverpage]: # "End of coverpage".
+Experiment Page: Main content with stimuli and questions. Include ## {{{!answerstogo!|font-weight:bold}}} answers to go.
+Settings Block: Internal parameters using [//label]: # "key:value".
+Stimulus Table Block: Starts with [//comment]: # "These are stimuli for this experiment", followed by [//stimulusX]: # "values".
+
+Special Constructs:
+
+Audio: [[[Button Text | ColumnName{style}]]]
+Video: [[§ alt-text | ColumnName{width:30%;height:auto;} §]]
+Image: {{{§ ColumnName | style §}}}
+Text: {{{ColumnName | style }}}
+Responses:
+
+Likert/Radio: (())
+VAS slider: >>----------<< inside a markdown table
+Text input: <<| text {style} |>>
+Keystroke: @@@ text [keys] {style} @@@
+
+
+Settings & Parameters:
+Stored at bottom, e.g.:
+[//parameter]: # "body.style: font-family: Arial;background-color:GhostWhite;"
+[//parameter]: # "addDigest:false"
+
+Key Rules:
+
+Preserve HTML tags and JavaScript as-is.
+Preserve >>, <<, <<|, and |>> character combinations as-is.
+Keep empty lines around headers, tables, and paragraph-level HTML tags.
+Follow strict formatting for cover page, settings, and stimulus table.
+`
+
 var akoustePromptPostExample = `
 
 # Further instructions
