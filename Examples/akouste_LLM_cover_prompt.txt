@@ -136,6 +136,7 @@ In all transformations and translations:
 - Add empty lines around lines with opening or closing **center** or **div** HTML-tags
 - Lines containing ${"`"}[//comment]: # ${"`"}, followed by text on the same line should be used verbatim and never be translated
 - Keep empty lines like they are present in the example
+- Do **NOT** include a cover page when it is not in the example
 - akoúste markdown output **must** be given in a code block
 
 # Create a new akoúste experiment markdown 
