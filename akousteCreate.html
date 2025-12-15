@@ -1580,7 +1580,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 
 			// Finish pop-up page TEXT and open page
 			var text = document.getElementById('markdownText').value;
-			const pageTableHTML = akousteShortPromptSummary + '\n# Example\n\nHere follows a relevant example: ...\n\n' + text + '\n\n...\n\n' + akoustePromptPostExample;
+			const pageTableHTML = akoustePromptSummary + '\n# Example\n\nHere follows a relevant example:\n\n```markdown\n\n' + text + '\n\n```\n\n' + akoustePromptPostExample;
 			winLLMpromptURL = URL.createObjectURL(new Blob([pageTableHTML], { type: "text/plain;charset=utf8" }));
 			openTable = window.open(
 				winLLMpromptURL,
