@@ -1,8 +1,9 @@
-# akoúste markdown **Example**
 
-A full akoúste markdown example is presented below between two rows of `==============`. These two lines with `==============` are **not** part of the example and should be removed from the output.
+# Example
 
-==============
+Here follows a relevant akoúste markdown example:
+
+```markdown
 
 <center>
 
@@ -69,24 +70,33 @@ For it to work, JavaScript should be allowed, *Third-party cookies* should be al
 [//stimulus1]: # "https://upload.wikimedia.org/wikipedia/commons/e/e7/Fr-bordure.ogg"
 [//comment]: # "----------"
 
-==============
+```
 
-Remember, paragraph level HTML tags, like <center>, <div>, or <script> as well as **markdown header lines** (ie, those starting with #) and lines starting with `[//comment]` should be preceded and followed by an empty line. Markdown tables should also be preceded and followed by an empty line. 
+# Further instructions
 
-***
+In all transformations and translations:
+
+- Markdown tables should have a header line and a line with the text alignments
+- Add empty lines around paragraph level content, eg., headers, tables, paragraphs, HTML-blocks
+- Add empty lines around lines with opening or closing **center** or **div** HTML-tags
+- Lines containing ${"`"}[//comment]: # ${"`"}, followed by text on the same line should be used verbatim and never be translated
+- Keep empty lines like they are present in the example
+- akoúste markdown output **must** be given in a code block
 
 # **Create a new akoúste experiment markdown**
 
 Target language: German.
 
 Create an akoúste markdown file presenting a simple video signing experiment with a single stimulus video in the target language. 
-* The width of the video should be `30%`. 
-* The  **audioBaseURL** of the stimuli is `https://upload.wikimedia.org/wikipedia/commons/transcoded/`. 
-* **[//stimulus0]** has only a single entry: A.
-* There are four **[//stimulus1]** lines, each with a single entry:
-1.  `a/aa/LL-Q33302_%28fsl%29-Taliba31-acheter.webm/LL-Q33302_%28fsl%29-Taliba31-acheter.webm.360p.webm`
-2.  `2/2a/LL-Q33302_%28fsl%29-Taliba31-th%C3%A9atre.webm/LL-Q33302_%28fsl%29-Taliba31-th%C3%A9atre.webm.360p.webm`
+
+- The width of the video should be `30%`. 
+- The  **audioBaseURL** of the stimuli is `https://upload.wikimedia.org/wikipedia/commons/transcoded/`. 
+- **[//stimulus0]** has only a single entry: A.
+- There are two **[//stimulus1]** lines, each with a single entry:
+    1.  `a/aa/LL-Q33302_%28fsl%29-Taliba31-acheter.webm/LL-Q33302_%28fsl%29-Taliba31-acheter.webm.360p.webm`
+    2.  `2/2a/LL-Q33302_%28fsl%29-Taliba31-th%C3%A9atre.webm/LL-Q33302_%28fsl%29-Taliba31-th%C3%A9atre.webm.360p.webm`
 
 Subjects should answer two questions:
+
 1. Ask the subject to judge the intelligibility of the signs on a 5 point Likert scale of radio buttons, from very unintelligible to very intelligible.
 2. Ask the subject to judge the pleasantness of the presentation of the signs on a visual analogue scale (VAS), from very unpleasant to very pleasant.
