@@ -156,11 +156,25 @@ Markdown is well understood by Large Language Models (LLMs). As an initial step 
 
 A LLM prompt should introduce the desired target language and descriptions of the desired stimulus and response characteristics and suitable example markdown. These characteristics can be found below in the sections [Stimulus related constructs](#STimulus-related-constructs) and [Collecting subject responses](#Collecting-subject-responses), and a suitable markdown example can be found above from the [Demonstrations and examples](#Demonstrations-and-examples). It is unwise to trust text and translations of the LLMs on first sight. But the text delivered by a LLM can go a long way towards the desired end result even if it still requires editing to get everything right. 
 
-There is a [summary description of *akoúste* markdown for use in LLM prompts](./Examples/akoustePromptSummary.txt) available (evaluating to \~400 tokens). This can be combined with [a simple example LLM prompt](./Examples/akoustePromptExample.txt) to give a useful first draft. An example prompt for an [ABX experiment](./Examples/akoustePrompt_ABX_Example.txt) that can be combined with the summary is also available. Note that LLM prompt design is not a hard science or engineering, and the results may vary based on the LLM model, version, and account used. Also, current LLMs are generally stochastic so their output will always have a certain randomness. A common situation is that empty lines are missing that trip up the markdown conversion.
+There is a short, plain-language description of *akoúste* markdown that is designed specifically for use with AI language models (LLMs). This summary (about 400 tokens long) can be found in the file [akoustePromptSummary.txt](./Examples/akoustePromptSummary.txt).
 
-To simplify prompt construction, a LLM prompt button will appear below the markdown frame when a summary description for LLM prompts is present in a local file. The file should be called [akoustePromptSummary.js](./Examples/akoustePromptSummary.js), and be placed in either the same folder as *akoústeCreate.html* or in an *Examples* subfolder. The button opens a popup window with information to feed into the LLM of choice. The actual instructions to the LLM, eg, translation into another language, should be fed into the LLM after the popup text.
+You can combine this summary with a [simple example prompt](./Examples/akoustePromptExample.txt) to quickly create a useful first draft prompt. There is also an example prompt for an [ABX listening experiment](./Examples/akoustePrompt_ABX_Example.txt) that works when combined with the summary.
 
-The text in the popup window includes the [summary description](./Examples/akoustePromptSummary.txt) of *akoúste* markdown, the current markdown as a code example, and a few instructions. The whole prompt text tends to convert to around 1300-2500 tokens depending on the size of the *akoúste* markdown example. For token-limited LLM models, the prompts should be whittled down to be useful.
+Keep in mind that writing prompts for AI models is not an exact science. Results can vary depending on the LLM model, its version, and even the account being used. In addition, most LLM models produce slightly different results each time they run. One common issue is that LLM output may miss empty lines, which can cause problems when converting the markdown to an actual experiment file.
+
+To make prompt creation easier, *akoúste* can display a **LLM Prompt** button below the markdown editor. This button appears when a summary file for LLM prompts is available locally. The file must be named [akoustePromptSummary.js](./Examples/akoustePromptSummary.js) and placed either in the same folder as *akoústeCreate.html* or inside an *Examples* subfolder.
+
+When clicked, the button opens a popup window containing ready-to-use text for a LLM model. This popup includes:
+
+- The summary description of *akoúste* markdown
+
+- The current markdown shown as an example
+
+- A few basic instructions
+
+After copying this text into an LLM model or chatbot, you should then add your own instructions (for example, asking the LLM to translate the text into another language).
+
+The full prompt text usually ends up being between 1,300 and 2,500 tokens, depending on how large the markdown example is. If you are using an AI model with strict token limits, you may need to shorten or simplify the prompt to make it usable.
 
 ### Stimulus related constructs
 
