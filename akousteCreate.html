@@ -1715,7 +1715,6 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			<td><input type="button" value="Redo >" onclick="document.getElementById('markdownText').value = markdownRedo();"</td>
 			<td><input type="button" value="Clear" onclick="document.getElementById('markdownText').value = ' ';"</td>
 			<td  width="40%" style='text-align:right;'>
-				<input type="button" id="showprompt" onclick='displayLLMpromptText ()' value='LLM prompt' title='View pop-up with LLM prompt with current markdown as example. Copy or save for use with LLM.' style='visibility:hidden'>
 				&emsp;&emsp;
 			</td>
 			<td style='text-align:right;'><input type="button" id='SaveMDbutton' value="Save MD..." onclick="saveMarkdown() " title='Save current Markdown and settings as .md file. '></td>
@@ -1724,12 +1723,23 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 
 		<textarea id="markdownText" rows=50 cols=80 onfocusout="markdownPush();" onchange='markdown2HTML();markdown2Parameters();parameters2Markdown();' style='font-family: "Lucida Console", "Courier New", monospace;'>
 		</textarea><br />
-		<input type="checkbox" id="linkify" name="linkify" value="linkify" checked=true onchange='markdownLinkify=event.target.checked; parameters2Markdown(); markdown2HTML ()'>
-		<label for="likify" title="autoconvert link-like texts to links"> linkify</label> 
-        <input type="checkbox" id="typographer" name="typographer" value="typographer" checked=true onchange='markdownTypographer=event.target.checked; parameters2Markdown(); markdown2HTML ()'>
-		<label for="typographer" title="do typographic replacements, (c) → © and so on">typographer</label>
-        <input type="checkbox" id="mdbreaks" name="mdbreaks" value="mdbreaks" checked=false onchange='markdownBreaks=event.target.checked; parameters2Markdown(); markdown2HTML ()'>
-		<label for="mdbreaks" title="newlines in paragraphs are rendered as HTML breaks, <br>">breaks</label><br>
+		<table>
+			<tr style="width:80%">
+				<td style="width:40%">
+					<input type="checkbox" id="linkify" name="linkify" value="linkify" checked=true onchange='markdownLinkify=event.target.checked; parameters2Markdown(); markdown2HTML ()'>
+					<label for="likify" title="autoconvert link-like texts to links"> linkify</label> 
+					<input type="checkbox" id="typographer" name="typographer" value="typographer" checked=true onchange='markdownTypographer=event.target.checked; parameters2Markdown(); markdown2HTML ()'>
+					<label for="typographer" title="do typographic replacements, (c) → © and so on">typographer</label>
+					<input type="checkbox" id="mdbreaks" name="mdbreaks" value="mdbreaks" checked=false onchange='markdownBreaks=event.target.checked; parameters2Markdown(); markdown2HTML ()'>
+					<label for="mdbreaks" title="newlines in paragraphs are rendered as HTML breaks, <br>">breaks</label><br>
+				</td>
+				<td style="width:20%"></td>
+				<td style="width:40%;textalign=right;">
+					&emsp;&emsp;
+					<input type="button" id="showprompt" onclick='displayLLMpromptText ()' value='LLM prompt' title='View pop-up with LLM prompt with current markdown as example. Copy or save for use with LLM.' style='visibility:hidden'>
+				</td>
+			</tr>
+		</table>
 	</div>
 
 	<div style="width: 50%; float: right;"> 
