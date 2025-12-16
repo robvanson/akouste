@@ -4,7 +4,7 @@
 
 <H1 style='text-align: center'> akoúste</H1>
 
-Version 2.0.2 [^1]
+Version 2.0.3 [^1]
 
 [Try a minimal demo](./akousteCreate.html?ExperimentAcronym=Audiotest) with just an audio button, two stimuli, and a yes/no question
 
