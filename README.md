@@ -160,7 +160,7 @@ There is a short, plain-language description of *akoúste* markdown that is desi
 
 You can combine this summary with a [simple example prompt](./Examples/akoustePromptExample.txt) to quickly create a useful first draft prompt. There is also an example prompt for an [ABX listening experiment](./Examples/akoustePrompt_ABX_Example.txt) that works when combined with the summary.
 
-Keep in mind that writing prompts for AI models is not an exact science. Results can vary depending on the LLM model, its version, and even the account being used. In addition, most LLM models produce slightly different results each time they run. One common issue is that LLM output may miss empty lines, which can cause problems when converting the markdown to an actual experiment file.
+Keep in mind that writing prompts for LLM models is not an exact science. Results can vary depending on the LLM model, its version, and even the account being used. In addition, most LLM models produce slightly different results each time they run. One common issue is that LLM output may miss empty lines, which can cause problems when converting the markdown to an actual experiment file.
 
 To make prompt creation easier, *akoúste* can display a **LLM Prompt** button below the markdown editor. This button appears when a summary file for LLM prompts is available locally. The file must be named [akoustePromptSummary.js](./Examples/akoustePromptSummary.js) and placed either in the same folder as *akoústeCreate.html* or inside an *Examples* subfolder.
 
@@ -174,7 +174,7 @@ When clicked, the button opens a popup window containing ready-to-use text for a
 
 After copying this text into an LLM model or chatbot, you should then add your own instructions (for example, asking the LLM to translate the text into another language).
 
-The full prompt text usually ends up being between 1,300 and 2,500 tokens, depending on how large the markdown example is. If you are using an AI model with strict token limits, you may need to shorten or simplify the prompt to make it usable.
+The full prompt text usually ends up being between 1,300 and 2,500 tokens, depending on how large the markdown example is. If you are using a LLM with strict token limits, you may need to shorten or simplify the prompt to make it usable.
 
 ### Stimulus related constructs
 
