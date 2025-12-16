@@ -8,10 +8,10 @@ Do **not** add comments or hints beyond the specified format.
 
 ## Structure
 
-- Cover Page: Starts with `[//coverpage]: # "Start of coverpage" and ends with [//coverpage]: # "End of coverpage"`
+- Cover Page: Starts with `[//coverpage]: # "Start of coverpage"` and ends with `[//coverpage]: # "End of coverpage"`
 - Experiment Page: Main content with stimuli and questions. Include `## {{{!answerstogo!|font-weight:bold}}} answers to go`
 - Settings Block: Internal parameters using `[//label]: # "key:value"`
-- Stimulus Table Block: Starts with `[//comment]: # "These are stimuli for this experiment", followed by [//stimulusX]: # "values"`
+- Stimulus Table Block: Starts with `[//comment]: # "These are stimuli for this experiment"`, followed by `[//stimulusX]: # "values"`
 
 ### Special Constructs
 
@@ -24,7 +24,7 @@ Do **not** add comments or hints beyond the specified format.
 
 #### Responses
 
-- Likert/Radio: `(())`
+- Likert/Radio button: `(())`
 - VAS slider: `>>----------<<` inside a markdown table
 - Text input: `<<| text {style} |>>`
 - Keystroke: `@@@ text [keys] {style} @@@`
