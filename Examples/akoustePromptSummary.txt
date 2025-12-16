@@ -1,10 +1,10 @@
-# A **structured summary** of **akoúste markdown files**
+# A __structured summary__ of __akoúste markdown files__
 
-akoúste markdown files define perceptual and listening experiments using the CommonMark specification with extensions for stimuli and responses.
+_akoúste_ markdown files define perceptual and listening experiments using the CommonMark specification with extensions for stimuli and responses.
 
 ## Instruction
 
-Do **not** add comments or hints beyond the specified format.
+Do __not__ add comments or hints beyond the specified format.
 
 ## Structure
 

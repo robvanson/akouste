@@ -1,11 +1,11 @@
 var akoustePromptSummary = `
-# A **structured summary** of **akoúste markdown files**
+# A __structured summary__ of __akoúste markdown files__
 
-akoúste markdown files define perceptual and listening experiments using the CommonMark specification with extensions for stimuli and responses.
+_akoúste_ markdown files define perceptual and listening experiments using the CommonMark specification with extensions for stimuli and responses.
 
 ## Instruction
 
-Do **not** add comments or hints beyond the specified format.
+Do __not__ add comments or hints beyond the specified format.
 
 ## Structure
 
@@ -54,11 +54,11 @@ In all transformations and translations:
 
 - Markdown tables should have a header line and a line with the text alignments
 - Add empty lines around paragraph level content, eg., headers, tables, paragraphs, HTML-blocks
-- Add empty lines around lines with opening or closing **center** or **div** HTML-tags
+- Add empty lines around lines with opening or closing __center__ or __div__ HTML-tags
 - Lines containing ${"`"}[//comment]: # ${"`"}, followed by text on the same line should be used verbatim and never be translated
 - Keep empty lines like they are present in the example
-- Do **NOT** include a cover page when it is not in the example
-- akoúste markdown output **must** be given in a code block
+- Do __NOT__ include a cover page when it is not in the example
+- _akoúste_ markdown output __must__ be given in a code block
 
 `
 
