@@ -654,6 +654,8 @@ function SetUp() {
 	} else if(document.getElementById('coverpage')) {
 		document.getElementById('coverpage').style.display = 'none';
 		document.getElementById('experimentpage').style.display = 'block';
+		document.getElementById('NextText').style.backgroundColor = "gray";
+		document.getElementById('NextButton').style.backgroundColor = "gray";
 	};
 
 	// Set layout
