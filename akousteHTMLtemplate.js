@@ -10,7 +10,7 @@ preamble = `<!DOCTYPE html>
         script-src 'self' 'unsafe-inline'; 
         style-src 'self' 'unsafe-inline';
         img-src 'self' data: https:;
-        media-src 'self' https: blob:;
+        media-src 'self' https:;
         connect-src 'self';
         object-src 'none';
         frame-src 'none';
