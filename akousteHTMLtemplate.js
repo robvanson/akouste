@@ -4,6 +4,19 @@ preamble = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
 <meta name="generator" content="XXMarkdownParserXX">
+<meta http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline'; 
+        style-src 'self' 'unsafe-inline';
+        img-src 'self' data: https:;
+        media-src 'self' https: blob:;
+        connect-src 'self';
+        object-src 'none';
+        frame-src 'none';
+        base-uri 'self';
+      "
+ >
 <style>
 		/* Increase radio button's size */
 		input[type='radio']{
