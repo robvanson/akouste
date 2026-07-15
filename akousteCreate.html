@@ -22,14 +22,15 @@
 <meta name="msapplication-TileColor" content="#FFFFFF" />
 <meta name="msapplication-TileImage" content="favicon/favicon-512x512.png" />
 
+<script src="./markdown-it.mjs" ></script>
 <script src="./markdown-it.min.js" ></script>
 <script src="./remarkable.min.js" ></script>
 <script src="./marked.umd.js" ></script>
 <script type="text/javascript">
 	// Load markdown parser from online link.
-	var selectMarkdownParser = 'markdown-it@14.1.0'; // Default is Markdown-it
+	var selectMarkdownParser = 'markdown-it@14.3.0'; // Default is Markdown-it
 	if(window.location.search.match(/MarkdownParser\=markdown-?it/i)){
-		selectMarkdownParser = 'markdown-it@14.1.0'; 
+		selectMarkdownParser = 'markdown-it@14.3.0'; 
 	} else if(window.location.search.match(/MarkdownParser\=Remarkable/i)){
 		selectMarkdownParser = 'remarkable@2.0.1'; 
 	} else if(window.location.search.match(/MarkdownParser\=marked/i)){
@@ -46,10 +47,10 @@
 	}	else {
 		// Downloaded parser libraries have known version numbers
 		switch(selectMarkdownParser) {
-				case "markdown-it@14.1.0":
+				case "markdown-it@14.3.0":
 					var script = document.createElement('script');
 					script.type='text/javascript';
-					script.src = 'https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js';
+					script.src = 'https://cdn.jsdelivr.net/npm/markdown-it@14.3.0/dist/markdown-it.min.js';
 					document.getElementsByTagName('head')[0].appendChild(script);
 					break;
 				case "remarkable@2.0.1":
