@@ -1,1 +1,19 @@
-{"name":"akouste","version":"2.0.3","description":"The ako�ste project aims to provide tools for simple, adaptable listening experiments aimed at situations where the use of a dynamic host server storing and serving the speech and collecting the responses over the internet is unpractical or unwanted, e.g., due to privacy concerns. ako�ste Pages can be used both on desk/laptops and on mobile devices ","keywords":["lsitening","experiment"],"homepage":"https://github.com/robvanson/akouste#readme","bugs":{"url":"https://github.com/robvanson/akouste/issues"},"repository":{"type":"git","url":"git+https://github.com/robvanson/akouste.git"},"license":"AGPL-3.0","author":"R.J.J.H. van Son","type":"commonjs","main":"akousteHTMLtemplate.js","scripts":{"test":"echo \"Error: no test specified\" && exit 1"},"dependencies":{"jssha":"^3.3.1","markdown-it":"^14.3.0","marked":"^17.0.1","remarkable":"^2.0.6"}}
+{
+  "name": "akouste",
+  "version": "2.0.3",
+  "lockfileVersion": 3,
+  "requires": true,
+  "packages": {
+    "": {
+      "name": "akouste",
+      "version": "2.0.3",
+      "license": "AGPL-3.0",
+      "dependencies": {
+        "jssha": "^3.3.1",
+        "markdown-it": "^14.3.0",
+        "marked": "^17.0.1",
+        "remarkable": "^2.0.6"
+      }
+    }
+  }
+}
