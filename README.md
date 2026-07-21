@@ -409,7 +409,7 @@ In normal use, simple markdown texts or genuine stimuli should not introduce ris
 
 - [SourceForge akouste](https://sourceforge.net/p/akouste)<sup> [†](https://akouste.sourceforge.io/)</sup> (mirror)  
 
-- [Zenodo robvanson/akouste](https://doi.org/10.5281/zenodo.3712141) (releases snapshots)
+- [Zenodo robvanson/akouste](https://doi.org/10.5281/zenodo.3712141) [![DOI](https://zenodo.org/badge/212359819.svg)](https://doi.org/10.5281/zenodo.3712141) (releases snapshots)
 
 † *Contains functional* akoúste *web site with examples*
 
