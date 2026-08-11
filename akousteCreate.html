@@ -392,7 +392,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 					document.getElementById('StimulusFileUpload').value = "";
 				};
 			    reader.onerror = function (evt) {
-			        document.getElementById("fileContents").innerHTML = "error reading file";
+			        document.getElementById("fileContents").textContent = "error reading file";
 			    }
 			} else if (file) {
 				alert("Wrong file type: "+file.name);

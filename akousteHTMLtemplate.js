@@ -84,7 +84,7 @@ preamble = `<!DOCTYPE html>
 			currentKey = e.key;
 			var allowedKeys = document.getElementById('KeyStroke').className;
 			if(typeof allowedKeys == 'undefined' || allowedKeys == '' || allowedKeys.match(","+currentKey+",")){
-				document.getElementById('KeyStroke').innerHTML = currentKey;
+				document.getElementById('KeyStroke').textContent = currentKey;
 				document.getElementById('KeyStroke').click();
 			}
 		} 
@@ -178,7 +178,7 @@ function loadList () {
 			if(! Array.isArray(stimulusTableParsed) || stimulusTableParsed.length < 2){
 				stimulusTableParsed = [["A","B","X"], ["", "", ""]];
 				alert("ERROR: invalid stimulus list");
-				document.getElementById('TitleText').innerHTML = "ERROR: invalid stimulus list";
+				document.getElementById('TitleText').textContent = "ERROR: invalid stimulus list";
 			};
 			columnNames = stimulusTableParsed [0];
 			data = stimulusTableParsed [1];
