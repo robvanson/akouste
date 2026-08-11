@@ -362,6 +362,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 						alert("Not a valid CSV table: "+file);
 						return void(0);
 					};
+					var rowLength = -1;
 					for(var i in  textRead) {
 						// Silly Javascript hack to remove CR \r
 						row = textRead[i].replace(/\r/g,"");
@@ -374,6 +375,12 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 								};
 							} else {
 								tableList.push(row.split(separator));
+								if( rowLength < 0) {
+									rowLength = tableList[0].length;
+								} else if (rowLength != tableList[tableList.length - 1 ].length){
+										alert("Not a valid CSV table: "+file.name);
+										return void(0);
+								};
 							};
 						};
 					};
