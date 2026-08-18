@@ -123,7 +123,7 @@ var audioBaseURL = 'XXaudioBaseURLXX';
 <script type="text/javascript" src="./XXEXPERIMENTNAMEXX_stimuluslist.js"></script>
 <script type="text/javascript">
 // Insert stimulus table
-if(typeof stimulusTableJSON == 'undefined' || stimulusTableJSON == null || stimulusTableJSON.length == 0){
+if(typeof csv == 'undefined' && (typeof stimulusTableJSON == 'undefined' || stimulusTableJSON == null || stimulusTableJSON.length == 0)){
 	stimulusTableJSON = XXstimulusTableJSONXX;
 };
 
@@ -168,6 +168,14 @@ function loadList () {
 			answerList = JSON.parse(localStorage.getItem(CurrentExperimentID+'answerlist'));
 			stimulusNbr = answerList.length;
 		};
+		
+		// Check for data corruption
+		if( ! data.map(function sublist(x){return x.length == columnNames.length}).every(Boolean)) {
+			alert("Defective stimulus table in Local Storage, please inform administrator");
+			console.log(columnNames);
+			console.log(data);
+		};
+		
 	} else {
 		// Read and process the stimulus list
 
@@ -183,19 +191,33 @@ function loadList () {
 			columnNames = stimulusTableParsed [0];
 			data = stimulusTableParsed [1];
 		
+			// Check for data corruption
+			if( ! data.map(function sublist(x){return x.length == columnNames.length}).every(Boolean)) {
+				alert("Defective JSON stimulus table read, please inform administrator: " + "XXEXPERIMENTNAMEXX_stimuluslist.js");
+				console.log(columnNames);
+				console.log(data);
+			};
+		
 		// No JSON data, use CSV			
 		} else if (typeof csv != 'undefined' && csv != null) {
-			// Split the input into lines
-			lines = csv.split('\\n');
+			// Split the input into lines and remove comment lines
+			lines = csv.split('\\n').filter(line => !line.trim().startsWith('#'));
 		
 			// Extract column names from the first line
 			columnNamesLine = lines[0];
-			columnNames = columnNamesLine.split(/[;\t]/g).filter(e => e);
+			columnNames = columnNamesLine.split(/[;\\t]/g).filter(e => e);
 		
 			// Extract data from subsequent lines
 			dataLines = lines.slice(1);
 			while(dataLines[dataLines.length-1] == [])dataLines.pop();
-			data = dataLines.map(function(x){return x.split(/[;\t]/g).filter(e => e)});
+			data = dataLines.map(function(x){return x.split(/[;\\t]/g).filter(e => e)});
+		
+			// Check for data corruption
+			if( ! data.map(function sublist(x){return x.length == columnNames.length}).every(Boolean)) {
+				alert("Defective CSV stimulus table read, please inform administrator: " + "XXEXPERIMENTNAMEXX_stimuluslist.js");
+				console.log(columnNames);
+				console.log(data);
+			};
 		};	
 
 		if(RandomizeAB) {
@@ -262,6 +284,12 @@ function loadList () {
 			};
 		};
 		
+		// Check for data corruption
+		if( ! data.map(function sublist(x){return x.length == columnNames.length}).every(Boolean)) {
+			alert("Defective stimulus list after processing, please inform administrator");
+			console.log(columnNames);
+			console.log(data);
+		};
 		
 		// Store the stimulus data
 		if (typeof(Storage) !== "undefined") {
