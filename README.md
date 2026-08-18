@@ -303,6 +303,19 @@ The stimulus table can be edited directly in the markdown file, but this is not 
 
 Even though the stimulus table can be edited in the markdown and **View Stimuli** window[^7], *akoúste* is designed to use *.csv* table files that are uploaded within *akousteCreate.html*. Lines in these *.csv* table files starting with the **#** character are ignored. Except when they contain the **[//parameter]: # "audioBaseURL:\<URL\>"** parameter line (without the \<\>-brackets). Then the *URL* is loaded as the **URL/path to stimuli** parameter. This simplifies the distribution of stimulus tables. When saving a stimulus table with the **Download Stimuli** button as *\<experimentname\>\_stimuluslist.js*, the current **URL/path to stimuli** path is stored alongside the stimulus table. The stimulus table will not work properly when this path is not set correctly. 
 
+The above method to create an *<experimentname>_stimuluslist.js* stimulus table results in a **JSON** table. This method is difficult to apply when the original setup with *akousteCreate.html* and the experiment markup file are not available. An alternative is to create a CSV table text file with the name *_stimuluslist.js*, using either `;` or `<tab>` as a separator (these are the only two available options). In a text editor, enclose the CSV table in `var csv =`\`  and ` ``` `.     
+For example:
+
+```javascript
+var csv = `
+A;B;X;LangA;LangB;LangX
+6/62/De-Aluminium.ogg;e/e7/Fr-bordure.ogg;d/db/En-uk-illustrate.ogg;German (De);French (Fr);English (En)
+2/2d/Nl-aardhommel.ogg;8/8e/Or-ଅନୁଶୀଳନ.oga;d/da/L1188694-F1.oga;Dutch (Nl);Oriya (Or);Arabic (Ar)
+`
+```
+
+Use this file like the standard *<experimentname>_stimuluslist.js*.
+
 ## Browser settings and compatibility
 
 Web browsers implement security measures to prevent web sites from accessing each other's data or the clients's local data, both for reading and writing. These [Same-origin policies](https://en.wikipedia.org/wiki/Same-origin_policy) affect how *akoúste* can implement experiments. It means that the demonstration page (**Show Page**) in the *akousteCreate.html* environment cannot use locally stored audio or video, only media accessed through web links. It also means that some browsers will not allow a fully functional demonstration page at all. In such cases, the next best solution is to save the experiment (**Save Experiment...**), if necessary in the correct folder, and open the downloaded file.
