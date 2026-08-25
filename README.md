@@ -95,7 +95,7 @@ Although *akoúste* stores progress of the experiment in the local browser, abso
 
 ## Under the hood
 
-The *akoúste* experiments are constructed as a self-contained web page in plain HTML + CSS + Javascript. Experiments can be constructed in a [self contained Web page editor](./akousteCreate.html). The basis is a markdown text file using [markdown-it](https://github.com/markdown-it/markdown-it) ([demo](https://markdown-it.github.io/)) [^3]. The markdown file will have experimental settings and the stimulus table appended in a comment section at the end. This information can be edited directly in the markdown file, but care should be taken as the formatting requirements for settings and stimuli are rather strict. The markdown file is a full description of the experiment and is all that is needed to edit or recreate the experiment. It is advised to save the markdown of an experiment, using **Save MD...**, as it will be needed to debug or adapt the experiment. The markdown file can be edited in any markdown aware editor and opened again in *akousteCreate.html* using **Open a Markdown file (.md)**. 
+The *akoúste* experiments are constructed as a self-contained web page in plain HTML + CSS + JavaScript. Experiments can be constructed in a [self contained Web page editor](./akousteCreate.html). The basis is a markdown text file using [markdown-it](https://github.com/markdown-it/markdown-it) ([demo](https://markdown-it.github.io/)) [^3]. The markdown file will have experimental settings and the stimulus table appended in a comment section at the end. This information can be edited directly in the markdown file, but care should be taken as the formatting requirements for settings and stimuli are rather strict. The markdown file is a full description of the experiment and is all that is needed to edit or recreate the experiment. It is advised to save the markdown of an experiment, using **Save MD...**, as it will be needed to debug or adapt the experiment. The markdown file can be edited in any markdown aware editor and opened again in *akousteCreate.html* using **Open a Markdown file (.md)**. 
 
 Stimulus tables are incorporated into the experiment web page from [CSV tables](https://www.wikihow.com/Create-a-CSV-File "How to Create a CSV File: 4 Simple Methods") uploaded with the **Open a Stimulus Table** selection and upload buttons. Stimuli can be presented with fixed or dynamic practice items, in pseudo-randomized order, with pseudo-randomized pairs if two sounds are to be presented (sounds called **A** and **B**, else the first two stimuli in the markdown page). The answers are added as separate columns to the stimulus table. Stimulus tables can contain more information than just the stimuli which makes the results tables directly usable for analysis.
 
@@ -258,7 +258,7 @@ The settings end with:
 
 A number of characters could interfere with the rendering of the HTML web page or execution of the experiment. The characters \| $ % @ " ' \` \< \> \\ ( \) + will be removed from settings parameters, labels, and tooltips. If they should be displayed, use the relevant HTML encodings (preferably using named entities, eg, \&quot\; for ").
 
-There are two hidden parameters that have no associated input fields: **body.style** and **addDigest**. 
+There are three hidden parameters that have no associated input fields: **body.style**, **addDigest**, and **allowLocalStimulusList**. 
 
 **body.style** is used to change the full page style. For instance:
 
@@ -271,6 +271,8 @@ Changes the font to *sans-serif*, preferably *Arial*, or *Helvetica*. It also ch
 > \[//parameter\]: # "addDigest:true"
 
 As the answers can be communicated to the experimenter using any communication channel, it can be prudent to check whether the answer files might have been corrupted during transmission. The answers of each line can be checked against the digest numbers at the end of each table row using the **ProcessResponse.html** web application of *akoúste*.
+
+**allowLocalStimulusList**, value **true** or **false**, is used to set, or remove, the ability to use locally stored stimulus lists when running an experiment. As this can be a security risk in some situations, the ability to load local stimulus lists has to be set intentionaly by setting this parameter to **true** by hand. The default setting might change in the future.
 
 ### The stimulus table
 
@@ -301,9 +303,11 @@ The stimulus table ends with:
 
 The stimulus table can be edited directly in the markdown file, but this is not practical. The format is rather strict with comma-separated values. All comma's and " '-quotes are replaced and stored as their &\#\<ASCII\>; values, ie, \& \# 44 ;, \& \# 34 ;, and \& \# 39 ;. Conversions are automatically back and forth between the internal stimulus table and the markdown file. If a quote should simply be displayed in the HTML page, use \&quot\; for " and \&apos\; for '. 
 
-Even though the stimulus table can be edited in the markdown and **View Stimuli** window[^7], *akoúste* is designed to use *.csv* table files that are uploaded within *akousteCreate.html*. Lines in these *.csv* table files starting with the **#** character are ignored. Except when they contain the **[//parameter]: # "audioBaseURL:\<URL\>"** parameter line (without the \<\>-brackets). Then the *URL* is loaded as the **URL/path to stimuli** parameter. This simplifies the distribution of stimulus tables. When saving a stimulus table with the **Download Stimuli** button as *\<experimentname\>\_stimuluslist.js*, the current **URL/path to stimuli** path is stored alongside the stimulus table. The stimulus table will not work properly when this path is not set correctly. 
+Even though the stimulus table can be edited in the markdown and **View Stimuli** window[^7], *akoúste* is designed to use *.csv* table files that are uploaded within *akousteCreate.html*. Lines in these *.csv* table files starting with the **#** character are ignored. Except when they contain the **[//parameter]: # "audioBaseURL:\<URL\>"** parameter line (without the \<\>-brackets). Then the *URL* is loaded as the **URL/path to stimuli** parameter. This simplifies the distribution of stimulus tables. 
 
-The above method to create an *<experimentname>_stimuluslist.js* stimulus table results in a **JSON** table. This method is difficult to apply when the original setup with *akousteCreate.html* and the experiment markup file are not available. An alternative is to create a CSV table text file with the name *_stimuluslist.js*, using either `;` or `<tab>` as a separator (these are the only two available options). In a text editor, enclose the CSV table in ``` var csv = ` ``` and  ``` ` ```.     
+A stimulus table can be saved with the **Download Stimuli** button as *\<experimentname\>\_stimuluslist.js*. In this case the current **URL/path to stimuli** path is stored alongside the stimulus table. The stimulus table will not work properly when this path is not set correctly. This *<experimentname>_stimuluslist.js* can be loaded in an experiment to replace the stimulus table "baked in" in the experiment *HTML* file. However, this introduces a security risk as any JavaScript code in this file will be executed when the experiment file is loaded. Therefore, the use of this feature can be set or unset with a hidden parameter: **allowLocalStimulusList**.
+
+The above method to create an *<experimentname>_stimuluslist.js* stimulus table results in a **JSON** table. This method is difficult to apply when the original setup with *akousteCreate.html* and the experiment markup file are not available. An alternative is to create a **CSV** table text file with the name *_stimuluslist.js*, using either `;` or `<tab>` as a separator (these are the only two available options). In a text editor, enclose the CSV table in ``` var csv = ` ``` and  ``` ` ```.     
 A base URL for the stimuli can be supplied in a seperate line:    
 `var audioBaseURL = '<URL of stimuli>';`
 
@@ -318,7 +322,7 @@ A;B;X;LangA;LangB;LangX
 `
 ```
 
-Use this file like the standard *<experimentname>_stimuluslist.js*.
+Use this file like the standard *<experimentname>_stimuluslist.js*. The same security risks hold for the CSV table variant as for the **JSON** variant.
 
 ## Browser settings and compatibility
 
