@@ -1,4 +1,6 @@
+console.log("CSVtest_stimuluslist.js");
 var audioBaseURL = 'https://robvanson.github.io/PseudonymizeSpeech/Examples/Pseudonymized/';
+var separator = ';';
 var csv = `A;B;X;SpA;SpB;SpX;Condition
 afo_chp27_utt063.wav;ksh_chp21_utt010.wav;afo_chp28_utt116.wav;afo;ksh;afo;Control
 afo_chp28_utt158_500-120-4.0.wav;kmq_chp21_utt073_500-120-4.0.wav;afo_chp27_utt052.wav;afo;kmq;afo;Pseudonymized
