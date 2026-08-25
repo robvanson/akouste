@@ -35,6 +35,7 @@ initialMarkdown = `
 [//parameter]: # "body.style:"
 [//comment]: # "Add error checking digest to results"
 [//parameter]: # "addDigest:false"
+[//parameter]: # "allowLocalStimulusList:true"
 [//buttontext]: # "NextText:Next"
 [//buttontext]: # "NextAlertText:Please listen to the recordings and answer the questions first"
 [//buttontext]: # "ReadyText:Ready"
