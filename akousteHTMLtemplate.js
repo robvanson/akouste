@@ -205,13 +205,21 @@ function loadList () {
 		
 			// Extract column names from the first line
 			columnNamesLine = lines[0];
-			columnNames = columnNamesLine.split(/[;\\t]/g).filter(e => e);
+			if(typeof separator !== 'undefined' && separator.length == 1) {
+				columnNames = columnNamesLine.split(separator).filter(e => e);
+			} else {
+				columnNames = columnNamesLine.split(/[;\\t]/g).filter(e => e);
+			};
 		
 			// Extract data from subsequent lines
 			dataLines = lines.slice(1);
 			while(dataLines[dataLines.length-1] == [])dataLines.pop();
-			data = dataLines.map(function(x){return x.split(/[;\\t]/g).filter(e => e)});
-		
+			if(typeof separator !== 'undefined' && separator.length == 1) {
+				data = dataLines.map(function(x){return x.split(separator).filter(e => e)});
+			} else {
+				data = dataLines.map(function(x){return x.split(/[;\\t]/g).filter(e => e)});
+			};
+			
 			// Check for data corruption
 			if( ! data.map(function sublist(x){return x.length == columnNames.length}).every(Boolean)) {
 				alert("Defective CSV stimulus table read, please inform administrator: " + "XXEXPERIMENTNAMEXX_stimuluslist.js");
