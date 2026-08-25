@@ -307,14 +307,17 @@ Even though the stimulus table can be edited in the markdown and **View Stimuli*
 
 A stimulus table can be saved with the **Download Stimuli** button as *\<experimentname\>\_stimuluslist.js*. In this case the current **URL/path to stimuli** path is stored alongside the stimulus table. The stimulus table will not work properly when this path is not set correctly. This *<experimentname>_stimuluslist.js* can be loaded in an experiment to replace the stimulus table "baked in" in the experiment *HTML* file. However, this introduces a security risk as any JavaScript code in this file will be executed when the experiment file is loaded. Therefore, the use of this feature can be set or unset with a hidden parameter: **allowLocalStimulusList**.
 
-The above method to create an *<experimentname>_stimuluslist.js* stimulus table results in a **JSON** table. This method is difficult to apply when the original setup with *akousteCreate.html* and the experiment markup file are not available. An alternative is to create a **CSV** table text file with the name *_stimuluslist.js*, using either `;` or `<tab>` as a separator (these are the only two available options). In a text editor, enclose the CSV table in ``` var csv = ` ``` and  ``` ` ```.     
-A base URL for the stimuli can be supplied in a seperate line:    
-`var audioBaseURL = '<URL of stimuli>';`
+The above method to create an *<experimentname>_stimuluslist.js* stimulus table results in a **JSON** table. This method is difficult to apply when the original setup with *akousteCreate.html* and the experiment markup file are not available. An alternative is to create a **CSV** table text file with the name *_stimuluslist.js*, using `;` or `<tab>` as a separator (default). In a text editor, enclose the CSV table in ``` var csv = ` ``` and  ``` ` ```.     
+A base URL for the stimuli can be supplied on a seperate line:    
+`var audioBaseURL = '<URL of stimuli>'`    
+The separator character can be specified as a single character, eg., [;,:\t] (actually, any single character), for instance:    
+`var separator = ';'`
 
 For example:
 
 ```javascript
 var audioBaseURL = 'https://robvanson.github.io/PseudonymizeSpeech/Examples/Pseudonymized/';
+var separator = ';'
 var csv = `
 A;B;X;LangA;LangB;LangX
 6/62/De-Aluminium.ogg;e/e7/Fr-bordure.ogg;d/db/En-uk-illustrate.ogg;German (De);French (Fr);English (En)
@@ -322,7 +325,7 @@ A;B;X;LangA;LangB;LangX
 `
 ```
 
-Use this file like the standard *<experimentname>_stimuluslist.js*. The same security risks hold for the CSV table variant as for the **JSON** variant.
+Use this file like the standard *<experimentname>_stimuluslist.js*. The same security risks hold for the CSV table variant as for the **JSON** variant. Also the **allowLocalStimulusList** parameter has to be set to **true** for a **CSV** stimuluslist to be used.
 
 ## Browser settings and compatibility
 
