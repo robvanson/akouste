@@ -505,6 +505,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	var ExpLanguage = navigator.language || navigator.userLanguage;
 	var bodyStyleText = "";
 	var addDigestText = "false";
+	var allowLocalStimulusListText = "false";
 
 	var stimulusTableJSON = '[["A","B","X"], ["beep.wav", "beep.wav", "beep.wav"]]';
 	var requiredNames = [];
@@ -634,6 +635,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	function parameters2Markdown() {
 		currentMarkdown = document.getElementById('markdownText').value;
 		var newLines = [];
+		
 		var parameterLines = [
 			['[//comment]: # "These are internal parameters for the experiment and visible texts not in this Markdown"'],
 			['[//comment]: # "----------"'],
@@ -646,6 +648,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			['[//parameter]: # "body.style:'+bodyStyleText.replace(/"`/g, "")+'"'],
 			['[//comment]: # "Add error checking digest to results"'],
 			['[//parameter]: # "addDigest:'+addDigestText.replace(/"`/g, "")+'"'],
+			['[//parameter]: # "allowLocalStimulusList:'+allowLocalStimulusListText.replace(/"`/g, "")+'"'],
 			['[//comment]: # "Parameters for Markdown"'],
 			['[//parameter]: # "Linkify:'+markdownLinkify+'"'],
 			['[//parameter]: # "Typographer:'+markdownTypographer+'"'],
@@ -665,6 +668,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			['[//tooltiptext]: # "ExpLanguage:'+cleanString(ExpLanguage)+'"'],
 			['[//comment]: # "----------"']
 		];
+
 		var stimulusTableLines = [];
 		stimulusTableLines.push(['[//comment]: # "These are stimuli for this experiment"']);
 		stimulusTableLines.push(['[//comment]: # "----------"']);
@@ -764,6 +768,9 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 								break
 						case "addDigest":
 								addDigestText = parameterValue;
+							break;
+						case "allowLocalStimulusList":
+								allowLocalStimulusListText = parameterValue;
 							break;
 						case "Linkify":
 							markdownLinkify = (parameterValue == "true");
@@ -1445,7 +1452,6 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	
 	function preProcessPreamble (text) {
 			var processedPreamble = text.replace(/XXNUMBEROFSCALESXX/g, NumberOfScales);
-			processedPreamble = processedPreamble.replace(/XXEXPERIMENTNAMEXX/g, ExperimentAcronym);
 			processedPreamble = processedPreamble.replace(/XXRANDOMIZEABXX/g, RandomizeAB);
 			processedPreamble = processedPreamble.replace(/XXSHUFFLESTIMULUSLISTXX/g, ShuffleStimuli);
 			processedPreamble = processedPreamble.replace(/XXaudioBaseURLXX/g, audioBaseURL);
@@ -1464,6 +1470,12 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			processedPreamble = processedPreamble.replace(/XXExpLanguageXX/g, ExpLanguage);
 			processedPreamble = processedPreamble.replace(/XXstimulusTableJSONXX/g, stimulusTableJSON);
 			processedPreamble = processedPreamble.replace(/XXMarkdownParserXX/g, selectMarkdownParser);			
+
+			if(allowLocalStimulusListText != 'true'){
+				processedPreamble = processedPreamble.replace(/src\s*=\s*["']\.\/XXEXPERIMENTNAMEXX_stimuluslist\.js["']/ig, "src='' ")
+				processedPreamble = processedPreamble.replace(/src\s*=\s*["']ExpAcronym_examples\/XXEXPERIMENTNAMEXX_stimuluslist\.js["']/ig, "src='' ")
+			};
+			processedPreamble = processedPreamble.replace(/XXEXPERIMENTNAMEXX/g, ExperimentAcronym);
 			
 			audioNamesString  = (audioNames.length > 0) ? '"' + audioNames.join('", "')+ '"'     : "";
 			textNamesString     = (textNames.length > 0)    ? '"' + textNames.join('", "') + '"'      :  "";
@@ -1480,6 +1492,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 				processedPreamble = processedPreamble.replace(/src\s*=\s*["'](\.\/)?sha\.js["']/ig, "src='' ")
 				processedPreamble = processedPreamble.replace(/src\s*=\s*["']https:\/\/cdn\.jsdelivr\.net\/npm\/jssha\@[\d\.]*\/dist\/sha\.js["']/ig, "src='' ")
 			};
+			
 			
 			return processedPreamble;
 	};
