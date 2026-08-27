@@ -1263,7 +1263,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		let blobText = await blob.text();
 		let blobSHA384 = hex_sha384 (blobText);
 		document.getElementById('DigestDownloadButton').style.visibility = "visible";
-		downloadDigestText = blobSHA384 + " " + ExperimentAcronym+"_experiment.html";
+		downloadDigestText = blobSHA384 + "  " + ExperimentAcronym+"_experiment.html";
 		document.getElementById('DownloadDigest').innerText = downloadDigestText;
 		digestBlob = new Blob ([downloadDigestText], {type: "text/plain" } );
 		digestBlobURL = URL.createObjectURL(digestBlob);
