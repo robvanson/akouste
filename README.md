@@ -6,7 +6,7 @@
 
 Version 2.0.3 [^1]
 
-**akouste Is a browser-based platform for perceptual experiments that runs entirely on the participant's device.**
+**akouste Is a browser-based platform for perceptual experiments that run entirely on the participant's device.**
 
 [Try a minimal demo](./akousteCreate.html?ExperimentAcronym=Audiotest) with just an audio button, two stimuli, and a yes/no question
 
