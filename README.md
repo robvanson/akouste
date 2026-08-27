@@ -29,7 +29,7 @@ A quick cheat sheet of special stimulus constructs. The syntax might seem daunti
 *name* Is the column name in the stimulus table, *style* is a CSS style.
 
 | Function | Syntax                             |
-| -------- | ---------------------------------- |
+| -------- | :----------------------------------: |
 | Audio    | [[[ text \| name {style} ]]]     |
 | Video    | [[§ alt-text \| name {style} §]] |
 | Image    | {{§ name \| style §}}            |
@@ -38,7 +38,7 @@ A quick cheat sheet of special stimulus constructs. The syntax might seem daunti
 #### Responses
 
 | Function    | Syntax                        |
-| ----------- | ----------------------------- |
+| ----------- | :-----------------------------: |
 | Likert      | (())                        |
 | Slider      | >>----------<<              |
 | Text input  | << text {style} >>          |
