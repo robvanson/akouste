@@ -16,7 +16,7 @@ More [examples](#demonstrations-and-examples)
 
 ## Browser-based listening and perceptual experiments
 
-The *akoúste* project aims to provide tools for simple, adaptable perceptual experiments. *akoúste* is specially designed for situations where the use of a dynamic host server storing and serving the speech and collecting the responses over the internet is unpractical or unwanted, e.g., due to privacy concerns or legal requirements (*GDPR*). *akoúste* pages can be used both on desk/laptops and on mobile devices, with and without a network connection. "Perception" in *akoúste* includes audio, text, images, and video and the focus is on easy integration of all these modalities.
+The *akoúste* project aims to provide tools for simple, adaptable perceptual experiments. *akoúste* is specially designed for situations where the use of a dynamic host server storing and serving audio and visual stimuli and collecting subject responses over the internet is unpractical or unwanted, e.g., due to privacy concerns or legal requirements (*GDPR*). *akoúste* Pages can be used both on desk/laptops and on mobile devices, with and without a network connection. "Perception" in *akoúste* includes audio, text, images, and video and the focus is on easy integration of all these modalities.
 
 *akoúste* Experiments can as easily be run off thumb-drives, or local hard drives, with all data kept locally, as they can be run from a web server. Submission of results is under the control of the subject doing the experiment. The whole experiment is run inside the browser and intermediate results are stored in the browser's local storage. After completing the experiment, the subject can download the results in text format and submit them to the experimenter.
 
