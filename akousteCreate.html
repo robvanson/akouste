@@ -71,6 +71,34 @@
 	};
 </script>
 
+<script type="text/javascript">
+	// Stub Hash Function definitions
+	function hex_sha1 (plaintext) {
+		return "Not Available";
+	};
+	function hex_sha256 (plaintext) {
+		return "Not Available";
+	};
+	function hex_sha384 (plaintext) {
+		return "Not Available";
+	};
+	function hex_sha512 (plaintext) {
+		return "Not Available";
+	};
+	function chained_sha (plaintext) {
+		return "Not Available";
+	};
+</script>
+<script type="text/javascript" src="./sha.js"></script>
+<script type="text/javascript">
+	if(typeof window.jsSHA == 'undefined' || typeof window.jsSHA != "function") {
+		var script = document.createElement('script');
+		script.type='text/javascript';
+		script.src = 'https://cdn.jsdelivr.net/npm/jssha@3.3.1/dist/sha.js';
+		document.getElementsByTagName('head')[0].appendChild(script);
+	};
+</script>
+
 <script id='markdownRead' type="text/javascript" src="./akousteInitPageMD.js"></script>
 <script type="text/javascript" >
 function loadMarkdown(fileName) {
@@ -477,6 +505,7 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 				"RenderedHTML",
 				"popup"
 			);
+						
 			
 			return(tableHTML);
 		};
@@ -1046,6 +1075,9 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		// Set buttons
 		setHTMLdisplayButtonColor ();
 		document.getElementById('ShowButton').style.backgroundColor = "red";
+		// unset digest
+		document.getElementById('DigestDownloadButton').style.visibility = "hidden";
+		document.getElementById('DownloadDigest').innerText = "";
 		
 		if(typeof openWindow !=  'undefined'){			
 			// Finish HTML and open page
@@ -1199,6 +1231,9 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		setHTMLdisplayButtonColor ();
 
 		document.getElementById('saveHTMLbutton').style.backgroundColor = "red";
+		
+		document.getElementById('DigestDownloadButton').style.visibility = "hidden";
+		document.getElementById('DownloadDigest').innerText = "";
 	}
 	
 	function saveMarkdown() {
@@ -1219,6 +1254,23 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			 document.getElementById('SaveMDbutton').style.backgroundColor = "white";
 		};
 	
+	var downloadDigestText = "";
+	var digestBlob = null;
+	var digestBlobURL = "";
+	async function getBlobSHA384( blob) {
+		URL.revokeObjectURL(digestBlobURL);
+		digestBlobURL = "";
+		let blobText = await blob.text();
+		let blobSHA384 = hex_sha384 (blobText);
+		document.getElementById('DigestDownloadButton').style.visibility = "visible";
+		downloadDigestText = blobSHA384 + " " + ExperimentAcronym+"_experiment.html";
+		document.getElementById('DownloadDigest').innerText = downloadDigestText;
+		digestBlob = new Blob ([downloadDigestText], {type: "text/plain" } );
+		digestBlobURL = URL.createObjectURL(digestBlob);
+		document.getElementById('DigestAnchor').href = digestBlobURL;
+		document.getElementById('DigestAnchor').download = ExperimentAcronym+"_sha384sum.txt";
+	}
+
 	function saveHTML() {
 			// Update HTML id HTML has not been edited
 			if(!HTMLchanged){
@@ -1228,6 +1280,9 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 			var postambleProc = preProcessPreamble(postamble);
 			const pageHTML = preambleProc + document.getElementById('htmlText').value + postambleProc;
 			var htmlBlob = new Blob([pageHTML], { type: "text/html" });
+
+			getBlobSHA384(htmlBlob);
+
 			var htmlBlobUrl = URL.createObjectURL(htmlBlob);
 			const anchor = document.createElement('a');
 			anchor.href = htmlBlobUrl;
@@ -1583,6 +1638,36 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 		if(typeof akoustePromptSummary == 'string') {
 			document.getElementById('showprompt').style.visibility='visible';
 		};
+		
+
+		// Construct SHA functions
+		if(typeof window.jsSHA != 'undefined' && typeof window.jsSHA == "function") {
+			// Hash Function definitions
+			window.hex_sha1 = function  (plaintext) {
+				var shaObj = new jsSHA("SHA-1", "TEXT");
+				shaObj.update(plaintext);
+				return shaObj.getHash("HEX");
+			};
+			window.hex_sha256 = function (plaintext) {
+				var shaObj = new jsSHA("SHA-256", "TEXT");
+				shaObj.update(plaintext);
+				return shaObj.getHash("HEX");
+			};
+			window.hex_sha384 = function (plaintext) {
+				var shaObj = new jsSHA("SHA-384", "TEXT");
+				shaObj.update(plaintext);
+				return shaObj.getHash("HEX");
+			};
+			window.hex_sha512 = function (plaintext) {
+				var shaObj = new jsSHA("SHA-512", "TEXT");
+				shaObj.update(plaintext);
+				return shaObj.getHash("HEX");
+			};
+			window.chained_sha = function (plaintext) {
+				return hex_sha256( hex_sha256( hex_sha512(plaintext) ) );
+			};
+		}
+		
 	};
 	
 </script>
@@ -1782,7 +1867,9 @@ What do you think?  <<|  your opinion here {width:5cm;color:gray;text-align:cent
 	    <div id='DisplaySizeControls' style='visibility:visible'>
 	    <span title='Zoom display width'><a href='javascript:void(0)' onclick='decrementDisplayWidth ();' style='text-decoration-line: none;font-weight: bold;'> &larr;</a> <span id='displayWidthText'>100%</span> <a href='javascript:void(0)' onclick='incrementDisplayWidth ();' style='text-decoration-line: none;font-weight: bold;'>&rarr; </a></span>&emsp;
 	    <span title='Zoom display height'><a href='javascript:void(0)' onclick='incrementDisplayHeight ();' style='text-decoration-line: none;font-weight: bold;'> &uarr;</a> <span id='displayHeightText'>100%</span> <a href='javascript:void(0)' onclick='decrementDisplayHeight ();' style='text-decoration-line: none;font-weight: bold;'>&darr; </a></span>
+	    &emsp; <a id="DigestAnchor" href="" download><button type="button" id='DigestDownloadButton' title= 'Download SHA-384 digest' style='visibility:hidden' >Download Digest</button></a>
 	    </div>
+	   &emsp; <textarea rows=2 cols=80 title='SHA-384 digest of HTML experiment file' id='DownloadDigest' style='border-color: Transparent;'>&emsp;</textarea>
 	</div>
  </div>
 
