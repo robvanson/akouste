@@ -6,17 +6,43 @@
 
 Version 2.0.3 [^1]
 
+**akouste Is a browser-based platform for perceptual experiments that runs entirely on the participant's device.**
+
 [Try a minimal demo](./akousteCreate.html?ExperimentAcronym=Audiotest) with just an audio button, two stimuli, and a yes/no question
 
 [A more complete, and more complex, demo](./akousteCreate.html)  including an introduction and a selection of question forms. *Use **Switch Page** to switch between pages*
 
 More [examples](#demonstrations-and-examples)
 
-## Client-side listening experiments in the browser
+## Browser-based listening and perceptual experiments
 
-The *akoúste* project aims to provide tools for simple, adaptable listening experiments. *akoúste* is specially designed for situations where the use of a dynamic host server storing and serving the speech and collecting the responses over the internet is unpractical or unwanted, e.g., due to privacy concerns or legal requirements (*GDPR*). *akoúste* pages can be used both on desk/laptops and on mobile devices, with and without a network connection. As not all "listening" is limited to the ears, text, images, and video can also be used.
+The *akoúste* project aims to provide tools for simple, adaptable perceptual experiments. *akoúste* is specially designed for situations where the use of a dynamic host server storing and serving the speech and collecting the responses over the internet is unpractical or unwanted, e.g., due to privacy concerns or legal requirements (*GDPR*). *akoúste* pages can be used both on desk/laptops and on mobile devices, with and without a network connection. "Perception" in *akoúste* includes audio, text, images, and video and the focus is on easy integration of all these modalities.
 
 *akoúste* Experiments can as easily be run off thumb-drives, or local hard drives, with all data kept locally, as they can be run from a web server. Submission of results is under the control of the subject doing the experiment. The whole experiment is run inside the browser and intermediate results are stored in the browser's local storage. After completing the experiment, the subject can download the results in text format and submit them to the experimenter.
+
+## Cheat-sheet
+
+A quick cheat sheet of special stimulus constructs. The syntax might seem daunting at first, but is designed to not interfere with the other text.
+
+#### Stimuli
+
+*name* Is the column name in the stimulus table, *style* is a CSS style.
+
+| Function | Syntax                             |
+| -------- | ---------------------------------- |
+| Audio    | `[[[ text \| name {style} ]]]`     |
+| Video    | `[[§ alt-text \| name {style} §]]` |
+| Image    | `{{§ name \| style §}}`            |
+| Text     | `{{{ name \| style }}}`            |
+
+#### Responses
+
+| Function    | Syntax                        |
+| ----------- | ----------------------------- |
+| Likert      | `(())`                        |
+| Slider      | `>>----------<<`              |
+| Text input  | `<< text {style} >>`          |
+| Key strokes | `@@@ text [keys] {style} @@@` |
 
 ## What is needed
 
@@ -26,7 +52,7 @@ Bill of Materials
 - A table listing which stimuli should be presented at each turn. ([demonstration](https://youtu.be/sYVBrWeSlVg))
 - An experiment web page that presents the stimuli to the listeners and collects their responses. ([demonstration](https://youtu.be/NZb2pkzk4KU))
 
-To create a listening experiment, access to both [*akousteCreate.html*](./akousteCreate.html) and [*akousteHTMLtemplate.js*](./akousteHTMLtemplate.js) is needed. This access does not have to be local, the [*akoúste* github pages](./) (or equivalent repositories) will do. For a real experiment, stimulus media files, audio or video, are required, preferably in a local folder. The stimulus files can be accessed locally, or remotely over https. Any audio or video format that can be played by the web browsers of choice can be used.
+To create a perceptual experiment, access to both [*akousteCreate.html*](./akousteCreate.html) and [*akousteHTMLtemplate.js*](./akousteHTMLtemplate.js) is needed. This access does not have to be local, the [*akoúste* github pages](./) (or equivalent repositories) will do. For a real experiment, stimulus media files, audio or video, are required, preferably in a local folder. The stimulus files can be accessed locally, or remotely over https. Any audio or video format that can be played by the web browsers of choice can be used.
 
 For stimulus lists, *akousteCreate* will read .csv tables ([comma-separated-values](https://www.wikihow.com/Create-a-CSV-File "How to Create a CSV File: 4 Simple Methods")) as can be derived from most spreadsheet, database, or statistics applications. Columns in these tables should have names in a header row. The table should contain columns that contain the names of the stimulus files. The tables can store any other information that is convenient in other columns. It is OK if there is only a single column with stimulus file names. The path or URL to the folder that contains the stimulus files can be supplied separately, so it is not necessary to write out the path to each individual stimulus.
 
@@ -92,6 +118,20 @@ The web page optionally starts with a cover page which can contain all the infor
 ## What you do *not* get
 
 Although *akoúste* stores progress of the experiment in the local browser, absolutely ***no*** information is send out. Even the results of the experiment will be stored locally in a text file, and only if the user saves them. The results only leave the computer when the user conveys them by email or DM to the addressee, or, if desired, print the results and send them by surface mail.
+
+#### Privacy by Design
+
+*akoúste* never sends participant data to a server.
+
+✓ No server-side data collection
+
+✓ No participant tracking
+
+✓ No cookies required
+
+✓ Offline operation possible
+
+✓ Participant controls result submission
 
 ## Under the hood
 
