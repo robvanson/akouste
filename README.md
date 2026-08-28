@@ -14,7 +14,7 @@ Version 2.0.3 [^1]
 
 More [examples](#demonstrations-and-examples)
 
-## Browser-based listening and perceptual experiments, on your local device
+## Browser-based listening and perceptual experiments
 
 The *akoúste* project aims to provide tools for simple, adaptable perceptual experiments. *akoúste* is specially designed for situations where the use of a dynamic host server storing and serving audio and visual stimuli and collecting subject responses over the internet is unpractical or unwanted, e.g., due to privacy concerns or legal requirements (*GDPR*). *akoúste* Pages can be used both on desk/laptops and on mobile devices, with and without a network connection. "Perception" in *akoúste* includes audio, text, images, and video and the focus is on easy integration of all these modalities.
 
