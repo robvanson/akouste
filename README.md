@@ -6,7 +6,6 @@
 
 Version 2.0.3 [^1]
 
-
 **akoúste Is a browser-based platform for perceptual experiments that run entirely on the participant's device.**
 
 [Try a minimal demo](./akousteCreate.html?ExperimentAcronym=Audiotest) with just an audio button, two stimuli, and a yes/no question
@@ -29,20 +28,20 @@ A quick cheat sheet of special stimulus constructs. Skip this if you are new to 
 
 *name* Is the column name in the stimulus table, *style* is a [CSS style](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content). "text" Is the text or label visible to the participants.
 
-| Function | Syntax                             |
-| -------- | :----------------------------------: |
-| Audio    | \[\[\[ text \| name {style} \]\]\]     |
+| Function | Syntax                               |
+| -------- |:------------------------------------:|
+| Audio    | \[\[\[ text \| name {style} \]\]\]   |
 | Video    | \[\[§ alt-text \| name {style} §\]\] |
 | Image    | \{\{§ name \| style §\}\}            |
-| Text     | \{\{\{ name \| style \}\}\}            |
+| Text     | \{\{\{ name \| style \}\}\}          |
 
 #### Responses
 
-| Function    | Syntax                        |
-| ----------- | :-----------------------------: |
-| Likert      | (())                        |
-| Slider      | >>----------<<              |
-| Text input  | << text {style} >>          |
+| Function    | Syntax                          |
+| ----------- |:-------------------------------:|
+| Likert      | (())                            |
+| Slider      | >>----------<<                  |
+| Text input  | << text {style} >>              |
 | Key strokes | @@@ text \[keys\] \{style\} @@@ |
 
 ## What is needed
@@ -478,7 +477,7 @@ In normal use, simple markdown texts or genuine stimuli should not introduce ris
 
 † *Contains functional* akoúste *web site with examples*
 
-# What's in a name
+## What's in a name
 
 *akoúste* is a latinized transcription of *ακούστε*, which is Greek for *'listen'*. The Greek original is pronounced as [aˈkus.te] ([IPA](https://dictionary.cambridge.org/us/pronunciation/english/international-phonetic-alphabet "How to pronounce the International Phonetic Alphabet in English")). *akoúste* Is primarily developed for experiments on the perception of speech and perceiving speech is commonly called "listening", hence the name. However, humans not only "listen" to speech with their ears. And *akoúste* follows them by including vision and text.
 
