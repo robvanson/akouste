@@ -31,10 +31,10 @@ A quick cheat sheet of special stimulus constructs. Skip this if you are new to 
 
 | Function | Syntax                             |
 | -------- | :----------------------------------: |
-| Audio    | [[[ text \| name {style} ]]]     |
-| Video    | [[§ alt-text \| name {style} §]] |
-| Image    | {{§ name \| style §}}            |
-| Text     | {{{ name \| style }}}            |
+| Audio    | \[\[\[ text \| name {style} \]\]\]     |
+| Video    | \[\[§ alt-text \| name {style} §\]\] |
+| Image    | \{\{\§ name \| style \§\}\}            |
+| Text     | \{\{\{ name \| style \}\}\}            |
 
 #### Responses
 
@@ -43,7 +43,7 @@ A quick cheat sheet of special stimulus constructs. Skip this if you are new to 
 | Likert      | (())                        |
 | Slider      | >>----------<<              |
 | Text input  | << text {style} >>          |
-| Key strokes | @@@ text [keys] {style} @@@ |
+| Key strokes | @@@ text \[keys\] \{style\} @@@ |
 
 ## What is needed
 
