@@ -33,7 +33,7 @@ A quick cheat sheet of special stimulus constructs. Skip this if you are new to 
 | -------- | :----------------------------------: |
 | Audio    | \[\[\[ text \| name {style} \]\]\]     |
 | Video    | \[\[§ alt-text \| name {style} §\]\] |
-| Image    | \{\{\§ name \| style \§\}\}            |
+| Image    | \{\{§ name \| style §\}\}            |
 | Text     | \{\{\{ name \| style \}\}\}            |
 
 #### Responses
