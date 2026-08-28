@@ -22,11 +22,11 @@ The *akoúste* project aims to provide tools for simple, adaptable perceptual ex
 
 ## Cheat-sheet
 
-A quick cheat sheet of special stimulus constructs. The syntax might seem daunting at first, but is designed to not interfere with the other text.
+A quick cheat sheet of special stimulus constructs. Skip this if you are new to *akoúste*. The syntax might seem daunting at first, but is designed to not interfere with the other text. 
 
 #### Stimuli
 
-*name* Is the column name in the stimulus table, *style* is a CSS style. "text" Is the text or label visible to the participants.
+*name* Is the column name in the stimulus table, *style* is a [CSS style](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content). "text" Is the text or label visible to the participants.
 
 | Function | Syntax                             |
 | -------- | :----------------------------------: |
