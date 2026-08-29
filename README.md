@@ -390,7 +390,7 @@ A;B;X;LangA;LangB;LangX
 
 Use this file like the standard *<experimentname>_stimuluslist.js*. The same security risks hold for the CSV table variant as for the **JSON** variant. Also the **allowLocalStimulusList** parameter has to be set to **true** for a **CSV** stimuluslist to be used.
 
-## Browser settings and compatibility
+## Browser settings and compatibility <a href=#top>↰</a>
 
 Web browsers implement security measures to prevent web sites from accessing each other's data or the clients's local data, both for reading and writing. These [Same-origin policies](https://en.wikipedia.org/wiki/Same-origin_policy) affect how *akoúste* can implement experiments. It means that the demonstration page (**Show Page**) in the *akousteCreate.html* environment cannot use locally stored audio or video, only media accessed through web links. It also means that some browsers will not allow a fully functional demonstration page at all. In such cases, the next best solution is to save the experiment (**Save Experiment...**), if necessary in the correct folder, and open the downloaded file.
 
@@ -484,7 +484,7 @@ If there are worries about the responses in an experiment, clicking the **Restar
 
 In normal use, simple markdown texts or genuine stimuli should not introduce risks for users or subjects. But when creating a new experiment, special care should be taken when including HTML, JavaScript, or CSS code which might compromise the privacy or security of users or experimental subjects. Also, it is prudent to check the provenance of the components of *akoúste* used and whether new versions might be available.
 
-## Repositories
+## Repositories <a href=#top>↰</a>
 
 *akoúste* git repositories are available at:
 
@@ -500,7 +500,7 @@ In normal use, simple markdown texts or genuine stimuli should not introduce ris
 
 † *Contains functional* akoúste *web site with examples*
 
-## What's in a name
+## What's in a name <a href=#top>↰</a>
 
 *akoúste* is a latinized transcription of *ακούστε*, which is Greek for *'listen'*. The Greek original is pronounced as [aˈkus.te] ([IPA](https://dictionary.cambridge.org/us/pronunciation/english/international-phonetic-alphabet "How to pronounce the International Phonetic Alphabet in English")). *akoúste* Is primarily developed for experiments on the perception of speech and perceiving speech is commonly called "listening", hence the name. However, humans not only "listen" to speech with their ears. And *akoúste* follows them by including vision and text.
 
