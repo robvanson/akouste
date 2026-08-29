@@ -502,7 +502,7 @@ In normal use, simple markdown texts or genuine stimuli should not introduce ris
 
 ## What's in a name [↰](#table-of-contents)
 
-*akoúste* is a latinized transcription of *ακούστε*, which is Greek for *'listen'*. The Greek original is pronounced as [aˈkus.te] ([IPA](https://dictionary.cambridge.org/us/pronunciation/english/international-phonetic-alphabet "How to pronounce the International Phonetic Alphabet in English")). *akoúste* Is primarily developed for experiments on the perception of speech and perceiving speech is commonly called "listening", hence the name. However, humans not only "listen" to speech with their ears. And *akoúste* follows them by including vision and text.
+*akoúste* is a latinized transcription of *ακούστε*, which is Greek for *'listen'*. The Greek original is pronounced as [aˈkus.te] ([IPA](https://dictionary.cambridge.org/us/pronunciation/english/international-phonetic-alphabet "How to pronounce the International Phonetic Alphabet in English")). *akoúste* application is primarily developed for experiments on the perception of speech. Attending to speech is commonly called "listening", hence the name. However, humans not only "listen" to speech with their ears. And *akoúste* follows them by including vision and text.
 
 ---------
 
