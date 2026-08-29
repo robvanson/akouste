@@ -44,17 +44,39 @@ A quick cheat sheet of special stimulus constructs. Skip this if you are new to 
 | Text input  | << text {style} >>              |
 | Key strokes | @@@ text \[keys\] \{style\} @@@ |
 
-## What is needed
+
+
+## Table of Contents
+
+- [Browser-based listening and perceptual experiments](#browser-based-listening-and-perceptual-experiments)
+- [Cheat-sheet](#cheat-sheet)
+- [What is needed for an experiment](#what-is-needed-for-an-experiment)
+- [Demonstrations and examples](#demonstrations-and-examples)
+- [What you get](#what-you-get)
+- [What you do not get](#what-you-do-not-get)
+- [Under the hood](#under-the-hood)
+- [User Interface](#user-interface)
+- [Stimuli](#stimuli-1)
+- [Markdown](#markdown)
+- [Browser settings and compatibility](#browser-settings-and-compatibility)
+- [Distributing an "experiment"](#distributing-an-experiment)
+- [Security and Privacy](#security-and-privacy)
+- [Repositories](#repositories)
+- [What's in a name](#whats-in-a-name)
+
+
+
+## What is needed for an experiment
 
 Bill of Materials
 
 - Stimuli, which can be audio, video, images, or text
-- A table listing which stimuli should be presented at each turn. ([demonstration](https://youtu.be/sYVBrWeSlVg))
-- An experiment web page that presents the stimuli to the listeners and collects their responses. ([demonstration](https://youtu.be/NZb2pkzk4KU))
+- A table listing which stimuli should be presented at each turn ([demonstration](https://youtu.be/sYVBrWeSlVg))
+- An experiment web page that presents the stimuli to the listeners and collects their responses ([demonstration](https://youtu.be/NZb2pkzk4KU))
 
-To create a perceptual experiment, access to both [*akousteCreate.html*](./akousteCreate.html) and [*akousteHTMLtemplate.js*](./akousteHTMLtemplate.js) is needed. This access does not have to be local, the [*akoúste* github pages](./) (or equivalent repositories) will do. For a real experiment, stimulus media files, audio, images, text, or video, are required, preferably in a local folder. The stimulus files can be accessed locally, or remotely over https. Any audio, image, or video format that can be played by the web browsers of choice can be used.
+To create a perceptual experiment, access to both [*akousteCreate.html*](./akousteCreate.html) and [*akousteHTMLtemplate.js*](./akousteHTMLtemplate.js) is needed. This access does not have to be local, the [*akoúste* github pages](./) (or [equivalent repositories](#repositories)) will do. For a real experiment, stimulus media files, audio, images, text, or video, are required, preferably in a local folder. The stimulus files can be accessed locally, or remotely over the internet (*HTTPS*). Any audio, image, or video format that can be played by the web browsers of choice can be used.
 
-For stimulus lists, *akousteCreate* will read .csv tables ([comma-separated-values](https://www.wikihow.com/Create-a-CSV-File "How to Create a CSV File: 4 Simple Methods")) as can be derived from most spreadsheet, database, or statistics applications. Columns in these tables should have names in a header row. The table should contain columns that contain the names of the stimulus files. The tables can store any other information that is convenient in other columns. It is OK if there is only a single column with stimulus file names. The path or URL to the folder that contains the stimulus files can be supplied separately, so it is not necessary to write out the path to each individual stimulus.
+For stimulus lists, *akousteCreate* will read CSV tables ([comma-separated-values](https://www.wikihow.com/Create-a-CSV-File "How to Create a CSV File: 4 Simple Methods")) as can be derived from most spreadsheet, database, or statistics applications. Columns in these tables should have names in a header row. The table should contain columns that contain the names of the stimulus files. The tables can store any other information that is convenient in other columns. It is OK if there is only a single column with stimulus file names. The path or URL to the folder that contains the stimulus files can be supplied separately, so it is not necessary to write out the path to each individual stimulus.
 
 The visual layout and text of the web page that presents the experiment is written in an easy to use [Markdown format](https://www.markdownguide.org/getting-started/) in an edit frame in *akousteCreate.html*. The web version is visible in another frame on the same page. The full page can be tested in a functional popup window (**Show Page**). As most, if not all, browsers block access to local files on the user's computer from an in-browser generated web page, it is not possible to test locally stored stimulus files in the popup window. 
 
