@@ -56,7 +56,7 @@ A quick cheat sheet of special stimulus constructs. Skip this if you are new to 
 - [What you do not get](#what-you-do-not-get-)
 - [Under the hood](#under-the-hood-)
 - [User Interface](#user-interface-)
-- [Stimuli](#stimuli-1-)
+- [Stimuli](#stimuli-)
 - [Markdown](#markdown-)
 - [Browser settings and compatibility](#browser-settings-and-compatibility-)
 - [Distributing an "experiment"](#distributing-an-experiment-)
