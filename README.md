@@ -14,13 +14,13 @@ Version 2.0.3 [^1]
 
 More [examples](#demonstrations-and-examples)
 
-## Browser-based listening and perceptual experiments [↰](#top)
+## Browser-based listening and perceptual experiments [↰](#table-of-contents)
 
 The *akoúste* project aims to provide tools for simple, adaptable perceptual experiments. *akoúste* is specially designed for situations where the use of a dynamic host server storing and serving audio and visual stimuli and collecting subject responses over the internet is unpractical or unwanted, e.g., due to privacy concerns or legal requirements (*GDPR*). *akoúste* Pages can be used both on desk/laptops and on mobile devices, with and without a network connection. "Perception" in *akoúste* includes audio, text, images, and video and the focus is on easy integration of all these modalities.
 
 *akoúste* Experiments can as easily be run off thumb-drives, or local hard drives, with all data kept locally, as they can be run from a web server. Submission of results is under the control of the subject doing the experiment. The whole experiment is run inside the browser and intermediate results are stored in the browser's local storage. After completing the experiment, the subject can download the results in text format and submit them to the experimenter.
 
-## Cheat-sheet [↰](#top)
+## Cheat-sheet [↰](#table-of-contents)
 
 A quick cheat sheet of special stimulus constructs. Skip this if you are new to *akoúste*. The syntax might seem daunting at first, but is designed to not interfere with the other text. 
 
@@ -66,7 +66,7 @@ A quick cheat sheet of special stimulus constructs. Skip this if you are new to 
 
 
 
-## What is needed for an experiment [↰](#top)
+## What is needed for an experiment [↰](#table-of-contents)
 
 Bill of Materials
 
@@ -82,7 +82,7 @@ The visual layout and text of the web page that presents the experiment is writt
 
 In our demonstrations, we use web URLs to demonstrate the full functionality. But when designing and testing an experiment using local stimulus files, the experiment page should be saved to the local drive (**Save Experiment...**) after setting the (relative) path to the stimulus folder, and opened from there. It is strongly advised to save the markdown of an experiment too, using **Save MD...**, as it will be needed to debug or adapt the experiment.
 
-## Demonstrations and examples [↰](#top)
+## Demonstrations and examples [↰](#table-of-contents)
 
 Examples (random audio, images, and video examples courtesy of [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page)):
 
@@ -129,7 +129,7 @@ Demonstration videos
 
 For browser specific information, see [Browser settings](#Browser-settings-and-compatibility) below. For requirements of *akousteCreate.html*, see  [Under the hood](#Under-the-hood).
 
-## What you get [↰](#top)
+## What you get [↰](#table-of-contents)
 
 *akousteCreate* creates a self contained web page that can run the experiment and can be distributed together with the stimuli, if the stimuli are local. Contrary to what the name *web page* suggests, the experiment web page works completely off-line. Internet is only used when stimuli are not available locally and for the SHA digest checks, if needed, and this library can be stored locally when desired. 
 
@@ -137,7 +137,7 @@ For browser specific information, see [Browser settings](#Browser-settings-and-c
 
 The web page optionally starts with a cover page which can contain all the information and instructions for the subjects. The stimulus list will be contained in the web page, but a suitable *.js* file with stimuli can be supplied that will read a new stimulus list. The subject can pace through the experiment and pause as they see fit. All information needed to pick up the experiment at a later time is stored locally inside the browser of the user. After the last answer is given, the subject is offered the option to save the results in a text file (*.txt*) (**Save Results**, or chosen equivalent). After that, the data in the browser can be deleted by clicking a **Restart** button (or chosen equivalent text) [^6].
 
-## What you do *not* get [↰](#top)
+## What you do *not* get [↰](#table-of-contents)
 
 Although *akoúste* stores progress of the experiment in the local browser, absolutely ***no*** information is send out. Even the results of the experiment will be stored locally in a text file, and only if the user saves them. The results only leave the computer when the user conveys them by email or DM to the addressee, or, if desired, print the results and send them by surface mail.
 
@@ -155,7 +155,7 @@ Although *akoúste* stores progress of the experiment in the local browser, abso
 
 ✓ Participant controls result submission
 
-## Under the hood [↰](#top)
+## Under the hood [↰](#table-of-contents)
 
 The *akoúste* experiments are constructed as a self-contained web page in plain HTML + CSS + JavaScript. Experiments can be constructed in a [self contained Web page editor](./akousteCreate.html). The basis is a markdown text file using [markdown-it](https://github.com/markdown-it/markdown-it) ([demo](https://markdown-it.github.io/)) [^3]. The markdown file will have experimental settings and the stimulus table appended in a comment section at the end. This information can be edited directly in the markdown file, but care should be taken as the formatting requirements for settings and stimuli are rather strict. The markdown file is a full description of the experiment and is all that is needed to edit or recreate the experiment. It is advised to save the markdown of an experiment, using **Save MD...**, as it will be needed to debug or adapt the experiment. The markdown file can be edited in any markdown aware editor and opened again in *akousteCreate.html* using **Open a Markdown file (.md)**. 
 
@@ -165,7 +165,7 @@ The tasks can be any number of stimulus media files, A, AB, ABX testing, and res
 
 The final experiment is created, after clicking **Show page** or **Save experiment...**, by translating the markdown to HTML and combining it with a HTML template, *akousteHTMLtemplate.js* [^5], the experiment parameters, and the stimulus table, into a functioning experiment web page. It is possible to create *\<experimentname\>\_stimuluslist.js* files to use different stimulus tables for the same experiment page.
 
-## User Interface [↰](#top)
+## User Interface [↰](#table-of-contents)
 
 The editor is a web page with on top two blocks of experiment settings. Top-left are settings relevant to the stimulus presentation. Top-right are the texts used for the buttons and information to steer the subjects in their responses and experiment.
 
@@ -179,7 +179,7 @@ When the **Show Page** button is clicked, a popup with a functioning page will a
 
 When the experiment is ready to be deployed, it can be saved using the **Save Experiment...** button on top of the HTML window. If work has to be interrupted before it is finished, or when the final experiment is ready, the Markdown window can be saved using the **Save MD...** button. The resulting Markdown file will contain all information needed to continue later or to add changes. It can be opened again with the **Open a Markdown file** selection/upload button.
 
-## Stimuli [↰](#top)
+## Stimuli [↰](#table-of-contents)
 
 Stimuli are organized as tables with named columns and each row containing the information of a single presentation. Necessary information contained in each row are the stimulus files (audio/video) or values (text fields) to be presented, and, for the analysis, the experimental conditions they represent. 
 
@@ -202,7 +202,7 @@ This approach was chosen to simplify analysis as all data needed for the analysi
 
 As the result files have to be communicated by the subjects themselves and might become corrupted during transport, there is an option to add a digest error check after each answer row (see [The settings](#the-settings)). This can be checked by *ProcessResults.html* too.
 
-## Markdown [↰](#top)
+## Markdown [↰](#table-of-contents)
 
 The user facing part of the experiment is a web-page. The text and layout of this page are designed using an adapted Markdown language ([tutorial](https://devarshi.dev/blog/complete-markdown-tutorial-for-beginners)), [markdown-it](https://markdown-it.github.io/). HTML tags are allowed inside this markdown and automatic conversion of links (linkify) and line-breaks (breaks) and the replacement of typographic combinations (typographer) are optional. The markdown library is obtained from [https://cdn.jsdelivr.net/npm/markdown-it@14.3.0/dist/](https://cdn.jsdelivr.net/npm/markdown-it@14.3.0/dist/), *markdown-it.min.js* [^3]. This file can also be downloaded and stored locally in the same folder as *akousteCreate.html* when convenient. It will then be loaded intstead off the link.
 
@@ -390,7 +390,7 @@ A;B;X;LangA;LangB;LangX
 
 Use this file like the standard *<experimentname>_stimuluslist.js*. The same security risks hold for the CSV table variant as for the **JSON** variant. Also the **allowLocalStimulusList** parameter has to be set to **true** for a **CSV** stimuluslist to be used.
 
-## Browser settings and compatibility [↰](#top)
+## Browser settings and compatibility [↰](#table-of-contents)
 
 Web browsers implement security measures to prevent web sites from accessing each other's data or the clients's local data, both for reading and writing. These [Same-origin policies](https://en.wikipedia.org/wiki/Same-origin_policy) affect how *akoúste* can implement experiments. It means that the demonstration page (**Show Page**) in the *akousteCreate.html* environment cannot use locally stored audio or video, only media accessed through web links. It also means that some browsers will not allow a fully functional demonstration page at all. In such cases, the next best solution is to save the experiment (**Save Experiment...**), if necessary in the correct folder, and open the downloaded file.
 
@@ -464,7 +464,7 @@ Chrome and Chrome-like browsers will not support full functionality for local *a
 | Vivaldi | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
 | Opera   | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> | <span style='color: green;'>+</span> |
 
-## Distributing an "experiment" [↰](#top)
+## Distributing an "experiment" [↰](#table-of-contents)
 
 When using online stimuli, all that has to be distributed is a link to the **__experiment.html* file, or the HTML file itself. In this case, *akoúste* is like any other online experiment, except that the subjects have to submit the results of the experiment themselves.
 
@@ -472,7 +472,7 @@ If the stimuli cannot be served from a web server, but have to reside locally, b
 
 The experiment ZIP archive can be unpacked at the desired position for the subjects, and the experiment run by loading the *.html* file in a web browser. With some applications, it is possible to open a ZIP file without unpacking and the experiment can be run directly from the ZIP file.  
 
-## Security and Privacy [↰](#top)
+## Security and Privacy [↰](#table-of-contents)
 
 *acousteCreate.html* converts markdown text to an HTML webpage. That HTML webpage can do anything an HTML page can do, including execute unwanted actions. *akoúste* Is designed to produce experiment web pages that neither compromise the devices nor privacy of the users or subjects. As far as known, the four components that make up akoúste, ie, *akousteCreate.html*, *akousteHTMLtemplate.js*, and the libraries *markdown-it.min.js* ([markdown-it](https://github.com/markdown-it/markdown-it)) and *sha.js* ([jsSHA](https://github.com/Caligatio/jsSHA)), do not compromise devices or privacy of the users and subjects. Nor do any of the examples. Next to these libraries, two alternative markdown parsers are supported, [Remarkable](https://github.com/jonschlinkert/remarkable) and [marked](https://github.com/markedjs/marked), but these are optional. 
 
@@ -484,7 +484,7 @@ If there are worries about the responses in an experiment, clicking the **Restar
 
 In normal use, simple markdown texts or genuine stimuli should not introduce risks for users or subjects. But when creating a new experiment, special care should be taken when including HTML, JavaScript, or CSS code which might compromise the privacy or security of users or experimental subjects. Also, it is prudent to check the provenance of the components of *akoúste* used and whether new versions might be available.
 
-## Repositories [↰](#top)
+## Repositories [↰](#table-of-contents)
 
 *akoúste* git repositories are available at:
 
@@ -500,7 +500,7 @@ In normal use, simple markdown texts or genuine stimuli should not introduce ris
 
 † *Contains functional* akoúste *web site with examples*
 
-## What's in a name [↰](#top)
+## What's in a name [↰](#table-of-contents)
 
 *akoúste* is a latinized transcription of *ακούστε*, which is Greek for *'listen'*. The Greek original is pronounced as [aˈkus.te] ([IPA](https://dictionary.cambridge.org/us/pronunciation/english/international-phonetic-alphabet "How to pronounce the International Phonetic Alphabet in English")). *akoúste* Is primarily developed for experiments on the perception of speech and perceiving speech is commonly called "listening", hence the name. However, humans not only "listen" to speech with their ears. And *akoúste* follows them by including vision and text.
 
