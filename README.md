@@ -44,9 +44,7 @@ A quick cheat sheet of special stimulus constructs. Skip this if you are new to 
 | Text input  | << text {style} >>              |
 | Key strokes | @@@ text \[keys\] \{style\} @@@ |
 
-
-
-## Table of Contents 
+## Table of Contents
 
 - [Browser-based listening and perceptual experiments](#browser-based-listening-and-perceptual-experiments-)
 - [Cheat-sheet](#cheat-sheet-)
@@ -63,8 +61,6 @@ A quick cheat sheet of special stimulus constructs. Skip this if you are new to 
 - [Security and Privacy](#security-and-privacy-)
 - [Repositories](#repositories-)
 - [What's in a name](#whats-in-a-name-)
-
-
 
 ## What is needed for an experiment [↰](#table-of-contents)
 
@@ -273,7 +269,7 @@ Examples of all these constructs are available in the [Demonstrations and exampl
 
 ### Extensions
 
-Extensions of the \[\[\[text\|name\{style\}\]\]\] audio button, \[\[§alt-text\|name\{style\}§\]\] video clip, \{\{§name\|style§\}\} image, and \{\{\{name\|style\}\}\} text constructs have been added to simplify some tasks. In these constructs, **URL** means *http(s)://* style links as well as local files *./path/file.ext*. Using stored local files is preferable as it is robust to network downtime and [link-rot](https://en.wikipedia.org/wiki/Link_rot).
+Extensions of the \[\[\[text\|name\{style\}\]\]\] audio button, \[\[§alt-text\|name\{style\}§\]\] video clip, \{\{§name\|style§\}\} image, and \{\{\{name\|style\}\}\} text constructs have been added to simplify some tasks. In these constructs, **URL** means *http(s)://* style links as well as local files, eg, *file:///C:/Users/Miep/Folder/speech.wav* (on MS Windows, *file://* url's work best), or *./path/file.ext*. Using stored local files is preferable as it is robust to network downtime and [link-rot](https://en.wikipedia.org/wiki/Link_rot).
 
 These extensions present fixed content and are intended to present examples or explanations. Subjects do not have to interact with them to proceed to the next stimulus.
 
