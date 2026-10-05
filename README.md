@@ -26,7 +26,7 @@ A quick cheat sheet of special stimulus constructs. Skip this if you are new to 
 
 #### Stimuli
 
-*name* Is the column name in the stimulus table, *style* is a [CSS style](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content). "text" Is the text or label visible to the participants.
+*name* Is the column name in the stimulus table, *style* is an inline [CSS style](https://en.wikiversity.org/wiki/Web_Design/Inline_CSS)). *text* Is the text or label visible to the participants.
 
 | Function | Syntax                               |
 | -------- |:------------------------------------:|
@@ -190,7 +190,7 @@ The stimulus tables can be constructed in a simple spreadsheet table and saved a
 
 Stimulus tables are uploaded by **Open a Stimulus Table (.csv):**. *akoúste* is designed to work with local stimulus files. However, modern web browsers prohibit mixing the access of web URLs and local files. Therefor, it is generally not possible to access local audio or video files from *akousteCreate.html*. The examples given all use web URLs to access sound files. They are practical to debug the experiment. When the experiment is completed and ready for execution, the correct stimulus table can be uploaded and the experiment saved with **Save Experiment...**. If the file paths are entered correctly, the experiment file can be opened in a browser and the experiment will run with the local files (see [Browser settings](#browser-settings)). There is a trick to save an experiment with URL stimuli and then save a *.js* file with the local file stimulus list next to it, the *Audiotest* example uses this trick. When started, the experiment will load the stimuli in the *.js* file. The button to download this *.js* stimulus table, **Download stimuli** will appear after uploading the *.csv* table.
 
-Stimulus files can be entered as full or relative paths or full URLs. When a common base folder path or URL path is given in the **URL/path to stimuli:** parameter, eg, *./Stimuli/*, only the varying part of the path or URL has to be placed in the stimulus table.
+Stimulus files can be entered as full or relative paths or full URLs. When a common base folder path or URL path is given in the **URL/path to stimuli:** parameter, eg, *Stimuli/* if that folder is located next to the experiment *HTML* file, only the varying part of the path or URL has to be placed in the stimulus table.
 
 *akoúste* Ignores all columns in the stimulus table that are not mentioned in the experiment. The output of the experiment is the original stimulus table, with columns added for answers, number of the stimulus during presentation, and AB switch if applicable. Note that the output table has the rows in the order of presentation with practice rows pre-pended if present.
 
@@ -269,7 +269,7 @@ Examples of all these constructs are available in the [Demonstrations and exampl
 
 ### Extensions
 
-Extensions of the \[\[\[text\|name\{style\}\]\]\] audio button, \[\[§alt-text\|name\{style\}§\]\] video clip, \{\{§name\|style§\}\} image, and \{\{\{name\|style\}\}\} text constructs have been added to simplify some tasks. In these constructs, **URL** means *http(s)://* style links as well as local files, eg, *file:///C:/Users/Miep/Folder/speech.wav* (MS Windows), *file:///Users/Miep/Folder/speech.wav* (Mac), or *./path/file.ext*. Using stored local files is preferable as it is robust to network downtime and [link-rot](https://en.wikipedia.org/wiki/Link_rot).
+Extensions of the \[\[\[text\|name\{style\}\]\]\] audio button, \[\[§alt-text\|name\{style\}§\]\] video clip, \{\{§name\|style§\}\} image, and \{\{\{name\|style\}\}\} text constructs have been added to simplify some tasks. In these constructs, **URL** means *http(s)://* style links as well as local files, eg, full paths starting at the root folder with *file:///* like *file:///C:/Users/Miep/Folder/speech.wav* (MS Windows), *file:///Users/Miep/Folder/speech.wav* (Mac), or a *path/file.ext* relative to the position of the experiment *HTML* file. Using stored local files is preferable as it is robust to network downtime and [link-rot](https://en.wikipedia.org/wiki/Link_rot).
 
 These extensions present fixed content and are intended to present examples or explanations. Subjects do not have to interact with them to proceed to the next stimulus.
 
