@@ -48,6 +48,8 @@ A quick cheat sheet of special stimulus constructs. Skip this if you are new to 
 
 Example experiment markdown, with a single stimulus play button labeled *Sound* and a single *Yes/No* question.
 
+{%
+
 ```markdown
 <center>
 
@@ -70,6 +72,8 @@ Example experiment markdown, with a single stimulus play button labeled *Sound* 
 
 
 ```
+
+%}
 
 Example stimulus CSV table with a single column named *Stimulus*.
 
