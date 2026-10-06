@@ -44,6 +44,46 @@ A quick cheat sheet of special stimulus constructs. Skip this if you are new to 
 | Text input  | << text {style} >>              |
 | Key strokes | @@@ text \[keys\] \{style\} @@@ |
 
+#### A minimal experiment
+
+Example experiment markdown, with a single stimulus play button and a single *Yes/No* question.
+
+```markdown
+<center>
+
+## A minimal experiment
+
+| [[[ Sound | Stimulus {font-weight:bold} ]]] |
+| :------------------------------------------: |
+
+### {{{!answerstogo!|font-weight:bold}}} answers to go
+[//]: # "Invisible comment: the above line inserts a stimulus counter with numbers in boldface"
+
+### Is this speech?
+
+|     | (()) | (()) |     |
+| ---:|:----:|:----:|:--- |
+|     | No   | Yes  |     |
+
+</center>
+
+```
+
+Example stimulus CSV table with a single column named *Stimulus*.
+
+```csv
+Stimulus
+birdsong.wav
+woman_talking.wav
+whalesong.wav
+child_singing.wav
+dog_barking.wav
+man_talking.wav
+party_sounds.wav
+```
+
+Other settings specify the text on the experiment buttons, messages, stimulus location, etc..
+
 ## Table of Contents
 
 - [Browser-based listening and perceptual experiments](#browser-based-listening-and-perceptual-experiments-)
