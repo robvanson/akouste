@@ -63,8 +63,6 @@ Example experiment markdown, with a single stimulus play button labeled *Sound* 
 |     | No   | Yes  |     |
 
 </center>
-
-
 ```
 
 Example stimulus CSV table with a single column named *Stimulus*.
@@ -82,6 +80,10 @@ rain_and_thunder.wav
 ```
 
 Other settings specify the text on the experiment buttons, messages, stimulus location, etc..
+
+The result:
+
+[ ![A minimal experiment](./MinimalExperimentExample.jpg) ](./MinimalExperimentExample.jpg "A minimal experiment")
 
 ## Table of Contents
 
