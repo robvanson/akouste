@@ -85,6 +85,8 @@ The result:
 
 [ ![A minimal experiment](./MinimalExperimentExample.jpg) ](./MinimalExperimentExample.jpg "A minimal experiment")
 
+----
+
 ## Table of Contents
 
 - [Browser-based listening and perceptual experiments](#browser-based-listening-and-perceptual-experiments-)
