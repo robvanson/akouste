@@ -46,7 +46,7 @@ A quick cheat sheet of special stimulus constructs. Skip this if you are new to 
 
 #### A minimal experiment
 
-Example experiment markdown, with a single stimulus play button and a single *Yes/No* question.
+Example experiment markdown, with a single stimulus play button labeled *Sound* and a single *Yes/No* question.
 
 ```markdown
 <center>
@@ -73,13 +73,14 @@ Example stimulus CSV table with a single column named *Stimulus*.
 
 ```csv
 Stimulus
-birdsong.wav
+blackbird_singing.wav
 woman_talking.wav
 whalesong.wav
 child_singing.wav
 dog_barking.wav
 man_talking.wav
 party_sounds.wav
+rain_and_thunder.wav
 ```
 
 Other settings specify the text on the experiment buttons, messages, stimulus location, etc..
