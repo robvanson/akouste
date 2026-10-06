@@ -56,7 +56,7 @@ Example experiment markdown, with a single stimulus play button labeled *Sound* 
 | [[[ Sound | Stimulus {font-weight:bold} ]]] |
 | :------------------------------------------: |
 
-### \{\{\{!answerstogo!\|font-weight:bold\}\}\} answers to go
+### {{{ !answerstogo! |font-weight:bold }}} answers to go
 [//]: # "Invisible comment: the above line inserts a stimulus counter with numbers in boldface"
 
 ### Is this speech?
