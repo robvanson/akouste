@@ -26,8 +26,6 @@ A quick cheat sheet of special stimulus constructs. Skip this if you are new to 
 
 #### Stimuli
 
-*name* Is the column name in the stimulus table, *style* is an inline [CSS style](https://en.wikiversity.org/wiki/Web_Design/Inline_CSS)). *text* Is the text or label visible to the participants.
-
 | Function | Syntax                               |
 | -------- |:------------------------------------:|
 | Audio    | \[\[\[ text \| name {style} \]\]\]   |
@@ -43,6 +41,8 @@ A quick cheat sheet of special stimulus constructs. Skip this if you are new to 
 | Slider      | >>----------<<                  |
 | Text input  | << text {style} >>              |
 | Key strokes | @@@ text \[keys\] \{style\} @@@ |
+
+*name* Is the column name in the stimulus table, *style* is an inline [CSS style](https://en.wikiversity.org/wiki/Web_Design/Inline_CSS) formatting string. *text* Is the text or label visible to the participants.
 
 #### A minimal experiment
 
