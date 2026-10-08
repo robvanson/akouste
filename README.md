@@ -53,7 +53,7 @@ Example experiment markdown, with a single stimulus play button labeled *Sound* 
 
 ## A minimal experiment
 
-| [[[ Sound | Stimulus {font-weight:bold} ]]] |
+| [[[ Sound | StimulusOnline {font-weight:bold} ]]] |
 | :------------------------------------------: |
 
 ### Is this speech?
@@ -65,18 +65,18 @@ Example experiment markdown, with a single stimulus play button labeled *Sound* 
 </center>
 ```
 
-Example stimulus CSV table with a single column named *Stimulus*.
+Example stimulus CSV table with two columns named *StimulusLocal* and *StimulusOnline*.
 
 ```csv
-Stimulus
-blackbird_singing.wav
-woman_talking.wav
-whalesong.wav
-child_singing.wav
-dog_barking.wav
-man_talking.wav
-party_sounds.wav
-rain_and_thunder.wav
+StimulusLocal;StimulusOnline
+blackbird_singing.wav;https://commons.wikimedia.org/wiki/File:Turdus_merula_-_Common_Blackbird_XC533763.mp3
+woman_talking.wav;https://commons.wikimedia.org/wiki/File:Betsileo_language_sample.ogg
+whalesong.wav;https://commons.wikimedia.org/wiki/File:Ak52_10x.ogg
+woman_singing.wav;https://commons.wikimedia.org/wiki/File:A_Chantar2.ogg
+dog_barking.wav;https://commons.wikimedia.org/wiki/File:Barking_of_a_dog_2.ogg
+man_talking.wav;https://commons.wikimedia.org/wiki/File:International_Talk_Like_A_Pirate_Day_Generic_promo.ogg
+party_sounds.wav;https://commons.wikimedia.org/wiki/File:Drunk_german_neighbors_party_01.ogg
+rain_and_thunder.wav;https://commons.wikimedia.org/wiki/File:Rain_and_thunder.ogg
 ```
 
 Other settings specify the text on the experiment buttons, messages, stimulus location, etc..
