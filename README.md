@@ -71,7 +71,7 @@ Example stimulus CSV table with two columns named *StimulusLocal* and *StimulusO
 StimulusLocal;StimulusOnline
 blackbird_singing.wav;https://upload.wikimedia.org/wikipedia/commons/9/91/Turdus_merula_-_Common_Blackbird_XC533763.mp3
 woman_talking.wav;https://upload.wikimedia.org/wikipedia/commons/1/1d/Betsileo_language_sample.ogg
-whalesong.wav;https://commons.wikimedia.org/wiki/File:Ak52_10x.ogg
+whalesong.wav;https://upload.wikimedia.org/wikipedia/commons/7/7d/Ak52_10x.ogg
 woman_singing.wav;https://upload.wikimedia.org/wikipedia/commons/d/d4/A_Chantar2.ogg
 dog_barking.wav;https://upload.wikimedia.org/wikipedia/commons/5/58/Barking_of_a_dog_2.ogg
 man_talking.wav;https://upload.wikimedia.org/wikipedia/commons/9/95/International_Talk_Like_A_Pirate_Day_Generic_promo.ogg
