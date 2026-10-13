@@ -85,7 +85,7 @@ The result:
 
 [ ![A minimal experiment](./MinimalExperimentExample.jpg) ](./MinimalExperimentExample.jpg "A minimal experiment")
 
-[Demonstration of this example](https://youtu.be/Kg89BGXTpTI)
+[Demonstration of this example](https://youtu.be/YQt6TmbW8C8)
 
 ----
 
